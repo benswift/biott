@@ -1,0 +1,13 @@
+---
+layout: post
+title: "OzCHI 2011"
+date: 2011-11-24 16:34
+comments: false
+categories: 
+---
+
+I'll be at [OzCHI 2011](http://www.ozchi.org) next week, it's being hosted here at the ANU.
+If you're coming, make sure you say g'day.
+
+I'll also be giving a talk at the HCI summer school the following
+week, on Friday December 9.

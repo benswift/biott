@@ -1,0 +1,160 @@
+#+BEGIN_HTML
+---
+layout: post
+title: "Memory management in Extempore"
+date: 2012-08-17 10:49
+comments: false
+external-url: 
+categories: 
+---
+#+END_HTML
+
+The two languages hosted by the Extempore compiler, xtlang and Scheme,
+have different approaches to dealing with memory allocation and
+management.  Both languages ultimately share the same memory---the
+stack and heap associated with the Extempore process, Extemore gives
+access to this memory to both languages via different mechanisms.
+Broadly speaking, with Scheme code Extempore manages memory for you,
+while in xtlang you have to do it yourself.  This is a common
+tradeoff, and each has its advantages (in performance, programmer
+productivity, etc.) and disadvantages.  To work effectively in
+Extempore it's helpful to know a bit more about how to work with
+memory in Extempore, and that's what I'll try to cover in this post.
+
+* Automatic garbage collection in Scheme
+
+Scheme objects (lists, closures, numbers, etx.) are automatically
+[[http://en.wikipedia.org/wiki/Garbage_collection_(computer_science)][garbage collected]] by the Extempore runtime garbage collector (GC)[fn:gc].
+This means that when new objects are created, memory is automatically
+allocated to store those objects, and as objects are destroyed or go
+out of scope (that is, there are no longer any references to them) the
+memory is automatically freed up for re-use.  
+
+Let's do the most basic memory allocation imaginable: just binding a
+numerical value to a symbol.
+
+#+begin_src extempore
+  (define a 5)
+  
+  (println 'a '=  5)  ;; prints a = 5
+#+end_src
+
+The fact that we can use the symbol =a= and have it evaluate to =5=
+(as it should) means that the value (=5=) must be stored in memory
+somewhere.[fn:memory]  We don't care where, as long as we can
+consistently use the symbol =a= to refer to this value.
+
+#+begin_src extempore
+  print out the address of a
+#+end_src
+
+It doesn't matter what the address is, because we can always refer to
+the value using the symbol =a=. But it's good to remember that the
+=define= form is allocating some memory, storing the value =5= in that
+memory, and binding a reference to the value in the symbol =a=.
+
+#+begin_src extempore
+then rebind and see the value change
+#+end_src
+
+Also perhaps cover the difference between =define= and =set!=
+
+
+
+
+Basically, this means that when you're writing Scheme code, you don't
+have to worry about memory. The GC takes care of all the
+allocation/deallocation bookkeeping for you. The cost of this is that
+every now and then the GC has to 'stop the world' (freeze the
+execution of all Scheme code), look at all the objects it's storing,
+figure out which ones are still reachable, and then free up anything
+that's no longer reachable. This takes time, and introduces an element
+of uncertainty (nondeterminism) to the performance of your code---you
+never know exactly when the GC is going to freeze things to do it's
+job, and there's a risk that it'll happen at a really inconvenient
+time as far as your program is concerned (Murphy's law and all that).
+This is particularly problematic in domains where timing is critical,
+such as real-time audio and video.
+
+* Manual memory management in xtlang
+
+# todo put accents in
+Hang on a sec---isn't working with real-time audio and video
+Extempore's /raison detre?/
+When coding in xtlang, it's up to the programmer to request and manage
+themselves 
+
+zalloc, for zone allocated memory, is a kind of stack memory
+allocation with user extent. Essentially this means that the end user
+can push and pop zones off of a stack of memory zones of user defined
+size.
+
+When a new zone is created (pushed) any calls to zalloc will be
+allocated from the new zone (being the *top* zone). When the extent of
+the zone is reached it is *popped* and its memory is reclaimed. The
+new *current* zone is then the next *top* zone. (i'm trying to talk
+about a stack without using the word stack and confusing you with
+salloc which is probably just confusing you even more :-)
+
+A memory zone can be created by calling memzone with a zone size in
+bytes. The extent of the zone is defined by memzone's s-expression.
+Anything within the body of the memzone s-expression is *in* scope.
+
+By default each process has an initial *top* zone with 1M of memory.
+If no user defined zones are created (i.e. no uses of memzone) then
+any and all calls to zalloc will slowly (or quickly) use up this 1M of
+memory - you'll know when it runs out as you'll get about a gazillion
+memory leak messages. In essence this is the zone story.
+
+To complicate things slightly there are two special zones.
+
+Firstly for audio. There is a zone allocated for each audio frame
+processed, be that sample by sample, or buffer by buffer. The zones
+extent is for the duration of the audio frame (i.e. is deallocated at
+the end of the frame).
+
+The second special case is that all "top level" closures (any closure
+created using bind-func) has an associated zone created at compile
+time (not at runtime, although this distinction is quite blurry in
+extempore). The bind-func zone default is 1k, however, bind-func has
+an optional argument to specify any arbitrary bind-func zone size.
+
+This bind-func zone is very useful for holding data closed over by the
+top level closure. For example, an audio delay closure might specify a
+large bind-func zone size and then allocate an audio buffer to be
+closed over. The audio-dsp.xtm has lots of examples of this.
+
+The bind-func zone will live for the extent of the top level closure,
+and will be refreshed if the closure is rebuilt (i.e. the old zone
+will be destroyed and a new zone allocated).
+
+memory zones are an extempore thing rather than an llvm thing if such
+a distinction is useful.
+
+#+begin_src extempore
+  (bind-func dsp:DSP 1000000
+             (let ((wavetable:|1000,double|* (alloc))
+                   (i 0)
+                   (b 0.0))
+               (dotimes (i 1000)
+                 (sin (* (* TWOPI (if (> 1 (i32toi64 700))
+                                      (ftod 440.0)
+                                      (ftod 660.0)))
+                         (i64tod i)))
+                 (aset! wavetable i 0.0))
+               (lambda (in time chan data)
+                 (let ((wavetable-ptr (modulo (dtoi64 time) 1000)))
+                   (if (< (random) 0.01)
+                       (aset! wavetable
+                              wavetable-ptr
+                              (+ (* 0.1 (random))
+                                 (aref wavetable wavetable-ptr))))
+                   (if (= chan 0.0)
+                       (aref wavetable wavetable-ptr)
+                       0.0)))))
+#+end_src
+
+[fn:gc] Extempore uses a mark-and-sweep garbage collector for those
+who are into that sort of thing.
+[fn:memory] [[file:2012-08-13-understanding-pointers-in-xtlang.org][This post]] covers in more detail how computers store data in
+memory.
