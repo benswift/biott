@@ -11,7 +11,7 @@ categories:
 Extempore is a programming language and runtime environment designed
 with /live/ programming in mind. It supports interactive programming
 in a REPL style, compiling and binding code just-in-time. Although
-extempore has its roots in 'live coding' of audiovisual media
+Extempore has its roots in 'live coding' of audiovisual media
 art[fn:imp], it is suitable for any task domain where dynamic run-time
 modifiability and good numerical performance are required. Extempore
 also has strong timing and concurrency semantics, which are helpful
@@ -22,7 +22,7 @@ These two goals---dynamic flexibility and close-to-the-metal
 control---seem at odds. Extempore tries to offer both by supporting
 both a high-level dynamic language (Scheme) and a low-level 'C like'
 language (xtlang) simultaneously, with tight integration and
-transparency between the two. A running extempore process will compile
+transparency between the two. A running Extempore process will compile
 both valid scheme and xtlang forms. Scheme objects (lists, closures,
 continuations, etc.) coexist with xtlang's structs and pointers to
 malloc'ed memory, and with a few 'helper functions' data can even flow
@@ -60,7 +60,7 @@ first-class objects in Scheme, and =scheme-closure= is no exception.
 It can be passed to =map=, =apply=, and friends.
 
 =xtlang_closure=, on the other hand, is an xtlang closure. xtlang
-(unlike Scheme) is a /new/ language, and the extempore executable
+(unlike Scheme) is a /new/ language, and the Extempore executable
 provides the xtlang compiler. Like Scheme, xtlang is has an
 [[http://en.wikipedia.org/wiki/S-expression][s-expression]] based syntax.
 
@@ -78,11 +78,11 @@ double-precision floating point number, and =i64= for a 64-bit
 that---xtlang is statically typed. Not every type needs to be
 specified, the compiler will infer types when it is /unambiguous/, but
 the compiler will never silently coerce types. This is by design---the
-whole point of using xtlang in extempore is to make things explicit.
+whole point of using xtlang in Extempore is to make things explicit.
 If you want more dynamic typing, then there's always Scheme.
 
 The xtlang compiler uses an [[http://llvm.org][LLVM]] backend to generate high-performance
-machine code.  Basically, extempore's xtlang
+machine code.  Basically, Extempore's xtlang
 compiler generates the LLVM IR, and then this is then passed to LLVM
 for compiling and linking.
 
@@ -241,7 +241,7 @@ Extempore compiler and programming environment:
    process, and compilation happens by interactively sending Scheme or
    xtlang code to the appropriate address/port. The compiler need not
    be running on the same machine as the programmer, and the code can
-   also be executed in any number of running extempore processes. And
+   also be executed in any number of running Extempore processes. And
    because it's written in Scheme, even the compiler /itself/ is
    reconfigurable at runtime.
 
