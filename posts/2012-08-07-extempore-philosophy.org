@@ -154,14 +154,14 @@ one of them---it's dog slow.
 
 You may now be thinking that this pretty much rules it out for
 anything computationally intensive, such as audio and graphics. Well,
-late one night[fn:late] in about 2010 Andrew, Extempore's [[http://en.wikipedia.org/wiki/Benevolent_Dictator_for_Life][benevolent
-dictator for life]], had pretty much the same realisation. At the time
-he was working on Impromptu, Extempore's predecessor, which had the
-same Scheme interpreter. And he realised that the Scheme interpreter
-would need some /serious/ work to bring it up to speed if it was going
-to be used for any number-crunching. At that point, he figured that he
-might as well write a new language, leveraging the LLVM compiler. And
-lo, xtlang was born (although it wasn't called that straight away).
+late one night[fn:late] in about 2010 Andrew (Extempore's creator) had
+pretty much the same realisation. At the time he was working on
+Impromptu, Extempore's predecessor, which had the same Scheme
+interpreter. And he realised that the Scheme interpreter would need
+some /serious/ work to bring it up to speed if it was going to be used
+for any number-crunching. At that point, he figured that he might as
+well write a new language, leveraging the LLVM compiler. And lo,
+xtlang was born (although it wasn't called that straight away).
 
 After working on xtlang inside of Impromptu for a while, it became
 clear that introducing a whole new language to a programming
