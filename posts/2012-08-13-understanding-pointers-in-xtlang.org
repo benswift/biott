@@ -3,7 +3,7 @@
 layout: post
 title: "Understanding pointers in xtlang"
 date: 2012-08-13 19:15
-comments: false
+comments: true
 categories: 
 ---
 #+end_html

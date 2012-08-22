@@ -3,7 +3,7 @@
 layout: post
 title: "xtlang type reference"
 date: 2012-08-09 17:21
-comments: false
+comments: true
 categories: 
 ---
 #+END_HTML

@@ -36,45 +36,58 @@ numerical value to a symbol.
 #+begin_src extempore
   (define a 5)
   
-  (println 'a '=  5)  ;; prints a = 5
+  (println 'a '= a)  ;; prints a = 5
 #+end_src
 
 The fact that we can use the symbol =a= and have it evaluate to =5=
 (as it should) means that the value (=5=) must be stored in memory
-somewhere.[fn:memory]  We don't care where, as long as we can
-consistently use the symbol =a= to refer to this value.
+somewhere.[fn:memory] It doesn't matter /where/ in memory (what the
+address is), because we can always refer to the value using the symbol
+=a=. But it's good to remember that the =define= form is allocating
+some memory, storing the value =5= in that memory, and binding a
+reference to the value in the symbol =a=.
+
+We can redefine the symbol =a= to be some other Scheme object, say, a list.
 
 #+begin_src extempore
-  print out the address of a
+  (define a '(1 2 3))
+  
+  (println 'a '= a)  ;; prints a = (1 2 3)
 #+end_src
 
-It doesn't matter what the address is, because we can always refer to
-the value using the symbol =a=. But it's good to remember that the
-=define= form is allocating some memory, storing the value =5= in that
-memory, and binding a reference to the value in the symbol =a=.
+The three-element list =(1 2 3)= takes up more memory than the number
+=5=. So =define= can't just write the new value of =a= over the top of
+the old one. What it does (and in fact what re-defining things
+/always/ does) is allocate some new memory to store the new value
+into, and change the variable =a= to point to that new value.
 
-#+begin_src extempore
-then rebind and see the value change
-#+end_src
+But what happens to the old value of =5= in memory? Well, it sits
+there unmolested, at least for a while. But we can't reach it---the
+only 'handle' we had to refer to it with was the symbol =a=, and
+that's now bound to some other value instead. The value =5= in memory
+is 'unreachable'. So there's no point having it sitting around, taking
+up space like some freeloading relative.
 
-Also perhaps cover the difference between =define= and =set!=
+That's where the garbage collector comes in. Every now and then the
+garbage collector checks all the Scheme objects in the
+world,[fn:world] determines which of them are no longer reachable, and
+then frees up that memory to be used for other things. While this is a
+harsh, utilitarian approach to dealing with relatives (and shows the
+dangers of anthromorphising bit patterns in memory), it's a good idea
+in a computer program. Memory is a finite resource, and the more
+efficiently we can get rid of memory that's not being used the better.
 
-
-
-
-Basically, this means that when you're writing Scheme code, you don't
-have to worry about memory. The GC takes care of all the
+Basically, having a GC means that when you're writing Scheme code, you
+don't have to worry about memory. The GC takes care of all the
 allocation/deallocation bookkeeping for you. The cost of this is that
 every now and then the GC has to 'stop the world' (freeze the
-execution of all Scheme code), look at all the objects it's storing,
-figure out which ones are still reachable, and then free up anything
-that's no longer reachable. This takes time, and introduces an element
-of uncertainty (nondeterminism) to the performance of your code---you
-never know exactly when the GC is going to freeze things to do it's
-job, and there's a risk that it'll happen at a really inconvenient
-time as far as your program is concerned (Murphy's law and all that).
-This is particularly problematic in domains where timing is critical,
-such as real-time audio and video.
+execution of all Scheme code) to do its job. This takes time, and
+introduces an element of uncertainty (nondeterminism) to the execution
+of your code---you never know exactly when the GC is going to freeze
+things to do it's job, and there's a risk that it'll happen at a
+really inconvenient time as far as your program is concerned (Murphy's
+law and all that). This is particularly problematic in domains where
+timing is critical, such as real-time audio and video.
 
 * Manual memory management in xtlang
 
@@ -156,5 +169,9 @@ a distinction is useful.
 
 [fn:gc] Extempore uses a mark-and-sweep garbage collector for those
 who are into that sort of thing.
+
 [fn:memory] [[file:2012-08-13-understanding-pointers-in-xtlang.org][This post]] covers in more detail how computers store data in
 memory.
+
+[fn:world] well, at least the world of your Extempore process, which
+/is/ the world as far as the GC is concerned
