@@ -1,0 +1,159 @@
+#+begin_html
+---
+layout: post
+title: "Binding to C libs"
+date: 2012-08-23 15:30
+comments: true
+categories: 
+---
+#+end_html
+
+There's a /lot/ of useful C library code out there. And I don't know
+about you, but I reckon sometimes it's nice to not have to recreate
+functionality which has already been implemented and tested by someone
+else. Sometimes there /are/ good reasons to write things from scratch,
+but sometimes you find the exact thing you're looking for on GitHub
+and you just want to link against it and then go home to watch the
+footy.
+
+Most languages (both high and low-level) provide some sort of foreign
+function interface (FFI) to C.  Different languages provide this
+functionality in different ways, but at the end of the day the aim is
+to be able to call external C code from within the language.
+
+In some ways, mixing xtlang code and C code is easy. The type system
+is quite similar: all of xtlang's floats and ints have a C counterpart
+which is exactly the same. Tuples are almost exactly the same as C
+structs, and xtlang's arrays are the same as C arrays. Also, both
+languages have and use pointer types in similar ways, including
+dealing with manual memory management via pointers. The type system is
+used by the compiler to throw errors at compile time if the types
+don't all match up. So there are some good reasons why C and xtlang
+should play nicely together.
+
+On the other side of the coin, there are some key differences between
+C and xtlang. For one thing, C is the archetype of the static
+language, while xtlang is designed to be as dynamic as possible in the
+way it supports redefining core parts of the program /while it is
+executing/ (see the post on [[file:2012-08-07-extempore-philosophy.org][Extempore's philosophy]] for more details).
+Extempore supports REPL-style development, with the programmer
+interacting with the source code, evaluating and compiling parts of it
+in a non-linear fashion, and then modifying and recompiling it as
+necessary.
+
+* xtlang---C interaction
+
+So how /does/ xtlang support binding and calling C code dynamically
+from xtlang code? The basic answer is though shared (dynamic)
+libraries.[fn:static-vs-dynamic] To call a C library from xtlang
+involves creating an xtlang 'header', which creates xtlang
+counterparts for the types and functions declared in the C library's
+header. Extempore can then load the shared library, and the xtlang
+functions declared in the header file will call into the shared
+library, and it should all be peaches.
+
+Let's consider a really simple example.  Say we have a C library which
+only defines /one function/ called =foo=.  This library (foolib) will
+have a header
+
+#+begin_src c
+  /* foolib.h */
+  
+  int foo(int bar);
+#+end_src
+
+and an implementation
+
+#+begin_src c
+  /* foolib.c */
+  
+  int foo(int bar){
+    return bar + 42;
+  }
+#+end_src
+
+Not the most useful library in the world, to be sure, but let's
+compile it as a shared library anyway.
+
+On OSX, I can move into foolib's directory and compile it as a shared
+library:
+
+#+begin_example
+clang foolib.c -dynamiclib -o foolib.dylib
+#+end_example
+
+=clang= is a compiler that's part of the LLVM project. I could also
+have used GCC or some other compiler.
+
+After running the above command, the file =foolib.dylib= will appear
+in the directory---a binary file which contains the instructions for
+how to perform the functions provided by the library (in this case
+just the function =foo=). This is the /shared/ or /dynamic/ library.
+
+Shared libraries have different extensions on the different platforms
+that Extempore runs on:
+
+- *OSX*: =sharedlib.dylib=
+- *Linux*: =sharedlib.so=
+- *Windows*: =sharedlib.dll=
+
+If you compile the library yourself, in general you should get the
+right type of binary shared lib file for your platform.[fn:cross] If
+you've just downloaded the =.dylib= (or =.so=, or =.dll=) from the
+interwebs, though, you need to be careful that the binary file was
+compiled for the platform you're on. It's not just a matter of
+renaming the file to right file extension, either: the guts of the
+file are different between the platforms as well.
+
+Once the shared library is compiled, the only thing to do before it's
+usable from Extempore is to tell the Extempore compiler about the type
+signature of the functions in the library. To do this, we use
+=bind-lib=.
+
+#+begin_src extempore
+  ;; foolib.xtm -- an xtm header for foolib
+  
+  ;; load the shared lib
+  (define foolib (sys:open-dylib "foolib.dylib"))
+  
+  ;; define foo as a closure pointer
+  (bind-lib foolib foo [i64,i64]*)
+  
+  ;; test that everything worked ok
+  (bind-func foo_test
+    (lambda (x)
+      (printf "foo(x) = %lld\n" (foo x))))
+  
+  (foo_test 6) ;; prints "foo(x) = 48"
+#+end_src
+
+=sys:open-dylib= is the Extempore interface for loading shared
+libraries. To find the library, it first looks for one of that name in
+the directory in which Extempore is running. After that, it'll look on
+your system's library path.[fn:sysopen]  =sys:open-dylib= has a return
+value, which in the example above is bound to the symbol =foolib=.
+It's important to capture this return value, because we'll need it
+shortly with =bind-lib=.
+
+In =foolib.xtm= (above), =bind-lib= is really only declaring that
+"there is a C function called =foo= in the shared library =foolib=,
+and it takes one =i64= argument and returns an =i64=.  
+
+
+One of the main deterrents
+
+* Deeper xtlang---C integration
+
+[fn:static-vs-dynamic] To recap, C libraries can either be statically compiled into an
+application, or dynamically linked in at run-time. There are pros and
+cons to both approaches, and so C libraries can be compiled either
+statically or dynamically (by setting a compiler flag).
+
+[fn:cross] It is possible to compile on one platform for a different
+target platform---this is called /cross-compiling/.  But if you know
+how to do that then you don't need these instructions anyway.
+
+[fn:sysopen] =sys:open-dylib= doesn't do anything clever, just tries
+to find and load a shared library of the name you gave it. So it's up
+to you to make sure that the library exists, and is of the right type
+for your platform.
