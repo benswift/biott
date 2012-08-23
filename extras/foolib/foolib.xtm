@@ -1,0 +1,11 @@
+;; foolib.xtm -- an xtm header for foolib
+
+(define foolib (sys:open-dylib "foolib.dylib"))
+
+(bind-lib foolib foo [i64,i64]*)
+
+(bind-func foo_test
+  (lambda (x)
+    (printf "foo(x) = %lld\n" (foo x))))
+
+(foo_test 6) ;; prints "foo(x) = 48"
