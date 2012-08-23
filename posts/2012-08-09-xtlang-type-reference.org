@@ -1,4 +1,4 @@
-#+BEGIN_HTML
+#+begin_html
 ---
 layout: post
 title: "xtlang type reference"
@@ -6,7 +6,7 @@ date: 2012-08-09 17:21
 comments: true
 categories: 
 ---
-#+END_HTML
+#+end_html
 
 This post covers the type system of xtlang, the 'systems language'
 component of Extempore. It's not really possible to do that without a

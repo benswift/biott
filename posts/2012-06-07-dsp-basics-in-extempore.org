@@ -1,4 +1,4 @@
-#+BEGIN_HTML
+#+begin_html
 ---
 layout: post
 title: "DSP basics in Extempore"
@@ -6,7 +6,7 @@ date: 2012-06-07 12:05
 comments: true
 categories: 
 ---
-#+END_HTML
+#+end_html
 
 Hey folks,
 

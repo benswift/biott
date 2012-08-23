@@ -1,4 +1,4 @@
-#+BEGIN_HTML
+#+begin_html
 ---
 layout: post
 title: "The Extempore philosophy"
@@ -6,7 +6,7 @@ date: 2012-08-07 10:57
 comments: true
 categories: 
 ---
-#+END_HTML
+#+end_html
 
 Extempore is a programming language and runtime environment designed
 with /live/ programming in mind. It supports interactive programming

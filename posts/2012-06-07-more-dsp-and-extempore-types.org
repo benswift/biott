@@ -1,4 +1,4 @@
-#+BEGIN_HTML
+#+begin_html
 ---
 layout: post
 title: "More DSP and more Extempore types"
@@ -6,7 +6,7 @@ date: 2012-06-07 14:48
 comments: true
 categories: 
 ---
-#+END_HTML
+#+end_html
 
 So this blog post builds on [[http://benswift.github.com/blog/2012/06/07/dsp-basics-in-extempore/][the previous one]] in trying out some of the
 real-time DSP capabilities of Extempore (and specifically xtlang).
