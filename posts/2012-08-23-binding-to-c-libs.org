@@ -98,7 +98,7 @@ foolib's directory and build it with the =-dynamiclib= flag:
 clang foolib.c -dynamiclib -o foolib.dylib
 #+end_example
 
-=clang= is a compiler that's part of the LLVM project. I could also
+=clang= is a C compiler that's part of the LLVM project. I could also
 have used =gcc= or some other compiler.
 
 After running the above command, the file =foolib.dylib= will appear
@@ -379,13 +379,13 @@ Bound kiss_fft >>> [i8*,kiss_fft_cfg,kiss_fft_cpx*,kiss_fft_cpx*]*
 #+end_example
 
 There are a few more functions in the actual =fft.xtm= file which I
-haven't included in this post: a couple of helper functions for
-setting up the =kiss_fft_cfg= struct, determining efficient FFT stride
-lengths and other things like that. You don't have to =bind-lib= all
-the functions in the library, just the ones you need, although knowing
-which ones sometimes more of an art than a science. If the library has
-a well defined [[http://en.wikipedia.org/wiki/Application_programming_interface][API]] then it might be clear exactly how to get what you
-want out of the library, but sometimes it just takes a bit of digging
+haven't included in this post: helper functions for setting up the
+=kiss_fft_cfg= struct, determining efficient FFT stride lengths and
+other things like that. You don't have to =bind-lib= all the functions
+in the library, just the ones you need, although knowing which ones
+sometimes more of an art than a science. If the library has a well
+defined [[http://en.wikipedia.org/wiki/Application_programming_interface][API]] then it might be clear exactly how to get what you want
+out of the library, but sometimes it just takes a bit of digging
 around and looking at the code. In general, the approach I've taken
 here of "find the function you want to call first, then work backwards
 to define all the necessary types and helper functions" is probably
