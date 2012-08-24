@@ -331,7 +331,7 @@ A memory zone can be created using the special =memzone= form.
 arbitrary number of other forms (s-expressions) which make up the body
 of the =memzone=. The /extent/ of the zone is defined by =memzone='s
 s-expression. Anything within the body of the =memzone= s-expression
-is *in* scope.
+is /in scope/.
 
 Say we want to fill a memory region with =i64= values which just count from
 =0= up to the length of the region (=region_length=).  We'll need to
