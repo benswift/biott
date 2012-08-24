@@ -13,8 +13,8 @@ There's a /lot/ of useful C library code out there. Sometimes there
 find the exact thing you're looking for on GitHub and you just want to
 link against it and then go home to watch the footy.
 
-Most languages (both high and low-level) provide some sort of [[http://en.wikipedia.org/wiki/Foreign_function_interface][foreign
-function interface]] (FFI) to C. Different languages provide this
+Most languages (both high and low-level) provide some sort of
+[[http://en.wikipedia.org/wiki/Foreign_function_interface][foreign function interface]] (FFI) to C. Different languages provide this
 functionality in different ways, but at the end of the day the aim is
 to be able to call external C code from within the language, and
 xtlang provides a way to do this.  
