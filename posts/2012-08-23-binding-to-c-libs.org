@@ -17,19 +17,32 @@ Most languages (both high and low-level) provide some sort of [[http://en.wikipe
 function interface]] (FFI) to C. Different languages provide this
 functionality in different ways, but at the end of the day the aim is
 to be able to call external C code from within the language, and
-xtlang provides a way to do this.
+xtlang provides a way to do this.  
+
+The reasons for binding to C library code are different in xtlang than
+they are in other languages, particularly 'scripting' languages like
+Perl or Ruby. In those languages, it's often for performance
+reasons---there's a certain hot loop of the code, and rewriting it in
+C can give a huge performance win.  xtlang, on the other hand, is
+/already/ high performance, because of its native compilation via
+LLVM, so rewriting bits in C isn't usually of any benefit.  The main
+reason you'll want to call C code from xtlang, then, is to take
+advantage of existing libraries.
 
 * xtlang-C interaction
 
 In some ways, mixing xtlang code and C code is easy. The type system
 is quite similar: all of xtlang's floats and ints have a C counterpart
-which is exactly the same. Tuples are almost exactly the same as C
-structs, and xtlang's arrays are the same as C arrays. Also, both
-languages have and use pointer types in similar ways, including
-dealing with manual memory management via pointers. The type system is
-used by the compiler to throw errors at compile time if the types
-don't all match up. So there are some good reasons why C and xtlang
-should play nicely together.
+which is exactly the same. Tuples are the same as C structs, and
+xtlang's arrays are the same as C arrays. These type equivalences
+aren't just conceptual or semantic---they're the exact same bit
+patterns in memory.
+
+Also, both languages have pointer types, and deal with manual memory
+management via pointers. Both have a static type system which allows
+the compiler to throw errors at compile time if the types don't all
+match up. So there are some good reasons why C and xtlang should play
+nicely together.
 
 Having said that, there are some key differences between C and xtlang.
 C is the archetype of the 'static language', while xtlang is designed
@@ -45,11 +58,10 @@ whole project, then ship the resulting binary.
 So how /does/ xtlang support binding and calling C code dynamically
 from xtlang code? The basic answer is though shared (dynamic)
 libraries.[fn:static-vs-dynamic] To call a C library from xtlang
-involves creating an xtlang 'header',[fn:header] which creates xtlang
-counterparts for the types and functions declared in the C library's
-header. Extempore can then load the shared library, and the xtlang
-functions declared in the header file will call into the shared
-library, and it should all be peaches.
+involves creating an xtlang 'header',[fn:header] which lets the xtlang
+compiler know about the types and function signatures in C library's
+header. Extempore can then load the shared library, xtlang can call
+functions in the library, and it should all be peaches.
 
 * Foolib: the world's most useless C library
 
@@ -106,9 +118,8 @@ in the directory---a binary file which contains the instructions for
 how to perform the functions provided by the library (in this case
 just the function =foo=). This is the /shared/ or /dynamic/ library.
 
-
 Once the shared library is compiled, the only thing to do before it's
-usable from Extempore is to tell the Extempore compiler about the type
+callable from xtlang code is to tell xtlang compiler about the type
 signature of the functions in the library. To do this, we use
 =bind-lib=.
 
@@ -118,7 +129,7 @@ signature of the functions in the library. To do this, we use
   ;; load the shared lib
   (define foolib (sys:open-dylib "foolib.dylib"))
   
-  ;; define foo as a closure pointer
+  ;; define foo as a function
   (bind-lib foolib foo [i64,i64]*)
   
   ;; test that everything worked ok
@@ -131,47 +142,39 @@ signature of the functions in the library. To do this, we use
 
 =sys:open-dylib= is the Extempore interface for loading shared
 libraries. To find the library, it first looks for one of that name in
-the directory in which Extempore is running. After that, it'll look on
-your system's library path.[fn:sysopen]  =sys:open-dylib= has a return
-value, which in the example above is bound to the symbol =foolib=.
-It's important to capture this return value, because we'll need it
-shortly with =bind-lib=.
+the directory in which the Extempore process is running. After that,
+it'll look on your system's library path.[fn:sysopen] =sys:open-dylib=
+has a return value, which in the example above is bound to the symbol
+=foolib=. It's important to capture this return value, because we'll
+need it shortly with =bind-lib=.
 
 In =foolib.xtm= (above), =bind-lib= is really only declaring that
 "there is a C function called =foo= in the shared library =foolib=,
 and it takes one =i64= argument and returns an =i64=.
 
-But hang on a sec---if =foo= is a C function, then why are we telling
-Extempore that it's a pointer to a /closure/? Have a look, the type of
-=foo= declared in the =bind-lib= form is a closure pointer
-=[i64,i64]*=. And an xtlang closure is similar, but not the same as a
-C function (see [[file:2012-08-09-xtlang-type-reference.org][this post]] for more detail on the differences between
-xtlang closures and plain function).
+But hang on a sec---if =foo= is a C /function/, why does it have the
+type signature (square brackets) of an xtlang /closure/?[fn:fn-vs-cls]
+Well, this is a bit of a cheat on xtlang's part---the bound function
+=foo= /is/ just the plain C function from the library.  But we do have
+to specify its type signature (argument and return types), and because
+xtlang doesn't provide a syntax for functions (only closures), then
+=bind-val= just takes a closure signature and interprets it as a
+function signature (which are the same).
 
-The reason for this is that xtlang doesn't really deal with functions,
-it always deals with closures (todo link). Because closures are 'first
-class'[fn:fc] in xtlang, we /always/ work with closures in xtlang. A
-lot of the time closures behave just like 'pure' functions: they take
-arguments and return a value, a given input will always give rise to
-the same output, and no side effects will be triggered. But closures
-can also maintain state because they 'capture' all the variables they
-reference.  Often this is really handy, and lots of xtlang code you'll
-see in the examples directories does this sort of thing.
-
-So, what =bind-val= does when you declare =foo= as having the type
-=[i64,i64]*= is create a closure which calls the C function =foo=
-declared in =foo.c=.[fn:get-native] It's this /foo/ closure that you
-use in your xtlang code, and it makes no difference that it was
-originally defined in a shared library, you can use it just like any
-xtlang closure. You can even redefine =foo= as a pure xtlang closure
-to change the functionality of your program, as long as you don't
-change the type signature.
+It really is just a C function, though, and there is
+*no performance penalty* for calling C functions in xtlang code.  This
+is because there's no wrapper functions or anything like that that
+have to operate as a bridge between the xtlang code, and the argument
+and return types have exact (bit-identical) xtlang counterparts, so
+there's really no hard work to do (in contrast to higher level
+languages, which have to worry about boxing/unboxing numeric types,
+for example).
 
 * KissFFT: a more useful library
 
 As a more useful example, let's look at the library =fft.xtm= in the
 =libs/external= directory which comes with Extempore. =fft.xtm= uses
-the excellent KissFFT library for doing [[http://en.wikipedia.org/wiki/Fourier_transform][Fourier transforms]]. The
+the excellent [[http://sourceforge.net/projects/kissfft/][KissFFT]] library for doing [[http://en.wikipedia.org/wiki/Fourier_transform][Fourier transforms]]. The
 library is quite small and clean, and is spread over only a few source
 files---the main ones being =kiss_fft.h= & =kiss_fft.c=. There's gonna
 be a bit of C in this section. Nothing too complicated, but if you're
@@ -179,7 +182,7 @@ rusty it might be worth picking up a copy of [[http://www.iu.hio.no/~mark/CTutor
 through if necessary.
 
 If you're playing along at home, then you'll need to download the
-source, build the =kiss_fft.dylib= library and put it somewhere that
+[[http://sourceforge.net/projects/kissfft/files/kissfft/][source]], build the =kiss_fft.dylib= library and put it somewhere that
 =sys:open-dylib= will find it. The =fft.xtm= header has some
 instructions on how to do this.
 
@@ -262,9 +265,10 @@ an error:
 Compiler Error: cannot find type for "kiss_fft_cfg"
 #+end_example
 
-Ah, Extempore can't create an xtlang closure for =kiss_fft= without
-knowing about all the types it refers to. So, let's dive back into the
-=kiss_fft.h= header file to find the declaration of =kiss_fft_cfg=.
+Ah, Extempore can't recognise the type signature for =kiss_fft=
+without knowing about all its argument and return types as well. So,
+let's dive back into the =kiss_fft.h= header file to find the
+declaration of =kiss_fft_cfg=.
 
 #+begin_src c
   /* in kiss_fft.h */
@@ -304,7 +308,7 @@ So the =kiss_fft_state= struct has four members:
 Earlier in that header =MAXFACTORS= is defined to be 32, so the
 =factos= array will be of length =64=. Also, in =twiddles=, the
 =kiss_fft_cpx= type is new---we haven't found a definition for it yet.
-So we need to do that before we can tell Extempore about the
+So we need to do that before we can tell the xtlang compiler about the
 =kiss_fft_state= struct.
 
 The =kiss_fft_cpx= definition is back in =kiss_fft.h=
@@ -369,7 +373,7 @@ fact we'll /have to/ if we want to actually call the
 functions from the library.
 
 So after all this detective work, finding and declaring the
-appropriate types and closures, the above code finally compiles:
+appropriate type signatures, the above code finally compiles:
 
 #+begin_example
 Bound kiss_fft_cpx >>> <float,float>
@@ -402,11 +406,11 @@ call into a shared library goes in =external=.  =contrib= is for
 platform-dependent things, such as the Kinect library.
 
 Everything in these folders is honest-to-goodness xtlang code just
-like you could write yourself, and if you want to change any of the
-closures defined in these libraries you can do it on the fly, just as
-you can with any other xtlang code.  This is pretty cool, there's
-something exciting about being able to hack on the standard library
-while your code is running.
+like you could write yourself, and if you want to change anything in
+these libraries you can do it on the fly, just as you can with any
+other xtlang code. This is pretty cool---there's something exciting
+about being able to hack on the standard library while your code is
+running.
 
 They're also a great place to explore and get ideas for your own
 xtlang code. And if you do end up writing a cool library (or xtlang
@@ -423,21 +427,13 @@ statically or dynamically (by setting a compiler flag).
 target platform---this is called /cross-compiling/.  But if you know
 how to do that then you don't need these instructions anyway.
 
+[fn:fn-vs-cls] See [[file:2012-08-09-xtlang-type-reference.org][this post]] for more detail on the differences
+between closures and functions.
+
 [fn:sysopen] =sys:open-dylib= doesn't do anything clever, just tries
 to find and load a shared library of the name you gave it. So it's up
 to you to make sure that the library exists, and is of the right type
 for your platform.
-
-[fn:fc] 'First class' closures means that xtlang closures can be used
-just like values of any other type. They can be assigned to variables,
-stored in tuples and arrays, and passed to and returned from other
-closures.
-
-[fn:get-native] You can actually get the native C function associated
-with any closure using =llvm:get-native=, but this is only necessary
-if you need to do something like provide a function pointer to an
-external C library you're trying to use. In xtlang, the closure is all
-there is or ever was or ever will be (with apologies to Carl Sagan).
 
 [fn:header] I'm using the term /header/ in quotes because it doesn't
 have to be its own source file, there are no restrictions on naming,
