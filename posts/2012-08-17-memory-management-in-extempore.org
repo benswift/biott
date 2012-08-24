@@ -110,9 +110,10 @@ for a time and you can do whatever you want with it, and then you know
 when it's going to be 'given back'. It doesn't necessarily mean that
 you have it forever (in fact in many cases the memory is quite
 short-lived), but it does mean that there are no surprises---you
-always know how long it's going to hang around and be usable for. This
-determinism an important benefit of manual memory management in
-xtlang---especially in a real-time systems context.
+specify exactly how much memory you'll get and you know it's going to
+hang around for. This determinism an important benefit of manual
+memory management in xtlang---especially in a real-time systems
+context.
 
 Zooming out for a second, a running program has access to and uses two
 main regions of memory: the *stack* and the *heap*. There's lots of
@@ -197,9 +198,9 @@ of these strings (e.g. with =pref-ptr=), then you can pass it around
 and dereference it from anywhere.  [[file:2012-08-09-xtlang-type-reference.org][This post]] has more details on
 strings in Extempore.
 
-This 'implicit stack allocation' works for int, float and string
-literals, but how about aggregate and other higher-order types? In
-those cases, we call =salloc= explicitly.
+This 'implicit stack allocation' works for int and float literals, but
+how about aggregate and other higher-order types? In those cases, we
+call =salloc= explicitly.
 
 #+begin_src extempore
   (bind-func double_tuple
@@ -467,7 +468,7 @@ Leaving a leaky zone can be dangerous ... particularly for concurrency
 Let's try it again, but with a 'zone size' argument to =bind-func=
 
 #+begin_src extempore
-  (bind-func fill_buffer_closure_zone2 10000 ;; zone size argument
+  (bind-func fill_buffer_closure_zone2 10000 ;; zone size: 10KB
     (let ((region_length 1000)
           (int_buf:i64* (zalloc region_length))
           (i:i64 0))
