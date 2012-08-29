@@ -545,7 +545,7 @@ is in binding global data structures which you want to have accessible
 from anywhere in your xtlang code.  Binding global xtlang variables is
 the job of =bind-val=.
 
-/Note: =bind-val= is currently undergoing some reworking, so watch
+/Note:/ =bind-val= /is currently undergoing some reworking, so watch
 this space for best practices./
 
 * Choosing the right memory for the job
@@ -596,12 +596,14 @@ set a breakpoint in malloc_error_break to debug
 Segmentation fault: 11
 #+end_example
 
-If you're not used to working directly with memory, be prepared to
-crash Extempore when you start to try things.  Don't be discouraged:
+If you're not used to working directly with memory, you'll almost
+certainly crash Extempore (segfault) when as you start out. In fact,
+be prepared to crash things /a lot/ at first. Don't be discouraged:
 once you get your head around the three-fold memory model and where
 each allocation function is getting its memory from, it's much easier
-to write clean and performant code in xtlang.  And from there, there
-are lots of cool possibilities.
+to write clean and performant code in xtlang. And from there, the
+performance and control of working with 'bare metal' types opens up
+lots of cool possibilities.
 
 [fn:gc] Extempore uses a tri-color (quad treadmill extension)
 mark-and-sweep garbage collector for those who are into that sort of
