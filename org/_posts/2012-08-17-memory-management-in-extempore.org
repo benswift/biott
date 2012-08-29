@@ -597,7 +597,7 @@ Segmentation fault: 11
 #+end_example
 
 If you're not used to working directly with memory, you'll almost
-certainly crash Extempore (segfault) when as you start out. In fact,
+certainly crash (segfault) Extempore when you start out. In fact,
 be prepared to crash things /a lot/ at first. Don't be discouraged:
 once you get your head around the three-fold memory model and where
 each allocation function is getting its memory from, it's much easier
