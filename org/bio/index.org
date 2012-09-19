@@ -1,0 +1,79 @@
+#+begin_html
+---
+layout: page
+title: "Bio"
+date: 2011-11-16 23:10
+comments: false
+sharing: true
+footer: true
+---
+#+end_html
+
+I'm a Senior Research Assistant at Queensland University
+of Technology and also an [[http://people.cecs.anu.edu.au/user/3895][Adjunct Research Assistant]] in the School of
+Computer Science at the Australian National University.
+
+My primary research interest these days is *live coding*, and I'm
+currently working on the [[https://github.com/digego/extempore][Extempore]] project (as you may have been able
+to guess from the content of this blog). Before Extempore came along I
+was an [[http://impromptu.moso.com.au][Impromptu]] user, and have been live coding since 2007. You can
+check out some of my screencasts at my [[http://vimeo.com/benswift/videos][vimeo page]].
+
+I recently submitted my PhD thesis, and I'm still waiting to hear back
+from the examiners---fingers crossed! My research project was
+cross-disciplinary, mainly between computer science and digital media.
+Prior to that I did a BSc (Hons) in Mathematics. I'm
+a Canberra lad, born and bred.
+
+If you want to get in touch, email is best---you can reach me on
+[[mailto:benjamin.j.swift@gmail.com][benjamin.j.swift@gmail.com]].
+
+#+begin_html
+<a href=""><img src="images/biopic.jpg" alt=""></a>
+#+end_html
+
+# I live mainly in the world of Human-Computer Interaction (HCI),
+# although I also have a digital artist (Dr. Alistair Riddell) and a
+# geographer (Dr. David Bissell) on my panel. I'm interested in group
+# musical collaboration, and specifically the patterns of engagement
+# between musicians in that context. I've built an iOS-based group
+# jamming system called Viscotheque, and I've been using it to jam
+# around with some musicians from around campus. If you'd like to get
+# involved, [[mailto:benjamin.j.swift@gmail.com][drop me a line]].
+
+# I'm also interested in critically examining the logical-positivist
+# underpinnings of HCI theory and practice, especially when it comes to
+# computers and group musical creativity. I'm encouraged by recent
+# critiques and proposed alternative foundations, such as Dourish's
+# /embodied computing/, McCarthy and Wright's /technology as experience/
+# and Bardzell's /interaction criticism/. I've increasingly found myself
+# thinking in those (and related) spaces as I try to understand the use
+# of computing devices in open-ended group interaction.
+
+# * Publications
+
+# - *B Swift* (2012). Becoming Sound: Affect and
+# Assemblage in Improvisational Digital Music-Making. /CHI '12:
+# Proceedings of the International Conference on Human Factors in
+# Computing Systems./
+# - *B Swift* (2012). Chasing a Feeling: Experience in
+# Computer Supported Jamming. /Music and Human-Computer Interaction./
+# Springer.
+# - *B Swift* (2011) Impish Grooves. /2011 Computer Music Journal DVD/
+# - *B Swift, H Gardner, A Riddell* (2011). A Chasing After the Wind:
+# Experience in Computer-Supported Group Music-Making. /When Words
+# Fail: What can music interaction tell us about HCI? Workshop at BCS
+# HCI 2011./
+# - *B Swift, H Gardner, A Riddell* (2010). Engagement Networks in Social
+# Music-making. /OZCHI '10: Proceedings of the Australasian
+# Conference on Computer-Human Interaction./
+# - *B Swift, H Gardner, A Riddell* (2009). Distributed Performance in
+# Live Coding. /ACMC '09: Proceedings of the Australasian Computer Music
+# Conference./
+# - *B Swift, H Gardner, A Riddell* (2007). Mind-modulated music in the
+# mind attention interface. /OZCHI '07: Proceedings of the Australasian
+# Conference on Computer-Human Interaction./
+
+# [fn:postdoc] I'm technically not a post-doc /yet/---I submitted a few
+# months ago but I'm still waiting to hear back. But I'm working as a
+# post-doc, anyway.
