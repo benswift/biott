@@ -71,15 +71,15 @@ does---it takes two arguments, multiplies them together, then both
 prints and returns the result. One thing that's different in the
 xtlang version, though, is the presence of type annotations for the
 arguments: they're the (blue) parts of the symbol name following the
-colon (if present). The types should be familiar: =double= for a
-double-precision floating point number, and =i64= for a 64-bit
-(unsigned) integer. Unlike Scheme---which is dynamically typed, and
- will silently coerce floats into ints and other things like
-that---xtlang is statically typed. Not every type needs to be
-specified, the compiler will infer types when it is /unambiguous/, but
-the compiler will never silently coerce types. This is by design---the
-whole point of using xtlang in Extempore is to make things explicit.
-If you want more dynamic typing, then there's always Scheme.
+colon. The types should be familiar: =double= for a double-precision
+floating point number, and =i64= for a 64-bit (signed) integer. Unlike
+Scheme---which is dynamically typed, and will silently coerce floats
+into ints and other things like that---xtlang is statically typed. Not
+every type needs to be specified, the compiler will infer types when
+it is /unambiguous/, but the compiler will never silently coerce
+types. This is by design---the whole point of using xtlang in
+Extempore is to make things explicit. If you want more dynamic typing,
+then there's always Scheme.
 
 The xtlang compiler uses an [[http://llvm.org][LLVM]] backend to generate high-performance
 machine code.  Basically, Extempore's xtlang
