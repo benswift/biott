@@ -1,0 +1,42 @@
+#+begin_html
+---
+layout: post
+title: "Interacting with the Extempore Compiler"
+date: 2012-09-26 13:04
+comments: true
+categories: 
+---
+#+end_html
+
+* General emacs stuff
+
+Load theme: M-x 'load-theme' (then pick from the list)
+Open file: C-x C-f
+Split window horizontally: C-x 2
+Split window vertically: C-x 3
+Switch to buffer: C-x b (then the name)
+Jump to other window (in split window setup): C-x o
+
+Beginning of line: C-a
+End of line of line: C-e
+Set/unset mark: C-<space> (for highlighting)
+Kill line: C-k
+
+Cancel: C-g (if you get into trouble)
+Help (function): C-h f, then function name
+Help (variable): C-h v, then variable name
+
+* Working with Extempore code
+
+1. Start up Extempore in a shell buffer with 'M-x shell'
+2. Open up an extempore file (.xtm extension)
+3. Connect to the running Extempore process: C-x C-j (needs to be done for every .xtm buffer)
+
+Then, to evaluate (compile) xtlang code, use:
+
+Evaluate enclosing s-expression: C-x C-x
+Evaluate region: C-x C-r
+Evaluate whole buffer: C-x C-b
+
+To restart the Extempore process, just C-c C-c in the *shell* buffer
+where it is running to kill it, then start it up again.
