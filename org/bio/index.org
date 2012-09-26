@@ -29,7 +29,7 @@ If you want to get in touch, email is best---you can reach me on
 [[mailto:benjamin.j.swift@gmail.com][benjamin.j.swift@gmail.com]].
 
 #+begin_html
-<a href=""><img src="images/biopic.jpg" alt=""></a>
+<a href=""><img src="../images/biopic.jpg" alt=""></a>
 #+end_html
 
 # I live mainly in the world of Human-Computer Interaction (HCI),
