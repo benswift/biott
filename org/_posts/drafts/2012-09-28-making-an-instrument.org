@@ -36,8 +36,32 @@ synthesis environment worth it's salt has to provide a hammond patch
 of some description :) And secondly, because the hammond organ is
 actually not too tricky to sythesize, at least in a simplified way.
 The organ's tone is basically the result of the superposition of 9
-sinusoids (one for each tonewheel[fn:tonewheel]), and so it's a nice way to
-introduce the basics of additive synthesis. Now, any commercial
+sinusoids (one for each tonewheel), and so it's a nice way to
+introduce the basics of additive synthesis.[fn:quirks]
+
+So why do they call them tonewheel organs, anyway? A
+[[http://en.wikipedia.org/wiki/Tonewheel][tonewheel]] is a metal disks (wheel) with a corrugated edge. The disk is
+mechanically rotated on it's axis near an electrical pickup, which
+'picks up' the changes in the electrical and magnetic fields due to
+the rotation of the wheel (and particularly the bumps on the edge of
+the wheel). As the bumps go past the pickup, they induce a voltage
+which causes a current, which is the audio signal. The frequency
+(pitch) of the signal can be changed by altering the rotation speed of
+the wheel.
+
+By having multiple tonewheels...
+In a Hammond organ, the frequencies of the different tonewheels are
+related to the 
+
+The key tone-shaping control in a Hammond organ are its drawbars.
+Each drawbar affects the amplitude of one of the sinusoids.
+
+# #+begin_html
+# <a href=""><img src="images/pointer-tut-1.png" alt="Image from
+# Wikimedia Commons"></a>
+# #+end_html
+
+[fn:quirks]Any commercial
 Hammond organ modelling synth will add /heaps/ of other stuff to this
 basic tone, to faithfully recreate the nuances and quirks of the real
 physical instrument, even down to the details of the specific model
@@ -45,12 +69,3 @@ being emulated. We won't try to do too much of that in this tutorial,
 but again, if you want to hack around add things to the instrument
 then feel free.
 
-[fn:tonewheel] So why do they call them tonewheel organs, anyway? A
-[[http://en.wikipedia.org/wiki/Tonewheel][tonewheel]] is a metal disks (wheel) with a corrugated edge. The disk is
-mechanically rotated on it's axis near an electrical pickup, which
-'picks up' the changes in the electrical and magnetic fields due to
-the rotation of the wheel (and particularly the bumps on the edge of
-the wheel). As the bumps go past the pickup, they induce a voltage
-which causes a current, which is the audio signal. The frequenc
-(pitch) of the signal can be changed by altering the rotation speed of
-the wheel.
