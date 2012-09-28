@@ -8,3 +8,49 @@ categories:
 ---
 #+end_html
 
+This covers the basics of creating an /instrument/ in Extempore. While
+there are [[file:~/Documents/biott/org/_posts/2012-06-07-dsp-basics-in-extempore.org][other]] [[file:~/Documents/biott/org/_posts/2012-06-07-more-dsp-and-extempore-types.org][posts]] which cover audio DSP at a lower level---from
+the basic building blocks of oscillators and filters, this tutorial
+covers the process of building an instrument which can be played using
+the conventional midi parameters of pitch and velocity. There'll be
+some dsp required to build the instrument, but playing it becomes just
+like playing any other soft synth or sampler plugin. The reason to
+buildi instruments is so that you don't /have/ to construct your audio
+synthesis chain from scratch each time, sometimes you just want to
+load a plugin and start playing.
+
+Like everything in Extempore, though, we're going to build the
+instrument in xtlang and compile it at runtime. If you want the simple
+'load up a patch and go' experience, then just load the xtlang code
+from a file. But if at any stage you want to modify the guts of the
+instrument while you're using it, then just bring up the code, change
+it around, re-compile it, and you'll hear the results straight away.
+
+
+* The Hammond organ
+
+The instrument we're going to build in this tutorial is a [[http://en.wikipedia.org/wiki/Hammond_organ][hammond
+organ]]. Firstly, because the Hammond organ is an iconic sound---widely
+used in many genres of music since its invention in 1934. Any digital
+synthesis environment worth it's salt has to provide a hammond patch
+of some description :) And secondly, because the hammond organ is
+actually not too tricky to sythesize, at least in a simplified way.
+The organ's tone is basically the result of the superposition of 9
+sinusoids (one for each tonewheel[fn:tonewheel]), and so it's a nice way to
+introduce the basics of additive synthesis. Now, any commercial
+Hammond organ modelling synth will add /heaps/ of other stuff to this
+basic tone, to faithfully recreate the nuances and quirks of the real
+physical instrument, even down to the details of the specific model
+being emulated. We won't try to do too much of that in this tutorial,
+but again, if you want to hack around add things to the instrument
+then feel free.
+
+[fn:tonewheel] So why do they call them tonewheel organs, anyway? A
+[[http://en.wikipedia.org/wiki/Tonewheel][tonewheel]] is a metal disks (wheel) with a corrugated edge. The disk is
+mechanically rotated on it's axis near an electrical pickup, which
+'picks up' the changes in the electrical and magnetic fields due to
+the rotation of the wheel (and particularly the bumps on the edge of
+the wheel). As the bumps go past the pickup, they induce a voltage
+which causes a current, which is the audio signal. The frequenc
+(pitch) of the signal can be changed by altering the rotation speed of
+the wheel.
