@@ -26,7 +26,6 @@ from a file. But if at any stage you want to modify the guts of the
 instrument while you're using it, then just bring up the code, change
 it around, re-compile it, and you'll hear the results straight away.
 
-
 * The Hammond organ
 
 The instrument we're going to build in this tutorial is a [[http://en.wikipedia.org/wiki/Hammond_organ][hammond
@@ -49,23 +48,275 @@ which causes a current, which is the audio signal. The frequency
 (pitch) of the signal can be changed by altering the rotation speed of
 the wheel.
 
-By having multiple tonewheels...
-In a Hammond organ, the frequencies of the different tonewheels are
-related to the 
+In general, each tonewheel is set up to generate a sine wave. By
+having multiple tonewheels of different diameters attached to the same
+axle, the organ generates several different sinusoids together, which
+allows it to have a more interesting timbre than just a sine tone.
 
-The key tone-shaping control in a Hammond organ are its drawbars.
-Each drawbar affects the amplitude of one of the sinusoids.
+The key tone-shaping control in a Hammond organ are its drawbars,
+which look like this:
 
-# #+begin_html
-# <a href=""><img src="images/pointer-tut-1.png" alt="Image from
-# Wikimedia Commons"></a>
-# #+end_html
+#+begin_html
+<a href=""><img src="images/drawbars.png" alt=""></a>
+#+end_html
 
-[fn:quirks]Any commercial
-Hammond organ modelling synth will add /heaps/ of other stuff to this
-basic tone, to faithfully recreate the nuances and quirks of the real
-physical instrument, even down to the details of the specific model
-being emulated. We won't try to do too much of that in this tutorial,
-but again, if you want to hack around add things to the instrument
-then feel free.
+Each drawbar controls the relative amplitude of a given tonewheel. The
+tonewheels are denoted by their 'pipe length', which is a carry-over
+from pipe organ design, which Hammond originally developed the
+tonewheel organ to be a cheap replacement for. A longer pipe means a
+lower pitch, so the drawbars are laid out from low harmonics on the
+left to high harmonics on the right. Even though in a tonewheel organ
+there aren't any pipes (because they're been replaced by tonewheels!)
+the drawbars are still labelled in this way. And anyway, if we're
+modelling the organ digitally then there aren't any real tonewheels
+either :)
 
+To change the tone of the organ, the organist can adjust the positions
+of the drawbars. Fully 'out' (/down/ in this diagram) means that the
+frequency associated with that tonewheel is at it's maximum, whereas
+fully 'in' (/up/ in this diagram) means that that frequency is silent.
+The colours of the drawbar ends also give information about that
+harmonic: red drawbars for sub-harmonics, grey for even harmonics and
+black for the odd harmonics. Confusingly, by convention the left-most
+drawbar isn't the fundamental frequency of the note, it's an octave
+below the fundamental (which is controlled by the /third/ drawbar).
+It's also important to remember that the drawbars don't represent
+specific pitches, because the absolute pitch each drawbar is mapped to
+depends on the note being played (in the original tonewheel design,
+this is controlled by how fast the axle with the tonewheels on it is
+rotating).  The ratios between the frequencies are the important part,
+because they define how the organ sounds---the organ's /timbre/.
+
+Now, this is probably more information than is absolutely necessary to
+construct a simple model of the organ---at a bare minimum all we
+really needed to know was that the organ tone is a sum of
+sinusoids and the frequency relationships between those sinusoids.
+Still, a bit more context is helpful in understanding /why/ the
+organ's tone is produced like it is, and helps us think about how to
+represent and produce the tone digitally.
+
+* Step one: an organ 'note kernel'
+
+In this post we're going to make an Extempore instrument. Basically,
+an instrument in xtlang is just a couple of xtlang closures: a the
+note kernel (by convention ending in =-note=), and the FX (effects)
+closure (by convention ending in =-fx=). When properly set up, an
+instrument can be played like a midi soft-synth, so individual notes
+can be triggered with an amplitude, a pitch and a duration. Impromptu
+users will be pretty familiar with this, it's the same as how you
+would play AU synths in Impromptu.[fn:play-note] The only difference
+is that the whole signal chain is now written in xtlang, and you can
+have a look at it in =libs/core/audio_dsp.xtm= if you want to see the
+nuts and bolts of how it works.[fn:dsp-chain]
+
+The first part of making an instrument is defining a /note kernel/.
+This is the sound that the instrument makes when it's being sustained.
+The kernel doesn't take into account the note envelope, the way the
+amplitude changes over the various stages of a note's lifecycle
+(attack, decay, sustain, and release). The kernel is just the sound
+the instrument would make if it were allowed to drone on forever
+without stopping, like if you left a paperweight on one of the organ's
+keys.
+
+So, because the basis of the tone is the sum of 9 sinusoids (one for
+each drawbar), then that's what our note kernel needs to generate.
+There are lots of ways to do this, but one nice way is to use
+oscillator closures created by Extempore's =make-oscil= function.
+
+#+begin_src extempore
+  (load "libs/core/instruments.xtm")
+  
+  (bind-func organ-timbre
+    (let ((num_drawbars 9)
+          ;; allocate memory for the oscillators and other bits and pieces
+          (freq_ratio:double* (zalloc num_drawbars))
+          (drawbar_pos:i64* (zalloc num_drawbars))
+          (tonewheel:[double,double,double]** (zalloc num_drawbars))
+          (i 0))
+      ;; fill the allocated memory with the right values
+      ;; drawbar frequencies as ratio of fundamental frequency
+      (pfill! freq_ratio 0.5 1.5 1.0 2.0 3.0 4.0 5.0 6.0 8.0)
+      ;; drawbar positions: 0 = min, 8 = max amplitude
+      (pfill! drawbar_pos 8 8 8 0 0 0 0 0 0)
+      ;; put an oscilattor into each tonewheel position
+      (dotimes (i num_drawbars)
+            (pset! tonewheel i (make-oscil 0.0)))
+      (lambda (freq)
+        (let ((sum 0.0))
+          ;; loop over all the drawbars/tonewheels to get the sum
+          (dotimes (i num_drawbars)
+            (set! sum (+ sum (* (/ (i64tod (pref drawbar_pos i)) 8.0)
+                                ((pref tonewheel i) 1.0
+                                 (* freq (pref freq_ratio i)))))))
+          ;; normalise the sum by the number of drawbars
+          (/ sum (i64tod num_drawbars))))))
+  
+  ;; send the organ timbre to the audio sink
+  
+  (bind-func dsp:DSP
+    (lambda (in time chan dat)
+      (organ-timbre 200.0)))
+  
+  (dsp:set! dsp)
+#+end_src
+
+Compiling the function =organ-timbre= does three things:
+
+- *allocate memory* to store the data associated with our sine
+  oscillators. For each oscillator, this is =freq_ratio= (the
+  frequency relationship to the fundamental), =drawbar_pos= (the
+  amplitude of the sine tone) and =tonewheel= (the oscillator closure
+  itself).  This data is all stored via [[file:~/Documents/biott/org/_posts/2012-08-13-understanding-pointers-in-xtlang.org][pointers]] to [[file:~/Documents/biott/org/_posts/2012-08-17-memory-management-in-extempore.org][zone memory]]
+  through the calls to =zalloc=.
+- *fill memory* with the appropriate values. For =freq_ratio= and
+  =drawbar_pos=, the values are set 'manually' using =pfill!=, while
+  for filling the =tonewheel= buffer =make-oscil= is called in a loop
+  (=dotimes=).
+- *create & bind a closure* (the =lambda= form) which calculates the
+  current output value by calling each of the oscillators in the
+  =tonewheel= closure buffer, summing and returning their (normalised)
+  return values. This closure is then callable using its name:
+  =organ-timbre=.
+
+When we call the =organ-timbre= closure in the =dsp= callback, we hear
+a droning organ tone. It should be really obvious at this point that
+the closure =organ-timbre= doesn't represent a /pure/ function: one
+that stateless and always returns the same output value for a given
+input value. If it /were/ a pure function, then calling it in the dsp
+callback above with an argument of =200.0= would always return the
+same value.  This wouldn't be very interesting in an audio output
+scenario---audio is only interesting when the waveforms are
+oscillating, and particularly when the oscillations are periodic.
+That's basically all pitched sounds are: periodic waveforms. So for
+the =organ-timbre= closure to produce a nice pitched organ tone, there
+must be some state hidden somewhere which is changing and allowing the
+closure to return a periodic waveform.
+
+If you guessed that the magic happens in the closures returned by
+=make-oscil= (which are in the memory pointed to by =tonewheel=),
+you'd be right. Each closure 'closes over' a state variable called
+=phase=, which you can see in the source for =make-oscil= (which is in
+=libs/core/audio_dsp.xtm=)
+
+#+begin_src extempore
+(bind-func make-oscil
+  (lambda (phase)
+    (lambda (amp freq)
+      (let ((inc (* TWOPI (/ freq SAMPLERATE))))
+	(set! phase (+ phase inc))
+	(if (> phase PI) (set! phase (- phase TWOPI)))
+	(* amp (_sin phase))))))
+#+end_src
+
+=make-oscil= is a higher-order closure, because it returns a closure,
+as indicated by the /two/ =lambda= forms: the outer one (with one
+=phase= argument) defines the =make-oscil= closure itself, while the
+inner one (with =amp= and =freq= arguments) creates the closure which
+is returned by =make-oscil=.  /That's/ the closure that gets stored in
+the =tonewheel= array when we perform the loop:
+
+#+begin_src extempore
+  (dotimes (i num_drawbars)
+            (pset! tonewheel i (make-oscil 0.0)))
+#+end_src
+
+Looking back up at the =make-oscil= source code, in the body of the
+inner lambda there's the line =(set! phase (+ phase inc))= which
+increments the value of the =phase= variable based on what the
+frequency (=freq=) argument to the closure was. Each closure returned
+by =make-oscil= has its own =phase= variable[fn:closure], so calling
+one oscillator (and therefore incrementing its phase) doesn't affect
+the phase of any other oscillators which might be floating around.
+This is super handy, because it allows each oscillator to do its own
+'bookkeeping'---keeping track of where it is in its cycle, while
+taking more meaningful frequency arguments at 'call-time', so that
+they can be easily modulated. This is what allows us to create buffers
+of closures which we can access and modify via pointers, which is
+exactly what we're doing with =tonewheel=.
+
+# You can even 'reach in' to a given closure to get and set its closed
+# over variables using a dot syntax, but its idiomatic extempore to...
+
+The note-kernel is just a regular extempore closure, it just has a
+particular type signature to allow it to play nicely with the rest of
+the =define-instrument= processing chain.  
+
+
+#+begin_src extempore
+  (bind-func organ-note
+    (let ((num_drawbars 9)
+          (freq_ratio:double* (zalloc num_drawbars))
+          (drawbar_pos:i64* (zalloc num_drawbars)))
+      ;; drawbar frequencies as ratio of fundamental frequency
+      (pfill! freq_ratio 0.5 1.5 1.0 2.0 3.0 4.0 5.0 6.0 8.0)
+      ;; drawbar positions: 0 = min, 8 = max amplitude
+      (pfill! drawbar_pos 8 8 8 0 0 0 0 0 0)
+      (lambda ()
+        (let ((tonewheel:[double,double,double]** (zalloc num_drawbars))
+              (i 0))
+          (dotimes (i num_drawbars)
+            (pset! tonewheel i (make-oscil 0.0)))
+          (lambda (time:double chan:double freq:double amp:double)
+            (if (= chan 0.0) ;; left channel only
+                (let ((sum 0.0))
+                  (dotimes (i num_drawbars)
+                    ;; (printf "i = %lld" i)
+                    (set! sum (+ sum (* (/ (i64tod (pref drawbar_pos i)) 8.0)
+                                        ((pref tonewheel i)
+                                         amp
+                                         (* freq (pref freq_ratio i)))))))
+                  (/ sum (i64tod num_drawbars)))))))))
+  
+#+end_src
+
+
+#+begin_src extempore
+  (bind-func organ-note
+    (let ((num_drawbars 9)
+          (freq_ratio:double* (zalloc num_drawbars))
+          (drawbar_pos:i64* (zalloc num_drawbars)))
+      (pfill! freq_ratio 0.5 1.5 1.0 2.0 3.0 4.0 5.0 6.0 8.0)
+      (pfill! drawbar_pos 8 8 8 0 3 0 0 0 0)
+      (lambda ()
+        (let ((tonewheel:[double,double,double]** (zalloc (* 2 num_drawbars)))
+              (freq_smudge:double* (zalloc num_drawbars))
+              (i 0))
+          (dotimes (i num_drawbars)
+            (pset! tonewheel (* i 2) (make-oscil 0.0)) ; left
+            (pset! tonewheel (+ (* i 2) 1) (make-oscil 0.0)) ; right
+            (pset! freq_smudge i (* 3.0 (random))))
+          (lambda (time:double chan:double freq:double amp:double)
+            (if (< chan 2.0)
+                (let ((sum 0.0))
+                  (dotimes (i num_drawbars)
+                    ;; (printf "i = %lld" i)
+                    (set! sum (+ sum (* (/ (i64tod (pref drawbar_pos i)) 8.0)
+                                        ((pref tonewheel (+ (* 2 i) (dtoi64 chan)))
+                                         amp
+                                         (+ (* freq (pref freq_ratio i))
+                                            (pref freq_smudge i)))))))
+                  (/ sum (i64tod num_drawbars)))))))))
+#+end_src
+
+In a Hammond organ, the frequencies of the
+different tonewheels are related to the
+
+
+[fn:quirks] Any commercial Hammond organ modelling synth will add
+/heaps/ of other stuff to this basic tone, to faithfully recreate the
+nuances and quirks of the real physical instrument, even down to the
+details of the specific model being emulated. We won't try to do too
+much of that in this tutorial, but again, if you want to hack around
+add things to the instrument then feel free.
+
+[fn:play-note] In fact, there's a =play-note= function and a =play=
+macro in Extempore which are exactly the same as they were in
+Impromptu---so any audio code which triggered notes in this way should
+work unmodified (although the synth which receives and /plays/ these
+notes will be different).
+
+[fn:dsp-chain] [[file:~/Documents/biott/org/_posts/2012-06-07-dsp-basics-in-extempore.org][This post]] covers the DSP architecture in Extempore if
+you're looking for more background.
+
+[fn:closure] This is why they're called closures, because they /close
+over/ their non-local variables.
