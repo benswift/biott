@@ -97,17 +97,16 @@ represent and produce the tone digitally.
 
 * Step one: an organ 'note kernel'
 
-In this post we're going to make an Extempore instrument. Basically,
-an instrument in xtlang is just a couple of xtlang closures: a the
-note kernel (by convention ending in =-note=), and the FX (effects)
-closure (by convention ending in =-fx=). When properly set up, an
-instrument can be played like a midi soft-synth, so individual notes
-can be triggered with an amplitude, a pitch and a duration. Impromptu
-users will be pretty familiar with this, it's the same as how you
-would play AU synths in Impromptu.[fn:play-note] The only difference
-is that the whole signal chain is now written in xtlang, and you can
-have a look at it in =libs/core/audio_dsp.xtm= if you want to see the
-nuts and bolts of how it works.[fn:dsp-chain]
+An instrument in xtlang is just a couple of xtlang closures: a the
+note kernel (which by convention ends in =-note=), and the FX
+(effects) closure (which convention ends in =-fx=). When properly set
+up, an instrument can be played like a midi soft-synth, so individual
+notes can be triggered with an amplitude, a pitch and a duration.
+Impromptu users will be pretty familiar with this, it's the same as
+how you would play AU synths in Impromptu.[fn:play-note] The only
+difference is that the whole signal chain is now written in xtlang,
+and you can have a look at it in =libs/core/audio_dsp.xtm= if you want
+to see the nuts and bolts of how it works.[fn:dsp-chain]
 
 The first part of making an instrument is defining a /note kernel/.
 This is the sound that the instrument makes when it's being sustained.
@@ -126,7 +125,7 @@ oscillator closures created by Extempore's =make-oscil= function.
 #+begin_src extempore
   (load "libs/core/instruments.xtm")
   
-  (bind-func organ-timbre
+  (bind-func organ-drone
     (let ((num_drawbars 9)
           ;; allocate memory for the oscillators and other bits and pieces
           (freq_ratio:double* (zalloc num_drawbars))
@@ -151,16 +150,16 @@ oscillator closures created by Extempore's =make-oscil= function.
           ;; normalise the sum by the number of drawbars
           (/ sum (i64tod num_drawbars))))))
   
-  ;; send the organ timbre to the audio sink
+  ;; send the organ drone to the audio sink
   
   (bind-func dsp:DSP
     (lambda (in time chan dat)
-      (organ-timbre 200.0)))
+      (organ-drone 440.0)))
   
   (dsp:set! dsp)
 #+end_src
 
-Compiling the function =organ-timbre= does three things:
+Compiling the function =organ-drone= does three things:
 
 - *allocate memory* to store the data associated with our sine
   oscillators. For each oscillator, this is =freq_ratio= (the
@@ -176,11 +175,11 @@ Compiling the function =organ-timbre= does three things:
   current output value by calling each of the oscillators in the
   =tonewheel= closure buffer, summing and returning their (normalised)
   return values. This closure is then callable using its name:
-  =organ-timbre=.
+  =organ-drone=.
 
-When we call the =organ-timbre= closure in the =dsp= callback, we hear
+When we call the =organ-drone= closure in the =dsp= callback, we hear
 a droning organ tone. It should be really obvious at this point that
-the closure =organ-timbre= doesn't represent a /pure/ function: one
+the closure =organ-drone= doesn't represent a /pure/ function: one
 that stateless and always returns the same output value for a given
 input value. If it /were/ a pure function, then calling it in the dsp
 callback above with an argument of =200.0= would always return the
@@ -188,7 +187,7 @@ same value.  This wouldn't be very interesting in an audio output
 scenario---audio is only interesting when the waveforms are
 oscillating, and particularly when the oscillations are periodic.
 That's basically all pitched sounds are: periodic waveforms. So for
-the =organ-timbre= closure to produce a nice pitched organ tone, there
+the =organ-drone= closure to produce a nice pitched organ tone, there
 must be some state hidden somewhere which is changing and allowing the
 closure to return a periodic waveform.
 
@@ -225,17 +224,55 @@ inner lambda there's the line =(set! phase (+ phase inc))= which
 increments the value of the =phase= variable based on what the
 frequency (=freq=) argument to the closure was. Each closure returned
 by =make-oscil= has its own =phase= variable[fn:closure], so calling
-one oscillator (and therefore incrementing its phase) doesn't affect
-the phase of any other oscillators which might be floating around.
-This is super handy, because it allows each oscillator to do its own
+one oscillator (and incrementing its phase) doesn't affect the phase
+of any other oscillators which might be floating around. This is super
+handy, because it allows each oscillator to do its own
 'bookkeeping'---keeping track of where it is in its cycle, while
 taking more meaningful frequency arguments at 'call-time', so that
-they can be easily modulated. This is what allows us to create buffers
+they can be easily modulated. This is what allows us to create /buffers/
 of closures which we can access and modify via pointers, which is
 exactly what we're doing with =tonewheel=.
 
+Going back up to the =organ-drone= above, there's one more point
+worth making about closures and scoping. Notice how there's a =let=
+outside the =lambda=, which is where the data buffers (=freq_ratio=,
+=drawbar_pos= and =tonewheel= are all both allocated (with =zalloc=)
+and initialised (with =pfill!= & =pset!=). These data buffers are used
+in the body of the =lambda=, so the =lambda= closes over them.
+
+What this means is that these buffers are only allocated and
+initialised when the =organ-drone= closure is compiled. When it is
+called, on the other hand, the code begins executing from the first
+line inside the =lambda= form, which happens to be =(let ((sum 0.0))=.
+The values in the =freq_ratio=, =drawbar_pos= and =tonewheel= buffers
+will be either in the state they were in when the closure was
+compiled, or as they were left by the last closure invocation which
+modified them (which, in the case of the =tonewheel= buffer, is
+/every/ invocation, because of the call to each oscillator and its
+subsequent phase incrementing).
+
+The one argument to the =organ-drone= closure, =freq=, is passed to
+every individual oscillator closure in the body of the inner loop,
+although it is first modified by the appropriate frequency ratio for
+that particular drawbar.  The output value of the closure is then
+multiplied by the drawbar position (which is on a scale of 0 to 8,
+because the original Hammond organ drawbars had markings from 0 to 8
+on each drawbar) to apply the tone-shaping of the drawbars.  After
+summing over all the tonewheel oscillators, the (normalised) output
+value is then returned.
+
+Because each tonewheel oscillator's frequency is calculated from the
+=freq= argument, changing the value of this argument will shift all
+the oscillators, just as it should. The harmonic relationships between
+the different tonewheel oscillators stays constant, even as the pitch
+changes. If you're playing along at home, change the argument from
+=440.0= to some other value, recompile it and listen to the difference
+in the playback pitch of the organ tone.
+
 # You can even 'reach in' to a given closure to get and set its closed
 # over variables using a dot syntax, but its idiomatic extempore to...
+
+
 
 The note-kernel is just a regular extempore closure, it just has a
 particular type signature to allow it to play nicely with the rest of
