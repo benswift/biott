@@ -194,6 +194,12 @@ you'd be right. Each closure 'closes over' a state variable called
 	(* amp (_sin phase))))))
 #+end_src
 
+In an xtlang type diagram, =make-oscil= looks like this
+
+#+begin_html
+<a href=""><img src="images/make-oscil.png" width="300px" alt=""></a>
+#+end_html
+
 =make-oscil= is a higher-order closure, because it returns a closure,
 as indicated by the /two/ =lambda= forms: the outer one (with one
 =phase= argument) defines the =make-oscil= closure itself, while the
@@ -303,6 +309,12 @@ section, except with a few minor modifications. The key one is that
 the =organ-drone= closure just took one argument (=freq=), whereas the
 closures returned by =organ-note= have to take /four/ =double=
 arguments and returns a =double=.
+
+* The note lifecycle
+
+The key difference...
+
+Put the xtlang type diagrams in here.
 
 All this talk of closures and notes and kernels is probably getting
 confusing by now.  So, to recap:
