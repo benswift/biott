@@ -49,6 +49,10 @@ of variables in many cases.
 
 *** Integers
 
+#+begin_html
+<a href=""><img src="images/int-examples.png" alt=""></a>
+#+end_html
+
 Extempore supports signed integers of various different sizes:
 
 - =i1= (boolean)
@@ -68,6 +72,10 @@ A couple of gotchas:
 
 *** Floats
 
+#+begin_html
+<a href=""><img src="images/float-examples.png" alt=""></a>
+#+end_html
+
 There are two sizes of floating point number: 
 
 - =float= (32 bit)
@@ -78,6 +86,10 @@ unless the type signatures suggest otherwise (as is the case with
 =i64= int literals).
 
 ** Pointer types
+
+#+begin_html
+<a href=""><img src="images/pointer-examples.png" alt=""></a>
+#+end_html
 
 xtlang supports [[http://en.wikipedia.org/wiki/Pointer_(computer_programming)][pointers]] to any type, in fact some types (such as
 closures) are almost always handled by reference (that is, through
@@ -240,6 +252,10 @@ and will be added in a future release.
 
 Examples:
 
+#+begin_html
+<a href=""><img src="images/tuple-examples.png" alt=""></a>
+#+end_html
+
 - =<double,i32>*= is a pointer to a 2-tuple: the first element is a
   =double= and the second element is an =i32=
 - =<i64*,i64,float**>*= is a pointer to a 3 tuple: the first element
@@ -271,8 +287,8 @@ And finally, if you want a /reference to/ (rather than the value of)
 an element in the tuple, use =tref-ptr= instead of =tref=.
 
 All of these tuple ref/ref-ptr/set!/fill! functions have the same
-syntax as the pointer (/p/ref etc.) versions.  There are also
-equivalent functions for arrays (with an a prefix) and vectors (v
+syntax as the pointer (i.e. =pref=) versions.  There are also
+equivalent functions for arrays (with an =a= prefix) and vectors (=v=
 prefix).  This consistency makes it easier to remember how to work
 with and access the different types.  And because xtlang is strongly
 typed, even if you do get confused and try to =tset!= an array type
@@ -286,6 +302,10 @@ length of the array, the type of the array elements, and is closed off
 with the pipe (=|=) character.
 
 Examples:
+
+#+begin_html
+<a href=""><img src="images/array-examples.png" alt=""></a>
+#+end_html
 
 - =|4,double|*=:  a pointer to an array of 4 =double=
 - =|10000000,i32|*=:  a pointer to an array of one million =i32=
@@ -322,6 +342,10 @@ they're going /faster/.
 
 Examples:
 
+#+begin_html
+<a href=""><img src="images/vector-examples.png" alt=""></a>
+#+end_html
+
 - =/4,float/*=: a pointer to a vector of four floats
 - =/256,i32/*=: a pointer to a vector of 256 ints
 
@@ -351,6 +375,10 @@ the first element inside the brackets being the return type, and any
 other elements representing the type signature of the function.
 
 Examples:
+
+#+begin_html
+<a href=""><img src="images/closure-examples.png" alt=""></a>
+#+end_html
 
 - =[i64]*=: a pointer to a closure which takes no arguments and
   returns a single =i64=
