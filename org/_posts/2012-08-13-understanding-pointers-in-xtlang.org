@@ -137,7 +137,8 @@ pointers in xtlang: through a call to an 'alloc' function.[fn:alloc]
 (i.e. a pointer) of some memory which can be used to store the value
 in. This address is the assigned to the variable =num_cats_ptr=, just
 like the number =4= was assigned to =num_cats= in the earlier
-examples.
+examples. The orange bar on the variable name indicates that it's a
+pointer.
 
 So why does =print_num_cats3= print such a weird (on my machine:
 4555984976 cats!) answer? Well, it's because we're trying to print it
