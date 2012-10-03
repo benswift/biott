@@ -26,7 +26,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2012-10-03 07:42:03 +0000</string>
+	<string>2012-10-03 23:02:41 +0000</string>
 	<key>Modifier</key>
 	<string>Ben Swift</string>
 	<key>NotesVisible</key>
@@ -45704,11 +45704,11 @@ byte}</string>
 							<key>Color</key>
 							<dict>
 								<key>b</key>
-								<string>0.59323</string>
+								<string>0.182149</string>
 								<key>g</key>
-								<string>0.446088</string>
+								<string>0.254474</string>
 								<key>r</key>
-								<string>0.0558986</string>
+								<string>0.0329347</string>
 							</dict>
 						</dict>
 						<key>shadow</key>
@@ -45948,7 +45948,7 @@ byte}</string>
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
-\f0\fs40 \cf0 [[i64,i32]*,[double]*]*}</string>
+\f0\fs40 \cf0 [[double,i64]*,[i64]*]*}</string>
 					</dict>
 					<key>Wrap</key>
 					<string>NO</string>
@@ -52299,66 +52299,6 @@ pointer}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{590, 1490}, {10, 15}}</string>
-					<key>Class</key>
-					<string>ShapedGraphic</string>
-					<key>FontInfo</key>
-					<dict>
-						<key>Color</key>
-						<dict>
-							<key>b</key>
-							<string>1</string>
-							<key>g</key>
-							<string>1</string>
-							<key>r</key>
-							<string>1</string>
-						</dict>
-						<key>Font</key>
-						<string>Inconsolata</string>
-						<key>Size</key>
-						<real>24</real>
-					</dict>
-					<key>ID</key>
-					<integer>1033</integer>
-					<key>Shape</key>
-					<string>Rectangle</string>
-					<key>Style</key>
-					<dict>
-						<key>fill</key>
-						<dict>
-							<key>Color</key>
-							<dict>
-								<key>b</key>
-								<string>0.146371</string>
-								<key>g</key>
-								<string>0.403441</string>
-								<key>r</key>
-								<string>0.989056</string>
-							</dict>
-						</dict>
-						<key>shadow</key>
-						<dict>
-							<key>Draws</key>
-							<string>NO</string>
-						</dict>
-						<key>stroke</key>
-						<dict>
-							<key>Color</key>
-							<dict>
-								<key>b</key>
-								<string>0.175841</string>
-								<key>g</key>
-								<string>0</string>
-								<key>r</key>
-								<string>0.281307</string>
-							</dict>
-							<key>Width</key>
-							<real>2</real>
-						</dict>
-					</dict>
-				</dict>
-				<dict>
-					<key>Bounds</key>
 					<string>{{589.99999999999989, 1460}, {130, 30}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
@@ -58049,13 +57989,64 @@ xtlang type key}</string>
 					<key>Graphics</key>
 					<array>
 						<dict>
+							<key>Bounds</key>
+							<string>{{958, 1490}, {4.4000000000000004, 10}}</string>
+							<key>Class</key>
+							<string>ShapedGraphic</string>
+							<key>FontInfo</key>
+							<dict>
+								<key>Color</key>
+								<dict>
+									<key>b</key>
+									<string>1</string>
+									<key>g</key>
+									<string>1</string>
+									<key>r</key>
+									<string>1</string>
+								</dict>
+								<key>Font</key>
+								<string>Inconsolata</string>
+								<key>Size</key>
+								<real>25</real>
+							</dict>
+							<key>ID</key>
+							<integer>1244</integer>
+							<key>Shape</key>
+							<string>Rectangle</string>
+							<key>Style</key>
+							<dict>
+								<key>fill</key>
+								<dict>
+									<key>Color</key>
+									<dict>
+										<key>b</key>
+										<string>0.146371</string>
+										<key>g</key>
+										<string>0.403441</string>
+										<key>r</key>
+										<string>0.989056</string>
+									</dict>
+								</dict>
+								<key>shadow</key>
+								<dict>
+									<key>Draws</key>
+									<string>NO</string>
+								</dict>
+								<key>stroke</key>
+								<dict>
+									<key>Width</key>
+									<real>2</real>
+								</dict>
+							</dict>
+						</dict>
+						<dict>
 							<key>Class</key>
 							<string>Group</string>
 							<key>Graphics</key>
 							<array>
 								<dict>
 									<key>Bounds</key>
-									<string>{{868.39999999999986, 1469.9999999999995}, {3.5199999999999969, 19.999999999999545}}</string>
+									<string>{{1024, 1470}, {4.4000000000000004, 10}}</string>
 									<key>Class</key>
 									<string>ShapedGraphic</string>
 									<key>FontInfo</key>
@@ -58072,10 +58063,10 @@ xtlang type key}</string>
 										<key>Font</key>
 										<string>Inconsolata</string>
 										<key>Size</key>
-										<real>11</real>
+										<real>25</real>
 									</dict>
 									<key>ID</key>
-									<integer>1083</integer>
+									<integer>1246</integer>
 									<key>Shape</key>
 									<string>Rectangle</string>
 									<key>Style</key>
@@ -58106,7 +58097,7 @@ xtlang type key}</string>
 								</dict>
 								<dict>
 									<key>Bounds</key>
-									<string>{{798, 1510.0000000000005}, {88, 19.999999999999545}}</string>
+									<string>{{1024, 1470.0000000000005}, {22, 20}}</string>
 									<key>Class</key>
 									<string>ShapedGraphic</string>
 									<key>FontInfo</key>
@@ -58123,10 +58114,10 @@ xtlang type key}</string>
 										<key>Font</key>
 										<string>Inconsolata</string>
 										<key>Size</key>
-										<real>5</real>
+										<real>6</real>
 									</dict>
 									<key>ID</key>
-									<integer>1084</integer>
+									<integer>1247</integer>
 									<key>Shape</key>
 									<string>Rectangle</string>
 									<key>Style</key>
@@ -58157,7 +58148,7 @@ xtlang type key}</string>
 								</dict>
 								<dict>
 									<key>Bounds</key>
-									<string>{{868.39999999999964, 1469.9999999999995}, {17.59999999999998, 19.999999999999545}}</string>
+									<string>{{1002, 1470.0000000000005}, {22, 20}}</string>
 									<key>Class</key>
 									<string>ShapedGraphic</string>
 									<key>FontInfo</key>
@@ -58174,10 +58165,10 @@ xtlang type key}</string>
 										<key>Font</key>
 										<string>Inconsolata</string>
 										<key>Size</key>
-										<real>5</real>
+										<real>6</real>
 									</dict>
 									<key>ID</key>
-									<integer>1085</integer>
+									<integer>1248</integer>
 									<key>Shape</key>
 									<string>Rectangle</string>
 									<key>Style</key>
@@ -58208,7 +58199,7 @@ xtlang type key}</string>
 								</dict>
 								<dict>
 									<key>Bounds</key>
-									<string>{{850.79999999999984, 1469.9999999999995}, {17.59999999999998, 19.999999999999545}}</string>
+									<string>{{980, 1470.0000000000005}, {22, 20}}</string>
 									<key>Class</key>
 									<string>ShapedGraphic</string>
 									<key>FontInfo</key>
@@ -58225,10 +58216,10 @@ xtlang type key}</string>
 										<key>Font</key>
 										<string>Inconsolata</string>
 										<key>Size</key>
-										<real>5</real>
+										<real>6</real>
 									</dict>
 									<key>ID</key>
-									<integer>1086</integer>
+									<integer>1249</integer>
 									<key>Shape</key>
 									<string>Rectangle</string>
 									<key>Style</key>
@@ -58259,7 +58250,7 @@ xtlang type key}</string>
 								</dict>
 								<dict>
 									<key>Bounds</key>
-									<string>{{833.20000000000005, 1469.9999999999995}, {17.59999999999998, 19.999999999999545}}</string>
+									<string>{{958, 1510}, {88, 20}}</string>
 									<key>Class</key>
 									<string>ShapedGraphic</string>
 									<key>FontInfo</key>
@@ -58276,10 +58267,10 @@ xtlang type key}</string>
 										<key>Font</key>
 										<string>Inconsolata</string>
 										<key>Size</key>
-										<real>5</real>
+										<real>6</real>
 									</dict>
 									<key>ID</key>
-									<integer>1087</integer>
+									<integer>1250</integer>
 									<key>Shape</key>
 									<string>Rectangle</string>
 									<key>Style</key>
@@ -58310,7 +58301,7 @@ xtlang type key}</string>
 								</dict>
 								<dict>
 									<key>Bounds</key>
-									<string>{{815.60000000000025, 1469.9999999999995}, {17.59999999999998, 19.999999999999545}}</string>
+									<string>{{958, 1470.0000000000005}, {22, 20}}</string>
 									<key>Class</key>
 									<string>ShapedGraphic</string>
 									<key>FontInfo</key>
@@ -58327,10 +58318,10 @@ xtlang type key}</string>
 										<key>Font</key>
 										<string>Inconsolata</string>
 										<key>Size</key>
-										<real>5</real>
+										<real>6</real>
 									</dict>
 									<key>ID</key>
-									<integer>1088</integer>
+									<integer>1251</integer>
 									<key>Shape</key>
 									<string>Rectangle</string>
 									<key>Style</key>
@@ -58361,7 +58352,7 @@ xtlang type key}</string>
 								</dict>
 								<dict>
 									<key>Bounds</key>
-									<string>{{798.00000000000045, 1469.9999999999995}, {17.59999999999998, 19.999999999999545}}</string>
+									<string>{{958, 1490}, {88, 20}}</string>
 									<key>Class</key>
 									<string>ShapedGraphic</string>
 									<key>FontInfo</key>
@@ -58378,61 +58369,10 @@ xtlang type key}</string>
 										<key>Font</key>
 										<string>Inconsolata</string>
 										<key>Size</key>
-										<real>5</real>
+										<real>19</real>
 									</dict>
 									<key>ID</key>
-									<integer>1089</integer>
-									<key>Shape</key>
-									<string>Rectangle</string>
-									<key>Style</key>
-									<dict>
-										<key>fill</key>
-										<dict>
-											<key>Color</key>
-											<dict>
-												<key>b</key>
-												<string>0.175737</string>
-												<key>g</key>
-												<string>0.261936</string>
-												<key>r</key>
-												<string>0.0339575</string>
-											</dict>
-										</dict>
-										<key>shadow</key>
-										<dict>
-											<key>Draws</key>
-											<string>NO</string>
-										</dict>
-										<key>stroke</key>
-										<dict>
-											<key>Width</key>
-											<real>2</real>
-										</dict>
-									</dict>
-								</dict>
-								<dict>
-									<key>Bounds</key>
-									<string>{{798, 1490}, {88, 19.999999999999545}}</string>
-									<key>Class</key>
-									<string>ShapedGraphic</string>
-									<key>FontInfo</key>
-									<dict>
-										<key>Color</key>
-										<dict>
-											<key>b</key>
-											<string>1</string>
-											<key>g</key>
-											<string>1</string>
-											<key>r</key>
-											<string>1</string>
-										</dict>
-										<key>Font</key>
-										<string>Inconsolata</string>
-										<key>Size</key>
-										<real>18</real>
-									</dict>
-									<key>ID</key>
-									<integer>1090</integer>
+									<integer>1252</integer>
 									<key>Shape</key>
 									<string>Rectangle</string>
 									<key>Style</key>
@@ -58473,11 +58413,11 @@ xtlang type key}</string>
 								</dict>
 							</array>
 							<key>ID</key>
-							<integer>1082</integer>
+							<integer>1245</integer>
 						</dict>
 						<dict>
 							<key>Bounds</key>
-							<string>{{1062, 1470}, {88, 60}}</string>
+							<string>{{1222, 1470}, {88, 60}}</string>
 							<key>Class</key>
 							<string>ShapedGraphic</string>
 							<key>FontInfo</key>
@@ -58494,10 +58434,10 @@ xtlang type key}</string>
 								<key>Font</key>
 								<string>Inconsolata</string>
 								<key>Size</key>
-								<real>18</real>
+								<real>19</real>
 							</dict>
 							<key>ID</key>
-							<integer>1091</integer>
+							<integer>1253</integer>
 							<key>Shape</key>
 							<string>Rectangle</string>
 							<key>Style</key>
@@ -58538,7 +58478,7 @@ xtlang type key}</string>
 						</dict>
 						<dict>
 							<key>Bounds</key>
-							<string>{{974, 1470}, {88, 60}}</string>
+							<string>{{1134, 1470}, {88, 60}}</string>
 							<key>Class</key>
 							<string>ShapedGraphic</string>
 							<key>FontInfo</key>
@@ -58555,10 +58495,10 @@ xtlang type key}</string>
 								<key>Font</key>
 								<string>Inconsolata</string>
 								<key>Size</key>
-								<real>18</real>
+								<real>19</real>
 							</dict>
 							<key>ID</key>
-							<integer>1092</integer>
+							<integer>1254</integer>
 							<key>Shape</key>
 							<string>Rectangle</string>
 							<key>Style</key>
@@ -58599,7 +58539,7 @@ xtlang type key}</string>
 						</dict>
 						<dict>
 							<key>Bounds</key>
-							<string>{{886, 1470}, {88, 60}}</string>
+							<string>{{1046, 1470}, {88, 60}}</string>
 							<key>Class</key>
 							<string>ShapedGraphic</string>
 							<key>FontInfo</key>
@@ -58616,10 +58556,10 @@ xtlang type key}</string>
 								<key>Font</key>
 								<string>Inconsolata</string>
 								<key>Size</key>
-								<real>18</real>
+								<real>19</real>
 							</dict>
 							<key>ID</key>
-							<integer>1093</integer>
+							<integer>1255</integer>
 							<key>Shape</key>
 							<string>Rectangle</string>
 							<key>Style</key>
@@ -58660,7 +58600,7 @@ xtlang type key}</string>
 						</dict>
 						<dict>
 							<key>Bounds</key>
-							<string>{{710, 1590}, {440, 60}}</string>
+							<string>{{870, 1590}, {440, 60}}</string>
 							<key>Class</key>
 							<string>ShapedGraphic</string>
 							<key>FontInfo</key>
@@ -58677,10 +58617,10 @@ xtlang type key}</string>
 								<key>Font</key>
 								<string>Inconsolata</string>
 								<key>Size</key>
-								<real>18</real>
+								<real>19</real>
 							</dict>
 							<key>ID</key>
-							<integer>1094</integer>
+							<integer>1256</integer>
 							<key>Shape</key>
 							<string>Rectangle</string>
 							<key>Style</key>
@@ -58711,7 +58651,7 @@ xtlang type key}</string>
 						</dict>
 						<dict>
 							<key>Bounds</key>
-							<string>{{710, 1470}, {88, 60}}</string>
+							<string>{{870, 1470}, {88, 60}}</string>
 							<key>Class</key>
 							<string>ShapedGraphic</string>
 							<key>FontInfo</key>
@@ -58728,10 +58668,10 @@ xtlang type key}</string>
 								<key>Font</key>
 								<string>Inconsolata</string>
 								<key>Size</key>
-								<real>18</real>
+								<real>19</real>
 							</dict>
 							<key>ID</key>
-							<integer>1095</integer>
+							<integer>1257</integer>
 							<key>Shape</key>
 							<string>Rectangle</string>
 							<key>Style</key>
@@ -58772,7 +58712,7 @@ xtlang type key}</string>
 						</dict>
 						<dict>
 							<key>Bounds</key>
-							<string>{{710, 1530}, {10, 60}}</string>
+							<string>{{870, 1530}, {10, 30}}</string>
 							<key>Class</key>
 							<string>ShapedGraphic</string>
 							<key>FontInfo</key>
@@ -58789,10 +58729,10 @@ xtlang type key}</string>
 								<key>Font</key>
 								<string>Inconsolata</string>
 								<key>Size</key>
-								<real>24</real>
+								<real>25</real>
 							</dict>
 							<key>ID</key>
-							<integer>1096</integer>
+							<integer>1258</integer>
 							<key>Shape</key>
 							<string>Rectangle</string>
 							<key>Style</key>
@@ -58823,7 +58763,7 @@ xtlang type key}</string>
 						</dict>
 						<dict>
 							<key>Bounds</key>
-							<string>{{710, 1530}, {440, 60}}</string>
+							<string>{{870, 1530}, {440, 60}}</string>
 							<key>Class</key>
 							<string>ShapedGraphic</string>
 							<key>FontInfo</key>
@@ -58840,10 +58780,10 @@ xtlang type key}</string>
 								<key>Font</key>
 								<string>Inconsolata</string>
 								<key>Size</key>
-								<real>31</real>
+								<real>32</real>
 							</dict>
 							<key>ID</key>
-							<integer>1097</integer>
+							<integer>1259</integer>
 							<key>Shape</key>
 							<string>Rectangle</string>
 							<key>Style</key>
@@ -58884,7 +58824,76 @@ xtlang type key}</string>
 						</dict>
 					</array>
 					<key>ID</key>
-					<integer>1081</integer>
+					<integer>1243</integer>
+				</dict>
+				<dict>
+					<key>Bounds</key>
+					<string>{{870, 1650}, {440, 40}}</string>
+					<key>Class</key>
+					<string>ShapedGraphic</string>
+					<key>FontInfo</key>
+					<dict>
+						<key>Color</key>
+						<dict>
+							<key>b</key>
+							<string>1</string>
+							<key>g</key>
+							<string>1</string>
+							<key>r</key>
+							<string>1</string>
+						</dict>
+						<key>Font</key>
+						<string>Inconsolata</string>
+						<key>Size</key>
+						<real>20</real>
+					</dict>
+					<key>ID</key>
+					<integer>1201</integer>
+					<key>Shape</key>
+					<string>Rectangle</string>
+					<key>Style</key>
+					<dict>
+						<key>fill</key>
+						<dict>
+							<key>Draws</key>
+							<string>NO</string>
+						</dict>
+						<key>shadow</key>
+						<dict>
+							<key>Draws</key>
+							<string>NO</string>
+						</dict>
+						<key>stroke</key>
+						<dict>
+							<key>Color</key>
+							<dict>
+								<key>a</key>
+								<string>0.5</string>
+								<key>b</key>
+								<string>0</string>
+								<key>g</key>
+								<string>0</string>
+								<key>r</key>
+								<string>0</string>
+							</dict>
+							<key>Draws</key>
+							<string>NO</string>
+							<key>Width</key>
+							<real>2</real>
+						</dict>
+					</dict>
+					<key>Text</key>
+					<dict>
+						<key>Text</key>
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1187\cocoasubrtf340
+\cocoascreenfonts1{\fonttbl\f0\fnil\fcharset0 Inconsolata;}
+{\colortbl;\red255\green255\blue255;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
+
+\f0\fs40 \cf0 [i64,double,[double,double,double,double,double*]*,double,double,double]*}</string>
+					</dict>
+					<key>Wrap</key>
+					<string>NO</string>
 				</dict>
 				<dict>
 					<key>Class</key>
@@ -59113,7 +59122,7 @@ xtlang type key}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{120, 980}, {10, 20}}</string>
+					<string>{{120, 980}, {10, 10}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -59164,7 +59173,7 @@ xtlang type key}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{120, 900}, {10, 60}}</string>
+					<string>{{120, 900}, {10, 30}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -59556,7 +59565,7 @@ xtlang type key}</string>
 						</dict>
 						<dict>
 							<key>Bounds</key>
-							<string>{{1090, 990}, {10, 60}}</string>
+							<string>{{1090, 990}, {10, 30}}</string>
 							<key>Class</key>
 							<string>ShapedGraphic</string>
 							<key>FontInfo</key>
@@ -59851,7 +59860,7 @@ xtlang type key}</string>
 						</dict>
 						<dict>
 							<key>Bounds</key>
-							<string>{{760, 1050}, {10, 60}}</string>
+							<string>{{760, 1050}, {10, 30}}</string>
 							<key>Class</key>
 							<string>ShapedGraphic</string>
 							<key>FontInfo</key>
@@ -60074,7 +60083,7 @@ xtlang type key}</string>
 						</dict>
 						<dict>
 							<key>Bounds</key>
-							<string>{{450, 1560}, {10, 60}}</string>
+							<string>{{450, 1560}, {10, 30}}</string>
 							<key>Class</key>
 							<string>ShapedGraphic</string>
 							<key>FontInfo</key>
@@ -60369,7 +60378,7 @@ xtlang type key}</string>
 						</dict>
 						<dict>
 							<key>Bounds</key>
-							<string>{{120, 1620}, {10, 60}}</string>
+							<string>{{120, 1620}, {10, 30}}</string>
 							<key>Class</key>
 							<string>ShapedGraphic</string>
 							<key>FontInfo</key>
@@ -60541,7 +60550,7 @@ xtlang type key}</string>
 					<array>
 						<dict>
 							<key>Bounds</key>
-							<string>{{120, 1410}, {10, 20}}</string>
+							<string>{{120, 1410}, {10, 10}}</string>
 							<key>Class</key>
 							<string>ShapedGraphic</string>
 							<key>FontInfo</key>
@@ -60592,7 +60601,7 @@ xtlang type key}</string>
 						</dict>
 						<dict>
 							<key>Bounds</key>
-							<string>{{120, 1330}, {10, 60}}</string>
+							<string>{{120, 1330}, {10, 30}}</string>
 							<key>Class</key>
 							<string>ShapedGraphic</string>
 							<key>FontInfo</key>
@@ -64672,7 +64681,7 @@ pipe length}</string>
 	<key>WindowInfo</key>
 	<dict>
 		<key>CurrentSheet</key>
-		<integer>5</integer>
+		<integer>4</integer>
 		<key>ExpandedCanvases</key>
 		<array>
 			<dict>
@@ -64681,7 +64690,7 @@ pipe length}</string>
 			</dict>
 		</array>
 		<key>Frame</key>
-		<string>{{0, 0}, {1916, 1058}}</string>
+		<string>{{0, 0}, {1916, 1028}}</string>
 		<key>ListView</key>
 		<false/>
 		<key>OutlineWidth</key>
@@ -64693,7 +64702,7 @@ pipe length}</string>
 		<key>SidebarWidth</key>
 		<integer>116</integer>
 		<key>VisibleRegion</key>
-		<string>{{1, 787}, {1786, 964}}</string>
+		<string>{{1, 1240}, {1786, 934}}</string>
 		<key>Zoom</key>
 		<real>1</real>
 		<key>ZoomValues</key>
