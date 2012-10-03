@@ -95,27 +95,14 @@ Still, a bit more context is helpful in understanding /why/ the
 organ's tone is produced like it is, and helps us think about how to
 represent and produce the tone digitally.
 
-* Step one: an organ 'note kernel'
+* Step one: a drone organ
 
-An instrument in xtlang is just a couple of xtlang closures: a the
-note kernel (which by convention ends in =-note=), and the FX
-(effects) closure (which convention ends in =-fx=). When properly set
-up, an instrument can be played like a midi soft-synth, so individual
-notes can be triggered with an amplitude, a pitch and a duration.
-Impromptu users will be pretty familiar with this, it's the same as
-how you would play AU synths in Impromptu.[fn:play-note] The only
-difference is that the whole signal chain is now written in xtlang,
-and you can have a look at it in =libs/core/audio_dsp.xtm= if you want
-to see the nuts and bolts of how it works.[fn:dsp-chain]
 
-The first part of making an instrument is defining a /note kernel/.
-This is the sound that the instrument makes when it's being sustained.
-The kernel doesn't take into account the note envelope, the way the
-amplitude changes over the various stages of a note's lifecycle
-(attack, decay, sustain, and release). The kernel is just the sound
-the instrument would make if it were allowed to drone on forever
-without stopping, like if you left a paperweight on one of the organ's
-keys.
+The first part of making an instrument is defining its basic tone: the
+sound that the instrument makes when it's being sustained. The kernel
+is just the sound the instrument would make if it were allowed to
+drone on forever without stopping, like if you left a paperweight on
+one of the organ's keys.
 
 So, because the basis of the tone is the sum of 9 sinusoids (one for
 each drawbar), then that's what our note kernel needs to generate.
@@ -272,11 +259,56 @@ in the playback pitch of the organ tone.
 # You can even 'reach in' to a given closure to get and set its closed
 # over variables using a dot syntax, but its idiomatic extempore to...
 
+* Step two: an organ 'note kernel'
+
+Making this =organ-drone= closure has really just been a prelude to
+the real business of making an /instrument/ in Extempore. At its
+heart, an instrument is just an xtlang closure, which calls two other
+xtlang closures:
+
+- the *note kernel*, which by convention is called =instname-note=. The
+  note kernel [[file:~/Documents/biott/org/_posts/2012-08-09-xtlang-type-reference.org][closure's signature]] must be
+  =[[double,double,double,double,double]*]*=
+- the *effect kernel*, which by convention is called =instname-fx=.
+  The effect kernel [[file:~/Documents/biott/org/_posts/2012-08-09-xtlang-type-reference.org][closure's signature]] must be
+  =[double,double,double,double,double*]*=
+
+These are just regular xtlang closures, they just have to have a
+particular type signature to allow them to play nicely with the rest
+of the =define-instrument= processing chain. When properly set up, an
+Extempore instrument can be played like a midi soft-synth. Individual
+notes can be triggered with an amplitude, a pitch and a duration.
+Impromptu users will be pretty familiar with this---it's the same as
+how you would play AU synths in Impromptu.[fn:play-note] The only
+difference is that the whole signal chain is now written in xtlang and
+dynamically compiled at run-time. You can have a look at it in
+=libs/core/audio_dsp.xtm= if you want to see the nuts and bolts of how
+it works.[fn:dsp-chain]
+
+The note kernel is another higher order closure. The reason for this
+is that it returns a closure which exists and will be called to yield
+each sample for the duration of a note (as scheduled by =play-note=).
+This gives us polyphony 'for free', because each note's closure can
+close over the state that it requires to make its drone sound, and the
+closures of different notes won't interfere with each other, they can
+be called one after the other with their outputs summed together. 
+
+The note kernel doesn't take into account the note envelope, the way
+the amplitude changes over the various stages of a note's lifecycle
+(attack, decay, sustain, and release). That stuff is all handled (and
+can be tweaked) through the top-level instrument's closure, which
+we'll get to later on. The note closure returned by the note kernel
+will basically be the =organ-drone= closure we made in the previous
+section, except with a few minor modifications. The key one is that
+the =organ-drone= closure just took one argument (=freq=), whereas the
+closures returned by =organ-note= have to take /four/ =double=
+arguments and returns a =double=.
+
+All this talk of closures and notes and kernels is probably getting
+confusing by now.  So, to recap:
 
 
-The note-kernel is just a regular extempore closure, it just has a
-particular type signature to allow it to play nicely with the rest of
-the =define-instrument= processing chain.  
+
 
 
 #+begin_src extempore
