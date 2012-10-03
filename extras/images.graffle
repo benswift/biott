@@ -26,7 +26,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2012-10-03 04:53:01 +0000</string>
+	<string>2012-10-03 05:04:06 +0000</string>
 	<key>Modifier</key>
 	<string>Ben Swift</string>
 	<key>NotesVisible</key>
@@ -51818,7 +51818,7 @@ pointer}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{660, 920}, {100, 40}}</string>
+					<string>{{940, 780}, {100, 40}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -51891,7 +51891,7 @@ pointer}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{660, 860}, {100, 60}}</string>
+					<string>{{940, 720}, {100, 60}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -51951,7 +51951,7 @@ pointer}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{100, 920}, {100, 40}}</string>
+					<string>{{800, 780}, {100, 40}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -52024,7 +52024,7 @@ pointer}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{100, 860}, {100, 60}}</string>
+					<string>{{800, 720}, {100, 60}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -60674,7 +60674,7 @@ pipe length}</string>
 		<key>SidebarWidth</key>
 		<integer>116</integer>
 		<key>VisibleRegion</key>
-		<string>{{1, 1}, {1786, 964}}</string>
+		<string>{{1, 8}, {1786, 964}}</string>
 		<key>Zoom</key>
 		<real>1</real>
 		<key>ZoomValues</key>

@@ -51,11 +51,7 @@ all compound and custom types.
 ** Int and float values
 
 #+begin_html
-<a href=""><img src="images/int-examples.png" alt=""></a>
-#+end_html
-
-#+begin_html
-<a href=""><img src="images/float-examples.png" width="300px" alt=""></a>
+<a href=""><img src="images/int-float-examples.png" alt=""></a>
 #+end_html
 
 The primitive float and int types of different widths are all
