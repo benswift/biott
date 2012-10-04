@@ -31,12 +31,16 @@ signatures.  And they do get easier to read at a glance in time---at
 least in my experience---but it's cool to be able to represent them
 visually as well.  And that's where xtlang type diagrams come in.
 
-This blog post is kindof a companion piece to the [[file:~/Documents/biott/org/_posts/2012-08-09-xtlang-type-reference.org][xtlang type system]]
-post, so if you haven't read that then it might be worth jumping
-across to do that first. That post does /use/ type diagrams, though,
-so don't worry if you don't understand them as you go through, they'll
-become clear after you come back and read /this/ post. Ah, if only
-learning were an acyclic graph!
+This blog post is a companion piece to the [[file:~/Documents/biott/org/_posts/2012-08-09-xtlang-type-reference.org][xtlang type system]] post, so
+if you haven't read that then it might be worth jumping across to do
+that first. That post does /use/ type diagrams, though, so don't worry
+if you don't understand them as you go through, they'll become clear
+after you come back and read /this/ post. Ah, if only learning were an
+acyclic graph!
+
+If this is the first time you've seen xtlang code then the diagrams
+might not make a lot of sense, and you might want to read up on
+[[file:2012-08-07-extempore-philosophy.org][Extempore]] and the [[file:2012-08-09-xtlang-type-reference.org][xtlang type system]].
 
 * The xtlang type key
 
@@ -59,7 +63,7 @@ represented by the same colour, i.e. =i1= to =i64= values are the same
 blue colour and =float= and =double= values are the same green colour.[fn:cluttering]
 To avoid confusion, if necessary the type can be written below
 the box (as is the case in the diagrams above).  However, for clarity
-the exact width of the int or float will be ommitted, especially when
+the exact width of the int or float will be omitted, especially when
 ints and floats are members of compound types like tuples or are taken
 as arguments to closures.
 
@@ -108,14 +112,14 @@ explain this:
 #+end_html
 
 Notice that all of the examples show tuple pointers: this is the
-standard way of dealing with tuples in xtlang.  The third example is
-interesting in the way that it shows the way tuples can be nested: the
-second element of the outer (2-element) tuple is itself a tuple.
+standard way of dealing with tuples in xtlang. The third example shows
+the way tuples can be nested: the second element of the outer
+(2-element) tuple is itself a tuple.
 
 It's also worth pointing out that the fact that tuples are graphically
-'larger' than the equivalent element types on their own, that doesn't
-mean that they take up more room in memory or anything like that.  As
-an example, the comparison between
+'larger' than the equivalent element types on their own, although that
+doesn't mean that they take up more room in memory or anything like
+that. As an example, the comparison between
 # todo maybe put some xtlang in here to demonstrate it too
 
 #+begin_html
@@ -134,17 +138,17 @@ potentially even some extra optimisations.
 Arrays are another compound type. Like tuples, arrays are represent in
 xtlang type diagrams in two layers---the top half indicates that it
 is an array type, and the bottom half indicates the length (number of
-elements) and the type of the elements.  Also like tuples, arrays are
+elements) and the type of the elements.  Like tuples, arrays are
 normally handled in xtlang via pointers.
 
 #+begin_html
 <a href=""><img src="images/array-examples.png" alt=""></a>
 #+end_html
 
-The third example is interesting in that it shows how the elements of
-an xtlang array can be of any type.  If you can look at that type
-signature and diagram and understand it then you're well on the way to
-understanding the xtlang type system.
+The third example shows how the elements of an xtlang array can be of
+any type. If you can look at that type signature and diagram and
+understand it then you're well on the way to understanding the xtlang
+type system.
 
 ** Vectors
 
@@ -162,28 +166,28 @@ operations but utilise the SIMD registers on the CPU for blazing
 speed.  However, because the performance of xtlang is in general
 pretty great anyway, it's probably best to start working with arrays,
 and to only switch to vectors if you really need to and are aware of
-their limitations.
+the trade-offs.
 
 ** Closures
 
 The final built-in xtlang is the closure type, and it's a super
 important one.  The [[file:2012-08-09-xtlang-type-reference.org][type reference post]] has more info on what closures
 are and what they can be used for, but suffice to say that they're a
-key part of many xtlang idioms (in part due to it's Scheme heritage)
+key part of many xtlang idioms (in part due to xtlang's Scheme heritage)
 and come up all the time in xtlang code.
 
 Closures are the most complicated of all the base types because they
-can take arguments and return values (although they don't /have/ to do
-either of those things).  The visual representation of the closure
-type therefore has to represent the both the argument type(s) and the
-return types of the closure (which is often referred to in C
-terminology as its /signature/).
+can take arguments and return values (although they don't /have/ to
+take arguments, and can return =void=). The visual representation of
+the closure type therefore has to represent the both the argument
+type(s) and the return types of the closure (which is often referred
+to in C terminology as its /signature/).
 
 Like tuples and arrays/vectors, closures are represented in
 layers---in this case three layers.  The top layer is for the argument
 types, the middle (black) layer indicates the closure type itself,
 and the bottom layer indicates the return type.  The closure may be
-named or anonymous, and the arguments will also be named and the
+named or anonymous, and the arguments may also be named and the
 argument names are represented in the diagram.
 
 As an example, consider the simple closure
@@ -260,23 +264,35 @@ And here are the xtlang type diagrams of =closure1=, =closure2= and
 #+end_html
 
 See how =closure1= (a simple closure which takes no arguments) and
-=closure4= (a more compilcated closure which takes and returns
-/clousures/ work together in the test closure =closure4_test=? The
-closure that's returned doesn't even have a name---it's an anonymous.
-Closures can be used as elements of tuples and arrays, too. That's the
-power of higher-order closures---and they're used all over the place
-in Extempore.
+=closure4= are 'composed' together in the test closure
+=closure4_test=? The closure that's returned by =closure4= doesn't
+even have a name---it's an anonymous. Closures can be used as elements
+of tuples and arrays, too. That's the power of higher-order
+closures---and they're used all over the place in Extempore.
 
-* Where to from here
+* On the usefulness of type diagrams
 
-This is just a helpful guide to the xtlang type diagrams which are
-used elsewhere in the Extempore documentation.  If this is the first
-time you've seen xtlang code then it won't make a lot of sense, and
-you really should read up on Extempore's [[file:2012-08-07-extempore-philosophy.org][philosophy]] and [[file:2012-08-09-xtlang-type-reference.org][type system]].
+xtlang type diagrams aren't a full 'source code visualisation'
+solution. I'm still trying to figure out a nice way to visualise a
+closure's side effects (as distinct from its return value), and
+=let=-binding is also hard to depict clearly.
 
-And again, you can grab the [[https://github.com/digego/extempore][source from github]] and have a hack around
-yourself---there's no better way to learn than to dive in, change
-things and see what breaks.
+Still, in any source code (not just xtlang) certain functions and
+variables are more important than others, at least in terms of
+understanding what the code /does/. Type diagrams can be used to
+visualise /key variables/ in xtlang code rather than trying to
+represent every variable and type in the code. This means that they
+can't be generated automatically, and they are time consuming to put
+together. However, judicious use of type diagrams to illustrate the
+important types and flow of xtlang code can really help in making
+xtlang code scrutable, especially for all the visual learners out
+there :)
+
+Type diagrams which are used throughout the Extempore documentation.
+
+And again, you can grab the [[https://github.com/digego/extempore][source from github]] (which includes an
+=examples= directory) and have a hack around yourself. A great way to
+learn is to dive in, change things and see what breaks.
 
 [fn:codeviz-options] There are lots of proprietary and FOSS packages
 out there which are designed to take source code as input and produce
