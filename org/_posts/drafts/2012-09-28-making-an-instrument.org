@@ -95,19 +95,18 @@ Still, a bit more context is helpful in understanding /why/ the
 organ's tone is produced like it is, and helps us think about how to
 represent and produce the tone digitally.
 
-* Step one: a drone organ
+* Making a drone organ
 
+The first part of making an instrument is defining its 'drone' tone:
+the sound that the instrument makes when it's being sustained. The
+kernel is just the sound the instrument would make if it were allowed
+to drone on forever without stopping, like if you left a paperweight
+on one of the organ's keys.
 
-The first part of making an instrument is defining its basic tone: the
-sound that the instrument makes when it's being sustained. The kernel
-is just the sound the instrument would make if it were allowed to
-drone on forever without stopping, like if you left a paperweight on
-one of the organ's keys.
-
-So, because the basis of the tone is the sum of 9 sinusoids (one for
-each drawbar), then that's what our note kernel needs to generate.
-There are lots of ways to do this, but one nice way is to use
-oscillator closures created by Extempore's =make-oscil= function.
+So, because the basis of the hammond organ tone is the sum of 9
+sinusoids (one for each drawbar), then that's what we need to
+generate. There are lots of ways to do this, but one nice way is to
+use oscillator closures created by Extempore's =make-oscil= function.
 
 #+begin_src extempore
   (load "libs/core/instruments.xtm")
@@ -265,31 +264,108 @@ in the playback pitch of the organ tone.
 # You can even 'reach in' to a given closure to get and set its closed
 # over variables using a dot syntax, but its idiomatic extempore to...
 
-* Step two: an organ 'note kernel'
+* Instruments and note-level control
 
 Making this =organ-drone= closure has really just been a prelude to
-the real business of making an /instrument/ in Extempore. At its
-heart, an instrument is just an xtlang closure, which calls two other
-xtlang closures:
-
-- the *note kernel*, which by convention is called =instname-note=. The
-  note kernel [[file:~/Documents/biott/org/_posts/2012-08-09-xtlang-type-reference.org][closure's signature]] must be
-  =[[double,double,double,double,double]*]*=
-- the *effect kernel*, which by convention is called =instname-fx=.
-  The effect kernel [[file:~/Documents/biott/org/_posts/2012-08-09-xtlang-type-reference.org][closure's signature]] must be
-  =[double,double,double,double,double*]*=
-
-These are just regular xtlang closures, they just have to have a
-particular type signature to allow them to play nicely with the rest
-of the =define-instrument= processing chain. When properly set up, an
-Extempore instrument can be played like a midi soft-synth. Individual
-notes can be triggered with an amplitude, a pitch and a duration.
-Impromptu users will be pretty familiar with this---it's the same as
-how you would play AU synths in Impromptu.[fn:play-note] The only
-difference is that the whole signal chain is now written in xtlang and
+the real business of making an /instrument/ in Extempore. An Extempore
+instrument can be played like a midi soft-synth. Individual notes can
+be triggered with an amplitude, a pitch and a duration. Impromptu
+users will be pretty familiar with this---it's the same as how you
+would play AU synths in Impromptu.[fn:play-note] The only difference
+is that the whole signal chain is now written in xtlang and
 dynamically compiled at run-time. You can have a look at it in
 =libs/core/audio_dsp.xtm= if you want to see the nuts and bolts of how
 it works.[fn:dsp-chain]
+
+This notion of /note-level/ control is the key difference between an
+Extempore /instrument/ and the type of audio DSP which I've covered in
+[[file:~/Documents/biott/org/_posts/2012-06-07-dsp-basics-in-extempore.org][other]] [[file:~/Documents/biott/org/_posts/2012-06-07-more-dsp-and-extempore-types.org][posts]], which were just writing audio continuously to the sound
+card through the =dsp= callback. An instrument still needs to be in
+the =dsp= callback somewhere: otherwise it can't play its audio out
+through the speakers. But it also needs some way of triggering notes
+and maintaining the state of all the notes being played at any given
+time.  
+
+=define-instrument= takes three arguments: 
+
+1. a name for the instrument 
+2. a *note kernel* closure, which must have the [[file:~/Documents/biott/org/_posts/2012-08-09-xtlang-type-reference.org][signature]]
+   =[[double,double,double,double,double]*]*=
+3. an *effect kernel* closure, which must have the [[file:~/Documents/biott/org/_posts/2012-08-09-xtlang-type-reference.org][signature]]
+   =[double,double,double,double,double*]*=
+
+So, when we finally define our hammond organ instrument, the
+definition will look like this
+
+#+begin_src extempore
+  (define-instrument organ organ-note organ-fx)
+#+end_src
+
+=define-instrument= is actually a (Scheme) macro, and it takes the two
+kernel closures (=organ-note= and =organ-fx=) and compiles a new
+xtlang closure, and binds it to the name =organ=.[fn:notyet] These are
+just regular xtlang closures, they just have to have a particular type
+signature to allow them to play nicely with the rest of the
+=define-instrument= processing chain.
+
+To have a look at what exactly our =organ= closure is going to look
+like, we can print out the code that the =define-instrument= call
+above will be expanded to (or alternatively we could look at the
+definition of the =define-instrument= macro in the
+=libs/core/instruments.xtm= source file).
+
+#+begin_src extempore
+  (println (macro-expand '(define-instrument organ organ-note organ-fx)))
+  
+  ;; evaluating the above line (and reformatting the output) gives
+  
+  (bind-func organ
+    (let* ((poly:i64 48)
+           (notes:[double,double,double,double]** (zalloc poly))
+           (attack:double 200.0)
+           (decay:double 200.0)
+           (release:double 1000.0)
+           (sustain:double 0.6)
+           (gain 2.0)
+           (ii 0)
+           (note-starts:double* (zalloc poly))
+           (new-note (lambda (start freq dur amp)
+                       (let ((free-note:i64 -1)
+                             (iii 0)
+                             (i 0))
+                         (dotimes (i poly)
+                           (if (> (pref note-starts i) 9999999999998.0)
+                               (set! free-note i)))
+                         (if (> free-note -1)
+                             (let ((note_zone (push_zone (* 1024 10))))
+                               (pset! notes free-note (make-note start freq amp dur attack decay release sustain note-starts free-note (organ-note) note_zone))
+                               (pset! note-starts free-note start)
+                               (pop_zone)
+                               1)
+                             0)))))
+      (dotimes (ii poly)
+        (pset! note-starts ii 9999999999999.0))
+      (lambda (in:double time:double chan:double dat:double*)
+        (let ((out:double 0.0)
+              (k 0))
+          (dotimes (k poly)
+            (if (< (pref note-starts k) time)
+                (set! out (+ out (* 0.3 ((pref notes k) in time chan))))))
+          (* gain (organ-fx out time chan dat))))))
+#+end_src
+
+Don't be overwhelmed if you don't understand the whole thing---you
+don't need to if you just want to play the instrument like a regular
+soft synth. In fact, you don't even need to understand it to /write/
+an instrument, as long as you follow the template and define your note
+kernel and effect kernel with the right type signatures. But it's
+worth commenting on a few high-level aspects of how
+=define-instrument= works, because it defines how the whole 'playing
+an instrument' thing works. So, a couple of things to note about
+=define-instrument=:
+
+- the
+
 
 The note kernel is another higher order closure. The reason for this
 is that it returns a closure which exists and will be called to yield
@@ -401,3 +477,6 @@ you're looking for more background.
 
 [fn:closure] This is why they're called closures, because they /close
 over/ their non-local variables.
+
+[fn:notyet] We can't actually evaluate this instrument definition yet, because we
+haven't yet defined the note and effect kernels.
