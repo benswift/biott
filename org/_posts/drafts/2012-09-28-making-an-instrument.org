@@ -421,32 +421,18 @@ anonymous closure that, when called once per audio sample, will
 generate the basic (drone) tone of the instrument. This closure is
 then turned into /another/ anonymous closure (which additionally
 applies an [[http://en.wikipedia.org/wiki/ADSR_envelope#ADSR_envelope][ADSR envelope]] to the audio output of the note kernel) which
-is added to =notes=: a buffer of closures which is =let=-bound in the
-top-level of our =organ= closure. In (pretty) pictures:
+is added to =notes=: a buffer of 'note closures' which is =let=-bound
+in the top-level of our =organ= closure. This is how polyphony is
+achieved: there's one active note closure in =notes= for each note
+which is currently sounding, e.g.if a triad is being played there will
+be three active note closures in =notes=.
 
+That's all a bit hard to wrap your head when it's described with
+words.  So, here's the same explanation in (pretty) pictures:
 
-
-- the
-
-
-The note kernel is another higher order closure. The reason for this
-is that it returns a closure which exists and will be called to yield
-each sample for the duration of a note (as scheduled by =play-note=).
-This gives us polyphony 'for free', because each note's closure can
-close over the state that it requires to make its drone sound, and the
-closures of different notes won't interfere with each other, they can
-be called one after the other with their outputs summed together. 
-
-The note kernel doesn't take into account the note envelope, the way
-the amplitude changes over the various stages of a note's lifecycle
-(attack, decay, sustain, and release). That stuff is all handled (and
-can be tweaked) through the top-level instrument's closure, which
-we'll get to later on. The note closure returned by the note kernel
-will basically be the =organ-drone= closure we made in the previous
-section, except with a few minor modifications. The key one is that
-the =organ-drone= closure just took one argument (=freq=), whereas the
-closures returned by =organ-note= have to take /four/ =double=
-arguments and returns a =double=.
+#+begin_html
+<a href=""><img src="images/note-lifecycle.png" alt=""></a>
+#+end_html
 
 Don't be overwhelmed if you don't understand the whole thing---you
 don't need to if you just want to play the instrument like a regular
@@ -454,18 +440,34 @@ soft synth. In fact, you don't even need to understand it to /write/
 an instrument, as long as you follow the template and define your note
 kernel and effect kernel with the right type signatures.
 
-* The note lifecycle
+# Not sure where this content should go...
 
-The key difference...
+# The note kernel is another higher order closure. The reason for this
+# is that it returns a closure which exists and will be called to yield
+# each sample for the duration of a note (as scheduled by =play-note=).
+# This gives us polyphony 'for free', because each note's closure can
+# close over the state that it requires to make its drone sound, and the
+# closures of different notes won't interfere with each other, they can
+# be called one after the other with their outputs summed together. 
 
-Put the xtlang type diagrams in here.
+# The note kernel doesn't take into account the note envelope, the way
+# the amplitude changes over the various stages of a note's lifecycle
+# (attack, decay, sustain, and release). That stuff is all handled (and
+# can be tweaked) through the top-level instrument's closure, which
+# we'll get to later on. The note closure returned by the note kernel
+# will basically be the =organ-drone= closure we made in the previous
+# section, except with a few minor modifications. The key one is that
+# the =organ-drone= closure just took one argument (=freq=), whereas the
+# closures returned by =organ-note= have to take /four/ =double=
+# arguments and returns a =double=.
 
-All this talk of closures and notes and kernels is probably getting
-confusing by now.  So, to recap:
+* Step two: the note kernel
 
-
-
-
+Back to the task at hand, we need to construct the note and effects
+kernels for our hammond organ instrument.  As we've just seen in the
+previous section once we have those, =define-instrument= and
+=play-note= allow us to play the organ like a soft synth, which is the
+goal we've been pursuing since the beginning.
 
 #+begin_src extempore
   (bind-func organ-note
