@@ -440,6 +440,8 @@ soft synth. In fact, you don't even need to understand it to /write/
 an instrument, as long as you follow the template and define your note
 kernel and effect kernel with the right type signatures.
 
+TODO: also the diagrams aren't /complete/
+
 # Not sure where this content should go...
 
 # The note kernel is another higher order closure. The reason for this
