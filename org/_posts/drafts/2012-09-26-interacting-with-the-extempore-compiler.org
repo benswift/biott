@@ -8,6 +8,50 @@ categories:
 ---
 #+end_html
 
+If you've read a few of the other blog post on this site about
+programming in (with xtlang or Scheme) in Extempore, then you've
+probably heard me talk about 'evaluating' code. If you're used to C or
+C++ (or any other statically compiled language) this might seem like a
+strange notion---code is /compiled/, then it is /executed/. The
+compiler produces a static binary (for a given architecture), which
+can be distributed and run all over the place. In general, if any
+changes are made to the code then the binary has to be re-compiled and
+re-distributed.
+
+On the other hand, if you've programmed in a lisp[fn:lisps], or in
+some type of scripting language (e.g. perl, ruby or python), then
+you've probably seen a read-eval-print-loop (REPL) before. Also called
+'interactive' development, in this style of programming you write bits
+of code, run them, and have the results printed 'echoed' back to you.
+The interpreter for the programming language /reads/ the code that you
+give it, /evaluates/ it (carries out the instructions it represents)
+and /prints/ the result. These REPL-style environments can be
+super-sophisticated,[fn:slime] providing lots of dynamic information
+about the state of the interpreters 'world' (often called the
+/environment/), i.e. the functions and data that the interpreter has
+seen in that programming session and is keeping track of.
+
+* Extempore and the (false) 'static vs dynamic language' dichotomy
+
+If you want to start a flame war on the internets, then just write a
+blog post called *Moving from (static language/framework x) to
+(dynamic language/framework y) at (company z)*. Bonus angry points if
+*company z* is a hot YC-backed startup, and a 10x multiplier if you
+mention clojure or node.js. Then you can sit back, watch the hacker
+news comment thread deteriorate, and weep for humanity. Ridiculousness
+aside, however, the dichotomy is kindof a false one anyway. In reality
+it's more of a spectrum, and both ends of the spectrum confer
+different advantages and disadvantages. The pertinent question for
+this post is /where does Extempore fit along this continuum/?
+
+The answer (as usual) is 'somewhere in the middle.  The best way to
+think about programming in Extempore is to think of it as a
+/compiler-as-a-service/ (CaaS).  In practice, this means that the
+compiler (in the form of the =extempore= executable) runs somewhere,
+and you connect to it via a TCP socket connection to send it code,
+which it compiles, evaluates, and returns prints the result (echoed
+back down the TCP connection)
+
 * General emacs stuff
 
 Load theme: =M-x load-theme= (then pick from the list)
@@ -42,3 +86,9 @@ Evaluate whole buffer: =C-x C-b=
 
 To restart the Extempore process, just =C-c C-c= in the *shell* buffer
 where it is running to kill it, then start it up again.
+
+[fn:lisps] That is, one of the lisp family of languages, e.g. Common
+Lisp, Scheme, Clojure, Emacs Lisp, etc.
+
+[fn:slime] Have you /seen/ a lisp hacker using Slime and Emacs?  Wow.
+That's some seriously funky stuff.
