@@ -85,13 +85,14 @@ The colours of the drawbar ends also give information about that
 harmonic: red drawbars for sub-harmonics, grey for even harmonics and
 black for the odd harmonics. Confusingly, by convention the left-most
 drawbar isn't the fundamental frequency of the note, it's an octave
-below the fundamental (which is controlled by the /third/ drawbar).
-It's also important to remember that the drawbars don't represent
-specific pitches, because the absolute pitch each drawbar is mapped to
-depends on the note being played (in the original tonewheel design,
-this is controlled by how fast the axle with the tonewheels on it is
-rotating).  The ratios between the frequencies are the important part,
-because they define how the organ sounds---the organ's /timbre/.
+below the fundamental (which is controlled by the /third/ drawbar,
+indicated by the orange box in the diagram). It's also important to
+remember that the drawbars don't represent specific pitches, because
+the absolute pitch each drawbar is mapped to depends on the note being
+played (in the original tonewheel design, this is controlled by how
+fast the axle with the tonewheels on it is rotating). The ratios
+between the frequencies are the important part, because they define
+how the organ sounds---the organ's /timbre/.
 
 Now, this is probably more information than is absolutely necessary to
 construct a simple model of the organ---at a bare minimum all we
@@ -466,38 +467,44 @@ TODO: also the diagrams aren't /complete/
 * Step two: the note kernel
 
 Back to the task at hand, we need to construct the note and effects
-kernels for our hammond organ instrument.  As we've just seen in the
-previous section once we have those, =define-instrument= and
-=play-note= allow us to play the organ like a soft synth, which is the
-goal we've been pursuing since the beginning.
+kernels for our hammond organ instrument. Once we have those,
+=define-instrument= and =play-note= allow us to play the organ like a
+soft synth, which is the goal we've been pursuing since the beginning.
+
+The 'template' for the note kernel and effects kernel is something
+like this
 
 #+begin_src extempore
   (bind-func organ-note
-    (let ((num_drawbars 9)
-          (freq_ratio:double* (zalloc num_drawbars))
-          (drawbar_pos:i64* (zalloc num_drawbars)))
-      ;; drawbar frequencies as ratio of fundamental frequency
-      (pfill! freq_ratio 0.5 1.5 1.0 2.0 3.0 4.0 5.0 6.0 8.0)
-      ;; drawbar positions: 0 = min, 8 = max amplitude
-      (pfill! drawbar_pos 8 8 8 0 0 0 0 0 0)
-      (lambda ()
-        (let ((tonewheel:[double,double,double]** (zalloc num_drawbars))
-              (i 0))
-          (dotimes (i num_drawbars)
-            (pset! tonewheel i (make-oscil 0.0)))
-          (lambda (time:double chan:double freq:double amp:double)
-            (if (= chan 0.0) ;; left channel only
-                (let ((sum 0.0))
-                  (dotimes (i num_drawbars)
-                    ;; (printf "i = %lld" i)
-                    (set! sum (+ sum (* (/ (i64tod (pref drawbar_pos i)) 8.0)
-                                        ((pref tonewheel i)
-                                         amp
-                                         (* freq (pref freq_ratio i)))))))
-                  (/ sum (i64tod num_drawbars)))))))))
+    (lambda ()
+      (lambda (time:double chan:double freq:double amp:double)
+        (cond ((= chan 0.0)
+               ;; left channel output goes here
+               )
+              ((= chan 1.0)
+               ;; right channel output goes here
+               )
+              (else 0.0)))))
   
+  (bind-func organ-fx
+    (lambda (in:double time:double chan:double dat:double*)
+      (cond ((= chan 0.0)
+             ;; left channel effects goes here
+             )
+            ((= chan 1.0)
+             ;; right channel effects output goes here
+             )
+            (else 0.0))))
 #+end_src
 
+Notice that we're defining it as a stereo instrument, but that doesn't
+mean anything fancier than that we handle the left channel (channel
+=0.0=) and the right channel (channel =1.0=) in our =cond= statement.
+The generalisation to multi-channel instruments should be
+obvious---just use a bigger =cond= form!
+
+To make the =organ-note= kernel, we'll fill in the template from the
+=organ-drone= closure we made earlier.
 
 #+begin_src extempore
   (bind-func organ-note
@@ -518,7 +525,6 @@ goal we've been pursuing since the beginning.
             (if (< chan 2.0)
                 (let ((sum 0.0))
                   (dotimes (i num_drawbars)
-                    ;; (printf "i = %lld" i)
                     (set! sum (+ sum (* (/ (i64tod (pref drawbar_pos i)) 8.0)
                                         ((pref tonewheel (+ (* 2 i) (dtoi64 chan)))
                                          amp
@@ -527,6 +533,35 @@ goal we've been pursuing since the beginning.
                   (/ sum (i64tod num_drawbars)))))))))
 #+end_src
 
+The general shape of the code is basically the same as in
+=organ-drone=. We still allocate a =tonewheel= a buffer of closures to
+keep track of our oscillators, and we still sum them all together with
+relative amplitudes based on the drawbar position. There are just
+additions:
+
+- the instrument is now stereo, so the =tonewheel= buffer is now twice as
+  big (=(zalloc (* 2 num_drawbars))=).  This gives us two oscillator
+  closures per tonewheel, one for L and one for R.
+- a 'smudge factor' (=freq_smudge=) has been added to the tonewheel
+  frequencies.  This is to make it sound a bit more 'organic', because
+  in a physical instrumet the frequency ratios between the tonewheels
+  aren't perfect.
+
+The other important difference between =organ-note= and =organ-drone=
+is that while =organ-drone= returns a double value (and so can be
+called directly for playback in the =dsp= closure), =organ-note=
+returns a /closure/.  A type diagram highlights the difference:
+
+#+begin_html
+<a href=""><img src="images/organ-drone-vs-note.png" alt=""></a>
+#+end_html
+
+As I described in the previous section, this provides the flexibility
+required to manage note scheduling (via =play-note=) and polyphony.
+
+* Step three: the effect kernel
+
+The final piece of the puzzle is the effect kernel =organ-fx=.
 In a Hammond organ, the frequencies of the
 different tonewheels are related to the
 
