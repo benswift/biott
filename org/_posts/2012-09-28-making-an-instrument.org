@@ -9,18 +9,18 @@ categories:
 #+end_html
 
 This covers the basics of creating an /instrument/ in Extempore. While
-there are [[file:~/Documents/biott/org/_posts/2012-06-07-dsp-basics-in-extempore.org][other]] [[file:~/Documents/biott/org/_posts/2012-06-07-more-dsp-and-extempore-types.org][posts]] which cover audio DSP at a lower level---from
-the basic building blocks of oscillators and filters, this tutorial
-covers the process of building an instrument which can be played using
-the conventional midi parameters of pitch and velocity. There'll be
-some dsp required to build the instrument, but playing it becomes just
-like playing any other soft synth or sampler plugin. The reason to
-buildi instruments is so that you don't /have/ to construct your audio
-synthesis chain from scratch each time, sometimes you just want to
-load a plugin and start playing.
+there are [[file:~/Documents/biott/org/_posts/2012-06-07-dsp-basics-in-extempore.org][other]] [[file:~/Documents/biott/org/_posts/2012-06-07-more-dsp-and-extempore-types.org][posts]] which cover audio digital signal processing
+(DSP) at a lower level---from the basic building blocks of oscillators
+and filters, this tutorial covers the process of building an
+instrument which can be played using the conventional midi parameters
+of pitch and velocity. There'll be some DSP required to build the
+instrument, but playing it becomes just like playing any other soft
+synth or sampler plugin. The reason to buildi instruments is so that
+you don't /have/ to construct your audio synthesis chain from scratch
+each time, sometimes you just want to load a plugin and start playing.
 
 Like everything in Extempore, though, we're going to build the
-instrument in xtlang and compile it at runtime. If you want the simple
+instrument in xtlang and compile it at run-time. If you want the simple
 'load up a patch and go' experience, then just load the xtlang code
 from a file. But if at any stage you want to modify the guts of the
 instrument while you're using it, then just bring up the code, change
@@ -59,7 +59,7 @@ having multiple tonewheels of different diameters attached to the same
 axle, the organ generates several different sinusoids together, which
 allows it to have a more interesting timbre than just a sine tone.
 
-The key tone-shaping control in a Hammond organ are its drawbars,
+The key tone-shaping controls in a Hammond organ are its drawbars,
 which look like this:
 
 #+begin_html
@@ -191,13 +191,13 @@ you'd be right. Each closure 'closes over' a state variable called
 =libs/core/audio_dsp.xtm=)
 
 #+begin_src extempore
-(bind-func make-oscil
-  (lambda (phase)
-    (lambda (amp freq)
-      (let ((inc (* TWOPI (/ freq SAMPLERATE))))
-	(set! phase (+ phase inc))
-	(if (> phase PI) (set! phase (- phase TWOPI)))
-	(* amp (_sin phase))))))
+  (bind-func make-oscil
+    (lambda (phase)
+      (lambda (amp freq)
+        (let ((inc (* TWOPI (/ freq SAMPLERATE))))
+          (set! phase (+ phase inc))
+          (if (> phase PI) (set! phase (- phase TWOPI)))
+          (* amp (_sin phase))))))
 #+end_src
 
 In an xtlang type diagram, =make-oscil= looks like this
@@ -396,7 +396,8 @@ notes, and to have silence when notes aren't being played. But how
 does the =organ= closure know what its output should be and which
 notes it should be playing?
 
-The playing of a note happens through a function called =play-note=.
+The playing of a note happens through a function called
+=_play-note=.[fn:play-note-underscore]
 
 #+begin_html
 <a href=""><img src="images/play-note.png" alt=""></a>
@@ -411,12 +412,17 @@ which takes four arguments:
 - =amp=: the volume/loudness of the note
 - =dur=: the duration of the note
 
-Hopefully you can see how =play-note= provides all the control
+Hopefully you can see how =_play-note= provides all the control
 required to /schedule/ (via the =time= argument) notes of any pitch,
 loudness and duration. All you need to play the =organ= like a MIDI
-soft synth.
+soft synth. Actually, you'll mostly use the Scheme wrapper function
+=play-note= (note the lack of a leading underscore) which takes pitch
+and velocity arguments (with ranges from 0 to 127) instead of raw
+frequency and amplitude values. But =play-note= just does some simple
+argument transformations and then passes control to =_play-note=,
+which does the work, so it's =_play-note= that I'll explain first.
 
-But how does it work? When =play-note= is called with =organ= as the
+So how does it work? When =_play-note= is called with =organ= as the
 instrument, the note kernel =organ-note= is called which returns an
 anonymous closure that, when called once per audio sample, will
 generate the basic (drone) tone of the instrument. This closure is
@@ -450,7 +456,7 @@ the code works.
 
 # The note kernel is another higher order closure. The reason for this
 # is that it returns a closure which exists and will be called to yield
-# each sample for the duration of a note (as scheduled by =play-note=).
+# each sample for the duration of a note (as scheduled by =_play-note=).
 # This gives us polyphony 'for free', because each note's closure can
 # close over the state that it requires to make its drone sound, and the
 # closures of different notes won't interfere with each other, they can
@@ -471,11 +477,11 @@ the code works.
 
 Back to the task at hand, we need to construct the note and effects
 kernels for our hammond organ instrument. Once we have those,
-=define-instrument= and =play-note= allow us to play the organ like a
+=define-instrument= and =_play-note= allow us to play the organ like a
 soft synth, which is the goal we've been pursuing since the beginning.
 
 The 'template' for the note kernel and effects kernel is something
-like this
+like this (this is just a skeleton---it won't compile)
 
 #+begin_src extempore
   (bind-func organ-note
@@ -547,7 +553,7 @@ additions:
   closures per tonewheel, one for L and one for R.
 - a 'smudge factor' (=freq_smudge=) has been added to the tonewheel
   frequencies.  This is to make it sound a bit more 'organic', because
-  in a physical instrumet the frequency ratios between the tonewheels
+  in a physical instrument the frequency ratios between the tonewheels
   aren't perfect.
 
 The other important difference between =organ-note= and =organ-drone=
@@ -560,7 +566,7 @@ returns a /closure/.  A type diagram highlights the difference:
 #+end_html
 
 As I described in the previous section, this provides the flexibility
-required to manage note scheduling (via =play-note=) and polyphony.
+required to manage note scheduling (via =_play-note=) and polyphony.
 
 * Step three: the effect kernel
 
@@ -611,9 +617,9 @@ Now, let's see if our instrument works! Having compiled both
 
 #+begin_src extempore
   (define-instrument organ organ-note organ-fx)
-
-  ;; TODO what's the compiler output?
-
+  
+  ;; Compiled organ >>> [double,double,double,double,double*]*
+  
   (bind-func dsp:DSP
     (lambda (in time chan dat)
       (organ in time chan dat)))
@@ -624,18 +630,18 @@ Now, let's see if our instrument works! Having compiled both
 and the moment of truth...
 
 #+begin_src extempore
-  (play-note (now)    ; time
-             organ    ; instrument
-             440.0    ; frequency (Hz)
-             1.0      ; amplitude (loudness)
-             44100.0) ; duration (in samples, 44100.0 = 1sec)
+  (play-note (now)   ; time
+             organ   ; instrument
+             60      ; pitch (midi note number, middle C = 60)
+             100     ; velocity (in range [0,127])
+             44100)  ; duration (in samples, 44100 = 1sec)
 #+end_src
 
 if everything is hooked up right, when you evaluate (=C-x C-x= in
-Emacs) the =play-note= call above you should hear a 440Hz (the A below
-middle C) organ note which plays for one second (44100 samples). Try
-changing the frequency, amplitude and loudness values and see how the
-note changes.
+Emacs) the =play-note= Scheme call above you should hear a 440Hz (the
+A below middle C) organ note which plays for one second (44100
+samples). Try changing the frequency, amplitude and loudness values
+and see how the note changes.
 
 *Troubleshooting* if this /didn't/ work, there are a few possible
  causes:
@@ -666,9 +672,9 @@ details of the specific model being emulated. We won't try to do too
 much of that in this tutorial, but again, if you want to hack around
 add things to the instrument then feel free.
 
-[fn:play-note] In fact, there's a =play-note= function and a =play=
-macro in Extempore which are exactly the same as they were in
-Impromptu---so any audio code which triggered notes in this way should
+[fn:play-note] In fact, the =play-note= Scheme function and =play=
+Scheme macro behave the exact same way in Extempore as they did in
+Impromptu, so any audio code which triggers notes in this way should
 work unmodified (although the synth which receives and /plays/ these
 notes will be different).
 
@@ -680,6 +686,10 @@ over/ their non-local variables.
 
 [fn:notyet] We can't actually evaluate this instrument definition yet, because we
 haven't yet defined the note and effect kernels.
+
+[fn:play-note-underscore] The xtlang closure =_play-note= is named
+with a leading underscore so as to not interfere with the scheme
+closure =play-note= which was inherited from Impromptu.
 
 [fn:flanger] The source code for =make-flanger= can be found in
 =libs/core/audio_dsp.xtm=.
