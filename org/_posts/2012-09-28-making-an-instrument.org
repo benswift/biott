@@ -561,10 +561,99 @@ required to manage note scheduling (via =play-note=) and polyphony.
 
 * Step three: the effect kernel
 
-The final piece of the puzzle is the effect kernel =organ-fx=.
-In a Hammond organ, the frequencies of the
-different tonewheels are related to the
+The final piece of the puzzle is the effect kernel =organ-fx=. In a
+tonewheel organ, the main effect which we want to model is the [[http://en.wikipedia.org/wiki/Leslie_speaker][Leslie
+speaker]]. The warbling Leslie speaker is key part of the classic
+hammond sound.
 
+A Leslie speaker worked by having speaker drivers which were motorised
+and would rotate as the sound was being played through them.  This
+produced a warbling, doppler-shifting tone colouration.  Like with any
+digital modelling of a physical instrument, modelling the speaker's
+effect really accurately is a difficult task, but there are some
+simple techniques we can use to achieve a serviceable approximation of
+this effect.  In particular, our =organ-fx= kernel will use a [[http://en.wikipedia.org/wiki/Flanging][flanger]]
+and [[http://en.wikipedia.org/wiki/Tremolo][tremolo]] (with subtly different frequencies between the L and R
+channels) to simulate the sound of a Leslie speaker.
+
+#+begin_src extempore
+  (bind-func organ-fx 100000
+    (let ((flanl (make-flanger 1.0 0.0 0.6 1.0))
+          (flanr (make-flanger 1.0 0.0 0.6 1.0))
+          (treml (make-oscil 0.0))
+          (tremr (make-oscil 0.0))
+          (trem_amp 0.1)
+          (trem_freq .0))
+      (lambda (in:double time:double chan:double dat:double*)
+        (cond ((= chan 0.0)
+               (* (flanl in)
+                  (+ 1.0 (treml trem_amp trem_freq))))
+              ((= chan 1.0)
+               (* (flanr in)
+                  (+ 1.0 (tremr trem_amp (* 1.1 trem_freq)))))
+              (else 0.0)))))
+#+end_src
+
+The code is fairly straightforward. The top-level =let= binds a pair
+of flanger closures[fn:flanger] (=flanl= and =flanr=) and a pair of oscillator
+closures for the tremolo effect (=treml= and =tremr=).  In the body of
+=lambda=, the input sample =in= is processed with the flanger and
+tremolo for the appropriate channel.
+
+* Playing the instrument
+
+Now, let's see if our instrument works! Having compiled both
+=organ-note= and =organ-fx=, we're finally ready to use
+=define-instrument= to set everything up
+
+#+begin_src extempore
+  (define-instrument organ organ-note organ-fx)
+
+  ;; TODO what's the compiler output?
+#+end_src
+
+and the moment of truth...
+
+#+begin_src extempore
+  (bind-func dsp:DSP
+    (lambda (in time chan dat)
+      (organ in time chan dat)))
+  
+  (dsp:set! dsp)
+  
+  (play-note (now)    ; time
+             organ    ; instrument
+             440.0    ; frequency (Hz)
+             1.0      ; amplitude (loudness)
+             44100.0) ; duration (in samples, 44100.0 = 1sec)
+#+end_src
+
+if everything is hooked up right, when you evaluate (=C-x C-x=) the
+=play-note= call above you should hear a 440Hz (the A below middle C)
+organ note which plays for one second (44100 samples).  Try changing
+the frequency, amplitude and loudness values and see how the note
+changes.
+
+If this /didn't/ work, there are a few possible causes:
+
+- is your audio interface configured properly? Running the
+  =./extempore --print-deivces= at the command line will print a list
+  of all the audio devices the system knows about. Make sure that
+  you're using the right one---you can specify which device Extempore
+  should use with the =--device= argument e.g. =./extempore --device
+  2=, where =2= is the index (in the output of ==-print-devices=) of
+  the device you want to use.
+- did the =organ=, =organ-note= and =organ-fx= closures all compile
+  properly?  Check the log output to find out.  If the compiler can't
+  find the definition of some functions (e.g. =make-oscil=) then you
+  might not have loaded all the libraries that you need.
+- is =organ= in your =dsp= callback?  Because you can schedule all the
+  notes you like with =play-note=---if the return values of =organ=
+  aren't getting passed to the audio output then you won't hear anything!
+
+Stay tuned for the next exciting instalment, where we'll actually
+/play/ our instrument in some more interesting ways: like /actual
+music/. We'll get there, I promise!
 
 [fn:quirks] Any commercial Hammond organ modelling synth will add
 /heaps/ of other stuff to this basic tone, to faithfully recreate the
@@ -587,3 +676,6 @@ over/ their non-local variables.
 
 [fn:notyet] We can't actually evaluate this instrument definition yet, because we
 haven't yet defined the note and effect kernels.
+
+[fn:flanger] The source code for =make-flanger= can be found in
+=libs/core/audio_dsp.xtm=.
