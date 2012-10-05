@@ -28,7 +28,7 @@ it around, re-compile it, and you'll hear the results straight away.
 
 This is a also a fairly long and detailed post.  If you're interested
 in just /playing/ instruments rather than writing them, you don't need
-to know all this and can jump ahead to this post (TODO).  If you want
+to know all this and can jump ahead to this post (TODO coming soon!).  If you want
 to come back later to find out in a bit more detail exactly what's
 going on with Extempore instruments then this is the place to find out.
 
@@ -203,7 +203,7 @@ you'd be right. Each closure 'closes over' a state variable called
 In an xtlang type diagram, =make-oscil= looks like this
 
 #+begin_html
-<a href=""><img src="images/make-oscil.png" width="300px" alt=""></a>
+<a href=""><img src="images/make-oscil.png" width="450px" alt=""></a>
 #+end_html
 
 =make-oscil= is a higher-order closure, because it returns a closure,
@@ -441,7 +441,10 @@ soft synth. In fact, you don't even need to understand it to /write/
 an instrument, as long as you follow the template and define your note
 kernel and effect kernel with the right type signatures.
 
-TODO: also the diagrams aren't /complete/
+Also the diagrams aren't /complete/---they don't show all the types
+and code involved in this process, and they contain some (slight)
+simplifications. They're designed to explain the key aspects of how
+the code works.
 
 # Not sure where this content should go...
 
@@ -595,7 +598,7 @@ channels) to simulate the sound of a Leslie speaker.
 #+end_src
 
 The code is fairly straightforward. The top-level =let= binds a pair
-of flanger closures[fn:flanger] (=flanl= and =flanr=) and a pair of oscillator
+of flanger[fn:flanger] closures (=flanl= and =flanr=) and a pair of oscillator
 closures for the tremolo effect (=treml= and =tremr=).  In the body of
 =lambda=, the input sample =in= is processed with the flanger and
 tremolo for the appropriate channel.
@@ -604,23 +607,23 @@ tremolo for the appropriate channel.
 
 Now, let's see if our instrument works! Having compiled both
 =organ-note= and =organ-fx=, we're finally ready to use
-=define-instrument= to set everything up
+=define-instrument= to make our xtlang hammond organ
 
 #+begin_src extempore
   (define-instrument organ organ-note organ-fx)
 
   ;; TODO what's the compiler output?
-#+end_src
 
-and the moment of truth...
-
-#+begin_src extempore
   (bind-func dsp:DSP
     (lambda (in time chan dat)
       (organ in time chan dat)))
   
   (dsp:set! dsp)
-  
+#+end_src
+
+and the moment of truth...
+
+#+begin_src extempore
   (play-note (now)    ; time
              organ    ; instrument
              440.0    ; frequency (Hz)
@@ -628,20 +631,21 @@ and the moment of truth...
              44100.0) ; duration (in samples, 44100.0 = 1sec)
 #+end_src
 
-if everything is hooked up right, when you evaluate (=C-x C-x=) the
-=play-note= call above you should hear a 440Hz (the A below middle C)
-organ note which plays for one second (44100 samples).  Try changing
-the frequency, amplitude and loudness values and see how the note
-changes.
+if everything is hooked up right, when you evaluate (=C-x C-x= in
+Emacs) the =play-note= call above you should hear a 440Hz (the A below
+middle C) organ note which plays for one second (44100 samples). Try
+changing the frequency, amplitude and loudness values and see how the
+note changes.
 
-If this /didn't/ work, there are a few possible causes:
+*Troubleshooting* if this /didn't/ work, there are a few possible
+ causes:
 
 - is your audio interface configured properly? Running the
   =./extempore --print-deivces= at the command line will print a list
   of all the audio devices the system knows about. Make sure that
   you're using the right one---you can specify which device Extempore
   should use with the =--device= argument e.g. =./extempore --device
-  2=, where =2= is the index (in the output of ==-print-devices=) of
+  2=, where =2= is the index (in the output of =--print-devices=) of
   the device you want to use.
 - did the =organ=, =organ-note= and =organ-fx= closures all compile
   properly?  Check the log output to find out.  If the compiler can't
