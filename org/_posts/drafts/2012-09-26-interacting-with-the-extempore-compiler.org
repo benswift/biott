@@ -8,6 +8,21 @@ categories:
 ---
 #+end_html
 
+The best way to think about programming and evaluating code in
+Extempore is to think of it as a /compiler-as-a-service/ (CaaS). The
+compiler (provided by the =extempore= executable) must be running
+somewhere, and you connect to it via a TCP socket connection. When the
+compiler receives any code (serialised as a string) over this
+connection, it compiles and executes it.
+
+
+
+
+ Scheme/xtlang code which to send it code, which it
+compiles, evaluates, and returns prints the result (echoed back down
+the TCP connection)
+
+
 If you've read a few of the other blog post on this site about
 programming in (with xtlang or Scheme) in Extempore, then you've
 probably heard me talk about 'evaluating' code. If you're used to C or
@@ -44,14 +59,7 @@ it's more of a spectrum, and both ends of the spectrum confer
 different advantages and disadvantages. The pertinent question for
 this post is /where does Extempore fit along this continuum/?
 
-The answer (as usual) is 'somewhere in the middle.  The best way to
-think about programming in Extempore is to think of it as a
-/compiler-as-a-service/ (CaaS).  In practice, this means that the
-compiler (in the form of the =extempore= executable) runs somewhere,
-and you connect to it via a TCP socket connection to send it code,
-which it compiles, evaluates, and returns prints the result (echoed
-back down the TCP connection)
-
+The answer (as usual) is 'somewhere in the middle.  
 * General emacs stuff
 
 Load theme: =M-x load-theme= (then pick from the list)
