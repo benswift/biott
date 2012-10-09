@@ -13,14 +13,110 @@ Extempore is to think of it as a /compiler-as-a-service/ (CaaS). The
 compiler (provided by the =extempore= executable) must be running
 somewhere, and you connect to it via a TCP socket connection. When the
 compiler receives any code (serialised as a string) over this
-connection, it compiles and executes it.
+connection, it compiles and executes it. The general term for this is
+'evaluating' the code. There are some nuances to this process, but in
+general the programmer interacts with a running Extempore process over
+a TCP connection.
+
+The 'chunks' of code which are sent to the xtlang compiler may be
+anything from small one-liners to instructions to evaluate whole
+source files (via the =load= function). The functions and data which
+are evaluated in this way persist for as long as the =extempore=
+process is running. As discussed in [[file:~/Documents/biott/org/_posts/2012-08-07-extempore-philosophy.org][this post]], the Extempore compiler
+actually compiles /two/ languages: Scheme and xtlang (Extempore's own
+programming language).[fn:scm-vs-xtlang]  But the process of
+evaluating them is the same---just sending strings to the compiler
+over the TCP port.
+
+So, to do anything in Extempore you need a text editor which can
+1. open up a TCP connection to the compiler (which by default listens
+   on port =7099=)
+2. create a string which represents a valid chunk of Scheme or xtlang
+   code[fn:philosophy]
+3. send that string over the TCP connection
+
+There are lots of text editors which can perform these functions, so
+you basically have two options:
+
+- *If you already have a favourite text editor*, then you'll probably
+  want to write and evaluate your code using that editor. There are
+  already Extempore modes/plugins for [[https://github.com/digego/extempore/blob/master/extras/extempore.el][Emacs]], [[https://github.com/digego/extempore/blob/master/extras/extempore.vim][Vim]] and [[https://github.com/mlozanov/extempore-sublime][Sublime Text 2]].
+  If your favourite editor isn't one of those three, then you might
+  even have the chops to hack together a plugin yourself---at its most
+  basic all it has to do is perform those three functions listed above.
+
+- *If you don't have a favourite text editor* then pick one of the
+  ones listed above ([[http://www.gnu.org/software/emacs/][Emacs]], [[http://www.vim.org][Vim]] or [[http://www.sublimetext.com][Sublime Text 2]]). The Emacs
+  Extempore mode is the most mature and featureful, but if you don't
+  want to deal with the (admittedly daunting) task of learning Emacs
+  /as well as/ Extempore, then the ST2 plugin is pretty good as well
+  (although ST2 does cost money).
+
+In the end it doesn't matter too much which editor you use, so pick
+the one that makes you happiest :)
+
+* Running Extempore
+
+I'm assuming that you've already downloaded and built the Extempore
+binary executable (=extempore= on Linux/OSX, =extempore.exe= on
+Windows). Once that's done, you can fire up =extempore=. But to do
+that, you need to specify an audio device. This is necessary even if
+you're not planning to do any audio processing or output, because
+Extempore's internal clock is driven by the audio device's
+clock.[fn:clock]
+
+But how do we know what audio device to select?  Well, the =extempore=
+executable provides a handy command-line argument called
+=--print-devices=
+
+#+begin_html
+<a href=""><img src="images/interacting-with-compiler/extempore-print-devices.png" alt=""></a> 
+#+end_html
+
+As you can see, running =extempore= with the =--print-devices=
+argument (after =cd= ing into the extempore source directory where the
+executable is) prints a list of all the audio devices (input, output
+and duplex) that PortAudio can find on the system. On my laptop, which
+is the source of the output you can see above, there are three devices
+(device index =0= to =2=) associated with the built-in soundcard, and
+two more (device index =3= and =4=) for [[http://code.google.com/p/soundflower/][Soundflower]], which is a
+utility for routing audio between different applications. Your
+computer will probably print different devices---that's ok.
+
+I want to use the default laptop output, which is =audio device[2]=.
+When I run =extempore=, then, I want to pass this device index with
+the =--device= argument.  The =--device= argument is optional, if it's
+not supplied then Extempore will default to using whatever device is
+found at index =0=.  But it's probably a good idea to specify it
+explicitly, just to avoid any surprises.
+
+#+begin_html
+<a href=""><img src="images/interacting-with-compiler/extempore-start.png" alt=""></a> 
+#+end_html
+
+After running =extempore= with device =2=, it prints some information
+about the device that it's using.  As you can see, it all looks ok: 2
+channels out, samplerate of 44100, everthing seems good (and don't
+worry too much about the other values for the moment).
+
+Also, the compiler prints some information about 'starting up some
+processes', namely a =primary= process on port =7099= and a =utility=
+process on port =7098=. These are the TCP ports we'll connect to to
+send our code over, as discussed at the beginning of this blog post. A
+running Extempore binary can provide /multiple/ processes, as well as
+connecting to multiple other Extempore processes, potentially running
+on remote hosts. This forms the basis for Extempore's powerful
+distributed processing capability, which I'll cover in a future blog
+post.  For the moment, though, you don't have to worry about multiple
+processes, we'll only connect and interact with the =primary= process.
+
+* Connecting to the Extempore compiler
 
 
 
-
- Scheme/xtlang code which to send it code, which it
-compiles, evaluates, and returns prints the result (echoed back down
-the TCP connection)
+ Scheme/xtlang code which to send it code, which it compiles,
+evaluates, and returns prints the result (echoed back down the TCP
+connection)
 
 
 If you've read a few of the other blog post on this site about
@@ -94,6 +190,15 @@ Evaluate whole buffer: =C-x C-b=
 
 To restart the Extempore process, just =C-c C-c= in the *shell* buffer
 where it is running to kill it, then start it up again.
+
+[fn:scm-vs-xtlang] There are lots of [[file:~/Documents/biott/org/_posts/2012-08-09-xtlang-type-reference.org][other]] [[file:~/Documents/biott/org/_posts/2012-08-17-memory-management-in-extempore.org][posts]] describing xtlang in
+more detail. In this post, I'll just refer to the code generally, only
+clarifying whether its Scheme or xtlang when there's a possibility for
+confusion.
+
+[fn:clock] This is a good thing: the audio clock will usually be more
+stable and accurate than your computer's default system clock,
+especially if you're using a dedicated external audio interface.
 
 [fn:lisps] That is, one of the lisp family of languages, e.g. Common
 Lisp, Scheme, Clojure, Emacs Lisp, etc.
