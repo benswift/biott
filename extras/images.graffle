@@ -26,7 +26,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2012-10-09 05:33:01 +0000</string>
+	<string>2012-10-09 06:40:20 +0000</string>
 	<key>Modifier</key>
 	<string>Ben Swift</string>
 	<key>NotesVisible</key>
@@ -85,7 +85,7 @@
 			<key>BackgroundGraphic</key>
 			<dict>
 				<key>Bounds</key>
-				<string>{{0, 0}, {1660, 7610}}</string>
+				<string>{{0, 0}, {1660, 8450}}</string>
 				<key>Class</key>
 				<string>SolidGraphic</string>
 				<key>ID</key>
@@ -109,7 +109,7 @@
 			<key>CanvasOrigin</key>
 			<string>{0, 0}</string>
 			<key>CanvasSize</key>
-			<string>{1660, 7610}</string>
+			<string>{1660, 8450}</string>
 			<key>ColumnAlign</key>
 			<integer>1</integer>
 			<key>ColumnSpacing</key>
@@ -118,6 +118,603 @@
 			<string>1 pt = 1 pt</string>
 			<key>GraphicsList</key>
 			<array>
+				<dict>
+					<key>Bounds</key>
+					<string>{{1150, 3114}, {480, 296}}</string>
+					<key>Class</key>
+					<string>ShapedGraphic</string>
+					<key>FitText</key>
+					<string>Clip</string>
+					<key>Flow</key>
+					<string>Clip</string>
+					<key>FontInfo</key>
+					<dict>
+						<key>Color</key>
+						<dict>
+							<key>b</key>
+							<string>1</string>
+							<key>g</key>
+							<string>1</string>
+							<key>r</key>
+							<string>1</string>
+						</dict>
+						<key>Font</key>
+						<string>Inconsolata</string>
+						<key>Size</key>
+						<real>32</real>
+					</dict>
+					<key>ID</key>
+					<integer>398</integer>
+					<key>Magnets</key>
+					<array>
+						<string>{1, 1}</string>
+						<string>{1, -1}</string>
+						<string>{-1, -1}</string>
+						<string>{-1, 1}</string>
+						<string>{0, 1}</string>
+						<string>{0, -1}</string>
+						<string>{1, 0}</string>
+						<string>{-1, 0}</string>
+					</array>
+					<key>Shape</key>
+					<string>Rectangle</string>
+					<key>Style</key>
+					<dict>
+						<key>fill</key>
+						<dict>
+							<key>Color</key>
+							<dict>
+								<key>a</key>
+								<string>0.65</string>
+								<key>b</key>
+								<string>0.901961</string>
+								<key>g</key>
+								<string>0.901961</string>
+								<key>r</key>
+								<string>0.901961</string>
+							</dict>
+						</dict>
+						<key>shadow</key>
+						<dict>
+							<key>Draws</key>
+							<string>NO</string>
+						</dict>
+						<key>stroke</key>
+						<dict>
+							<key>Color</key>
+							<dict>
+								<key>b</key>
+								<string>0.190817</string>
+								<key>g</key>
+								<string>0.216503</string>
+								<key>r</key>
+								<string>0.210809</string>
+							</dict>
+							<key>Draws</key>
+							<string>NO</string>
+							<key>Width</key>
+							<real>8</real>
+						</dict>
+					</dict>
+					<key>Text</key>
+					<dict>
+						<key>Align</key>
+						<integer>0</integer>
+						<key>Pad</key>
+						<integer>20</integer>
+						<key>VerticalPad</key>
+						<integer>20</integer>
+					</dict>
+					<key>TextPlacement</key>
+					<integer>0</integer>
+				</dict>
+				<dict>
+					<key>Bounds</key>
+					<string>{{1140, 3094}, {499.99999999999989, 346}}</string>
+					<key>Class</key>
+					<string>ShapedGraphic</string>
+					<key>FitText</key>
+					<string>Clip</string>
+					<key>Flow</key>
+					<string>Clip</string>
+					<key>FontInfo</key>
+					<dict>
+						<key>Color</key>
+						<dict>
+							<key>b</key>
+							<string>1</string>
+							<key>g</key>
+							<string>1</string>
+							<key>r</key>
+							<string>1</string>
+						</dict>
+						<key>Font</key>
+						<string>Inconsolata</string>
+						<key>Size</key>
+						<real>32</real>
+					</dict>
+					<key>ID</key>
+					<integer>396</integer>
+					<key>Magnets</key>
+					<array>
+						<string>{1, 1}</string>
+						<string>{1, -1}</string>
+						<string>{-1, -1}</string>
+						<string>{-1, 1}</string>
+						<string>{0, 1}</string>
+						<string>{0, -1}</string>
+						<string>{1, 0}</string>
+						<string>{-1, 0}</string>
+					</array>
+					<key>Shape</key>
+					<string>Rectangle</string>
+					<key>Style</key>
+					<dict>
+						<key>fill</key>
+						<dict>
+							<key>Color</key>
+							<dict>
+								<key>b</key>
+								<string>0.901961</string>
+								<key>g</key>
+								<string>0.901961</string>
+								<key>r</key>
+								<string>0.901961</string>
+							</dict>
+						</dict>
+						<key>shadow</key>
+						<dict>
+							<key>Draws</key>
+							<string>NO</string>
+						</dict>
+						<key>stroke</key>
+						<dict>
+							<key>Color</key>
+							<dict>
+								<key>b</key>
+								<string>0.190817</string>
+								<key>g</key>
+								<string>0.216503</string>
+								<key>r</key>
+								<string>0.210809</string>
+							</dict>
+							<key>Width</key>
+							<real>8</real>
+						</dict>
+					</dict>
+					<key>Text</key>
+					<dict>
+						<key>Align</key>
+						<integer>0</integer>
+						<key>Pad</key>
+						<integer>20</integer>
+						<key>Text</key>
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1187\cocoasubrtf340
+\cocoascreenfonts1{\fonttbl\f0\fnil\fcharset0 Inconsolata;}
+{\colortbl;\red255\green255\blue255;\red128\green0\blue128;\red228\green100\blue3;\red0\green128\blue0;
+}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f0\fs64 \cf0 Starting \cf2 utility\cf0  process\
+Trying to connect to 'localhost' on port 7099\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+\cf3 New Client Connection \
+\cf4 Successfully\cf0  connected to remote process\
+\
+\cf3 New Client Connection}</string>
+						<key>VerticalPad</key>
+						<integer>20</integer>
+					</dict>
+					<key>TextPlacement</key>
+					<integer>0</integer>
+				</dict>
+				<dict>
+					<key>Bounds</key>
+					<string>{{260.00000000000006, 3370}, {499.99999999999989, 60}}</string>
+					<key>Class</key>
+					<string>ShapedGraphic</string>
+					<key>FontInfo</key>
+					<dict>
+						<key>Color</key>
+						<dict>
+							<key>b</key>
+							<string>1</string>
+							<key>g</key>
+							<string>1</string>
+							<key>r</key>
+							<string>1</string>
+						</dict>
+						<key>Font</key>
+						<string>Inconsolata</string>
+						<key>Size</key>
+						<real>32</real>
+					</dict>
+					<key>ID</key>
+					<integer>391</integer>
+					<key>Magnets</key>
+					<array>
+						<string>{1, 1}</string>
+						<string>{1, -1}</string>
+						<string>{-1, -1}</string>
+						<string>{-1, 1}</string>
+						<string>{0, 1}</string>
+						<string>{0, -1}</string>
+						<string>{1, 0}</string>
+						<string>{-1, 0}</string>
+					</array>
+					<key>Shape</key>
+					<string>Rectangle</string>
+					<key>Style</key>
+					<dict>
+						<key>fill</key>
+						<dict>
+							<key>Color</key>
+							<dict>
+								<key>b</key>
+								<string>0.100568</string>
+								<key>g</key>
+								<string>0.118202</string>
+								<key>r</key>
+								<string>0.114815</string>
+							</dict>
+						</dict>
+						<key>shadow</key>
+						<dict>
+							<key>Draws</key>
+							<string>NO</string>
+						</dict>
+						<key>stroke</key>
+						<dict>
+							<key>Color</key>
+							<dict>
+								<key>b</key>
+								<string>0.190817</string>
+								<key>g</key>
+								<string>0.216503</string>
+								<key>r</key>
+								<string>0.210809</string>
+							</dict>
+							<key>Width</key>
+							<real>8</real>
+						</dict>
+					</dict>
+					<key>Text</key>
+					<dict>
+						<key>Align</key>
+						<integer>0</integer>
+						<key>Pad</key>
+						<integer>20</integer>
+					</dict>
+				</dict>
+				<dict>
+					<key>Bounds</key>
+					<string>{{260.00000000000006, 3090}, {499.99999999999989, 280}}</string>
+					<key>Class</key>
+					<string>ShapedGraphic</string>
+					<key>FontInfo</key>
+					<dict>
+						<key>Color</key>
+						<dict>
+							<key>b</key>
+							<string>1</string>
+							<key>g</key>
+							<string>1</string>
+							<key>r</key>
+							<string>1</string>
+						</dict>
+						<key>Font</key>
+						<string>Inconsolata</string>
+						<key>Size</key>
+						<real>32</real>
+					</dict>
+					<key>ID</key>
+					<integer>390</integer>
+					<key>Magnets</key>
+					<array>
+						<string>{1, 1}</string>
+						<string>{1, -1}</string>
+						<string>{-1, -1}</string>
+						<string>{-1, 1}</string>
+						<string>{0, 1}</string>
+						<string>{0, -1}</string>
+						<string>{1, 0}</string>
+						<string>{-1, 0}</string>
+					</array>
+					<key>Shape</key>
+					<string>Rectangle</string>
+					<key>Style</key>
+					<dict>
+						<key>fill</key>
+						<dict>
+							<key>Color</key>
+							<dict>
+								<key>b</key>
+								<string>0.100568</string>
+								<key>g</key>
+								<string>0.118202</string>
+								<key>r</key>
+								<string>0.114815</string>
+							</dict>
+						</dict>
+						<key>shadow</key>
+						<dict>
+							<key>Draws</key>
+							<string>NO</string>
+						</dict>
+						<key>stroke</key>
+						<dict>
+							<key>Color</key>
+							<dict>
+								<key>b</key>
+								<string>0.190817</string>
+								<key>g</key>
+								<string>0.216503</string>
+								<key>r</key>
+								<string>0.210809</string>
+							</dict>
+							<key>Width</key>
+							<real>8</real>
+						</dict>
+					</dict>
+					<key>Text</key>
+					<dict>
+						<key>Align</key>
+						<integer>0</integer>
+						<key>Pad</key>
+						<integer>20</integer>
+						<key>RTFD</key>
+						<data>
+						BAtzdHJlYW10eXBlZIHoA4QBQISE
+						hBJOU0F0dHJpYnV0ZWRTdHJpbmcA
+						hIQITlNPYmplY3QAhZKEhIQITlNT
+						dHJpbmcBlIQBKwcoKyAxIDIphoQC
+						aUkBAZKEhIQMTlNEaWN0aW9uYXJ5
+						AJSEAWkDkoSWlgdOU0NvbG9yhpKE
+						hIQHTlNDb2xvcgCUhAFjAoQEZmZm
+						ZoMA//4+gwD//j6DAP/+PgGGkoSW
+						lhBOU1BhcmFncmFwaFN0eWxlhpKE
+						hIQXTlNNdXRhYmxlUGFyYWdyYXBo
+						U3R5bGUAhIQQTlNQYXJhZ3JhcGhT
+						dHlsZQCUhARDQ0BTAACEhIQOTlNN
+						dXRhYmxlQXJyYXkAhIQHTlNBcnJh
+						eQCUmQyShISECU5TVGV4dFRhYgCU
+						hAJDZgAchpKEpKMAOIaShKSjAFSG
+						koSkowBwhpKEpKMAgYwAhpKEpKMA
+						gagAhpKEpKMAgcQAhpKEpKMAgeAA
+						hpKEpKMAgfwAhpKEpKMAgRgBhpKE
+						pKMAgTQBhpKEpKMAgVABhoaBAAiE
+						BFsxZl2DzcxMPYaShJaWBk5TRm9u
+						dIaShISEBk5TRm9udB6UmSCEBVsz
+						MmNdBgAAABgAAAD//kkAbgBjAG8A
+						bgBzAG8AbABhAHQAYQCEAWYgmwCb
+						AZsAmwCGhpcCAZKEmJkDkpmShJub
+						ApyDpqUlP4Pi4GA/g62srD4BhpKc
+						koSenwAAhKGZDJKjkqWSppKnkqiS
+						qZKqkquSrJKtkq6Sr4aBAAikg83M
+						TD2GkrCSsYaXAwGShJiZA5KZkoSb
+						mwOEAmZmAQGGkpyShJ6fAACEoZkM
+						kqOSpZKmkqeSqJKpkqqSq5Kskq2S
+						rpKvhoEACKSDzcxMPYaSsJKxhpcE
+						A5KEmJkDkpmShJubApyDsK8vP4OG
+						hQU/g/j2dj8BhpKckoSenwAAhKGZ
+						DJKjkqWSppKnkqiSqZKqkquSrJKt
+						kq6Sr4aBAAikg83MTD2GkrCSsYaX
+						AQGG
+						</data>
+						<key>Text</key>
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1187\cocoasubrtf340
+\cocoascreenfonts1{\fonttbl\f0\fnil\fcharset0 Inconsolata;}
+{\colortbl;\red255\green255\blue255;\red108\green108\blue108;\red150\green221\blue69;\red158\green106\blue243;
+}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f0\fs64 \cf2 (\cf3 +\cf1  \cf4 1 2\cf2 )}</string>
+						<key>VerticalPad</key>
+						<integer>20</integer>
+					</dict>
+					<key>TextPlacement</key>
+					<integer>0</integer>
+				</dict>
+				<dict>
+					<key>Bounds</key>
+					<string>{{260.00000000000006, 2560}, {499.99999999999989, 60}}</string>
+					<key>Class</key>
+					<string>ShapedGraphic</string>
+					<key>FontInfo</key>
+					<dict>
+						<key>Color</key>
+						<dict>
+							<key>b</key>
+							<string>1</string>
+							<key>g</key>
+							<string>1</string>
+							<key>r</key>
+							<string>1</string>
+						</dict>
+						<key>Font</key>
+						<string>Inconsolata</string>
+						<key>Size</key>
+						<real>32</real>
+					</dict>
+					<key>ID</key>
+					<integer>377</integer>
+					<key>Magnets</key>
+					<array>
+						<string>{1, 1}</string>
+						<string>{1, -1}</string>
+						<string>{-1, -1}</string>
+						<string>{-1, 1}</string>
+						<string>{0, 1}</string>
+						<string>{0, -1}</string>
+						<string>{1, 0}</string>
+						<string>{-1, 0}</string>
+					</array>
+					<key>Shape</key>
+					<string>Rectangle</string>
+					<key>Style</key>
+					<dict>
+						<key>fill</key>
+						<dict>
+							<key>Color</key>
+							<dict>
+								<key>b</key>
+								<string>0.100568</string>
+								<key>g</key>
+								<string>0.118202</string>
+								<key>r</key>
+								<string>0.114815</string>
+							</dict>
+						</dict>
+						<key>shadow</key>
+						<dict>
+							<key>Draws</key>
+							<string>NO</string>
+						</dict>
+						<key>stroke</key>
+						<dict>
+							<key>Color</key>
+							<dict>
+								<key>b</key>
+								<string>0.190817</string>
+								<key>g</key>
+								<string>0.216503</string>
+								<key>r</key>
+								<string>0.210809</string>
+							</dict>
+							<key>Width</key>
+							<real>8</real>
+						</dict>
+					</dict>
+					<key>Text</key>
+					<dict>
+						<key>Align</key>
+						<integer>0</integer>
+						<key>Pad</key>
+						<integer>20</integer>
+						<key>Text</key>
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1187\cocoasubrtf340
+\cocoascreenfonts1{\fonttbl\f0\fnil\fcharset0 Inconsolata;}
+{\colortbl;\red255\green255\blue255;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f0\fs64 \cf1 Welcome to extempore!}</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>Bounds</key>
+					<string>{{760, 2460}, {380, 60}}</string>
+					<key>Class</key>
+					<string>ShapedGraphic</string>
+					<key>FontInfo</key>
+					<dict>
+						<key>Color</key>
+						<dict>
+							<key>b</key>
+							<string>0.398864</string>
+							<key>g</key>
+							<string>0.398857</string>
+							<key>r</key>
+							<string>0.398869</string>
+						</dict>
+						<key>Font</key>
+						<string>LinBiolinumO</string>
+						<key>NSKern</key>
+						<real>0.0</real>
+						<key>Size</key>
+						<real>32</real>
+					</dict>
+					<key>ID</key>
+					<integer>376</integer>
+					<key>Magnets</key>
+					<array>
+						<string>{1, 1}</string>
+						<string>{1, -1}</string>
+						<string>{-1, -1}</string>
+						<string>{-1, 1}</string>
+						<string>{0, 1}</string>
+						<string>{0, -1}</string>
+						<string>{1, 0}</string>
+						<string>{-1, 0}</string>
+					</array>
+					<key>Shape</key>
+					<string>Rectangle</string>
+					<key>Style</key>
+					<dict>
+						<key>fill</key>
+						<dict>
+							<key>Color</key>
+							<dict>
+								<key>b</key>
+								<string>0.264462</string>
+								<key>g</key>
+								<string>0.640388</string>
+								<key>r</key>
+								<string>0.155445</string>
+							</dict>
+							<key>Draws</key>
+							<string>NO</string>
+						</dict>
+						<key>shadow</key>
+						<dict>
+							<key>Draws</key>
+							<string>NO</string>
+						</dict>
+						<key>stroke</key>
+						<dict>
+							<key>Color</key>
+							<dict>
+								<key>b</key>
+								<string>0.311737</string>
+								<key>g</key>
+								<string>0.760593</string>
+								<key>r</key>
+								<string>0.167811</string>
+							</dict>
+							<key>Draws</key>
+							<string>NO</string>
+							<key>Width</key>
+							<real>8</real>
+						</dict>
+					</dict>
+					<key>Text</key>
+					<dict>
+						<key>RTFD</key>
+						<data>
+						BAtzdHJlYW10eXBlZIHoA4QBQISE
+						hBJOU0F0dHJpYnV0ZWRTdHJpbmcA
+						hIQITlNPYmplY3QAhZKEhIQITlNT
+						dHJpbmcBlIQBKxciV2VsY29tZSB0
+						byBleHRlbXBvcmUhIoaEAmlJAReS
+						hISEDE5TRGljdGlvbmFyeQCUhAFp
+						A5KElpYHTlNDb2xvcoaShISEB05T
+						Q29sb3IAlIQBYwKEBGZmZmaD9PLy
+						PoP08vI+g/Ty8j4BhpKElpYQTlNQ
+						YXJhZ3JhcGhTdHlsZYaShISEF05T
+						TXV0YWJsZVBhcmFncmFwaFN0eWxl
+						AISEEE5TUGFyYWdyYXBoU3R5bGUA
+						lIQEQ0NAUwIAhISEDk5TTXV0YWJs
+						ZUFycmF5AISEB05TQXJyYXkAlJkM
+						koSEhAlOU1RleHRUYWIAlIQCQ2YA
+						HIaShKSjADiGkoSkowBUhpKEpKMA
+						cIaShKSjAIGMAIaShKSjAIGoAIaS
+						hKSjAIHEAIaShKSjAIHgAIaShKSj
+						AIH8AIaShKSjAIEYAYaShKSjAIE0
+						AYaShKSjAIFQAYaGgQAIhARbMWZd
+						g83MTD2GkoSWlgZOU0ZvbnSGkoSE
+						hAZOU0ZvbnQelJkghAVbMzJjXQYA
+						AAAYAAAA//5JAG4AYwBvAG4AcwBv
+						AGwAYQB0AGEAhAFmIJsAmwGbAJsA
+						hoaG
+						</data>
+						<key>Text</key>
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1187\cocoasubrtf340
+\cocoascreenfonts1{\fonttbl\f0\fnil\fcharset0 Inconsolata;}
+{\colortbl;\red255\green255\blue255;\red102\green102\blue102;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
+
+\f0\fs64 \cf2 "Welcome to extempore!"}</string>
+					</dict>
+				</dict>
 				<dict>
 					<key>Bounds</key>
 					<string>{{270, 500}, {1360, 390}}</string>
@@ -438,39 +1035,133 @@ Trying to connect to 'localhost' on port 7099\
 				</dict>
 				<dict>
 					<key>Class</key>
-					<string>LineGraphic</string>
-					<key>ID</key>
-					<integer>372</integer>
-					<key>Points</key>
+					<string>Group</string>
+					<key>Graphics</key>
 					<array>
-						<string>{280, 2610}</string>
-						<string>{620, 2610}</string>
-					</array>
-					<key>Style</key>
-					<dict>
-						<key>stroke</key>
 						<dict>
-							<key>Color</key>
+							<key>Class</key>
+							<string>LineGraphic</string>
+							<key>ID</key>
+							<integer>379</integer>
+							<key>Points</key>
+							<array>
+								<string>{280, 2760}</string>
+								<string>{620, 2760}</string>
+							</array>
+							<key>Style</key>
 							<dict>
-								<key>b</key>
-								<string>0.0953367</string>
-								<key>g</key>
-								<string>0.613337</string>
-								<key>r</key>
-								<string>0.982537</string>
+								<key>stroke</key>
+								<dict>
+									<key>Color</key>
+									<dict>
+										<key>b</key>
+										<string>0.0953367</string>
+										<key>g</key>
+										<string>0.613337</string>
+										<key>r</key>
+										<string>0.982537</string>
+									</dict>
+									<key>HeadArrow</key>
+									<string>0</string>
+									<key>Legacy</key>
+									<true/>
+									<key>LineType</key>
+									<integer>1</integer>
+									<key>TailArrow</key>
+									<string>0</string>
+									<key>Width</key>
+									<real>8</real>
+								</dict>
 							</dict>
-							<key>HeadArrow</key>
-							<string>0</string>
-							<key>Legacy</key>
-							<true/>
-							<key>LineType</key>
-							<integer>1</integer>
-							<key>TailArrow</key>
-							<string>0</string>
-							<key>Width</key>
-							<real>8</real>
 						</dict>
-					</dict>
+						<dict>
+							<key>Bounds</key>
+							<string>{{260.00000000000006, 2710}, {499.99999999999989, 60}}</string>
+							<key>Class</key>
+							<string>ShapedGraphic</string>
+							<key>FontInfo</key>
+							<dict>
+								<key>Color</key>
+								<dict>
+									<key>b</key>
+									<string>1</string>
+									<key>g</key>
+									<string>1</string>
+									<key>r</key>
+									<string>1</string>
+								</dict>
+								<key>Font</key>
+								<string>Inconsolata</string>
+								<key>Size</key>
+								<real>32</real>
+							</dict>
+							<key>ID</key>
+							<integer>380</integer>
+							<key>Magnets</key>
+							<array>
+								<string>{1, 1}</string>
+								<string>{1, -1}</string>
+								<string>{-1, -1}</string>
+								<string>{-1, 1}</string>
+								<string>{0, 1}</string>
+								<string>{0, -1}</string>
+								<string>{1, 0}</string>
+								<string>{-1, 0}</string>
+							</array>
+							<key>Shape</key>
+							<string>Rectangle</string>
+							<key>Style</key>
+							<dict>
+								<key>fill</key>
+								<dict>
+									<key>Color</key>
+									<dict>
+										<key>b</key>
+										<string>0.100568</string>
+										<key>g</key>
+										<string>0.118202</string>
+										<key>r</key>
+										<string>0.114815</string>
+									</dict>
+								</dict>
+								<key>shadow</key>
+								<dict>
+									<key>Draws</key>
+									<string>NO</string>
+								</dict>
+								<key>stroke</key>
+								<dict>
+									<key>Color</key>
+									<dict>
+										<key>b</key>
+										<string>0.190817</string>
+										<key>g</key>
+										<string>0.216503</string>
+										<key>r</key>
+										<string>0.210809</string>
+									</dict>
+									<key>Width</key>
+									<real>8</real>
+								</dict>
+							</dict>
+							<key>Text</key>
+							<dict>
+								<key>Align</key>
+								<integer>0</integer>
+								<key>Pad</key>
+								<integer>20</integer>
+								<key>Text</key>
+								<string>{\rtf1\ansi\ansicpg1252\cocoartf1187\cocoasubrtf340
+\cocoascreenfonts1{\fonttbl\f0\fnil\fcharset0 Inconsolata;}
+{\colortbl;\red255\green255\blue255;\red86\green87\blue78;\red255\green255\blue255;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f0\fs64 \cf2 M-x\cf3  extempore-connect}</string>
+							</dict>
+						</dict>
+					</array>
+					<key>ID</key>
+					<integer>378</integer>
 				</dict>
 				<dict>
 					<key>Bounds</key>
@@ -577,7 +1268,7 @@ audio device[4]:Soundflower (16ch) api[0]:Core Audio inchan[16] outchan[16]\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{1150, 6920}, {480, 590}}</string>
+					<string>{{1150, 7760}, {480, 590}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -667,7 +1358,7 @@ audio device[4]:Soundflower (16ch) api[0]:Core Audio inchan[16] outchan[16]\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{760, 7190}, {380, 190}}</string>
+					<string>{{760, 8030}, {380, 190}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -795,7 +1486,7 @@ audio device[4]:Soundflower (16ch) api[0]:Core Audio inchan[16] outchan[16]\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{275, 7270}, {445, 240}}</string>
+					<string>{{275, 8110}, {445, 240}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -884,8 +1575,8 @@ audio device[4]:Soundflower (16ch) api[0]:Core Audio inchan[16] outchan[16]\
 					<integer>365</integer>
 					<key>Points</key>
 					<array>
-						<string>{720, 7390}</string>
-						<string>{1140, 7390}</string>
+						<string>{720, 8230}</string>
+						<string>{1140, 8230}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -917,7 +1608,7 @@ audio device[4]:Soundflower (16ch) api[0]:Core Audio inchan[16] outchan[16]\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{260, 7530}, {499.99999999999989, 60}}</string>
+					<string>{{260, 8370}, {499.99999999999989, 60}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -995,7 +1686,7 @@ audio device[4]:Soundflower (16ch) api[0]:Core Audio inchan[16] outchan[16]\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{260.00000000000006, 6910}, {499.99999999999989, 620}}</string>
+					<string>{{260.00000000000006, 7750}, {499.99999999999989, 620}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -1195,7 +1886,7 @@ audio device[4]:Soundflower (16ch) api[0]:Core Audio inchan[16] outchan[16]\
 					<array>
 						<dict>
 							<key>Bounds</key>
-							<string>{{510, 6500}, {80, 60}}</string>
+							<string>{{510, 7340}, {80, 60}}</string>
 							<key>Class</key>
 							<string>ShapedGraphic</string>
 							<key>FontInfo</key>
@@ -1285,7 +1976,7 @@ r2}</string>
 						</dict>
 						<dict>
 							<key>Bounds</key>
-							<string>{{460, 6450}, {80, 60}}</string>
+							<string>{{460, 7290}, {80, 60}}</string>
 							<key>Class</key>
 							<string>ShapedGraphic</string>
 							<key>FontInfo</key>
@@ -1387,8 +2078,8 @@ r1}</string>
 							<integer>359</integer>
 							<key>Points</key>
 							<array>
-								<string>{470.00006881294274, 6600}</string>
-								<string>{520, 6540}</string>
+								<string>{470.00006881294274, 7440}</string>
+								<string>{520, 7380}</string>
 							</array>
 							<key>Style</key>
 							<dict>
@@ -1421,8 +2112,8 @@ r1}</string>
 							<integer>360</integer>
 							<key>Points</key>
 							<array>
-								<string>{470.00006881294274, 6600}</string>
-								<string>{470, 6440}</string>
+								<string>{470.00006881294274, 7440}</string>
+								<string>{470, 7280}</string>
 							</array>
 							<key>Style</key>
 							<dict>
@@ -1443,7 +2134,7 @@ r1}</string>
 						</dict>
 						<dict>
 							<key>Bounds</key>
-							<string>{{390, 6520}, {160, 160}}</string>
+							<string>{{390, 7360}, {160, 160}}</string>
 							<key>Class</key>
 							<string>ShapedGraphic</string>
 							<key>ID</key>
@@ -1475,7 +2166,7 @@ r1}</string>
 						</dict>
 						<dict>
 							<key>Bounds</key>
-							<string>{{310, 6440}, {320, 320}}</string>
+							<string>{{310, 7280}, {320, 320}}</string>
 							<key>Class</key>
 							<string>ShapedGraphic</string>
 							<key>ID</key>
@@ -1523,7 +2214,7 @@ r1}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{1150, 5584}, {480, 296}}</string>
+					<string>{{1150, 6424}, {480, 296}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -1613,7 +2304,7 @@ r1}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{1140, 5570}, {499.99999999999989, 690}}</string>
+					<string>{{1140, 6410}, {499.99999999999989, 690}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -1768,7 +2459,7 @@ Creating new 1M default zone 0x7fa66331adb0:1048576 on ZStack:0x7fa663319e90\cf5
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{760, 6160}, {380, 60}}</string>
+					<string>{{760, 7000}, {380, 60}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -1887,8 +2578,8 @@ Creating new 1M default zone 0x7fa66331adb0:1048576 on ZStack:0x7fa663319e90\cf5
 					<integer>347</integer>
 					<key>Points</key>
 					<array>
-						<string>{1140, 6230}</string>
-						<string>{760, 6230}</string>
+						<string>{1140, 7070}</string>
+						<string>{760, 7070}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -1920,7 +2611,7 @@ Creating new 1M default zone 0x7fa66331adb0:1048576 on ZStack:0x7fa663319e90\cf5
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{760, 5860}, {380, 190}}</string>
+					<string>{{760, 6700}, {380, 190}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -2048,7 +2739,7 @@ Creating new 1M default zone 0x7fa66331adb0:1048576 on ZStack:0x7fa663319e90\cf5
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{275, 5940}, {445, 240}}</string>
+					<string>{{275, 6780}, {445, 240}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -2137,8 +2828,8 @@ Creating new 1M default zone 0x7fa66331adb0:1048576 on ZStack:0x7fa663319e90\cf5
 					<integer>344</integer>
 					<key>Points</key>
 					<array>
-						<string>{720, 6060}</string>
-						<string>{1140, 6060}</string>
+						<string>{720, 6900}</string>
+						<string>{1140, 6900}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -2170,7 +2861,7 @@ Creating new 1M default zone 0x7fa66331adb0:1048576 on ZStack:0x7fa663319e90\cf5
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{260.00000000000006, 6200}, {499.99999999999989, 60}}</string>
+					<string>{{260.00000000000006, 7040}, {499.99999999999989, 60}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -2255,7 +2946,7 @@ Creating new 1M default zone 0x7fa66331adb0:1048576 on ZStack:0x7fa663319e90\cf5
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{260.00000000000006, 5570}, {499.99999999999989, 620}}</string>
+					<string>{{260.00000000000006, 6410}, {499.99999999999989, 620}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -2450,7 +3141,7 @@ Creating new 1M default zone 0x7fa66331adb0:1048576 on ZStack:0x7fa663319e90\cf5
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{1140, 6910}, {499.99999999999989, 680}}</string>
+					<string>{{1140, 7750}, {499.99999999999989, 680}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -2558,7 +3249,7 @@ Trying to connect to 'localhost' on port 7099\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{1150, 6920}, {480, 80}}</string>
+					<string>{{1150, 7760}, {480, 80}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -2648,7 +3339,7 @@ Trying to connect to 'localhost' on port 7099\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{1150, 6410}, {480, 80}}</string>
+					<string>{{1150, 7250}, {480, 80}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -2738,7 +3429,7 @@ Trying to connect to 'localhost' on port 7099\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{1150, 5024}, {480, 256}}</string>
+					<string>{{1150, 5864}, {480, 256}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -2828,7 +3519,7 @@ Trying to connect to 'localhost' on port 7099\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{1150, 4444}, {480, 156}}</string>
+					<string>{{1150, 5284}, {480, 156}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -2918,7 +3609,7 @@ Trying to connect to 'localhost' on port 7099\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{1150, 3904}, {480, 226}}</string>
+					<string>{{1150, 4744}, {480, 226}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -3008,7 +3699,7 @@ Trying to connect to 'localhost' on port 7099\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{1150, 3354}, {480, 296}}</string>
+					<string>{{1150, 4194}, {480, 296}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -3098,7 +3789,7 @@ Trying to connect to 'localhost' on port 7099\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{1150, 2774}, {480, 296}}</string>
+					<string>{{1150, 3614}, {480, 296}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -3278,7 +3969,7 @@ Trying to connect to 'localhost' on port 7099\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{760, 2460}, {380, 120}}</string>
+					<string>{{760, 2310}, {380, 120}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -3369,7 +4060,7 @@ new TCP connection\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{1140, 4430}, {499.99999999999989, 430}}</string>
+					<string>{{1140, 5270}, {499.99999999999989, 430}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -3518,7 +4209,7 @@ Creating new 1M default zone 0x7fa66331adb0:1048576 on ZStack:0x7fa663319e90\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{1140, 5010}, {499.99999999999989, 430}}</string>
+					<string>{{1140, 5850}, {499.99999999999989, 430}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -3667,7 +4358,7 @@ Creating new 1M default zone 0x7fa66331adb0:1048576 on ZStack:0x7fa663319e90\cf5
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{760, 5350}, {380, 60}}</string>
+					<string>{{760, 6190}, {380, 60}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -3786,8 +4477,8 @@ Creating new 1M default zone 0x7fa66331adb0:1048576 on ZStack:0x7fa663319e90\cf5
 					<integer>318</integer>
 					<key>Points</key>
 					<array>
-						<string>{1140, 5410}</string>
-						<string>{760, 5410}</string>
+						<string>{1140, 6250}</string>
+						<string>{760, 6250}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -3819,7 +4510,7 @@ Creating new 1M default zone 0x7fa66331adb0:1048576 on ZStack:0x7fa663319e90\cf5
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{760, 5270}, {380, 60}}</string>
+					<string>{{760, 6110}, {380, 60}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -3934,7 +4625,7 @@ Creating new 1M default zone 0x7fa66331adb0:1048576 on ZStack:0x7fa663319e90\cf5
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{275, 5310}, {445, 50}}</string>
+					<string>{{275, 6150}, {445, 50}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -4023,8 +4714,8 @@ Creating new 1M default zone 0x7fa66331adb0:1048576 on ZStack:0x7fa663319e90\cf5
 					<integer>315</integer>
 					<key>Points</key>
 					<array>
-						<string>{720, 5340}</string>
-						<string>{1140, 5340}</string>
+						<string>{720, 6180}</string>
+						<string>{1140, 6180}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -4056,7 +4747,7 @@ Creating new 1M default zone 0x7fa66331adb0:1048576 on ZStack:0x7fa663319e90\cf5
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{260.00000000000006, 5380}, {499.99999999999989, 60}}</string>
+					<string>{{260.00000000000006, 6220}, {499.99999999999989, 60}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -4141,7 +4832,7 @@ Creating new 1M default zone 0x7fa66331adb0:1048576 on ZStack:0x7fa663319e90\cf5
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{260.00000000000006, 5010}, {499.99999999999989, 370}}</string>
+					<string>{{260.00000000000006, 5850}, {499.99999999999989, 370}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -4315,7 +5006,7 @@ Creating new 1M default zone 0x7fa66331adb0:1048576 on ZStack:0x7fa663319e90\cf5
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{760, 4770}, {380, 60}}</string>
+					<string>{{760, 5610}, {380, 60}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -4434,8 +5125,8 @@ Creating new 1M default zone 0x7fa66331adb0:1048576 on ZStack:0x7fa663319e90\cf5
 					<integer>310</integer>
 					<key>Points</key>
 					<array>
-						<string>{1140, 4830}</string>
-						<string>{760, 4830}</string>
+						<string>{1140, 5670}</string>
+						<string>{760, 5670}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -4467,7 +5158,7 @@ Creating new 1M default zone 0x7fa66331adb0:1048576 on ZStack:0x7fa663319e90\cf5
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{760, 4690}, {380, 60}}</string>
+					<string>{{760, 5530}, {380, 60}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -4581,7 +5272,7 @@ Creating new 1M default zone 0x7fa66331adb0:1048576 on ZStack:0x7fa663319e90\cf5
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{275, 4720}, {285, 70}}</string>
+					<string>{{275, 5560}, {285, 70}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -4670,8 +5361,8 @@ Creating new 1M default zone 0x7fa66331adb0:1048576 on ZStack:0x7fa663319e90\cf5
 					<integer>307</integer>
 					<key>Points</key>
 					<array>
-						<string>{560, 4760}</string>
-						<string>{1140, 4760}</string>
+						<string>{560, 5600}</string>
+						<string>{1140, 5600}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -4703,7 +5394,7 @@ Creating new 1M default zone 0x7fa66331adb0:1048576 on ZStack:0x7fa663319e90\cf5
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{260.00000000000006, 4800}, {499.99999999999989, 60}}</string>
+					<string>{{260.00000000000006, 5640}, {499.99999999999989, 60}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -4788,7 +5479,7 @@ Creating new 1M default zone 0x7fa66331adb0:1048576 on ZStack:0x7fa663319e90\cf5
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{260.00000000000006, 4430}, {499.99999999999989, 370}}</string>
+					<string>{{260.00000000000006, 5270}, {499.99999999999989, 370}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -4961,7 +5652,7 @@ Creating new 1M default zone 0x7fa66331adb0:1048576 on ZStack:0x7fa663319e90\cf5
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{1140, 6400}, {499.99999999999989, 400}}</string>
+					<string>{{1140, 7240}, {499.99999999999989, 400}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -5070,7 +5761,7 @@ Trying to connect to 'localhost' on port 7099\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{760, 3980}, {380, 120}}</string>
+					<string>{{760, 4820}, {380, 120}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -5193,7 +5884,7 @@ Trying to connect to 'localhost' on port 7099\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{760, 4190}, {380, 60}}</string>
+					<string>{{760, 5030}, {380, 60}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -5307,7 +5998,7 @@ Trying to connect to 'localhost' on port 7099\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{1140, 3890}, {499.99999999999989, 400}}</string>
+					<string>{{1140, 4730}, {499.99999999999989, 400}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -5457,8 +6148,8 @@ Trying to connect to 'localhost' on port 7099\
 					<integer>295</integer>
 					<key>Points</key>
 					<array>
-						<string>{1140, 4260}</string>
-						<string>{760, 4260}</string>
+						<string>{1140, 5100}</string>
+						<string>{760, 5100}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -5490,7 +6181,7 @@ Trying to connect to 'localhost' on port 7099\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{275, 4050}, {395, 120}}</string>
+					<string>{{275, 4890}, {395, 120}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -5579,8 +6270,8 @@ Trying to connect to 'localhost' on port 7099\
 					<integer>293</integer>
 					<key>Points</key>
 					<array>
-						<string>{670, 4110}</string>
-						<string>{1140, 4110}</string>
+						<string>{670, 4950}</string>
+						<string>{1140, 4950}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -5612,7 +6303,7 @@ Trying to connect to 'localhost' on port 7099\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{260.00000000000006, 4230}, {499.99999999999989, 60}}</string>
+					<string>{{260.00000000000006, 5070}, {499.99999999999989, 60}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -5697,7 +6388,7 @@ Trying to connect to 'localhost' on port 7099\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{260.00000000000006, 3890}, {499.99999999999989, 340}}</string>
+					<string>{{260.00000000000006, 4730}, {499.99999999999989, 340}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -5864,7 +6555,7 @@ Trying to connect to 'localhost' on port 7099\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{760, 2990}, {380, 60}}</string>
+					<string>{{760, 3830}, {380, 60}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -5978,7 +6669,7 @@ Trying to connect to 'localhost' on port 7099\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{1140, 2754}, {499.99999999999989, 346}}</string>
+					<string>{{1140, 3594}, {499.99999999999989, 346}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -6083,8 +6774,8 @@ Trying to connect to 'localhost' on port 7099\
 					<integer>277</integer>
 					<key>Points</key>
 					<array>
-						<string>{1140, 3060}</string>
-						<string>{760, 3060}</string>
+						<string>{1140, 3900}</string>
+						<string>{760, 3900}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -6116,7 +6807,7 @@ Trying to connect to 'localhost' on port 7099\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{275, 2760}, {125, 60}}</string>
+					<string>{{275, 3600}, {125, 60}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -6205,8 +6896,8 @@ Trying to connect to 'localhost' on port 7099\
 					<integer>275</integer>
 					<key>Points</key>
 					<array>
-						<string>{400, 2795}</string>
-						<string>{1140, 2795}</string>
+						<string>{400, 3635}</string>
+						<string>{1140, 3635}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -6238,7 +6929,7 @@ Trying to connect to 'localhost' on port 7099\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{760, 2730}, {380, 60}}</string>
+					<string>{{760, 3570}, {380, 60}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -6352,7 +7043,7 @@ Trying to connect to 'localhost' on port 7099\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{260.00000000000006, 3030}, {499.99999999999989, 60}}</string>
+					<string>{{260.00000000000006, 3870}, {499.99999999999989, 60}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -6437,7 +7128,7 @@ Trying to connect to 'localhost' on port 7099\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{260.00000000000006, 2750}, {499.99999999999989, 280}}</string>
+					<string>{{260.00000000000006, 3590}, {499.99999999999989, 280}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -6566,7 +7257,7 @@ Trying to connect to 'localhost' on port 7099\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{760, 3640}, {380, 60}}</string>
+					<string>{{760, 4480}, {380, 60}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -6680,7 +7371,7 @@ Trying to connect to 'localhost' on port 7099\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{1140, 3340}, {499.99999999999989, 400}}</string>
+					<string>{{1140, 4180}, {499.99999999999989, 400}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -6835,8 +7526,8 @@ Trying to connect to 'localhost' on port 7099\
 					<integer>270</integer>
 					<key>Points</key>
 					<array>
-						<string>{1140, 3710}</string>
-						<string>{760, 3710}</string>
+						<string>{1140, 4550}</string>
+						<string>{760, 4550}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -6965,91 +7656,6 @@ Trying to connect to 'localhost' on port 7099\
 					</dict>
 					<key>TextPlacement</key>
 					<integer>0</integer>
-				</dict>
-				<dict>
-					<key>Bounds</key>
-					<string>{{260.00000000000006, 2560}, {499.99999999999989, 60}}</string>
-					<key>Class</key>
-					<string>ShapedGraphic</string>
-					<key>FontInfo</key>
-					<dict>
-						<key>Color</key>
-						<dict>
-							<key>b</key>
-							<string>1</string>
-							<key>g</key>
-							<string>1</string>
-							<key>r</key>
-							<string>1</string>
-						</dict>
-						<key>Font</key>
-						<string>Inconsolata</string>
-						<key>Size</key>
-						<real>32</real>
-					</dict>
-					<key>ID</key>
-					<integer>266</integer>
-					<key>Magnets</key>
-					<array>
-						<string>{1, 1}</string>
-						<string>{1, -1}</string>
-						<string>{-1, -1}</string>
-						<string>{-1, 1}</string>
-						<string>{0, 1}</string>
-						<string>{0, -1}</string>
-						<string>{1, 0}</string>
-						<string>{-1, 0}</string>
-					</array>
-					<key>Shape</key>
-					<string>Rectangle</string>
-					<key>Style</key>
-					<dict>
-						<key>fill</key>
-						<dict>
-							<key>Color</key>
-							<dict>
-								<key>b</key>
-								<string>0.100568</string>
-								<key>g</key>
-								<string>0.118202</string>
-								<key>r</key>
-								<string>0.114815</string>
-							</dict>
-						</dict>
-						<key>shadow</key>
-						<dict>
-							<key>Draws</key>
-							<string>NO</string>
-						</dict>
-						<key>stroke</key>
-						<dict>
-							<key>Color</key>
-							<dict>
-								<key>b</key>
-								<string>0.190817</string>
-								<key>g</key>
-								<string>0.216503</string>
-								<key>r</key>
-								<string>0.210809</string>
-							</dict>
-							<key>Width</key>
-							<real>8</real>
-						</dict>
-					</dict>
-					<key>Text</key>
-					<dict>
-						<key>Align</key>
-						<integer>0</integer>
-						<key>Pad</key>
-						<integer>20</integer>
-						<key>Text</key>
-						<string>{\rtf1\ansi\ansicpg1252\cocoartf1187\cocoasubrtf340
-\cocoascreenfonts1{\fonttbl\f0\fnil\fcharset0 Inconsolata;}
-{\colortbl;\red255\green255\blue255;\red86\green87\blue78;\red255\green255\blue255;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
-
-\f0\fs64 \cf2 M-x\cf3  extempore-connect}</string>
-					</dict>
 				</dict>
 				<dict>
 					<key>Bounds</key>
@@ -7220,7 +7826,7 @@ Trying to connect to 'localhost' on port 7099\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{275, 3420}, {445, 60}}</string>
+					<string>{{275, 4260}, {445, 60}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -7309,8 +7915,8 @@ Trying to connect to 'localhost' on port 7099\
 					<integer>263</integer>
 					<key>Points</key>
 					<array>
-						<string>{720, 3455}</string>
-						<string>{1140, 3455}</string>
+						<string>{720, 4295}</string>
+						<string>{1140, 4295}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -7342,7 +7948,7 @@ Trying to connect to 'localhost' on port 7099\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{760, 3390}, {380, 60}}</string>
+					<string>{{760, 4230}, {380, 60}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -7457,7 +8063,7 @@ Trying to connect to 'localhost' on port 7099\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{260.00000000000006, 3680}, {499.99999999999989, 60}}</string>
+					<string>{{260.00000000000006, 4520}, {499.99999999999989, 60}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -7542,7 +8148,7 @@ Trying to connect to 'localhost' on port 7099\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{260.00000000000006, 3340}, {499.99999999999989, 340}}</string>
+					<string>{{260.00000000000006, 4180}, {499.99999999999989, 340}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
@@ -8164,8 +8770,8 @@ echo area}</string>
 					<integer>321</integer>
 					<key>Points</key>
 					<array>
-						<string>{760, 2465}</string>
-						<string>{1140, 2465}</string>
+						<string>{760, 2525}</string>
+						<string>{1140, 2525}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -8252,7 +8858,7 @@ echo area}</string>
 			<key>UniqueID</key>
 			<integer>1</integer>
 			<key>VPages</key>
-			<integer>10</integer>
+			<integer>11</integer>
 		</dict>
 		<dict>
 			<key>ActiveLayerIndex</key>
@@ -89425,7 +90031,7 @@ pipe length}</string>
 		<key>SidebarWidth</key>
 		<integer>116</integer>
 		<key>VisibleRegion</key>
-		<string>{{129, 1230}, {1531, 874}}</string>
+		<string>{{129, 3043}, {1531, 874}}</string>
 		<key>Zoom</key>
 		<real>1</real>
 		<key>ZoomValues</key>

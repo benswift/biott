@@ -65,23 +65,23 @@ you're not planning to do any audio processing or output, because
 Extempore's internal clock is driven by the audio device's
 clock.[fn:clock]
 
-But how do we know what audio device to select?  Well, the =extempore=
+But how do we know what audio device to select? Well, the =extempore=
 executable provides a handy command-line argument called
-=--print-devices=
+=--print-devices=. At a shell prompt, =cd= into the extempore source
+directory (where the executable will be) and run
 
 #+begin_html
 <a href=""><img src="images/interacting-with-compiler/extempore-print-devices.png" alt=""></a> 
 #+end_html
 
 As you can see, running =extempore= with the =--print-devices=
-argument (after =cd= ing into the extempore source directory where the
-executable is) prints a list of all the audio devices (input, output
-and duplex) that PortAudio can find on the system. On my laptop, which
-is the source of the output you can see above, there are three devices
-(device index =0= to =2=) associated with the built-in soundcard, and
-two more (device index =3= and =4=) for [[http://code.google.com/p/soundflower/][Soundflower]], which is a
-utility for routing audio between different applications. Your
-computer will probably print different devices---that's ok.
+argument prints a list of all the audio devices (input, output and
+duplex) that PortAudio can find on the system. On my laptop (as you
+can see above) there are five devices: three devices (device index =0=
+to =2=) associated with the built-in soundcard, and two more (device
+index =3= and =4=) for [[http://code.google.com/p/soundflower/][Soundflower]], which is a utility for routing
+audio between different applications. Your computer will probably
+print different devices---that's ok.
 
 I want to use the default laptop output, which is =audio device[2]=.
 When I run =extempore=, then, I want to pass this device index with
@@ -95,9 +95,11 @@ explicitly, just to avoid any surprises.
 #+end_html
 
 After running =extempore= with device =2=, it prints some information
-about the device that it's using.  As you can see, it all looks ok: 2
+about the device that it's using. As you can see, it all looks ok: 2
 channels out, samplerate of 44100, everthing seems good (and don't
-worry too much about the other values for the moment).
+worry too much about the other values for the moment). At this point,
+the =extempore= process is running, and will keep doing so until you
+kill it.
 
 Also, the compiler prints some information about 'starting up some
 processes', namely a =primary= process on port =7099= and a =utility=
@@ -112,11 +114,74 @@ processes, we'll only connect and interact with the =primary= process.
 
 * Connecting to the Extempore compiler
 
+So far, all the stuff we've done has been in a shell console. The
+=extempore= process, which provides the Extempore compiler, is just
+sitting there, waiting to be given some code to evaluate.  That's
+where the text editor part of the equation comes in.
+
+In this post I'm going to be fairly editor-agnostic, because as I
+mentioned before as long your editor can open up the TCP connection to
+the compiler and send code strings over it, then you're good to go.
+In places where there are editor-specific instructions, I'll at least
+give instructions for Emacs and ST2.
+
+When you open up a file ending in =.xtm= (Extempore's default file
+extension), your editor should detect that you're editing Extempore
+source code, and load the appropriate Extempore plugin. Here's a
+(short) example file containing some Extempore code:
+
+#+begin_html
+<a href=""><img src="images/interacting-with-compiler/text-editor-start.png" alt=""></a> 
+#+end_html
+
+The main body of the file is at the top, and I've also included a
+representation of the 'echo area' (minibuffer in Emacs terminology).
+This is a part of your editor which displays information about the
+results of different editor commands, and may also be where the
+feedback from the Extempore compiler is 'echoed' (printed out).  It's
+blank at the moment.
+
+Now that we have an editor open with some Extempore code (and an
+Extempore plugin loaded), and the =extempore= process is still running
+from before, we can open up the TCP connection. In Emacs, this is done
+with =M-x extempore-connect= (which will also prompt for host and port
+arguments). In ST2, use the menu item =Tools > Extempore >
+Connect...=.  The default host and port arguments will be =localhost=
+and =7099= respectively.  If the connection is made successfully, then
+=extempore= will echo back the string ="Welcome to extempore!"=.
+
+* Evaluating code
+
+Once everything's hooked up, then the compiler is just waiting there
+for you to give it some code to evaluate. So, from a 'blank slate'
+=.xtm= file, let's start with some basic Scheme arithmetic. If you're
+playing along, you can write =(+ 1 2)= into your file somewhere.
+
+#+begin_html
+<a href=""><img src="images/interacting-with-compiler/scheme-code-input.png" alt=""></a> 
+#+end_html
+
+This is where the 'Compiler as a Service' thing starts to get real.
+Currently, the code =(+ 1 2)= is just text sitting in your editor. It
+won't get compiled until your editor sends it for evaluation. If
+you're using Emacs, then the easiest way to do this is to move your
+cursor somewhere inside the code =(+ 1 2)= and hit =C-x C-x= (which is
+bound to =extempore-send-definition=). In ST2, you can highlight the
+code you want to evaluate and either go to =Tools > Extempore >
+Evaluate...= or just hit =C-x C-x=. This takes the whole expression
+=(+ 1 2)= and sends it (as a string) to the running =extempore=
+compiler.
+
+#+begin_html
+<a href=""><img src="images/interacting-with-compiler/scheme-eval.png" alt=""></a> 
+#+end_html
+
+The 'orange box' in the diagram represents evaluation.  See how the
+string (in grey) is sent over the connection, and the result is sent
+back (also as a string) and displayed in the echo area.
+Congratulations---you've just evaluated your first Extempore code!
 
 
- Scheme/xtlang code which to send it code, which it compiles,
-evaluates, and returns prints the result (echoed back down the TCP
-connection)
 
 
 If you've read a few of the other blog post on this site about
