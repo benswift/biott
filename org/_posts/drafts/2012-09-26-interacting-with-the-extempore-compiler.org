@@ -8,31 +8,32 @@ categories:
 ---
 #+end_html
 
+/This post assumes that you already understand xtlang, Scheme and
+Extempore, and how they relate to one another./
+
 The best way to think about programming and evaluating code in
 Extempore is to think of it as a /compiler-as-a-service/ (CaaS). The
-compiler (provided by the =extempore= executable) must be running
-somewhere, and you connect to it via a TCP socket connection. When the
-compiler receives any code (serialised as a string) over this
-connection, it compiles and executes it. The general term for this is
-'evaluating' the code. There are some nuances to this process, but in
-general the programmer interacts with a running Extempore process over
-a TCP connection.
+compiler (provided by the =extempore= executable) runs in a shell
+console, and you connect to it via a TCP socket connection. When the
+compiler receives any code over this connection it compiles and
+executes it. The general term for this is 'evaluating' the code. There
+are some nuances to this process, but in general the programmer
+interacts with a running Extempore process over a TCP connection.
 
-The 'chunks' of code which are sent to the xtlang compiler may be
-anything from small one-liners to instructions to evaluate whole
-source files (via the =load= function). The functions and data which
-are evaluated in this way persist for as long as the =extempore=
-process is running. As discussed in [[file:~/Documents/biott/org/_posts/2012-08-07-extempore-philosophy.org][this post]], the Extempore compiler
-actually compiles /two/ languages: Scheme and xtlang (Extempore's own
-programming language).[fn:scm-vs-xtlang]  But the process of
-evaluating them is the same---just sending strings to the compiler
-over the TCP port.
+The 'chunks' of code (serialised as strings) which are sent to the
+xtlang compiler may be anything from small one-liners to whole source
+files (via the =load= function). The functions and data (often
+referred to collectively as the /environment/) persist for as long as
+the =extempore= process is running. As discussed in [[file:~/Documents/biott/org/_posts/2012-08-07-extempore-philosophy.org][this post]], the
+Extempore compiler actually compiles /two/ languages: Scheme and
+xtlang (Extempore's own programming language).[fn:scm-vs-xtlang] But
+the process of evaluating them is the same---just sending strings to
+the compiler over the TCP port.
 
 So, to do anything in Extempore you need a text editor which can
-1. open up a TCP connection to the compiler (which by default listens
-   on port =7099=)
+1. open up a TCP connection to the compiler
 2. create a string which represents a valid chunk of Scheme or xtlang
-   code[fn:philosophy]
+   code
 3. send that string over the TCP connection
 
 There are lots of text editors which can perform these functions, so
@@ -77,53 +78,52 @@ directory (where the executable will be) and run
 As you can see, running =extempore= with the =--print-devices=
 argument prints a list of all the audio devices (input, output and
 duplex) that PortAudio can find on the system. On my laptop (as you
-can see above) there are five devices: three devices (device index =0=
-to =2=) associated with the built-in soundcard, and two more (device
-index =3= and =4=) for [[http://code.google.com/p/soundflower/][Soundflower]], which is a utility for routing
-audio between different applications. Your computer will probably
-print different devices---that's ok.
+can see above) there are five devices. Three devices (device index =0=
+to =2=) are for the built-in soundcard, and two more (device index =3=
+and =4=) are for [[http://code.google.com/p/soundflower/][Soundflower]], which is a utility for routing audio
+between different applications. Your computer will probably print
+different devices---that's ok.
 
-I want to use the default laptop output, which is =audio device[2]=.
-When I run =extempore=, then, I want to pass this device index with
-the =--device= argument.  The =--device= argument is optional, if it's
-not supplied then Extempore will default to using whatever device is
-found at index =0=.  But it's probably a good idea to specify it
-explicitly, just to avoid any surprises.
+For now, I want to use the default laptop output, which is =audio
+device[2]=. When I run =extempore=, then, I want to pass this device
+index with the =--device= argument. The =--device= argument is
+optional, if it's not supplied then Extempore will default to using
+whatever device is found at index =0=. But it's probably a good idea
+to specify it explicitly, just to avoid any surprises.
 
 #+begin_html
 <a href=""><img src="images/interacting-with-compiler/extempore-start.png" alt=""></a> 
 #+end_html
 
-After running =extempore= with device =2=, it prints some information
-about the device that it's using. As you can see, it all looks ok: 2
-channels out, samplerate of 44100, everthing seems good (and don't
-worry too much about the other values for the moment). At this point,
-the =extempore= process is running, and will keep doing so until you
-kill it.
+After running =extempore= with =--device 2=, it prints some
+information to =stdout= (which I'll often refer to as the /log/) about
+the device that it's using. As you can see, it all looks ok: 2
+channels out, samplerate of 44100Hz. At this point, the =extempore=
+process is running, and will keep doing so until you kill it.
 
 Also, the compiler prints some information about 'starting up some
 processes', namely a =primary= process on port =7099= and a =utility=
-process on port =7098=. These are the TCP ports we'll connect to to
-send our code over, as discussed at the beginning of this blog post. A
-running Extempore binary can provide /multiple/ processes, as well as
-connecting to multiple other Extempore processes, potentially running
-on remote hosts. This forms the basis for Extempore's powerful
-distributed processing capability, which I'll cover in a future blog
-post.  For the moment, though, you don't have to worry about multiple
-processes, we'll only connect and interact with the =primary= process.
+process on port =7098=. These are the TCP ports we'll send our code
+to. A running Extempore binary can provide /multiple/ Extempore
+processes[fn:threads], as well as connecting to multiple other
+Extempore processes, potentially running on remote hosts. This forms
+the basis for Extempore's powerful distributed processing capability,
+which I'll cover in a future blog post. For the moment, though, you
+don't have to worry about multiple processes, we'll only connect and
+interact with the =primary= process.
 
 * Connecting to the Extempore compiler
 
 So far, all the stuff we've done has been in a shell console. The
 =extempore= process, which provides the Extempore compiler, is just
-sitting there, waiting to be given some code to evaluate.  That's
+sitting there idle, waiting to be given some code to evaluate. That's
 where the text editor part of the equation comes in.
 
-In this post I'm going to be fairly editor-agnostic, because as I
-mentioned before as long your editor can open up the TCP connection to
-the compiler and send code strings over it, then you're good to go.
-In places where there are editor-specific instructions, I'll at least
-give instructions for Emacs and ST2.
+In this post I'm going to be fairly editor-agnostic, because (as I
+mentioned before) as long your editor can open up the TCP connection
+to the compiler and send code strings over it, then you're good to go.
+In places where there are editor-specific instructions, I'll give
+instructions for Emacs and ST2.
 
 When you open up a file ending in =.xtm= (Extempore's default file
 extension), your editor should detect that you're editing Extempore
@@ -134,20 +134,21 @@ source code, and load the appropriate Extempore plugin. Here's a
 <a href=""><img src="images/interacting-with-compiler/text-editor-start.png" alt=""></a> 
 #+end_html
 
-The main body of the file is at the top, and I've also included a
-representation of the 'echo area' (minibuffer in Emacs terminology).
-This is a part of your editor which displays information about the
-results of different editor commands, and may also be where the
-feedback from the Extempore compiler is 'echoed' (printed out).  It's
-blank at the moment.
+The content of the file is at the top, and I've also included a
+representation of the 'echo area' at the bottom (the /minibuffer/ in
+Emacs terminology). This is a part of your editor which displays
+information about the results of different editor commands, and may
+also be where the feedback from the Extempore compiler is 'echoed'
+(printed out). It's blank at the moment.
 
-Now that we have an editor open with some Extempore code (and an
-Extempore plugin loaded), and the =extempore= process is still running
-from before, we can open up the TCP connection. In Emacs, this is done
-with =M-x extempore-connect= (which will also prompt for host and port
-arguments). In ST2, use the menu item =Tools > Extempore >
-Connect...=.  The default host and port arguments will be =localhost=
-and =7099= respectively.  If the connection is made successfully, then
+Now that we have
+- an editor open with some Extempore code
+- an Extempore (editor) plugin loaded
+-  the =extempore= process still running
+we can open up the TCP connection. In Emacs, this is done with =M-x
+extempore-connect=. In ST2, use the menu item =Tools > Extempore >
+Connect...=. The default host and port arguments will be =localhost=
+and =7099= respectively. If the connection is made successfully, then
 =extempore= will echo back the string ="Welcome to extempore!"=.
 
 * Evaluating code
@@ -161,9 +162,9 @@ playing along, you can write =(+ 1 2)= into your file somewhere.
 <a href=""><img src="images/interacting-with-compiler/scheme-code-input.png" alt=""></a> 
 #+end_html
 
-This is where the 'Compiler as a Service' thing starts to get real.
-Currently, the code =(+ 1 2)= is just text sitting in your editor. It
-won't get compiled until your editor sends it for evaluation. If
+This is where the 'Compiler as a Service' (CaaS) thing starts to get
+real. Currently, the code =(+ 1 2)= is just text sitting in your
+editor. It won't get compiled until you send it for evaluation. If
 you're using Emacs, then the easiest way to do this is to move your
 cursor somewhere inside the code =(+ 1 2)= and hit =C-x C-x= (which is
 bound to =extempore-send-definition=). In ST2, you can highlight the
@@ -176,85 +177,221 @@ compiler.
 <a href=""><img src="images/interacting-with-compiler/scheme-eval.png" alt=""></a> 
 #+end_html
 
-The 'orange box' in the diagram represents evaluation.  See how the
-string (in grey) is sent over the connection, and the result is sent
-back (also as a string) and displayed in the echo area.
-Congratulations---you've just evaluated your first Extempore code!
+The orange 'box' in the diagram indicates code that has been sent for
+evaluation. See how the code string (in grey) is sent over the
+connection, and the result is sent back (also as a string) and
+displayed in the echo area. Nothing is printed in the console where
+=extempore= is running. Congratulations---you've just evaluated your
+first Extempore code!
 
+We can write some more code to =bind-val= a global variable =PI=,
+which is an xtlang global variable of [[file:~/Documents/biott/org/_posts/2012-08-09-xtlang-type-reference.org][type]] =double=. If you evaluate
+this with =C-x C-x= (or whatever the command is in your editor) then
+what happens is
 
+#+begin_html
+<a href=""><img src="images/interacting-with-compiler/xtlang-eval-1.png" alt=""></a> 
+#+end_html
 
+One difference from the previous (Scheme) example is that the
+=extempore= compiler now prints a message to the console: =Bound PI
+>>> double=. Evaluating /xtlang/ code will always print a message to
+the log about the name and type of the variables.[fn:scheme-output]
+Also, notice how the string that is echoed back is "#t", which is the
+Scheme/xtlang literal for boolean =true=. This is what the compiler
+returns if the value is '=bind-val='ed successfully. It's worth
+observing that what the =extempore= compiler prints to the log isn't
+the same as the result it echoes back to the editor over the TCP
+connection.
 
-If you've read a few of the other blog post on this site about
-programming in (with xtlang or Scheme) in Extempore, then you've
-probably heard me talk about 'evaluating' code. If you're used to C or
-C++ (or any other statically compiled language) this might seem like a
-strange notion---code is /compiled/, then it is /executed/. The
-compiler produces a static binary (for a given architecture), which
-can be distributed and run all over the place. In general, if any
-changes are made to the code then the binary has to be re-compiled and
-re-distributed.
+How about compiling an xtlang closure?
 
-On the other hand, if you've programmed in a lisp[fn:lisps], or in
-some type of scripting language (e.g. perl, ruby or python), then
-you've probably seen a read-eval-print-loop (REPL) before. Also called
-'interactive' development, in this style of programming you write bits
-of code, run them, and have the results printed 'echoed' back to you.
-The interpreter for the programming language /reads/ the code that you
-give it, /evaluates/ it (carries out the instructions it represents)
-and /prints/ the result. These REPL-style environments can be
-super-sophisticated,[fn:slime] providing lots of dynamic information
-about the state of the interpreters 'world' (often called the
-/environment/), i.e. the functions and data that the interpreter has
-seen in that programming session and is keeping track of.
+#+begin_html
+<a href=""><img src="images/interacting-with-compiler/xtlang-eval-2.png" alt=""></a> 
+#+end_html
 
-* Extempore and the (false) 'static vs dynamic language' dichotomy
+=circle_area= is an xtlang closure which takes a (=double=) argument
+representing the radius of a circle and returns the area of that
+circle (another =double=). It also uses the global variable =PI= which
+we evaluated earlier. The closure compiled successfully, and the
+compiler prints =Compiled circle_area >>> [double,double]*= to the
+log. If there was a problem with the compilation, then the compiler
+would have printed a (hopefully helpful) compile error to the log
+instead.
 
-If you want to start a flame war on the internets, then just write a
-blog post called *Moving from (static language/framework x) to
-(dynamic language/framework y) at (company z)*. Bonus angry points if
-*company z* is a hot YC-backed startup, and a 10x multiplier if you
-mention clojure or node.js. Then you can sit back, watch the hacker
-news comment thread deteriorate, and weep for humanity. Ridiculousness
-aside, however, the dichotomy is kindof a false one anyway. In reality
-it's more of a spectrum, and both ends of the spectrum confer
-different advantages and disadvantages. The pertinent question for
-this post is /where does Extempore fit along this continuum/?
+Let's find out the area of a circle of radius =5.0= units. We need to
+call =circle_area= with the argument =5.0=.
 
-The answer (as usual) is 'somewhere in the middle.  
-* General emacs stuff
+#+begin_html
+<a href=""><img src="images/interacting-with-compiler/xtlang-eval-3.png" alt=""></a> 
+#+end_html
 
-Load theme: =M-x load-theme= (then pick from the list)
-Open file: =C-x C-f=
-Split window horizontally: =C-x 2=
-Split window vertically: =C-x 3=
-Switch to buffer: =C-x b= (then the name)
-Jump to other window (in split window setup): =C-x o=
+When we evaluate the =(circle_area 5.0)= expression, a couple of
+things happen. The code is sent to the compiler, which returns the
+value =78.539816= to the editor. In addition, a message about
+'creating a new [[file:~/Documents/biott/org/_posts/2012-08-17-memory-management-in-extempore.org][memory zone]]' is printed to the log. That's because
+this is the first time we've /called/ some xtlang code, and so a
+memory zone needs to be set up to provide any =zalloc= memory. This
+zone allocation won't happen if we evaluate the same code again,
+because the default zone already exists. The compiler in this 'created
+default zone' message is just telling us helpful things about the
+state of our Extempore world.
 
-Beginning of line: =C-a=
-End of line of line: =C-e=
-Set/unset mark: =C-<space>= (for highlighting)
-Kill line: =C-k=
+As another example of the difference between the /return value/ of an
+xtlang expression and any /side effects/ it may introduce, have a
+think about how you would get the circle's area printed to the log
+view, rather than returned and shown in the echo area.
 
-Cancel: C-g (if you get into trouble)
-Help (function): =C-h f=, then function name
-Help (variable): =C-h v=, then variable name
-Info: =C-h i=, then browse through the menus
+The answer: we can wrap the call to the =circle_area= closure in a
+call to =println=. =println= is a built-in function which prints (to
+the log) a string representation of whatever arguments it is passed.
 
-* Working with Extempore code
+#+begin_html
+<a href=""><img src="images/interacting-with-compiler/xtlang-eval-4.png" alt=""></a> 
+#+end_html
 
-1. Start up Extempore in a shell buffer with =M-x shell=
-2. Open up an extempore file (.xtm extension)
-3. Connect to the running Extempore process: =C-x C-j= (needs to be
-   done for /every/ .xtm buffer)
+This time, the result (=78.539816=) is printed to the log. And the
+result returned to the editor is different, too---it's now =#t=.
+That's because the =println= function returns a value, indicating
+whether it was successful in printing its arguments to the log or not.
+The actual /printing/ is a 'side effect' of the =println=
+function---behaviour that happens during the course of the function's
+execution.
 
-Then, to evaluate (compile) xtlang code, use:
+As a final basic example, we can send code to the compiler more than
+'one closure at a time'. Let's write another closure, this time for
+figuring out the area of a 'doughnut'
 
-Evaluate enclosing s-expression: =C-x C-x=
-Evaluate region: =C-x C-r=
-Evaluate whole buffer: =C-x C-b=
+#+begin_html
+<a href=""><img src="images/interacting-with-compiler/doughnut-area.png" width="400px" alt=""></a> 
+#+end_html
 
-To restart the Extempore process, just =C-c C-c= in the *shell* buffer
-where it is running to kill it, then start it up again.
+Because we already have a closure (=circle_area=) for figuring out the
+area of a circle, it makes sense to use that closure in our
+=doughnut_area= closure. The area of the doughnut is the area of the
+outer circle (radius =r1=) minus the area of the inner circle (radius
+=r2=).
+
+#+begin_html
+<a href=""><img src="images/interacting-with-compiler/xtlang-eval-5.png" alt=""></a> 
+#+end_html
+
+See how this time both the definition of the =doughnut_area= closure
+and the call =(doughnut_area 5.0 2.5)= are sent to the compiler in the
+same 'chunk', meaning that they were both highlighted in the editor
+before giving the evaluation command.  The results of this
+evaluation indicate that the two parts of the code were both evaluated
+successfully: the =doughnut_area= closure compiled successfully, and
+the result =58.904862= was returned to the editor. 
+
+* The power (and danger) of CaaS
+
+Thus far in this post we've only evaluated code in the order it
+appears in the file. Closures which use other closures or globals have
+all worked fine. But when we kill the =extempore= process (i.e. with
+=SIGINT=), the Extempore environment we've 'built up' isn't saved---it's
+destroyed.
+
+#+begin_html
+<a href=""><img src="images/interacting-with-compiler/extempore-restart.png" width="400px" alt=""></a> 
+#+end_html
+
+After restarting the =extempore= process above, and reconnecting the
+editor to it, let's try compiling the =doughnut_area= closure first:
+
+#+begin_html
+<a href=""><img src="images/interacting-with-compiler/xtlang-compile-error.png" alt=""></a> 
+#+end_html
+
+The =circle_area= closure isn't there anymore, and so the compiler
+throws an error (and no value is returned to the editor). Because the
+compiler is a 'service', it'll just evaluate the code and build up the
+environment in whatever order you throw code at it. The source code
+isn't necessarily a linear representation of the evolution of the
+environment---it all depends on the 'evaluation trajectory' that you
+take through the code.
+
+So, if we go back and evaluate all the necessary code, everything
+works properly
+
+#+begin_html
+<a href=""><img src="images/interacting-with-compiler/xtlang-eval-6.png" alt=""></a> 
+#+end_html
+
+One other thing you can do is /redefine/ the behaviour of existing
+functions and variables.  For example, say we wanted to change our
+=circle_area= function to use an ancient Egyptian approximation for
+the area of a circle described on the [[http://en.wikipedia.org/wiki/Rhind_papyrus][Rhind papyrus]] (c. 1800BC).
+
+In the editor, /change the code/ for the =circle_area= closure and
+re-evaluate:
+
+#+begin_html
+<a href=""><img src="images/interacting-with-compiler/xtlang-eval-7.png" alt=""></a> 
+#+end_html
+
+The result is (slightly) different, but not too far off---not bad for
+a 4000 year old formula. But the main thing is that the code to /call/
+=circle_area= didn't change---only the definition did. The new closure
+definition has to have the same signature as the old one, so that any
+code which calls the existing closure will still work ok
+(type-signature wise). This re-configurability in the behaviour of the
+code lies at the heart of [[http://toplap.org][live coding]], a practice which has informed
+much of the design of Extempore.
+
+This should be a serious challenge to any notion you may have had
+about the source code being the canonical definition of how an
+Extempore 'program' behaves. In live programming, the programmer is
+constantly both building /new/ code and data structures, and also
+redefining and re-evaluating /old/ bits of code to fit better with the
+current execution and environmental context. There are lots of deep
+implications of this way of thinking about programming, and I won't go
+into them here, but hopefully this has been helpful for thinking about
+what programming in Extempore looks like.
+
+Now, if you want to code everything up in source files which are
+evaluated linearly from start to finish (e.g. with a call to =load=)
+then you can still do that, too.  All of the Extempore libraries
+(including those for DSP and graphics) work that way, and Extempore
+still works great in that paradigm.  But you have the ability to dive
+in and change things if you need to, and that opens up some
+interesting possibilities.
+
+# If you've read a few of the other blog post on this site about
+# programming in (with xtlang or Scheme) in Extempore, then you've
+# probably heard me talk about 'evaluating' code. If you're used to C or
+# C++ (or any other statically compiled language) this might seem like a
+# strange notion---code is /compiled/, then it is /executed/. The
+# compiler produces a static binary (for a given architecture), which
+# can be distributed and run all over the place. In general, if any
+# changes are made to the code then the binary has to be re-compiled and
+# re-distributed.
+
+# On the other hand, if you've programmed in a lisp[fn:lisps], or in
+# some type of scripting language (e.g. perl, ruby or python), then
+# you've probably seen a read-eval-print-loop (REPL) before. Also called
+# 'interactive' development, in this style of programming you write bits
+# of code, run them, and have the results printed 'echoed' back to you.
+# The interpreter for the programming language /reads/ the code that you
+# give it, /evaluates/ it (carries out the instructions it represents)
+# and /prints/ the result. These REPL-style environments can be
+# super-sophisticated,[fn:slime] providing lots of dynamic information
+# about the state of the interpreters 'world' (often called the
+# /environment/), i.e. the functions and data that the interpreter has
+# seen in that programming session and is keeping track of.
+
+# * Extempore and the (false) 'static vs dynamic language' dichotomy
+
+# If you want to start a flame war on the internets, then just write a
+# blog post called *Moving from (static language/framework x) to
+# (dynamic language/framework y) at (company z)*. Bonus angry points if
+# *company z* is a hot YC-backed startup, and a 10x multiplier if you
+# mention clojure or node.js. Then you can sit back, watch the hacker
+# news comment thread deteriorate, and weep for humanity. Ridiculousness
+# aside, however, the dichotomy is kindof a false one anyway. In reality
+# it's more of a spectrum, and both ends of the spectrum confer
+# different advantages and disadvantages. The pertinent question for
+# this post is /where does Extempore fit along this continuum/?
 
 [fn:scm-vs-xtlang] There are lots of [[file:~/Documents/biott/org/_posts/2012-08-09-xtlang-type-reference.org][other]] [[file:~/Documents/biott/org/_posts/2012-08-17-memory-management-in-extempore.org][posts]] describing xtlang in
 more detail. In this post, I'll just refer to the code generally, only
@@ -265,8 +402,13 @@ confusion.
 stable and accurate than your computer's default system clock,
 especially if you're using a dedicated external audio interface.
 
-[fn:lisps] That is, one of the lisp family of languages, e.g. Common
-Lisp, Scheme, Clojure, Emacs Lisp, etc.
+[fn:threads] Extempore's processes are kindof like POSIX threads.
 
-[fn:slime] Have you /seen/ a lisp hacker using Slime and Emacs?  Wow.
-That's some seriously funky stuff.
+[fn:scheme-output] Interpreted Scheme code, on the other hand, won't
+cause the =extempore= process to print anything to the log.
+
+# [fn:lisps] That is, one of the lisp family of languages, e.g. Common
+# Lisp, Scheme, Clojure, Emacs Lisp, etc.
+
+# [fn:slime] Have you /seen/ a lisp hacker using Slime and Emacs?  Wow.
+# That's some seriously funky stuff.
