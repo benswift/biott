@@ -357,6 +357,12 @@ still works great in that paradigm.  But you have the ability to dive
 in and change things if you need to, and that opens up some
 interesting possibilities.
 
+This post is really just the tip of the compiler-as-a-service (CaaS)
+iceberg. Extempore's CaaS will also let you do things like query for
+all bound symbols, print all closures of a particular signature type,
+return the [[http://en.wikipedia.org/wiki/Abstract_syntax_tree][abstract syntax tree]] of a particular closure, etc... In
+fact the Extempore compiler itself is fully runtime modifiable!
+
 # If you've read a few of the other blog post on this site about
 # programming in (with xtlang or Scheme) in Extempore, then you've
 # probably heard me talk about 'evaluating' code. If you're used to C or
