@@ -1,0 +1,92 @@
+#+begin_html
+---
+layout: page
+title: "Extempore Documentation"
+date: 2011-11-16 23:10
+comments: false
+sharing: true
+footer: true
+---
+#+end_html
+
+This blog contains a bunch of posts and tutorials covering [[https://github.com/digego/extempore][Extempore]],
+a programming environment for (among other things) live coding of
+multimedia and real-time systems.  If you're here to learn/find out
+more about Extempore, then here's an overview of all the documentation
+and some suggestions about where to start, depending on what you're
+looking for.
+
+If anything isn't clear, or you have suggestions/corrections, then
+drop [[file:~/Documents/biott/org/bio/index.org][me]] a line at [[mailto:benjamin.j.swift@gmail.com][benjamin.j.swift@gmail.com]].
+
+* Extempore Overviews
+
+These are the high-level descriptions about what Extempore /is/, how
+it works, and what it could be used for.
+
+- Extempore in 5 minutes: the tl;dr
+- [[file:~/Documents/biott/org/_posts/2012-08-07-extempore-philosophy.org][The Extempore philosophy]]
+- [[file:~/Documents/biott/org/_posts/2012-09-26-interacting-with-the-extempore-compiler.org][Interacting with the Extempore compiler]]
+- Time in Extempore
+
+* Getting started with Extempore
+
+Here's some help to get you up and running with Extempore, right from
+the beginning steps.
+
+- Building Extempore on Linux
+- Building Extempore on Mac OSX
+- Building/Getting Extempore on Windows
+- Configuring your editor: Emacs/ST2
+
+* xtlang reference material
+
+xtlang is a strongly-typed Scheme-like programming language which
+is JIT-compiled into high-performance native machine code by the
+Extempore compiler (with the help of [[http://llvm.org][LLVM]]). xtlang is in many ways the
+secret sauce of the Extempore project, and most of the code examples
+in this documentation will be in xtlang.
+
+- [[file:~/Documents/biott/org/_posts/2012-08-09-xtlang-type-reference.org][xtlang type reference]]
+- [[file:~/Documents/biott/org/_posts/2012-08-13-understanding-pointers-in-xtlang.org][Understanding pointers in xtlang]]
+- [[file:~/Documents/biott/org/_posts/2012-08-17-memory-management-in-extempore.org][Memory management in Extempore]]
+- [[file:~/Documents/biott/org/_posts/2012-10-03-xtlang-type-diagrams.org][xtlang type diagrams]]
+- [[file:~/Documents/biott/org/_posts/2012-08-23-binding-to-c-libs.org][Binding to C libraries]]
+
+* Audio programming in Extempore
+
+Extempore is a great environment for audio DSP and number-crunching,
+particularly in a dynamic, interactive, 'live' coding context.  It
+supports both a low-level, sample-based DSP approach and also the
+creation of soft-synths and samplers which can be played like virtual
+MIDI instruments.  Both types of audio processing can also be mixed
+together in the same performance/execution environment---in fact this
+is encouraged :)
+
+** Low-level DSP
+
+- [[file:~/Documents/biott/org/_posts/2012-06-07-dsp-basics-in-extempore.org][DSP basics part I]]
+- [[file:~/Documents/biott/org/_posts/2012-06-07-more-dsp-and-extempore-types.org][DSP basics part II]]
+- [[file:~/Documents/biott/org/_posts/2012-09-28-making-an-instrument.org][Making an Extempore instrument]]
+
+** High-level (instrument-based) audio
+
+- Extempore instrument basics
+- Making it go bing
+- More complicated pitch and interval-based
+
+* Graphics
+
+Extempore supports working with graphics at several different levels
+of abstraction.  You can write raw triangles with low-leve OpenGL
+calls, or you can use the [[http://www.cairographics.org][cairo]] library for 2D graphics, or you can
+use the Horde3D engine to interact with models and define complex
+scenes and lighting, or again you can mix-and-match!
+
+- OpenGL basics
+- 2D drawing with cairo
+- 3D rendering and meshes with Horde3D
+
+#+begin_html
+<a href=""><img src="../images/biopic.jpg" alt=""></a>
+#+end_html
