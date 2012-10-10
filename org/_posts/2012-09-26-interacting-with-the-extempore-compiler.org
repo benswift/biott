@@ -263,7 +263,7 @@ As a final basic example, we can send code to the compiler more than
 figuring out the area of a 'doughnut'
 
 #+begin_html
-<a href=""><img src="images/interacting-with-compiler/doughnut-area.png" width="400px" alt=""></a> 
+<a href=""><img src="images/interacting-with-compiler/doughnut-area.png" width="250px" alt=""></a> 
 #+end_html
 
 Because we already have a closure (=circle_area=) for figuring out the
@@ -293,7 +293,7 @@ all worked fine. But when we kill the =extempore= process (i.e. with
 destroyed.
 
 #+begin_html
-<a href=""><img src="images/interacting-with-compiler/extempore-restart.png" width="400px" alt=""></a> 
+<a href=""><img src="images/interacting-with-compiler/extempore-restart.png" width="300px" alt=""></a> 
 #+end_html
 
 After restarting the =extempore= process above, and reconnecting the
