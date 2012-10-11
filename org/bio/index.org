@@ -4,14 +4,14 @@ layout: page
 title: "Bio"
 date: 2011-11-16 23:10
 comments: false
-sharing: true
+sharing: false
 footer: true
 ---
 #+end_html
 
-I'm a Senior Research Assistant at Queensland University
-of Technology and also an [[http://people.cecs.anu.edu.au/user/3895][Adjunct Research Assistant]] in the School of
-Computer Science at the Australian National University.
+I'm an [[http://people.cecs.anu.edu.au/user/3895][Adjunct Research Assistant]] in the School of Computer Science at
+the Australian National University and also a Senior Research
+Assistant at Queensland University of Technology.
 
 My primary research interest these days is *live coding*, and I'm
 currently working on the [[https://github.com/digego/extempore][Extempore]] project (as you may have been able
@@ -22,8 +22,8 @@ check out some of my screencasts at my [[http://vimeo.com/benswift/videos][vimeo
 I recently submitted my PhD thesis, and I'm still waiting to hear back
 from the examiners---fingers crossed! My research project was
 cross-disciplinary, mainly between computer science and digital media.
-Prior to that I did a BSc (Hons) in Mathematics. I'm
-a Canberra lad, born and bred.
+Prior to that I did a BSc (Hons) in Mathematics. I'm a Canberra lad,
+born and bred.
 
 If you want to get in touch, email is best---you can reach me on
 [[mailto:benjamin.j.swift@gmail.com][benjamin.j.swift@gmail.com]].
