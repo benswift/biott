@@ -27,6 +27,7 @@ it works, and what it can do.
 - [[file:../2012-08-07-extempore-philosophy.org][The Extempore philosophy]]
 - [[file:../2012-09-26-interacting-with-the-extempore-compiler.org][Interacting with the Extempore compiler]]
 - Time in Extempore
+- Extempore for Impromptu users
 
 * Getting started with Extempore
 
@@ -41,8 +42,8 @@ the beginning steps.
 
 * xtlang reference material
 
-xtlang is a strongly-typed Scheme-like programming language which is
-JIT-compiled into high-performance native machine code by the
+xtlang is a strongly-typed programming language with a Lisp syntax
+which is JIT-compiled into high-performance native machine code by the
 Extempore compiler (with the help of [[http://llvm.org][LLVM]]). xtlang is in many ways
 Extempore's 'secret sauce', and most of the code examples in this
 documentation will be in xtlang.
@@ -84,6 +85,7 @@ everything's in xtlang, you can mix-and-match!
 - OpenGL basics
 - 2D drawing with cairo
 - 3D rendering and meshes with Horde3D
+- Image processing and custom shaders
 
 * Getting help
 
