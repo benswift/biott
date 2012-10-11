@@ -20,16 +20,16 @@ get complicated fairly quickly.  For this reason, it's nice to be able
 to visualise the types involved a particular bit of xtlang source
 code.
 
-And the types /can/ get pretty hairy: tuples with elements which
+And the types /can/ get pretty hairy: tuples with elements which are
 arrays of closure pointers, pointers to pointers to pointers, not to
 mention the generics stuff which is coming in Extempore version 0.5.
 Defining your own custom types, which then get all the safety benefits
 of compile-time type checking, is one of the nice things about the
 xtlang type system. When you're writing this sort of xtlang code, be
 prepared to see the compiler spit out all sorts of complex type
-signatures.  And they do get easier to read at a glance in time---at
+signatures. And they do get easier to read at a glance in time---at
 least in my experience---but it's cool to be able to represent them
-visually as well.  And that's where xtlang type diagrams come in.
+visually as well. And that's where xtlang type diagrams come in.
 
 This blog post is a companion piece to the [[file:~/Documents/biott/org/_posts/2012-08-09-xtlang-type-reference.org][xtlang type system]] post, so
 if you haven't read that then it might be worth jumping across to do
