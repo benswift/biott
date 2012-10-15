@@ -118,7 +118,7 @@ use oscillator closures created by Extempore's =osc_c= function.
 #+begin_src extempore
   (load "libs/core/instruments.xtm")
   
-  (bind-func organ-drone
+  (bind-func organ_drone
     (let ((num_drawbars 9)
           ;; allocate memory for the oscillators and other bits and pieces
           (freq_ratio:double* (zalloc num_drawbars))
@@ -147,12 +147,12 @@ use oscillator closures created by Extempore's =osc_c= function.
   
   (bind-func dsp:DSP
     (lambda (in time chan dat)
-      (organ-drone 440.0)))
+      (organ_drone 440.0)))
   
   (dsp:set! dsp)
 #+end_src
 
-Compiling the function =organ-drone= does three things:
+Compiling the function =organ_drone= does three things:
 
 - *allocate memory* to store the data associated with our sine
   oscillators. For each oscillator, this is =freq_ratio= (the
@@ -170,9 +170,9 @@ Compiling the function =organ-drone= does three things:
   return values. This closure is then callable using its name:
   =organ-drone=.
 
-When we call the =organ-drone= closure in the =dsp= callback, we hear
+When we call the =organ_drone= closure in the =dsp= callback, we hear
 a droning organ tone. It should be really obvious at this point that
-the closure =organ-drone= doesn't represent a /pure/ function: one
+the closure =organ_drone= doesn't represent a /pure/ function: one
 that stateless and always returns the same output value for a given
 input value. If it /were/ a pure function, then calling it in the dsp
 callback above with an argument of =200.0= would always return the
@@ -180,7 +180,7 @@ same value.  This wouldn't be very interesting in an audio output
 scenario---audio is only interesting when the waveforms are
 oscillating, and particularly when the oscillations are periodic.
 That's basically all pitched sounds are: periodic waveforms. So for
-the =organ-drone= closure to produce a nice pitched organ tone, there
+the =organ_drone= closure to produce a nice pitched organ tone, there
 must be some state hidden somewhere which is changing and allowing the
 closure to return a periodic waveform.
 
@@ -232,7 +232,7 @@ they can be easily modulated. This is what allows us to create /buffers/
 of closures which we can access and modify via pointers, which is
 exactly what we're doing with =tonewheel=.
 
-Going back up to the =organ-drone= above, there's one more point
+Going back up to the =organ_drone= above, there's one more point
 worth making about closures and scoping. Notice how there's a =let=
 outside the =lambda=, which is where the data buffers (=freq_ratio=,
 =drawbar_pos= and =tonewheel= are all both allocated (with =zalloc=)
@@ -240,7 +240,7 @@ and initialised (with =pfill!= & =pset!=). These data buffers are used
 in the body of the =lambda=, so the =lambda= closes over them.
 
 What this means is that these buffers are only allocated and
-initialised when the =organ-drone= closure is compiled. When it is
+initialised when the =organ_drone= closure is compiled. When it is
 called, on the other hand, the code begins executing from the first
 line inside the =lambda= form, which happens to be =(let ((sum 0.0))=.
 The values in the =freq_ratio=, =drawbar_pos= and =tonewheel= buffers
@@ -250,7 +250,7 @@ modified them (which, in the case of the =tonewheel= buffer, is
 /every/ invocation, because of the call to each oscillator and its
 subsequent phase incrementing).
 
-The one argument to the =organ-drone= closure, =freq=, is passed to
+The one argument to the =organ_drone= closure, =freq=, is passed to
 every individual oscillator closure in the body of the inner loop,
 although it is first modified by the appropriate frequency ratio for
 that particular drawbar.  The output value of the closure is then
@@ -278,7 +278,7 @@ concerned about the low-level details of how Extempore's instrument
 infrastructure. Still, if you've read this far then I can probably
 assume you have at least some interest :)@</i>
 
-Making this =organ-drone= closure has really just been a prelude to
+Making this =organ_drone= closure has really just been a prelude to
 the real business of making an /instrument/ in Extempore. An Extempore
 instrument can be played like a midi soft-synth. Individual notes can
 be triggered with an amplitude, a pitch and a duration. Impromptu
@@ -310,7 +310,7 @@ So, when we finally define our hammond organ instrument, the
 definition will look like this
 
 #+begin_src extempore
-  (define-instrument organ organ-note organ-fx)
+  (define-instrument organ organ_note_c organ_fx)
 #+end_src
 
 and in an [[file:~/Documents/biott/org/_posts/2012-10-03-xtlang-type-diagrams.org][xtlang type diagram]]
@@ -320,55 +320,14 @@ and in an [[file:~/Documents/biott/org/_posts/2012-10-03-xtlang-type-diagrams.or
 #+end_html
 
 =define-instrument= is actually a (Scheme) macro, and it takes the two
-kernel closures (=organ-note= and =organ-fx=) and compiles a new
+kernel closures (=organ_note_c= and =organ_fx=) and compiles a new
 xtlang closure, and binds it to the name =organ=.[fn:notyet] These are
 just regular xtlang closures, they just have to have a particular type
 signature to allow them to play nicely with the rest of the
 =define-instrument= processing chain.
-
-# #+begin_src extempore
-#   (println (macro-expand '(define-instrument organ organ-note organ-fx)))
-#
-#   ;; evaluating the above line (and reformatting the output) gives
-#
-#   (bind-func organ
-#     (let* ((poly:i64 48)
-#            (notes:[double,double,double,double]** (zalloc poly))
-#            (attack:double 200.0)
-#            (decay:double 200.0)
-#            (release:double 1000.0)
-#            (sustain:double 0.6)
-#            (gain 2.0)
-#            (ii 0)
-#            (note-starts:double* (zalloc poly))
-#            (new-note (lambda (start freq dur amp)
-#                        (let ((free-note:i64 -1)
-#                              (iii 0)
-#                              (i 0))
-#                          (dotimes (i poly)
-#                            (if (> (pref note-starts i) 9999999999998.0)
-#                                (set! free-note i)))
-#                          (if (> free-note -1)
-#                              (let ((note_zone (push_zone (* 1024 10))))
-#                                (pset! notes free-note (make-note start freq amp dur attack decay release sustain note-starts free-note (organ-note) note_zone))
-#                                (pset! note-starts free-note start)
-#                                (pop_zone)
-#                                1)
-#                              0)))))
-#       (dotimes (ii poly)
-#         (pset! note-starts ii 9999999999999.0))
-#       (lambda (in:double time:double chan:double dat:double*)
-#         (let ((out:double 0.0)
-#               (k 0))
-#           (dotimes (k poly)
-#             (if (< (pref note-starts k) time)
-#                 (set! out (+ out (* 0.3 ((pref notes k) in time chan))))))
-#           (* gain (organ-fx out time chan dat))))))
-# #+end_src
-
 So, let's have a look at the lifecycle of a note played on our =organ=
 with the help of a few [[file:~/Documents/biott/org/_posts/2012-10-03-xtlang-type-diagrams.org][xtlang type diagrams]]. I'll assume at this point
-that =organ= (and therefore =organ-note= and =organ-fx=) have been
+that =organ= (and therefore =organ_note_c= and =organ_fx=) have been
 successfully compiled, even though they haven't---yet. The xtlang
 source code for all the functions I mention are in
 =libs/core/instruments.xtm= if you want to see (or redefine) it for
@@ -397,7 +356,7 @@ does the =organ= closure know what its output should be and which
 notes it should be playing?
 
 The playing of a note happens through a function called
-=_play-note=.[fn:play-note-underscore]
+=_play_note=.[fn:play-note-underscore]
 
 #+begin_html
 <a href=""><img src="images/play-note.png" alt=""></a>
@@ -412,18 +371,18 @@ which takes four arguments:
 - =amp=: the volume/loudness of the note
 - =dur=: the duration of the note
 
-Hopefully you can see how =_play-note= provides all the control
+Hopefully you can see how =_play_note= provides all the control
 required to /schedule/ (via the =time= argument) notes of any pitch,
 loudness and duration. All you need to play the =organ= like a MIDI
 soft synth. Actually, you'll mostly use the Scheme wrapper function
 =play-note= (note the lack of a leading underscore) which takes pitch
 and velocity arguments (with ranges from 0 to 127) instead of raw
 frequency and amplitude values. But =play-note= just does some simple
-argument transformations and then passes control to =_play-note=,
-which does the work, so it's =_play-note= that I'll explain first.
+argument transformations and then passes control to =_play_note=,
+which does the work, so it's =_play_note= that I'll explain first.
 
-So how does it work? When =_play-note= is called with =organ= as the
-instrument, the note kernel =organ-note= is called which returns an
+So how does it work? When =_play_note= is called with =organ= as the
+instrument, the note kernel =organ_note= is called which returns an
 anonymous closure that, when called once per audio sample, will
 generate the basic (drone) tone of the instrument. This closure is
 then turned into /another/ anonymous closure (which additionally
@@ -456,7 +415,7 @@ the code works.
 
 # The note kernel is another higher order closure. The reason for this
 # is that it returns a closure which exists and will be called to yield
-# each sample for the duration of a note (as scheduled by =_play-note=).
+# each sample for the duration of a note (as scheduled by =_play_note=).
 # This gives us polyphony 'for free', because each note's closure can
 # close over the state that it requires to make its drone sound, and the
 # closures of different notes won't interfere with each other, they can
@@ -467,24 +426,24 @@ the code works.
 # (attack, decay, sustain, and release). That stuff is all handled (and
 # can be tweaked) through the top-level instrument's closure, which
 # we'll get to later on. The note closure returned by the note kernel
-# will basically be the =organ-drone= closure we made in the previous
+# will basically be the =organ_drone= closure we made in the previous
 # section, except with a few minor modifications. The key one is that
-# the =organ-drone= closure just took one argument (=freq=), whereas the
-# closures returned by =organ-note= have to take /four/ =double=
+# the =organ_drone= closure just took one argument (=freq=), whereas the
+# closures returned by =organ_note= have to take /four/ =double=
 # arguments and returns a =double=.
 
 * Step two: the note kernel
 
 Back to the task at hand, we need to construct the note and effects
 kernels for our hammond organ instrument. Once we have those,
-=define-instrument= and =_play-note= allow us to play the organ like a
+=define-instrument= and =_play_note= allow us to play the organ like a
 soft synth, which is the goal we've been pursuing since the beginning.
 
 The 'template' for the note kernel and effects kernel is something
 like this (this is just a skeleton---it won't compile)
 
 #+begin_src extempore
-  (bind-func organ-note
+  (bind-func organ_note
     (lambda ()
       (lambda (time:double chan:double freq:double amp:double)
         (cond ((= chan 0.0)
@@ -495,7 +454,7 @@ like this (this is just a skeleton---it won't compile)
                )
               (else 0.0)))))
   
-  (bind-func organ-fx
+  (bind-func organ_fx
     (lambda (in:double time:double chan:double dat:double*)
       (cond ((= chan 0.0)
              ;; left channel effects goes here
@@ -512,11 +471,11 @@ mean anything fancier than that we handle the left channel (channel
 The generalisation to multi-channel instruments should be
 obvious---just use a bigger =cond= form!
 
-To make the =organ-note= kernel, we'll fill in the template from the
-=organ-drone= closure we made earlier.
+To make the =organ_note= kernel, we'll fill in the template from the
+=organ_drone= closure we made earlier.
 
 #+begin_src extempore
-  (bind-func organ-note
+  (bind-func organ_note
     (let ((num_drawbars 9)
           (freq_ratio:double* (zalloc num_drawbars))
           (drawbar_pos:i64* (zalloc num_drawbars)))
@@ -543,7 +502,7 @@ To make the =organ-note= kernel, we'll fill in the template from the
 #+end_src
 
 The general shape of the code is basically the same as in
-=organ-drone=. We still allocate a =tonewheel= a buffer of closures to
+=organ_drone=. We still allocate a =tonewheel= a buffer of closures to
 keep track of our oscillators, and we still sum them all together with
 relative amplitudes based on the drawbar position. There are just
 additions:
@@ -556,9 +515,9 @@ additions:
   in a physical instrument the frequency ratios between the tonewheels
   aren't perfect.
 
-The other important difference between =organ-note= and =organ-drone=
-is that while =organ-drone= returns a double value (and so can be
-called directly for playback in the =dsp= closure), =organ-note=
+The other important difference between =organ_note= and =organ_drone=
+is that while =organ_drone= returns a double value (and so can be
+called directly for playback in the =dsp= closure), =organ_note=
 returns a /closure/.  A type diagram highlights the difference:
 
 #+begin_html
@@ -566,11 +525,11 @@ returns a /closure/.  A type diagram highlights the difference:
 #+end_html
 
 As I described in the previous section, this provides the flexibility
-required to manage note scheduling (via =_play-note=) and polyphony.
+required to manage note scheduling (via =_play_note=) and polyphony.
 
 * Step three: the effect kernel
 
-The final piece of the puzzle is the effect kernel =organ-fx=. In a
+The final piece of the puzzle is the effect kernel =organ_fx=. In a
 tonewheel organ, the main effect which we want to model is the [[http://en.wikipedia.org/wiki/Leslie_speaker][Leslie
 speaker]]. The warbling Leslie speaker is key part of the classic
 hammond sound.
@@ -581,12 +540,12 @@ produced a warbling, doppler-shifting tone colouration.  Like with any
 digital modelling of a physical instrument, modelling the speaker's
 effect really accurately is a difficult task, but there are some
 simple techniques we can use to achieve a serviceable approximation of
-this effect.  In particular, our =organ-fx= kernel will use a [[http://en.wikipedia.org/wiki/Flanging][flanger]]
+this effect.  In particular, our =organ_fx= kernel will use a [[http://en.wikipedia.org/wiki/Flanging][flanger]]
 and [[http://en.wikipedia.org/wiki/Tremolo][tremolo]] (with subtly different frequencies between the L and R
 channels) to simulate the sound of a Leslie speaker.
 
 #+begin_src extempore
-  (bind-func organ-fx 100000
+  (bind-func organ_fx 100000
     (let ((flanl (flanger_c 1.0 0.0 0.6 1.0))
           (flanr (flanger_c 1.0 0.0 0.6 1.0))
           (treml (osc_c 0.0))
@@ -612,11 +571,11 @@ tremolo for the appropriate channel.
 * Playing the instrument
 
 Now, let's see if our instrument works! Having compiled both
-=organ-note= and =organ-fx=, we're finally ready to use
+=organ_note= and =organ_fx=, we're finally ready to use
 =define-instrument= to make our xtlang hammond organ
 
 #+begin_src extempore
-  (define-instrument organ organ-note organ-fx)
+  (define-instrument organ organ_note organ_fx)
   
   ;; Compiled organ >>> [double,double,double,double,double*]*
   
@@ -653,7 +612,7 @@ and see how the note changes.
   should use with the =--device= argument e.g. =./extempore --device
   2=, where =2= is the index (in the output of =--print-devices=) of
   the device you want to use.
-- did the =organ=, =organ-note= and =organ-fx= closures all compile
+- did the =organ=, =organ_note= and =organ_fx= closures all compile
   properly?  Check the log output to find out.  If the compiler can't
   find the definition of some functions (e.g. =osc_c=) then you
   might not have loaded all the libraries that you need.
@@ -687,7 +646,7 @@ over/ their non-local variables.
 [fn:notyet] We can't actually evaluate this instrument definition yet, because we
 haven't yet defined the note and effect kernels.
 
-[fn:play-note-underscore] The xtlang closure =_play-note= is named
+[fn:play-note-underscore] The xtlang closure =_play_note= is named
 with a leading underscore so as to not interfere with the scheme
 closure =play-note= which was inherited from Impromptu.
 

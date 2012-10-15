@@ -89,17 +89,17 @@ When programming in xtlang you don't really ever deal with tuples
 directly - you deal with them by /reference/ through pointers. There
 are no 'literals' for tuples either - you can't just go
 #+begin_src extempore
-(bind-func tuple-maker
+(bind-func tuple_maker
   (lambda (a:i64)
     (let ((tup:<i64,i64> <a,a>))
       tup)))
 
-(tuple-maker 4) ; Compiler Error: unbound symbol: <a,a>
+(tuple_maker 4) ; Compiler Error: unbound symbol: <a,a>
 #+end_src
 Instead, this time in the =let= we get a pointer to a tuple through a
 call to =alloc=.
 #+begin_src extempore
-(bind-func tuple-maker
+(bind-func tuple_maker
   (lambda (a:i64)
     (let ((tup:<i64,i64>* (alloc)))
       (tset! tup 0 a)
@@ -117,9 +117,9 @@ above, that's =tup=), an =i64= (0-based) index for specifying which
 (which must be of the appropriate type, otherwise you'll get a type
 error).
 
-This new version of =make-tuple= compiles - hooray! The type signature
-printed by the compiler is =Compiled tuple-maker >>>
-[<i64,i64>*,i64]*= and the type of =tuple-maker= is a pointer (denoted
+This new version of =tuple_maker= compiles - hooray! The type signature
+printed by the compiler is =Compiled tuple_maker >>>
+[<i64,i64>*,i64]*= and the type of =tuple_maker= is a pointer (denoted
 by the =*=) to a closure (denoted by the =[]=) which takes one =i64=
 argument and returns a pointer to a tuple of two =i64= s.
 
@@ -128,7 +128,7 @@ Just to check that everything's working properly, let's write a little
 #+begin_src extempore
 (bind-func test
     (lambda (a:i64)
-      (let ((tup (tuple-maker a)))
+      (let ((tup (tuple_maker a)))
         (printf "<%d,%d>\n"
                 (tref tup 0)
                 (tref tup 1))
@@ -144,31 +144,31 @@ three oscs)
 (bind-alias osc_t [double,double,double]*)
 
 (bind-func dsp:DSP
-  (let ((osc-tuple:<osc_t,osc_t,osc_t>* (alloc)))
-    (tfill! osc-tuple (osc_c 0.0) (osc_c 0.0) (osc_c 0.0))
+  (let ((osc_tuple:<osc_t,osc_t,osc_t>* (alloc)))
+    (tfill! osc_tuple (osc_c 0.0) (osc_c 0.0) (osc_c 0.0))
     (lambda (in time channel data)
       (cond ((= channel 1.0) 
-             (+ ((tref osc-tuple 0) 0.5 300.0)
-                ((tref osc-tuple 1) 0.5 420.0)))
+             (+ ((tref osc_tuple 0) 0.5 300.0)
+                ((tref osc_tuple 1) 0.5 420.0)))
             ((= channel 0.0)
-             ((tref osc-tuple 2) 0.5 600.0))
+             ((tref osc_tuple 2) 0.5 600.0))
             (else 0.0)))))
 #+end_src
 This time, instead of binding each osc to its own symbol (=osc1=,
-=osc2= and =osc3=), we created =osc-tuple=, a (pointer to a) tuple,
+=osc2= and =osc3=), we created =osc_tuple=, a (pointer to a) tuple,
 which held all the oscs. We filled it with =tfill!=, which takes as a
 first argument the pointer to the tuple, and then enough additional
 arguments to fill out the tuple.  Equivalently, we could have set each
-element in the tuple manually with =(tset! osc-tuple 0 (osc_c
+element in the tuple manually with =(tset! osc_tuple 0 (osc_c
 0.0))= etc.
 
 Also, the use of =bind-alias= is helpful here, because it allows us to
 condense the verbose type of the closure oscs
 (=[double,double,double]*=) down to the more manageable =osc_t=, handy
-when we then need to type the osc-tuple with three of them.
+when we then need to type the =osc_tuple= with three of them.
 
 There's no reason why the types in the tuple have to be the same.
-Indeed, usually they won't be - tuples allow us to define more complex
+Indeed, usually they won't be---tuples allow us to define more complex
 data structures which are suitable for the task at hand.
 
 * Arrays in xtlang
@@ -185,35 +185,35 @@ memory allocation functions (e.g. =alloc=). Instead of =tref= and
 So, to bring this discussion back to the practical art of
 noise-making, let's create a =dsp= function which makes use of arrays
 and tuples to do some additive synthesis. We'll make an array
-=osc-array=, and then two more arrays (=amp-array= and =freq-array=)
+=osc_array=, and then two more arrays (=amp_array= and =freq_array=)
 to keep track of the amplitude and frequency values.
 
 #+begin_src extempore
 (bind-func dsp:DSP
-  (let ((osc-array:|30,[double,double,double]*|* (alloc))
-        (amp-array:|30,double|* (alloc))
-        (freq-array:|30,double|* (alloc))
+  (let ((osc_array:|30,[double,double,double]*|* (alloc))
+        (amp_array:|30,double|* (alloc))
+        (freq_array:|30,double|* (alloc))
         (i 0))
     ; initialise the arrays
     (dotimes (i 30)
-      (aset! osc-array i (osc_c 0.0))
-      (aset! amp-array i (+ 0.2 (* 0.2 (random))))
-      (aset! freq-array i (+ 110.0 (* 1000.0 (random)))))
+      (aset! osc_array i (osc_c 0.0))
+      (aset! amp_array i (+ 0.2 (* 0.2 (random))))
+      (aset! freq_array i (+ 110.0 (* 1000.0 (random)))))
     ; this is the dsp closure
     (lambda (in time chan data)
       (cond ((= chan 0.0) ; left channel
              (let ((suml 0.0))
                (dotimes (i 15) ; sum over the first 15 oscs
-                 (set! suml (+ suml ((aref osc-array i)
-                                     (aref amp-array i)
-                                     (aref freq-array i)))))
+                 (set! suml (+ suml ((aref osc_array i)
+                                     (aref amp_array i)
+                                     (aref freq_array i)))))
                (/ suml 15.0))) ; normalise over all oscs
             ((= chan 1.0) ; left channel
              (let ((sumr 0.0))
                (dotimes (i 15 15) ; sum over the first 15 oscs
-                 (set! sumr (+ sumr ((aref osc-array i)
-                                     (aref amp-array i)
-                                     (aref freq-array i)))))
+                 (set! sumr (+ sumr ((aref osc_array i)
+                                     (aref amp_array i)
+                                     (aref freq_array i)))))
                (/ sumr 15.0)))
             (else 0.0))))) ; any remaining channels
 #+end_src
@@ -243,26 +243,26 @@ one channel for clarity).
 
 #+begin_src extempore
 (bind-func dsp:DSP
-  (let ((osc-array:|30,[double,double,double]*|* (alloc))
-        (amp-array:|30,double|* (alloc))
-        (freq-array:|30,double|* (alloc))
-        (base-freq 110.0)
+  (let ((osc_array:|30,[double,double,double]*|* (alloc))
+        (amp_array:|30,double|* (alloc))
+        (freq_array:|30,double|* (alloc))
+        (base_freq 110.0)
         (i 0))
     ; initialise the arrays
     (dotimes (i 30)
-      (aset! osc-array i (osc_c 0.0))
-      (aset! amp-array
+      (aset! osc_array i (osc_c 0.0))
+      (aset! amp_array
              i
              (if (= (/ i 2) 0)
                  0.3
                  0.0))
-      (aset! freq-array i (* (i64tod (+ i 1)) base-freq)))
+      (aset! freq_array i (* (i64tod (+ i 1)) base_freq)))
     (lambda (in time chan data)
       (let ((sum 0.0))
         (dotimes (i 30)
-          (set! sum (+ sum ((aref osc-array i)
-                            (aref amp-array i)
-                            (aref freq-array i)))))
+          (set! sum (+ sum ((aref osc_array i)
+                            (aref amp_array i)
+                            (aref freq_array i)))))
         (/ sum 30.0))))) ; normalise over all oscs
 #+end_src
 
@@ -270,7 +270,7 @@ See how we're using the same arrays as last time (for osc, amp and
 freq) but instead of randomly picking frequencies and amplitudes,
 we're generating a harmonic series with a fundamental of 110Hz, and
 only playing the even harmonics (check the equality test in the
-initialisation of =amp-array=).  For fun, change that equality test to
+initialisation of =amp_array=).  For fun, change that equality test to
 an inequality test (=<>=) and listen to the result!
 
 * Knock yourselves out

@@ -47,7 +47,7 @@ To give an example of what I'm talking about, consider this basic
 xtlang function:
 
 #+begin_src extempore
-(bind-func my-test-1
+(bind-func my_test_1
   (lambda (a)
     (* a 5)))
 #+end_src
@@ -79,7 +79,7 @@ compiler treats integers as =i64= unless you explicitly tell it
 otherwise.  Similarly, /float literals/ are interpreted as doubles, so
 
 #+begin_src extempore
-(bind-func my-test-2
+(bind-func my_test_2
   (lambda (a)
     (* a 5.0)))
 #+end_src
@@ -92,7 +92,7 @@ compiler is not already aware of (or integer/float literals which are
 read as =i64= / =double=) 
 
 #+begin_src extempore
-(bind-func my-test-3
+(bind-func my_test_3
   (lambda (a b)
     (/ a b)))
 #+end_src
@@ -101,7 +101,7 @@ then the compiler will throw an error:
 
 #+begin_html
 ```
-Compiler Error: could not resolve ("a" "b" "my-test-3") you could
+Compiler Error: could not resolve ("a" "b" "my_test_3") you could
 try forcing the type of one or more of these symbols.
 ```
 #+end_html
@@ -110,7 +110,7 @@ As the compiler suggests, what we need to do
 is to explicitly provide some type information:
 
 #+begin_src extempore
-(bind-func my-test-4
+(bind-func my_test_4
   (lambda (a:double b)
     (/ a b)))
 #+end_src
@@ -131,7 +131,7 @@ Extempore supports all the basic int and float types (=double=, =i32=,
 etc.) as well as combinations thereof, including tuples, arrays and
 even generics. But that's all stuff for another day - for the moment
 the key thing to remember is that this type signature tells us the
-types of the arguments and return value of =my-test-1=. If we try and
+types of the arguments and return value of =my_test_1=. If we try and
 call it with arguments of the wrong types, it'll throw an error.
 
 * Closures: poking around in the environment
@@ -143,24 +143,24 @@ which were bound in its environment. So if we have a function which
 variable is captured in the function closure:
 
 #+begin_src extempore
-(bind-func my-test-5
-  (let ((nonlocal-var 0))
+(bind-func my_test_5
+  (let ((nonlocal_var 0))
     (lambda (x)
-      (set! nonlocal-var (+ nonlocal-var 1))
-      (* x nonlocal-var))))
+      (set! nonlocal_var (+ nonlocal_var 1))
+      (* x nonlocal_var))))
 #+end_src
 
-The variable =nonlocal-var= is bound outside the function scope in the
+The variable =nonlocal_var= is bound outside the function scope in the
 surrounding =let=, but because it occurs in the body of the function
 (as a multiplier in the return value) then the closure contains a
-reference to =nonlocal-var=. This is nice because it allows us to have
+reference to =nonlocal_var=. This is nice because it allows us to have
 some persistent state between successive calls to the function
-=my-test-5=, which will return:
+=my_test_5=, which will return:
 
 #+begin_src extempore
-(println (my-test-2 2)) ;; will print 2
-(println (my-test-2 2)) ;; will print 4
-(println (my-test-2 2)) ;; will print 6, etc.
+(println (my_test_2 2)) ;; will print 2
+(println (my_test_2 2)) ;; will print 4
+(println (my_test_2 2)) ;; will print 6, etc.
 #+end_src
 
 xtlang even provides a nice 'dot syntax' for accessing (and
