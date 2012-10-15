@@ -1,0 +1,133 @@
+#+begin_html
+---
+layout: post
+title: "Making it go bing"
+date: 2012-10-15 10:30
+comments: true
+categories:
+---
+#+end_html
+
+This is about the simplest program you can write in Impromptu. It
+loads an instrument and plays a single note.
+
+#+begin_src extempore
+  ; make sure that everything is disconnected
+  (au:clear-graph)
+
+  ; setup simple au graph
+  ; piano -> output
+  (define piano (au:make-node "aumu" "dls " "appl"))
+  (au:connect-node piano 0 *au:output-node* 0)
+  (au:update-graph)
+
+  ; play note on piano
+  (play-note (now) piano (random 60 80) 80 (* 1.0 *second*))
+#+end_src
+
+The language is called Scheme, which is a member of the Lisp family of
+languages. To run this simple program copy the code into your
+Impromptu editor window. Then select all the code (cmd-a) and then
+press the eval button at the top right hand corner of the editor
+window. You should have heard a single note play for one second. You
+can press eval again to re-evaluate the code. Notice that random
+chooses a different pitch each time you evaluate.
+
+Not being one to break from tradition I feel it my duty to also
+provide a Hello World example. So here it is. Delete the code in your
+Impromptu editor window and copy in the hellow world code. Once you
+have copied the code into Impromptu select all (cmd-a) and press eval
+in the top right hand corner of the editor window.
+
+#+begin_src extempore
+  ; disconnected any running graphs
+  (au:clear-graph)
+
+  ; setup simple au graph
+  ; piano -> output
+  (define piano (au:make-node "aumu" "dls " "appl"))
+  (au:connect-node piano 0 *au:output-node* 0)
+  (au:update-graph)
+
+  ; hello world as a list of note pitches
+  ; transposed down one octave
+  (define melody (map (lambda (c)
+                         (- (char->integer c) 12))
+                      (string->list "Hello World!")))
+
+  ; Define a recursive function to cycle through the pitches in melod y
+  (define loop
+     (lambda (time pitch-list)
+        (cond ((null? pitch-list) (print 'done))
+              (else (play-note time piano (car pitch-list) 80 10000)
+                    (loop (+ time (* *second* 0.5))
+                          (cdr pitch-list))))))
+
+  ; start playing melody
+  (loop (now) melody)
+#+end_src
+
+OK, so it turns out that Hello World doesn’t make such a good musical
+example :)
+
+I want to point out one very important point! Notice that if you
+re-evaluate the whole text buffer during playback (i.e. while the
+melody is playing) everything stops and starts again from the
+beginning. Selecting a whole buffer and pressing evaluate is NOT the
+way to use Impromptu (I know I told you to do it :).
+
+Place the cursor just inside the (loop (now) melody) expression so
+that (loop (now) melody) highlights in a light-blue colour (i.e. not
+the pink selection colour). Press the eval button, and press it again,
+and again, and again.
+
+Impromptu is dynamic and interactive and was developed for use in live
+performance. The Impromptu 101 tutorial will give you a much better
+idea of how you can build and evaluate code in a more Impromptu
+friendly manner.
+
+Let’s just finish off with a quick graphics example to see if we can
+make hello world perform any better :) Again, copy the code into
+Impromptu (deleting the old hello world code in the process) then
+select-all and eval (i know I told you not to do this but ... what can
+I say ... everything will become clear in time).
+
+#+begin_src extempore
+  (define canvas (gfx:make-canvas 800 600))
+  (define text-style (gfx:make-text-style "Times-Roman"
+                                        72.0
+                                        (list 1.0 1.0 1.0 0.25)))
+  (define text-path (gfx:make-path))
+  (gfx:set-start-point text-path 150 250)
+  (gfx:add-text text-path text-style "Hello World")
+
+  ; start with a clean cavas
+  (gfx:clear-canvas (now) canvas '(0.1 0.1 0.27 1))
+
+  (define rotate
+     (lambda (time path)
+        ; wipe out a bit of the previous drawing
+        (gfx:clear-canvas time canvas '(0.1 0.1 0.27 0.025))
+        ; display the text-path
+        (gfx:draw-path (+ time 1) canvas path
+                   '(0.5 0.7 0.9 0.3)
+                   '(0.0 0.9 0.2 0.1) 4)
+        ; shift the text-path rotation one degree
+        (gfx:rotate-path (now) path 1 300 253 *degrees*)
+        (callback (+ time 1000) 'rotate (+ time 3000) path)))
+
+  ; start
+  (rotate (now) text-path 0.8)
+#+end_src
+
+Now just to prove a point. While hello world is spinning around try
+typing (loop (now) melody) at the bottom of the editor window. Place
+the cursor inside (loop (now) melody) and evaluate. Hey presto, melody
+and spinning graphics. The important point to remember is that all
+your previous evaluations are still active and will be active until
+Impromptu is restarted. So, something to keep in mind, if things are
+behaving weirdly it may be because of something you evaluated earlier.
+If in doubt, restart Impromptu.
+
+Check out some other Impromptu tutorials or some examples , or take a
+browse through Impromptu function index .

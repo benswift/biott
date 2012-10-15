@@ -1,0 +1,204 @@
+#+begin_html
+---
+layout: post
+title: "Time in Extempore"
+date: 2012-10-15 11:28
+comments: true
+categories:
+---
+#+end_html
+
+One of the primary differences between Impromptu and most other
+general purpose programming environments is an emphasis on precisely
+scheduled code execution.
+
+Impromptu incorporates a scheduling engine directly into the
+programming environment allowing tasks to be scheduled for execution
+at precise times into the future. Unlike using threading constructs
+such as sleep(), wait() etc. that do not provide any strong guarantees
+about temporal accuracy the scheduling engine is guaranteed to execute
+its tasks at the requested time (the number of audio samples since
+Impromptu was started). This temporal guarantee is significant for
+time critical domains such as music.
+
+This example defines a piano instrument and plays three notes in
+sequence.
+
+#+begin_src extempore
+; make sure that everything is disconnected
+(au:clear-graph)
+
+; piano -> output
+(define piano (au:make-node "aumu" "dls " "appl"))
+(au:connect-node piano 0 *au:output-node* 0)
+(au:update-graph)
+
+; schedule three nodes to play in succession
+(define play-seq
+  (lambda ()
+    (play-note (now) piano 60 80 10000)
+    (play-note (+ (now) 22050) piano 64 80 10000)
+    (play-note (+ (now) 44100) piano 67 80 10000)))
+
+; play
+(play-seq)
+#+end_src
+
+Impromptu uses a schedule and forget, or asynchronous, style of
+programming, and a design pattern called temporal recursion. This is
+different from languages such as ChucK that use a synchronous
+approach. What's the difference? Synchronous timing works by holding
+up code until some specified time in the future. This is basically the
+same concept as using sleep() although strongly timed languages like
+ChucK guarantee the length of the sleep. Impromptu works by scheduling
+tasks to be executed at some time in the future. Once a task has been
+scheduled thread execution moves immediately onto the next expression.
+An example (in pseudocode) may help to illustrate.
+
+#+begin_src
+//synchronous timing
+play-note(now)
+time = (now) + 44100
+play-note(now)
+
+//asynchronous timing
+play-note(now)
+play-note(now + 44100)
+#+end_src
+
+Strongly timed code holds up thread execution until the global time is
+equal to the value 'time'. Multitasking is achieved by running
+multiple concurrent threads of execution. The asynchronous code
+example schedules tasks into the future and immediately continues
+execution. Multitasking in Impromptu is achieved with very little
+effort by evaluating multiple simultaneous temporal recursions.
+
+Scheduling events is a fairly common programming technique and there
+wouldn't be much else to say if Impromptu wasn't a dynamic language.
+Impromptu allows us to create and schedule code for future execution
+as well as data events such as notes and graphics objects. The ability
+to schedule blocks of code for precise future execution is a very
+useful technique for time based programming. There is a common design
+pattern in Impromptu programming called temporal recursion. By writing
+a function that schedules itself as its final action a temporally
+recursive callback loop can be established. Here is an example
+demonstrating a foo function that will play a note and then schedule
+itself to be called back in one second. This loop will continue
+indefinitely.
+
+#+begin_src extempore
+(define foo
+   (lambda ()
+      (play-note (now) piano 60 80 *second*)
+      (callback (+ (now) *second*) 'foo)))
+
+(foo)
+#+end_src
+
+You can create as many temporal recursions as you like. Try evaluating
+foo multiple times. Notice that you get multitasking "for free" (i.e
+you don't need to do anything special to run two event streams). You
+can even create temporal recursions inside temporal recursions. A
+temporal recursion need not run at a constant rate. By adjusting the
+time increment on each cycle the callback rate (control rate) can be
+constantly adjusted. Here is an extension to the previous example that
+will randomize the note length (NOTE: that each callback is now
+scheduled at (now) + the duration of the note).
+
+Another important factor to keep in mind is that you can revaluate a
+function while it is temporally recursing - changing its functionality
+on the fly (provided that the signature of the method does not
+change - i.e. same arguments and same name). Try evaluating the code
+below while the old version of foo is running.
+
+#+begin_src extempore
+; re-define foo
+(define foo
+   (lambda ()
+      (let ((note-length (random '(0.25 0.5 1.0 2.0))))
+         (play-note (now) piano (random 60 80) 80 (* *second* note-length))
+         (callback (+ (now) (* note-length *second*)) 'foo))))
+#+end_src
+
+One-off anonymous functions can also be scheduled for future
+evaluation. The code example below shows a one off anonymous function
+scheduled for evaluation in one minute from now.
+
+#+begin_src extempore
+(callback (+ (now) *minute*)
+          (lambda () (play-note (now) piano 60 80 *second*)))
+#+end_src
+
+There are a couple of gotcha's to keep in mind when doing schedule and
+forget programming. The first thing to keep in mind is that (now) is
+an airy fairy thing. In the example below the two notes may be
+scheduled to play on the same sample - but then again, they may not -
+(now) may have moved forward in time between the two calls (even if
+evaluated at the same time).
+
+#+begin_src extempore
+(play-note (now) piano 60 80 *second*)
+(play-note (now) piano 72 80 *second*)
+#+end_src
+
+Often this lack of precision is fine (i.e. too small a change to be
+noticeable) but where absolute accuracy is required a time variable
+should be used.
+
+(let ((time (now)))
+   (play-note time piano 60 80 *second*)
+   (play-note time piano 72 80 *second*))
+
+This inaccuracy becomes more of an issue when amplified over time such
+as using (now) inside a recursive callback loop. We can avoid the
+problem by precisely incrementing a time value between each recursive
+callback (note that any arguments required by the function being
+called back must also be passed to callback).
+
+#+begin_src extempore
+;This is bad
+(define loop
+  (lambda ()
+    (play-note (now) piano 60 80 *second*)
+    (callback (+ (now) *second*) 'loop)))
+
+(loop)
+
+;This is good (precise time arg is now incremented each recursion)
+(define loop
+  (lambda (time)
+    (play-note time piano 60 80 *second* )
+    (callback (+ time *second*) 'loop (+ time *second*))))
+
+(loop (now))
+#+end_src
+
+The second major gotcha in recursive callback loops is that (now) is
+now. Code requires some time to execute. If you are executing a call
+to evaluate a note (now) by the time the code is evaluated it will
+already be late. You should always try to schedule your code execution
+ahead of the scheduled time of your tasks.
+
+#+begin_src extempore
+;This is best (callback happens 4100 samples earlier than new time)
+(define loop
+  (lambda (time)
+    (play-note time piano 60 80 1.0)
+    (callback (+ time 40000) 'loop (+ time 44100))))
+
+(loop (now))
+#+end_src
+
+In the this-is-good version of loop the time sent as an argument to
+loop is exactly the same time as the scheduled callback time. The
+problem with this is that the next note needs to be scheduled at
+exactly the same time that the function is called. The note will
+always be late. The this-is-best version schedules the callback just
+ahead of the time that we want to schedule the note. This gives us
+4100 samples to execute the code to schedule the note before the note
+is required to sound.
+
+Temporal recursion is a fundamental pattern in Impromptu and something
+that you will use constantly. Take a look at some of the basic Music
+and Animation tutorials to get more of an idea about using temporal
+recursion in more practical settings.

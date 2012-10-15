@@ -1,0 +1,201 @@
+#+begin_html
+---
+layout: post
+title: "Musical patterns: playing with pitch and rhythm"
+date: 2012-10-15 11:23
+comments: true
+categories:
+---
+#+end_html
+
+Most programming environments operate using an iterative "generate and
+test" style of programming. First, you write the program, then you run
+the program. If there are problems with the program you re-write the
+program and then re-run the program etc...
+
+Impromptu is different. Impromptu is a dynamic, interactive
+programming environment where programs are modified and extended while
+they are running. In fact Impromptu is your program and it is already
+running. Let me give you a simple example. Place your cursor inside
+the expression below and press the eval button which is located at the
+top-right of the editor window (copy the (now) expression into your
+Impromptu editor window and place the cursor inside the expression -
+the expression will highlight once your cursor is placed correctly).
+
+#+begin_src extempore
+(now)
+#+end_src
+
+The message bar at the bottom of the editor window will have displayed
+the result of evaluating the expression and should look something like
+this (your number will be different):
+
+
+
+Now try pressing the eval button again. Different result! (now) is a
+function that returns the time in audio samples since Impromptu was
+started. The important thing to keep in mind for the present is that
+Impromptu is a program that is already running. Although Impromptu
+looks like an ugly text editor, it is actually a powerful notational
+tool for artists---an artistic environment designed to be extended and
+manipulated in real-time. When we evaluate expressions we are actually
+extending and modifying the behaviour of Impromptu itself.
+
+The eval button evaluates the expression that our cursor is currently
+located inside (including any sub-expressions that the current
+expression contains). The shortcut key for eval is cmd-e. Try pressing
+cmd-e with the cursor placed at different locations inside this larger
+(nested) expression. You should see the current expression highlight
+as your cursor moves through each different expression.
+
+#+begin_src extempore
+(+ 5 (+ 3 (+ 3 4)) (- 10 3))
+#+end_src
+
+cmd-e (eval) only evaluates the expression that is highlighted (i.e.,
+the current expression as defined by our cursor position). There is
+another way of evaluating an expression in Impromptu that is used much
+more frequently. This is the command cntl-space (there is no UI button
+for cntl-space). cntl-space always evaluates to the outer expression
+no matter which sub-expression the cursor is inside. Try pressing
+cntl-space with the cursor at different locations inside the
+expression (+ 5 (+ 3 (+ 3 4)) (- 10 3)). Notice that the result is 22
+regardless of which expression we are in when we evaluate. cntl-space
+always evaluates the outermost expression (and thereby all
+sub-expressions). For convenience, cntl-space also evaluates the
+expression immediately following or immediately proceeding the cursor
+position (i.e., within one space either side of the expression). This
+allows you to evaluate an expression that you have just finished
+typing (i.e., when the cursor is just past the end of the expression).
+For the rest of this tutorial assume that when I ask you to evaluate
+an expression, I mean for you to use cntl-space.
+
+Evaluating expressions is one of our primary mechanisms for
+interacting with Impromptu and is what differentiates Impromptu from
+most other creative computer tools.
+
+Evaluating expressions in Impromptu is vitally important but would be
+limited without a way to extend Impromptu's already running program.
+We can extend Impromptu dynamically by defining new values and
+procedures using define. Let's make a start by defining a piano
+instrument. (Evaluate the next line of code in your impromptu editor -
+once only!)
+
+#+begin_src extempore
+(define piano (au:make-node "aumu" "dls " "appl"))
+#+end_src
+
+Don't worry to much about how this all works (there are more tutorials
+to follow). For now it is just important to understand that you have
+defined a new instrument (audio unit) and named it “piano”.
+
+The next two lines modify Impromptu's internal signal flow by
+connecting the piano to an audio output so that we can play the piano
+(remember that Impromptu is always running---therefore the audio
+signal chain is always running). This is what we mean by dynamic---we
+are changing Impromptu's internal structure at runtime (in this
+instance Impromptu's signal flow).
+
+Again, don't worry about the details at this stage, just evaluate each
+outer expression (pressing cntl-space) in turn. First,
+
+#+begin_src extempore
+(au:connect-node piano 0 *au:output-node* 0)
+#+end_src
+
+And then:
+
+#+begin_src extempore
+(au:update-graph)
+#+end_src
+
+Now we can use the piano to play a note. Impromptu already defines a
+play-note function that will allow us to do this. You should hear a
+sound when you evaluate the following expression.
+
+#+begin_src extempore
+(play-note (now) piano 60 80 *second*)
+#+end_src
+
+We only wanted one piano, but we're happy to have lots of notes, so
+you can re-evaluate the play-note function as many times as you like.
+Each note will sound for one second. Because nothing permanent is
+being defined here we can re-evaluate this code as often as we like.
+Each time the function executes with no residual effect.
+
+Let's make a small modification to make repeated evaluations more
+obvious. We'll randomise the pitch each time we evaluate play-note.
+
+(play-note (now) piano (random 36 96) 80 *second*)
+
+Notice that Impromptu is responsive, in fact you should be able to
+evaluate play-note in time with a song playing on the radio. Impromptu
+is a live performance instrument so it is designed to be responsive.
+This is what we mean by interactive---we can evaluate code and
+view/hear results from directly inside the editor---hyper-coding.
+
+We can also create functions in Impromptu. Evaluate the following
+expression to define a function that, when run, will play a chord
+using our piano instrument.
+
+#+begin_src extempore
+(define chord
+   (lambda ()
+      (play-note (now) piano 60 80 *second*)
+      (play-note (now) piano 64 80 *second*)
+      (play-note (now) piano 67 80 *second*)))
+#+end_src
+
+Once chord is defined you can then call chord as many times as you
+like by evaluating the following expression.
+
+#+begin_src extempore
+(chord)
+#+end_src
+
+Congratulations, you have successfully extended the Impromptu program
+with your own functionality.
+
+You can look up help on any Impromptu function from inside Impromptu
+by evaluating the help function. Help on play-note will be printed to
+the log view.
+
+#+begin_src extempore
+(help play-note)
+#+end_src
+
+Many help references also include example code which you can access by
+adding #t to help.
+
+#+begin_src extempore
+(help play-note #t)
+#+end_src
+
+Impromptu also displays contextual function signature help. Whenever
+you complete typing a function's name its signature (i.e. what
+arguments it requires) will be displayed in the message bar at the
+bottom of the editor window.
+
+
+
+There are hundreds of Impromptu functions to explore. To get a general
+overview of the size of the library you can browse through the
+function index in Impromptu's Help system (menu help option) or online
+on the Impromptu website http://impromptu.moso.com.au/func_index.html.
+
+One final thing about cmd-e and cntl-space. If a text region is
+selected, both of these forms of evaluation will use the selected
+region for evaluation. A quick way to evaluate a whole text buffer is
+to select using cmd-a and the evaluate using cntl-space.
+
+WARNING: Impromptu is dynamic, if you re-evaluate a whole buffer you
+may not get the results you expect! In particular, remember that if
+you have multiple text files loaded any evaluations you make all
+effect the one instance of Impromptu (for example, there is only one
+audio chain so if you try to evaluate two examples with different
+audio chain configurations you will almost certainly not get what you
+expect). If in doubt, a good idea (particularly when getting started)
+is to restart Impromptu each time you want to run a new example or
+start a new project. (actually most of the examples provided with
+impromptu are designed to allow you to evaluate the whole buffer---but
+in general this is not advised).
