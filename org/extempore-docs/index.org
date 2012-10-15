@@ -18,25 +18,33 @@ some suggestions about where to start.
 If anything isn't clear, or you have suggestions/corrections, then
 drop [[file:../bio/index.org][me]] a line at [[mailto:benjamin.j.swift@gmail.com][benjamin.j.swift@gmail.com]].
 
-* Extempore Overviews
+* Introduction(s)
 
 These are the high-level descriptions about what Extempore /is/, how
 it works, and what it can do.
 
-- Extempore in 5 minutes: the tl;dr
+- Extempore in 5 minutes (the tl;dr)
 - [[file:../2012-08-07-extempore-philosophy.org][The Extempore philosophy]]
+- Extempore for Impromptu users
+
+* Extempore key concepts
+
+These posts explain some of the key concepts about Extempore's
+architecture and runtime
+
 - [[file:../2012-09-26-interacting-with-the-extempore-compiler.org][Interacting with the Extempore compiler]]
 - Time in Extempore
-- Extempore for Impromptu users
+- Concurrency in Extempore
+- Scheme/xtlang interop
 
 * Getting started with Extempore
 
 Here's some help to get you up and running with Extempore, right from
 the beginning steps.
 
-- Building Extempore on Linux
-- Building Extempore on Mac OSX
-- Building/Getting Extempore on Windows
+# - Building Extempore on Linux
+# - Building Extempore on Mac OSX
+# - Building/Getting Extempore on Windows
 - Emacs cheat sheet
 - ST2 cheat sheet
 
@@ -53,6 +61,7 @@ documentation will be in xtlang.
 - [[file:../2012-08-17-memory-management-in-extempore.org][Memory management in Extempore]]
 - [[file:../2012-10-03-xtlang-type-diagrams.org][xtlang type diagrams]]
 - [[file:../2012-08-23-binding-to-c-libs.org][Binding to C libraries]]
+- xtlang for C programmers
 
 * Audio programming in Extempore
 
@@ -71,6 +80,7 @@ together---in fact this is encouraged :)
 
 ** High-level (instrument-based) audio
 
+- Instrument basics
 - Making it go bing: playing an instrument
 - Musical patterns: playing with pitch and rhythm
 
@@ -86,6 +96,11 @@ everything's in xtlang, you can mix-and-match!
 - 2D drawing with cairo
 - 3D rendering and meshes with Horde3D
 - Image processing and custom shaders
+
+* Misc
+
+- [[file:../2012-10-15-xtlang-naming-conventions.org][xtlang naming conventions]]
+- xtlang blogging with Octopress
 
 * Getting help
 
