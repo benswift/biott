@@ -41,7 +41,7 @@ using the /one/ oscillator, let's use a few of them to generate a
 whole bunch of sine tones of different frequencies:
 
 #+begin_src extempore
-(bind-func make-osc ; make-osc is the same as last time
+(bind-func osc_c ; osc_c is the same as last time
   (lambda (phase)
     (lambda (amp freq)
       (let ((inc (* 3.141592 (* 2.0 (/ freq 44100.0)))))
@@ -55,9 +55,9 @@ whole bunch of sine tones of different frequencies:
 (bind-alias DSP [double,double,double,double,double*]*)
 
 (bind-func dsp:DSP ; note the use of the type signature 'DSP'
-  (let ((osc1 (make-osc 0.0))
-        (osc2 (make-osc 0.0))
-        (osc3 (make-osc 0.0)))
+  (let ((osc1 (osc_c 0.0))
+        (osc2 (osc_c 0.0))
+        (osc3 (osc_c 0.0)))
     (lambda (in time channel data)
       (cond ((= channel 1.0) 
              (+ (osc1 0.5 220.0)
@@ -145,7 +145,7 @@ three oscs)
 
 (bind-func dsp:DSP
   (let ((osc-tuple:<osc_t,osc_t,osc_t>* (alloc)))
-    (tfill! osc-tuple (make-osc 0.0) (make-osc 0.0) (make-osc 0.0))
+    (tfill! osc-tuple (osc_c 0.0) (osc_c 0.0) (osc_c 0.0))
     (lambda (in time channel data)
       (cond ((= channel 1.0) 
              (+ ((tref osc-tuple 0) 0.5 300.0)
@@ -159,7 +159,7 @@ This time, instead of binding each osc to its own symbol (=osc1=,
 which held all the oscs. We filled it with =tfill!=, which takes as a
 first argument the pointer to the tuple, and then enough additional
 arguments to fill out the tuple.  Equivalently, we could have set each
-element in the tuple manually with =(tset! osc-tuple 0 (make-osc
+element in the tuple manually with =(tset! osc-tuple 0 (osc_c
 0.0))= etc.
 
 Also, the use of =bind-alias= is helpful here, because it allows us to
@@ -196,7 +196,7 @@ to keep track of the amplitude and frequency values.
         (i 0))
     ; initialise the arrays
     (dotimes (i 30)
-      (aset! osc-array i (make-osc 0.0))
+      (aset! osc-array i (osc_c 0.0))
       (aset! amp-array i (+ 0.2 (* 0.2 (random))))
       (aset! freq-array i (+ 110.0 (* 1000.0 (random)))))
     ; this is the dsp closure
@@ -250,7 +250,7 @@ one channel for clarity).
         (i 0))
     ; initialise the arrays
     (dotimes (i 30)
-      (aset! osc-array i (make-osc 0.0))
+      (aset! osc-array i (osc_c 0.0))
       (aset! amp-array
              i
              (if (= (/ i 2) 0)

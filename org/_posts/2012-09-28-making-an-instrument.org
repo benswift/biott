@@ -113,7 +113,7 @@ on one of the organ's keys.
 So, because the basis of the hammond organ tone is the sum of 9
 sinusoids (one for each drawbar), then that's what we need to
 generate. There are lots of ways to do this, but one nice way is to
-use oscillator closures created by Extempore's =make-oscil= function.
+use oscillator closures created by Extempore's =osc_c= function.
 
 #+begin_src extempore
   (load "libs/core/instruments.xtm")
@@ -132,7 +132,7 @@ use oscillator closures created by Extempore's =make-oscil= function.
       (pfill! drawbar_pos 8 8 8 0 0 0 0 0 0)
       ;; put an oscilattor into each tonewheel position
       (dotimes (i num_drawbars)
-            (pset! tonewheel i (make-oscil 0.0)))
+            (pset! tonewheel i (osc_c 0.0)))
       (lambda (freq)
         (let ((sum 0.0))
           ;; loop over all the drawbars/tonewheels to get the sum
@@ -162,7 +162,7 @@ Compiling the function =organ-drone= does three things:
   through the calls to =zalloc=.
 - *fill memory* with the appropriate values. For =freq_ratio= and
   =drawbar_pos=, the values are set 'manually' using =pfill!=, while
-  for filling the =tonewheel= buffer =make-oscil= is called in a loop
+  for filling the =tonewheel= buffer =osc_c= is called in a loop
   (=dotimes=).
 - *create & bind a closure* (the =lambda= form) which calculates the
   current output value by calling each of the oscillators in the
@@ -185,13 +185,13 @@ must be some state hidden somewhere which is changing and allowing the
 closure to return a periodic waveform.
 
 If you guessed that the magic happens in the closures returned by
-=make-oscil= (which are in the memory pointed to by =tonewheel=),
+=osc_c= (which are in the memory pointed to by =tonewheel=),
 you'd be right. Each closure 'closes over' a state variable called
-=phase=, which you can see in the source for =make-oscil= (which is in
+=phase=, which you can see in the source for =osc_c= (which is in
 =libs/core/audio_dsp.xtm=)
 
 #+begin_src extempore
-  (bind-func make-oscil
+  (bind-func osc_c
     (lambda (phase)
       (lambda (amp freq)
         (let ((inc (* TWOPI (/ freq SAMPLERATE))))
@@ -200,29 +200,29 @@ you'd be right. Each closure 'closes over' a state variable called
           (* amp (_sin phase))))))
 #+end_src
 
-In an xtlang type diagram, =make-oscil= looks like this
+In an xtlang type diagram, =osc_c= looks like this
 
 #+begin_html
 <a href=""><img src="images/make-oscil.png" width="450px" alt=""></a>
 #+end_html
 
-=make-oscil= is a higher-order closure, because it returns a closure,
+=osc_c= is a higher-order closure, because it returns a closure,
 as indicated by the /two/ =lambda= forms: the outer one (with one
-=phase= argument) defines the =make-oscil= closure itself, while the
+=phase= argument) defines the =osc_c= closure itself, while the
 inner one (with =amp= and =freq= arguments) creates the closure which
-is returned by =make-oscil=.  /That's/ the closure that gets stored in
+is returned by =osc_c=.  /That's/ the closure that gets stored in
 the =tonewheel= array when we perform the loop:
 
 #+begin_src extempore
   (dotimes (i num_drawbars)
-            (pset! tonewheel i (make-oscil 0.0)))
+            (pset! tonewheel i (osc_c 0.0)))
 #+end_src
 
-Looking back up at the =make-oscil= source code, in the body of the
+Looking back up at the =osc_c= source code, in the body of the
 inner lambda there's the line =(set! phase (+ phase inc))= which
 increments the value of the =phase= variable based on what the
 frequency (=freq=) argument to the closure was. Each closure returned
-by =make-oscil= has its own =phase= variable[fn:closure], so calling
+by =osc_c= has its own =phase= variable[fn:closure], so calling
 one oscillator (and incrementing its phase) doesn't affect the phase
 of any other oscillators which might be floating around. This is super
 handy, because it allows each oscillator to do its own
@@ -527,8 +527,8 @@ To make the =organ-note= kernel, we'll fill in the template from the
               (freq_smudge:double* (zalloc num_drawbars))
               (i 0))
           (dotimes (i num_drawbars)
-            (pset! tonewheel (* i 2) (make-oscil 0.0)) ; left
-            (pset! tonewheel (+ (* i 2) 1) (make-oscil 0.0)) ; right
+            (pset! tonewheel (* i 2) (osc_c 0.0)) ; left
+            (pset! tonewheel (+ (* i 2) 1) (osc_c 0.0)) ; right
             (pset! freq_smudge i (* 3.0 (random))))
           (lambda (time:double chan:double freq:double amp:double)
             (if (< chan 2.0)
@@ -587,10 +587,10 @@ channels) to simulate the sound of a Leslie speaker.
 
 #+begin_src extempore
   (bind-func organ-fx 100000
-    (let ((flanl (make-flanger 1.0 0.0 0.6 1.0))
-          (flanr (make-flanger 1.0 0.0 0.6 1.0))
-          (treml (make-oscil 0.0))
-          (tremr (make-oscil 0.0))
+    (let ((flanl (flanger_c 1.0 0.0 0.6 1.0))
+          (flanr (flanger_c 1.0 0.0 0.6 1.0))
+          (treml (osc_c 0.0))
+          (tremr (osc_c 0.0))
           (trem_amp 0.1)
           (trem_freq .0))
       (lambda (in:double time:double chan:double dat:double*)
@@ -655,7 +655,7 @@ and see how the note changes.
   the device you want to use.
 - did the =organ=, =organ-note= and =organ-fx= closures all compile
   properly?  Check the log output to find out.  If the compiler can't
-  find the definition of some functions (e.g. =make-oscil=) then you
+  find the definition of some functions (e.g. =osc_c=) then you
   might not have loaded all the libraries that you need.
 - is =organ= in your =dsp= callback?  Because you can schedule all the
   notes you like with =play-note=---if the return values of =organ=
@@ -691,5 +691,5 @@ haven't yet defined the note and effect kernels.
 with a leading underscore so as to not interfere with the scheme
 closure =play-note= which was inherited from Impromptu.
 
-[fn:flanger] The source code for =make-flanger= can be found in
+[fn:flanger] The source code for =flanger_c= can be found in
 =libs/core/audio_dsp.xtm=.

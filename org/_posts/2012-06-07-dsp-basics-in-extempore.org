@@ -225,7 +225,7 @@ together.
 In fact, let's create some oscillators:
 
 #+begin_src extempore
-(bind-func make-osc
+(bind-func osc_c
   (lambda (phase)
     (lambda (amp freq)
        (let ((inc (* TWOPI (/ freq 44100.0))))
@@ -233,21 +233,23 @@ In fact, let's create some oscillators:
              (* amp (sin phase))))))
 #+end_src
 
-This =make-osc= function doesn't return a primitive (int/float)
-value - it returns a (pointer to a) closure, which is our 'oscillator'
-and takes an amplitude and a phase argument. This is represented by
-the type message from the compiler when we evaluate =make-osc=, which
-is =Compiled make-osc >>> [[double,double,double]*,double]*=. See that
-the return type of the =make-osc= function is
-=[double,double,double]*= a pointer to a closure which takes two
-=double= arguments and returns a =double=. This is our oscillator, and
-we can use our =make-osc= function to create as many oscillators as we
-need:
+This =osc_c= function doesn't return a primitive (int/float)
+value---it returns a (pointer to a) closure, which is our 'oscillator'
+and takes an amplitude and a phase argument. This idiom is a useful
+one, and comes up so much in xtlang code that by convention we give
+any closure which returns another closure a =_c= suffix.
+
+The type message printed by the compiler when we evaluate =osc_c= is
+=Compiled osc_c >>> [[double,double,double]*,double]*=. See that the
+return type of the =osc_c= function is =[double,double,double]*= a
+pointer to a closure which takes two =double= arguments and returns a
+=double=. This is our oscillator, and we can use our =osc_c= function
+to create as many oscillators as we need:
 
 #+begin_src extempore
 (bind-func dsp
-  (let ((osc1 (make-osc 0.0))
-        (osc2 (make-osc 0.0)))
+  (let ((osc1 (osc_c 0.0))
+        (osc2 (osc_c 0.0)))
     (lambda (in:double time:double channel:double data:double*)
       (cond ; play a 200Hz tone in the left ear
             ((= channel 0.0) (osc1 0.5 200.0)) 
@@ -258,10 +260,10 @@ need:
 
 The =phase= variable in each of our oscillator closures is how we
 maintain state between calls to =osc1= or =osc2=.  Each time the closure is
-called, =phase= gets incremented (see the definition of =make-osc=
+called, =phase= gets incremented (see the definition of =osc_c=
 above), and because =phase= is bound within a let that is local to the
 returned closure, each osc has its /own/ =phase= value, so the
-oscillators created by =make-osc= are independent.  In the case above,
+oscillators created by =osc_c= are independent.  In the case above,
 they are each called with different frequencies to produce sine tones
 of different pitch for each ear.  This is closures in action, and it's
 an example of how the 'scheme-like' aspect of xtlang can simplify the
