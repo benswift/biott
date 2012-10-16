@@ -1,0 +1,17 @@
+#+begin_html
+---
+layout: post
+title: "Extempore for Impromptu users"
+date: 2012-10-15 09:30
+comments: true
+categories:
+---
+#+end_html
+
+* overall
+
+* no longer an IDE, now just a language
+
+* bindings are now external
+
+* all PC stuff will just work
