@@ -10,11 +10,11 @@ categories:
 
 In this post we'll make a really basic =saw_synth= instrument. An
 /instrument/ in Extempore allows you to trigger 'notes' like a MIDI
-soft synth. [[file:~/Documents/biott/org/_posts/2012-09-28-making-an-instrument.org][This post]] goes into a lot more detail about how
+soft synth. [[file:./2012-09-28-making-an-instrument.org][This post]] goes into a lot more detail about how
 Extempore's instrument infrastructure works, but this is more of a
 'quick and dirty' example instrument just to get a feel for things.
 
-All the instrument code is just regular [[file:~/Documents/biott/org/_posts/2012-08-09-xtlang-type-reference.org][xtlang]], and can be found in
+All the instrument code is just regular [[file:./2012-08-09-xtlang-type-reference.org][xtlang]], and can be found in
 =libs/core/instruments.xtm= and =libs/external/instruments.xtm=.
 
 * A saw-synth note kernel
@@ -32,7 +32,7 @@ arguments:
 - =freq=: the frequency (pitch) of the note
 - =amp=: the volume/loudness of the note
 
-In an [[file:~/Documents/biott/org/_posts/2012-10-03-xtlang-type-diagrams.org][xtlang type diagram]]:
+In an [[file:./2012-10-03-xtlang-type-diagrams.org][xtlang type diagram]]:
 
 #+begin_html
 <a href=""><img src="images/simple-instrument/note-kernel.png" width="300px" alt=""></a>
@@ -132,7 +132,7 @@ Let's add a stereo delay to make things a bit more interesting
 #+end_src
 
 Nice one. Also, remember that you change the fx closure at any time
-(just edit the code and [[file:~/Documents/biott/org/_posts/2012-09-26-interacting-with-the-extempore-compiler.org][re-evaluate it]]).
+(just edit the code and [[file:./2012-09-26-interacting-with-the-extempore-compiler.org][re-evaluate it]]).
 
 * Putting it all together
 
@@ -174,8 +174,8 @@ you want to build your /own/ instruments
   audio hardware as an audio signal) make the audio waveform you're after.
 
 And again, if you're interested in a more in-depth explanation of
-Extempore's instrument infrastructure, then you can [[file:~/Documents/biott/org/_posts/2012-09-28-making-an-instrument.org][go and build your
+Extempore's instrument infrastructure, then you can [[file:./2012-09-28-making-an-instrument.org][go and build your
 own tonewheel organ]].
 
-[fn:csuffix] By [[file:~/Documents/biott/org/_posts/2012-10-15-xtlang-naming-conventions.org][convention]], xtlang closures which /return/ closures
+[fn:csuffix] By [[file:./2012-10-15-xtlang-naming-conventions.org][convention]], xtlang closures which /return/ closures
 have a =_c= suffix.
