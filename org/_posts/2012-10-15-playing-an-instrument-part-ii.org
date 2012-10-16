@@ -785,16 +785,16 @@ more abstract notion of time.
 (drum-loop (now) 0.25)
 #+end_src
 
-So what's the advantage here---this seems like more work for nothing?
-Well, we actually gain two big advantages. (1) Ratio's are easier to
-deal with than samples---0.25 is easier to remember than 11025
-(assuming a samplerate of 44100) (2) this system supports alternate
-tempos---we can change tempo without having to change any rhythm
-values.
+So what's the advantage here---is it more work for no benefit?
+Well, there are actually two big advantages:
+1. Ratio's are easier to deal with than samples: =0.25= is easier to
+   remember than =11025= (assuming a samplerate of =44100=) 
+2. this system supports alternate tempos, so we can change tempo
+   without having to change any rhythm values.
 
-Let's play back the same example at 120 bpm---remembering that by
-default Extempore runs at 60 bpm or 1.0 = *samplerate*. We'll also add
-triplets to our quavers and semi-quavers.
+Let's play back the same example at 120 beats per minute
+(bpm)---remembering that by default the Extempore metronome runs at 60
+bpm. We'll also add triplets to our quavers and semi-quavers.
 
 #+begin_src extempore
 ;; beat loop at 120bpm
@@ -823,20 +823,24 @@ forth over time.
 (drum-loop (now) 0.5)
 #+end_src
 
-Have a listen to the result on my machine---note that all values are
-now 0.5 so we should get a nice even rhythm with a tempo change over
-time drums_one.mp3. Doesn't sound very even does it! It turns out that
-tempo is a lot more subtle than you might expect. What we actually
-need is a linear function that can more evenly distribute our beats
-with respect to tempo changes. Luckily the impromprtu library
-time-lib.scm will do this for us.
+# todo Have a listen to the result on my machine---drums_one.mp3
+All values are now 0.5 so we should get a nice even rhythm with a
+tempo change over time. But if you're evaluating and listening to the
+results of =drum-loop=, it's obvious that it /doesn't/ sound very
+even! It turns out that tempo is a lot more subtle than you might
+expect. What we actually need is a linear function that can more
+evenly distribute our beats with respect to tempo changes. Luckily the
+Scheme library =time-lib.xtm= will do this for us. 
+# todo does time-lib still exist?
 
-As it turns out time-lib.scm includes a function called make-metro
-that will solve a few problems for us. At it's simplest, make-metro is
-a function that accepts a tempo and returns a closure to us. We can
-then call that closure with a cumulative time in beats and have an
-absolute sample number returned to us. This makes more sense as a
-practical exercise so let me demonstrate.
+As it turns out, =time-lib.xtm= includes a function called
+=make-metro= which will solve a few problems for us. At it's simplest,
+=make-metro= is a function that accepts a tempo and returns a closure.
+We can then call that closure with a (cumulative) time in beats and
+have an absolute sample number returned to us. So the metronome
+provides a mapping from beats (which are nice to work with) to samples
+(which Extempore needs to work with). This makes more sense as a
+practical exercise, so let me demonstrate.
 
 #+begin_src extempore
 ;; create a metronome starting at 120 bpm
@@ -853,28 +857,28 @@ practical exercise so let me demonstrate.
 (drum-loop (*metro* 'get-beat) 0.5)
 #+end_src
 
-You should notice a couple of things here:
+You should notice a couple of things:
 
 1. We start our loop by calling =(*metro* 'get-beat)=. This asks our
-   *metro* closure to return the next available beat number to us,
+   =*metro*= closure to return the next available beat number to us,
    i.e. =(fmod beat 1.0)=. =*metro*= starts ticking over beats as soon
    as it's initalized.[fn:metro]
-2. time is now in beats (not in samples) and is cumulative. Check your
-   logview for an idea about what time equals each cycle around
-   drum-loop. Also remember that floating point is subject to rounding
-   error---don't worry about that overly.
-3. (*metro* 'dur duration) returns a duration in samples relative to
+2. =time= is now in beats (not in samples) and is cumulative. Check your
+   logview for an idea about what the value of =time= is each time
+   through the drum-loop. Also remember that floating point is subject to rounding
+   error---but don't lose too much sleep over that for the moment.
+3. =(*metro* 'dur duration)= returns a duration in samples relative to
    the current tempo.
-4. The closure returned by (make-metro) is really a kind of object and
-   the symbol names are method names---message names really. Any
-   arguments after the "message name" are passed with the "message"
-   are dispatched inside the closure to the appropriate "method". What
-   we are using here is a form of message passing. Who said scheme
-   wasn't an OO language!!
+4. The closure returned by =(make-metro)= is really a kind of object
+   and the symbol names are method names---message names really. Any
+   arguments after the message name are passed with the message and
+   dispatched inside the closure to the appropriate "method". What we
+   are using here is a form of message passing. Who said scheme wasn't
+   an OO language!
 
-OK now how about those tempo changes. No problem, we just need to use
-another message 'set-tempo which takes a new tempo in bpm (beats per
-minute).
+How about those tempo changes? No problem---we just need to use pass
+another message to =*metro*= closure: ='set-tempo=, which sets a new
+tempo in bpm.
 
 #+begin_src extempore
 ;; create a metronome starting at 120 bpm
@@ -891,13 +895,13 @@ minute).
 (drum-loop (*metro* 'get-beat) 0.5)
 #+end_src
 
-And here's what it sounds like drums_two.mp3. Much better, I'm sure
-you will agree. Now the really cool thing about *metro* is that you
-can now use it to sync as many callback loops as you like. Let's add a
-second drum-loop call. Notice also that we have added an argument to
-the 'get-beat message that asks 'get-beat to quantize to a 4.0 (i.e.
-four beats) instead of the default 1.0. I'm going to play maracas and
-tambourine with a slight 0.25 offset.
+# todo And here's what it sounds like drums_two.mp3. 
+Much better, I'm sure you will agree. Now the really cool thing about
+=*metro*= is that you can now use it to sync as many =callback= loops
+as you like. Let's add a second =drum-loop= call. Notice also that we
+have added an argument to the ='get-beat= message that asks ='get-beat= to
+quantize to a =4.0= (i.e. four beats) instead of the default =1.0=. I'm
+going to play maracas and tambourine with a slight =0.25= offset.
 
 #+begin_src extempore
 ;; create a metronome starting at 120 bpm
@@ -922,10 +926,11 @@ tambourine with a slight 0.25 offset.
 (tempo-shift (*metro* 'get-beat 1.0))
 #+end_src
 
-And it sounds like this drums_three.mp3 Ahhh, like clockwork. Notice
-that now we are running two independent drum-loop temporal callbacks
-we need to put the tempo shift in a separate function---we don't want
-the tempo to be set independently by two seperate loops!
+# todo And it sounds like this drums_three.mp3 
+Ahhh, like clockwork. Notice that now we are running two independent
+=drum-loop= temporal callbacks we need to put the tempo shift in a
+separate function---we don't want the tempo to be set independently by
+two seperate loops!
 
 We now have almost enough information to build our first drum machine!
 
