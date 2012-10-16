@@ -8,187 +8,226 @@ categories:
 ---
 #+end_html
 
+This post builds on [[file:2012-10-15-playing-an-instrument-part-i][Playing an instrument part I]], which covers the
+setting up an instrument and adding its output to the =dsp= sink, as
+well as the basics of playing a note on the instrument. This post
+(which is adapted from some tutorials Andrew originally wrote for
+Impromptu) shows how make more complex musical patterns, with harmony,
+melody and rhythm as creative dimensions to explore.
+
 It may seem a little strange when you first come to Extempore that
-there are no "musical" functions provided for you---this is a conscious
-decision.  While it is impossible to provide a "tool" that does not in
-some way influence its user, my goal with Extempore is to provide a
-framework without any prescribed musical features.[fn:quarter-tone] Nevertheless my aim with Extempore is primarily to provide
-a shell that takes care of the "low level" details and leaves the
-creative/representational details to the user (as much as
-practicable).
+there are no 'musical' functions provided for you---this is a
+conscious decision. While it is impossible to provide a tool that does
+not in some way influence its user, my goal with the =pc_ivl.xtm=
+Scheme library provide a musical framework that's as 'unopinionated'
+as possible.[fn:quarter-tone]
  
-So with these thoughts in mind I want to stress that these music
-tutorials show some ways of representing musical processes/data not
-the way. For example, MIDI pitch numbers are certainly not the only
-way to represent or control pitch in Extempore---you are just as free
-to use a function to continuously control the Hz value of a Reaktor
-patch parameter (as I often do). I designed Extempore so you don't
-have to think about how to write scheduling engines and garbage
-collectors---you do have to think about writing useful musical
-processes/representations!
- 
-One last thing. Make sure you have read the Extempore basics tutorial
-before you begin these tutorials.
- 
-So enough with the lecture already!! Let's start by looking at how we
-can play a sequence of notes. First, let's implement a simple
-iterative process. Remember that 60 is middle C, 61 is C#, 62 is D
-etc...
+So with these thoughts in mind I want to stress that this post shows
+/some/ ways of representing musical processes & data; not /the/ way.
+For example, MIDI pitch numbers are certainly not the only way to
+represent or control pitch in Extempore---you are just as free to call
+the xtlang function =_play_note= (which takes a frequency argument in
+Hz) instead of the Scheme wrapper =play-note=. As I constantly harp on
+about, it's /xtlang turtles all the way down/ with all the DSP code I
+use in this post, so if you want to hack them to suit your needs you
+can---even in the middle of a performance. Still, the musical
+frameworks exist so that you don't /have to/ do the low level DSP
+stuff if you don't want to, all you have to think about is writing
+useful musical processes & representations! 
+
+I should also note that most of the music libraries are written in
+Scheme (rather than xtlang), and in fact most of the code in this post
+is also in Scheme. xtlang does have its own version of =callback=, so
+you can also write temporal recursions in xtlang, but in this post
+I've chosen to use Scheme for most of the high-level 'control' code
+(all the DSP code being called is still in xtlang).
+
+So enough with the lecture already! Let's start by playing a sequence
+of notes. Before we do that (if you haven't already), you'll have to
+set up an instrument (in this case the built-in =synth=) and put it
+somewhere in the =dsp= output callback:
+
+#+begin_src extempore
+  (load "libs/core/instruments.xtm")
+  
+  ;; define a synth using the provided components
+  ;; synth_note_c and synth_fx
+  (define-instrument synth synth_note_c synth_fx)
+  
+  ;; add the instrument to the DSP output sink closure
+  (bind-func dsp:DSP
+    (lambda (in time chan dat)
+      (synth in time chan dat)))
+  
+  (dsp:set! dsp)
+#+end_src
+
+* Playing scales and chords
+
+First, let's implement a simple iterative process. Remember that in
+midi note numbers (which =play-note= uses) =60= is middle C, =61= is
+C#, =62= is D, etc...
  
 #+begin_src extempore
-;; iterative sequence
-(dotimes (i 8)
-   (play-note (+ (now) (* i 5000)) piano (+ 60 i) 80 4000))
+  (dotimes (i 8)
+    (play-note (+ (now) (* i 5000)) synth (+ 60 i) 80 4000))
 #+end_src
  
-Simple enough. But there is a problem here. we don't have any control
-over dotimes iterator i. What if we want to play a whole tone scale.
-Let's use recursion to try to solve this problem. Ok all you scheme
-newbies it's time time find out about named lets :)
+That seems simple enough. But there is a problem here---we don't have
+any control over the iterator variable =i= in the =dotimes= loop. What
+if we want to play a whole tone scale. Let's use recursion to solve
+this problem. Ok Scheme newbies, time find out about
+[[http://www.scheme.com/tspl3/control.html#g90][named]] =let=!
  
 #+begin_src extempore
-;; recursive whole-tone scale
-(let loop ((i 0))
-   (play-note (+ (now) (* i 2500)) piano (+ 60 i) 80 4000)
-   (if (< i 9) (loop (+ i 2))))
+  ;; recursive whole-tone scale
+  (let loop ((i 0))
+    (play-note (+ (now) (* i 2500)) synth (+ 60 i) 80 4000)
+    (if (< i 9) (loop (+ i 2))))
 #+end_src
  
-I'm sure there are a few people whispering---he could have done that
-with dotimes---but this is scheme and well frankly the quicker we move
-onto recursion the better ;)
+I'm sure there are a few people whispering /he could have done that
+with/ =dotimes=, but this is Scheme, so the quicker we move onto
+recursion the better :)
  
 So, linear sequences don't seem to present a problem. How about a
-major scale. Well, our recursion should handle this for us.
+major scale? Recursion can handle this for us
  
 #+begin_src extempore
-;; recursive major scale
-(let loop ((scale '(0 2 4 5 7 9 11 12))
-           (time 0))
-   (play-note (+ (now) time) piano (+ 60 (car scale)) 80 4000)
-   (if (not (null? (cdr scale)))
-       (loop (cdr scale) (+ time 5000))))
+  ;; recursive major scale
+  (let loop ((scale '(0 2 4 5 7 9 11 12))
+             (time 0))
+    (play-note (+ (now) time) synth (+ 60 (car scale)) 80 4000)
+    (if (not (null? (cdr scale)))
+        (loop (cdr scale) (+ time 5000))))
 #+end_src
  
-We also added a second argument to loop---time. Let's use that time
+We also added a second argument to loop: =time=. Let's use the =time=
 argument to add changing durations to our scale.
  
 #+begin_src extempore
-;; recursive major scale with rhythm
-(let loop ((scale '(0 2 4 5 7 9 11 12))
-           (dur '(22050 11025 11025 22050 11025 11025 44100 44100))
-           (time 0))
-   (play-note (+ (now) time) piano (+ 60 (car scale)) 80 (car dur))
-   (if (not (null? (cdr scale)))
-       (loop (cdr scale) (cdr dur) (+ time (car dur)))))
+  ;; recursive major scale with rhythm
+  (let loop ((scale '(0 2 4 5 7 9 11 12))
+             (dur '(22050 11025 11025 22050 11025 11025 44100 44100))
+             (time 0))
+    (play-note (+ (now) time) synth (+ 60 (car scale)) 80 (car dur))
+    (if (not (null? (cdr scale)))
+        (loop (cdr scale) (cdr dur) (+ time (car dur)))))
 #+end_src
  
-Ok now that we have pitches and rhythms mastered how do we go about
-playing a chord. The new time argument from the previous examples
-should give you a pretty good clue. Just lose the time argument!
+Now that we have pitches and rhythms mastered how do we go about
+playing a chord? The new =time= argument from the previous examples
+should give you a pretty good clue---we just ditch the =time=
+argument!
  
 #+begin_src extempore
-;; recursive chord
-(let loop ((chord '(0 4 7)))
-   (play-note (now) piano (+ 60 (car chord)) 80 44100)
-   (if (not (null? (cdr chord)))
-       (loop (cdr chord))))
- 
-;; we could also write this
-(let loop ((scale '(0 4 7)))
-   (cond ((null? scale) 'finished)
-         (else (play-note (now) piano (+ 60 (car scale)) 80 44100)
-               (loop (cdr scale)))))
+  ;; recursive chord
+  (let loop ((chord '(0 4 7)))
+    (play-note (now) synth (+ 60 (car chord)) 80 44100)
+    (if (not (null? (cdr chord)))
+        (loop (cdr chord))))
+  
+  ;; we could also write this
+  (let loop ((scale '(0 4 7)))
+    (cond ((null? scale) 'finished)
+          (else (play-note (now) synth (+ 60 (car scale)) 80 44100)
+                (loop (cdr scale)))))
 #+end_src
  
-C Major, nice! We seem to be using lists a lot and I know that all you
-newbie scheme programmers are just dying to use map so here goes.
+C Major---nice! We seem to be using lists a lot, so you're probably
+just dying to use =map=, so here goes.
  
 #+begin_src extempore
-;; map calls lambda for each argument of list
-(map (lambda (p)
-        (play-note (now) piano p 80 44100))
-     (list 60 63 67))
+  ;; map calls lambda for each argument of list
+  (map (lambda (p)
+         (play-note (now) synth p 80 44100))
+       (list 60 63 67))
 #+end_src
  
-Wow, C minor, nice! That's much shorter, why don't we always use map.
-There are a couple of reasons why sometimes it's better not to use map
-but we'll come to those soon enough. For the moment let's look at how
-we can use map to play a broken chord.
+C minor that time, that's cool. That way is much more concise, why
+don't we always use =map=? There are a couple of reasons why sometimes
+it's better not to use =map= but we'll come to those soon enough. For
+the moment let's look at how we can use =map= to play a broken chord.
  
 #+begin_src extempore
-;; map broken chord
-(map (lambda (p d)
-        (play-note (+ (now) d) piano p 80 (- 88200 d)))
-     (list 60 64 67)
-     (list 0 22050 44100))
+  ;; map broken chord
+  (map (lambda (p d)
+         (play-note (+ (now) d) synth p 80 (- 88200 d)))
+       (list 60 64 67)
+       (list 0 22050 44100))
 #+end_src
  
-One small thing to keep in mind. map is designed to return a new list
-of values to you. The process of creating this list makes map slightly
-less efficient than the function for-each which is not specified to
-return a list but is instead designed for it's side effects (i.e.
-playing notes in this instance). So if you don't need to return a list
-use for-each instead of map.
+One small thing to keep in mind: =map= is designed to return a new
+list of values. The process of creating this list makes =map= slightly
+less efficient than the function =for-each=, which is not specified to
+return a list but is instead designed specifically to trigger side
+effects (i.e. playing notes in this instance). So if you don't need to
+return a list, use =for-each= instead of =map=.
  
 #+begin_src extempore
-;; for-each broken chord with volumes
-(for-each (lambda (p d v)
-             (play-note (+ (now) d) piano p v (- 88200 d)))
-          (list 60 64 67)
-          (list 0 22050 44100)
-          (list 90 50 20))
+  ;; for-each broken chord with volumes
+  (for-each (lambda (p d v)
+              (play-note (+ (now) d) synth p v (- 88200 d)))
+            (list 60 64 67)
+            (list 0 22050 44100)
+            (list 90 50 20))
 #+end_src
  
-Ok, now we've covered the basics before we move on if you haven't read
-the time tutorial it's time to go and read it now.
+Ok, now we've covered the basics. Before we move on, if you haven't
+read the time tutorial it's probably a good idea to go and read it
+now.
 
-Ok, hopefully you've had a peek at the time tutorial and you're all
-set for callbacks. In The Basics we looked at various ways to play a
-sequence of notes. We're now going to expand on that theme. Let's
-define a function that uses callback to temporally recurse through a
-list of pitch values.
+* Temporal recursion
+
+If you have already read the post about time in Extempore, you'll be
+all set to start using =callback=. We've already looked at various
+ways to play a sequence of notes, and we're now going to expand on
+that theme. Let's define a function that uses =callback= to temporally
+recurse through a list of pitch values.
  
 #+begin_src extempore
-;; plays a sequence of pitches
-(define play-seq
-   (lambda (time plst)
-      (play-note time piano (car plst) 80 11025)
+  ;; plays a sequence of pitches
+  (define play-seq
+    (lambda (time plst)
+      (play-note time synth (car plst) 80 11025)
       (if (not (null? (cdr plst)))
           (callback (+ time 10000) 'play-seq (+ time 11025) (cdr plst)))))
- 
-(play-seq (now) '(60 62 63 65 67 68 71 72))
+  
+  (play-seq (now) '(60 62 63 65 67 68 71 72))
 #+end_src
  
-This should look very similar to the examples in The Basics. Now let's
-change play-seq to enable it to repeat the sequence indefinitely.
+This should look very similar to the example in the previous section,
+but there are some subtle differences. To demonstrate, let's change
+=play-seq= so that it keeps playing the sequence indefinitely.
  
 #+begin_src extempore
-;; plays a sequence of pitches indefinitely
-(define play-seq
-   (lambda (time plst)
-      (play-note time piano (car plst) 80 11025)
+  ;; loop over a sequence of pitches indefinitely
+  (define play-seq
+    (lambda (time plst)
+      (play-note time synth (car plst) 80 11025)
       (if (null? (cdr plst))
           (callback (+ time 10000) 'play-seq (+ time 11025) '(60 62 65))
           (callback (+ time 10000) 'play-seq (+ time 11025) (cdr plst)))))
- 
-(play-seq (now) '(60 62 65))
+  
+  (play-seq (now) '(60 62 65))
 #+end_src
  
-Ok, now while play-seq is running change the '(60 62 65) in play-seq
-to '(60 62 67) and re-evaluate the play-seq function. Now try changing
-it to '(60 62 67 69) and re-evaluating. Because play-seq uses this
-list to reinitialize plst whenever plst is null any changes we make
-are reflected when this re-initialization occurs. A useful little
-trick. Stop the play-seq function by re-defining play-seq to be the
-function that does nothing (define play-seq (lambda args)).
+Ok, now while =play-seq= is running, change the ='(60 62 65)= (in the
+body of the =play-seq= function) to ='(60 62 67)= and re-evaluate the
+=play-seq= function. Now try changing it to ='(60 62 67 69)= and
+re-evaluating. Because =play-seq= uses this list to reinitialize
+=plst= whenever =plst= is null, any changes we make are reflected when
+this re-initialization occurs---a useful little trick. Stop the
+play-seq function by re-defining play-seq to be the function that does
+nothing: =(define play-seq (lambda args))=.
  
-Let's extend play-seq to include a rhythm list as well.
+Let's extend =play-seq= to include a rhythm list (=rlst=) as well.
  
 #+begin_src extempore
-;; plays a sequence of pitches
-(define play-seq
-   (lambda (time plst rlst)
-      (play-note time piano (car plst) 80 (car rlst))
+  ;; plays a sequence of pitches
+  (define play-seq
+    (lambda (time plst rlst)
+      (play-note time synth (car plst) 80 (car rlst))
       (callback (+ time (* .5 (car rlst))) 'play-seq (+ time (car rlst))
                 (if (null? (cdr plst))
                     '(60 62 65 69 67)
@@ -196,35 +235,35 @@ Let's extend play-seq to include a rhythm list as well.
                 (if (null? (cdr rlst))
                     '(11025 11025 22050 11025)
                     (cdr rlst)))))
- 
-(play-seq (now) '(60 62 65 69 67) '(11025 11025 22050 11025))
+  
+  (play-seq (now) '(60 62 65 69 67) '(11025 11025 22050 11025))
 #+end_src 
  
 Note that our pitch list and our rhythm list are different lengths.
-Unlike for-each (and map) we can iterate through these two lists
-independently---meaning they can be of different lengths which allows
-us to play with various phasing techniques. Have a play, change the
-lengths/values of both lists inside the play-seq function---remember
-to re-evaluate play-seq when you are ready for your changes to take
-effect. Try calling play-seq again to start a second sequence playing.
-Try to create a nice offset---you'll need to press ctrl-space at just
-the right time :-) Note that after the first iteration through the
-sequence both running instances of play-seq will assume the same lists
-(because callback sets the same list values when it's time to
-reinitialize the lists). As an exercise for the reader, think about
-how you could avoid that problem (i.e. keep the lists independent for
-each instance of play-seq).
+Unlike =for-each= (and =map=) we can iterate through these two lists
+/independently/, so they can be of different lengths. This allows us
+to play with various phasing techniques. Have a play, change the
+lengths/values of both lists inside the =play-seq= function, and
+remember to re-evaluate =play-seq= when you are ready for your changes
+to take effect. Try calling =play-seq= again to start a second
+sequence playing. Try to create a nice offset---you'll need to
+evaluate the code at just the right time :) Note that after the first
+iteration through the sequence, both running instances of =play-seq=
+will assume the same lists (because =callback= sets the same list
+values when it's time to reinitialize the lists). As an exercise for
+the reader, think about how you could avoid that problem (i.e. keep
+the lists independent for each instance of =play-seq=).
  
-Ok, so we can now manually change the list each cycle through, but
-what if we would like to change the list programmatically. No problem,
-just you use a function instead of a literal list---of course this is
-now no longer an ostanati!
+Ok, so we can now /manually/ change the lists that =play-seq= cycles
+through, but what if we would like to change the list
+programmatically. No problem, just use a function instead of a
+literal list---of course this is now no longer an ostinati!
  
 #+begin_src extempore
-;; plays a random pentatonic sequence of notes
-(define play-seq
-   (lambda (time plst rlst)
-      (play-note time piano (car plst) 80 (* .65 (car rlst)))
+  ;; plays a random pentatonic sequence of notes
+  (define play-seq
+    (lambda (time plst rlst)
+      (play-note time synth (car plst) 80 (* .65 (car rlst)))
       (callback (+ time (* .5 (car rlst))) 'play-seq (+ time (car rlst))
                 (if (null? (cdr plst))
                     (make-list-with-proc 4 (lambda (i) (random '(60 62 64 67 69))))
@@ -232,24 +271,23 @@ now no longer an ostanati!
                 (if (null? (cdr rlst))
                     (make-list 4 11025)
                     (cdr rlst)))))
- 
-(play-seq (now) '(60 62 64 67) '(11025))
+  
+  (play-seq (now) '(60 62 64 67) '(11025))
 #+end_src
  
-One final thing before we move on. Just a quick performance tip
-(musical performance of course!). It is very easy to add some metric
-interest by oscillating the volume to peak on down beats. Let's make a
-small modification to the previous example to demonstrate this simple
-little cheat ;) Also we'll shorten the durations a little (constant
-legato gets a touch boring).
+One final performance tip before we move on---musical performance of
+course! It's really easy to add some metric interest by oscillating the
+volume to peak on down beats. We can make a small modification to the
+previous example to demonstrate this simple little cheat. Also we'll
+shorten the durations a little (constant legato gets a touch boring).
  
 #+begin_src extempore
-;; plays a random pentatonic sequence of notes with a metric pulse
-(define play-seq
-   (lambda (time plst rlst)
-      (play-note time piano (car plst)
-                      (+ 60 (* 50 (cos (* 0.03125 3.141592 time))))
-                      (* .65 (car rlst)))
+  ;; plays a random pentatonic sequence of notes with a metric pulse
+  (define play-seq
+    (lambda (time plst rlst)
+      (play-note time synth (car plst)
+                 (+ 60 (* 50 (cos (* 0.03125 3.141592 time))))
+                 (* .65 (car rlst)))
       (callback (+ time (* .5 (car rlst))) 'play-seq (+ time (car rlst))
                 (if (null? (cdr plst))
                     (make-list-with-proc 4 (lambda (i) (random '(60 62 64 67 69))))
@@ -257,56 +295,59 @@ legato gets a touch boring).
                 (if (null? (cdr rlst))
                     (make-list 4 11025)
                     (cdr rlst)))))
- 
-(play-seq (now) '(60 62 64 67) '(11025))
+  
+  (play-seq (now) '(60 62 64 67) '(11025))  
 #+end_src
 
-If you read many 20thC composition texts on pitch classes you could be
-forgiven for thinking pitch class sets a rather dry subject and of
-limited compositional value. Oh, how wrong you would be! Pitch classes
-are fantastically useful for the music programmer and trivial to
-understand and use effectively.
+* Pitch classes
+
+If you've read many 20th Century composition texts on pitch classes,
+you could be forgiven for thinking pitch class sets a rather dry
+subject and of limited compositional value. Oh, how wrong you would
+be! Pitch classes are fantastically useful for the music programmer
+and trivial to understand and use effectively.
  
-A brief reminder (or introduction for those unfamiliar with pitch
-classes). Pitch classes are based around the 12 semitones of the
-chromatic scale where each semitone is given it's own class. C C# D
-D#/Eb F F# etc. Now remove all octave reference and enharmonic
-signature, we talk about pitch classes as having enharmonic and octave
-equivalence (i.e. D#/Eb are the same pitch class in any octave). Of
-course in a programming space we use numbers to represent pitches
-(because numbers are easier for us to work with---which is why
-Extempore does not by default include pitch symbols) so instead of
-B#/C/Db for example we use 0, C#/Db is 1, D is 2 ... through to
-A#/B/Cb at 11 which rounds out the complete set of available pitch
-classes 0-11.
+As a quick refresher---or introduction for those unfamiliar with pitch
+classes---pitch classes are based around the 12 semitones of the
+chromatic scale, and each semitone is given it's own class: =C=, =C#=,
+=D=, =D#= / =Eb=, =F=, =F#= etc. Now remove all octave reference and
+enharmonic signature, because pitch classes display enharmonic and
+octave equivalence (i.e. =D#= / =Eb= are the same pitch class in any
+octave). Of course in a programming space we use numbers to represent
+pitches, because numbers are easier for us to work with. This is why
+Extempore does not (by default) include pitch symbols. So, instead of
+=B#= / =C= / =Db= for example we use =0=, =C#= / =Db= is =1=, =D= is
+=2=... through to =A#= / =B= / =Cb= at =11= which rounds out the
+complete set of available pitch classes =0= to =11=.
  
 Now, the observant reader will note that we can use modulo arithmetic
-to find midi pitches of octave equivalence by using mod 12. Try
-running this example (check the log view for results).
+to find midi pitches of octave equivalence by using mod =12=. Try
+running this example, and check the log for the printed results.
  
 #+begin_src extempore
-(dotimes (i 12)
-   (print 'modulo (+ i 60) 12 '=> (modulo (+ i 60) 12)))
+  (dotimes (i 12)
+    (println 'modulo (+ i 60) 12 '=> (modulo (+ i 60) 12)))
 #+end_src
  
-Ok so that has to be useful right! It sure is. Now as previously
-discussed, Extempore does not include much in-built musical support,
-however, there is a libraries page and on that page you will find
-pc-lib.scm. You'll need to download that file before proceeding. I
-encourage you to take a look at the pc-lib.scm file and extend and
-replace things as you see fit (you'll probably find that you can do a
-better job than I have :-)
+Now, as previously discussed, Extempore does not include (by default)
+much high-level musical support. However, there is pitch class (Scheme)
+library in =libs/core/pc_ivl.xtm=. I encourage you to take a look at
+the =pc_ivl.xtm= file and extend and replace things as you see
+fit---you'll probably have your own preferred way of working with
+pitch classes.
  
 Let's start with something simple. We can define a pitch class set by
 creating a list of pitch classes that belong to the set. We can then
-test a pitch against that set by using pc:?
+test a pitch against that set by using =pc:?=
  
 #+begin_src extempore
-;; four examples tested against the pitch class set representation of a c major chord
-(pc:? 60 '(0 4 7))
-(pc:? 84 '(0 4 7))
-(pc:? 35 '(0 4 7))
-(pc:? 79 '(0 4 7))
+  (load "libs/core/pc_ivl.xtm")
+
+  ;; four examples tested against the pitch class set representation of a C major chord
+  (pc:? 60 '(0 4 7))
+  (pc:? 84 '(0 4 7))
+  (pc:? 35 '(0 4 7))
+  (pc:? 79 '(0 4 7))
 #+end_src
  
 We can also choose a random number between a lower and upper bounds
@@ -399,8 +440,8 @@ about the task.
  
 (define organum
    (lambda (time mlst hlst rlst)
-      (play-note time piano (car mlst) 60 (car rlst))
-      (play-note time piano (car hlst) 60 (car rlst))
+      (play-note time synth (car mlst) 60 (car rlst))
+      (play-note time synth (car hlst) 60 (car rlst))
       (if (not (null? (cdr mlst)))
           (callback (+ time (* .5 (car rlst))) 'organum (+ time (car rlst))
                     (cdr mlst)
@@ -440,13 +481,13 @@ running, slowly start removing pitch classes from the end of the set
 (I'm not going to remind you to re-evaluate anymore :-) and listen to
 the c-major chord that starts to evolve. If your machine will handle a
 higher callback rate then go for it, we're after a wash of sound here.
-Try choosing a sound with a delay for extra impact (don't let my piano
+Try choosing a sound with a delay for extra impact (don't let my synth
 symbol fool you ;)
  
 #+begin_src extempore
 (define crazy-chord
    (lambda (time)
-      (play-note time piano (pc:random 24 97 '(0 4 7 10 2 3 5 9 6 11 1)) 80 500)
+      (play-note time synth (pc:random 24 97 '(0 4 7 10 2 3 5 9 6 11 1)) 80 500)
       (callback (+ time 1000) 'crazy-chord (+ time 2000))))
  
 (crazy-chord (now))
@@ -456,7 +497,7 @@ Here's a recording of my machine going absolutely gang-busters until
 it finally resolves to the last pitch class 0 (c). crazy-chord.mp3
  
 Ok, so we've seen how we can use a pitch class to represent a chord.
-pc-lib also includes a useful little function pc:make-chord for
+=pc_ivl.xtm= also includes a useful little function pc:make-chord for
 returning a 'random' chord based on a pitch class set. Let's take a
 look at this in action.
  
@@ -465,7 +506,7 @@ look at this in action.
 (define chords
    (lambda (time)
       (for-each (lambda (p)                  
-                   (play-note time piano p 80 10000))
+                   (play-note time synth p 80 10000))
                 (pc:make-chord 60 72 3 '(0 4 7)))
       (callback (+ time 10000) 'chords (+ time 11025))))
  
@@ -493,7 +534,7 @@ list as an atom from a list.
 (define chords
    (lambda (time chord)
       (for-each (lambda (p)                  
-                   (play-note time piano p 80 10000))
+                   (play-note time synth p 80 10000))
                 (pc:make-chord 48 90 3 chord))
       (callback (+ time 10000) 'chords (+ time 11025)
                 (if (> (random) .8)
@@ -549,7 +590,7 @@ limit the example to the I, IV and V chords only.
 (define progression
    (lambda (time chord)
       (for-each (lambda (p)
-                   (play-note time piano p 80 40000))
+                   (play-note time synth p 80 40000))
                 (pc:make-chord 60 73 3 chord))
       (callback (+ time 40000) 'progression (+ time 44100)
                 (random (cdr (assoc chord '(((0 4 7) (5 9 0) (7 11 2))
@@ -560,7 +601,7 @@ limit the example to the I, IV and V chords only.
 #+end_src
  
 Now that was pretty easy but our list of chords is a little unwieldy.
-Fortunately pc-lib has a function that will help us out with that
+Fortunately =pc_ivl.xtm= has a function that will help us out with that
 problem. pc:diatonic is designed to return a chords pitch class given
 a key and a scale degree. So if we use (pc:diatonic 0 '^ 'iii) we are
 asking for iii in the key of c (0) major ('^). '^ is major and '- is
@@ -575,7 +616,7 @@ implements our entire matrix.
 (define progression
    (lambda (time degree)
       (for-each (lambda (p)
-                   (play-note time piano p 80 40000))
+                   (play-note time synth p 80 40000))
                 (pc:make-chord 48 77 5 (pc:diatonic 0 '^ degree)))
       (callback (+ time 40000) 'progression (+ time 44100)
                 (random (cdr (assoc degree '((i iv v iii vi)
@@ -608,7 +649,7 @@ IV twice the duration of the other chords.
       (let ((dur (if (member degree '(i iv)) 88200 44100)))
          (for-each (lambda (p)
                       (if (and (> p 70) (> (random) .7))
-                          (play-note-mord time piano p
+                          (play-note-mord time synth p
                                           (random 70 80)
                                           (* .9 dur) '(0 2 4 5 7 9 11))                  
                           (play-note time harpsichord p (random 70 80) (* .9 dur))))
@@ -773,7 +814,7 @@ practical exercise so let me demonstrate.
 ;; beat loop
 (define drum-loop
    (lambda (time duration)
-      (print time duration)
+      (println time duration)
       (play-note (*metro* time) drums *gm:maracas* 80 (*metro* 'dur duration) 9)
       (callback (*metro* (+ time (* .5 duration))) 'drum-loop (+ time duration)
                 (random (list 0.5)))))
@@ -783,11 +824,10 @@ practical exercise so let me demonstrate.
  
 You should notice a couple of things here:
  
-1. We start our loop by calling (*metro* 'get-beat). This asks our
-   *metro* closure to return the next available beat number to us
-   (i.e. fmod 1.0)---*metro* starts ticking over beats as soon as it's
-   initalized (actually this is not really true---*metro* is a linear
-   function---but it is easier to think about it this way).
+1. We start our loop by calling =(*metro* 'get-beat)=. This asks our
+   *metro* closure to return the next available beat number to us,
+   i.e. =(fmod beat 1.0)=. =*metro*= starts ticking over beats as soon
+   as it's initalized.[fn:metro]
 2. time is now in beats (not in samples) and is cumulative. Check your
    logview for an idea about what time equals each cycle around
    drum-loop. Also remember that floating point is subject to rounding
@@ -1029,3 +1069,6 @@ numbers for pitches strongly preferences a traditional diatonic tonal
 system. Having said that, and as I've shown in [[file:./2012-06-07-dsp-basics-in-extempore.org][other]] [[file:./2012-06-07-more-dsp-and-extempore-types.org][DSP posts]], you
 can generate tones of any frequency---quarter tone composers should
 not despair!
+
+[fn:metro] Actually this is not really true---=*metro*= is a linear
+function---but it is easier to think about it this way.
