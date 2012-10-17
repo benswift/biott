@@ -32,7 +32,7 @@ You can think of a sampler as a series of 'slots', each of which
 contains a sound file.
 
 #+begin_html
-<a href=""><img src="images/sampler/piano-full.png" width="300px" alt=""></a>
+<a href=""><img src="images/sampler/piano-full.png" width="400px" alt=""></a>
 #+end_html
 
 Each slot has a unique index, and playing the sampler generally
@@ -62,7 +62,7 @@ Now, the Extempore sampler doesn't /have/ to be full---there can be
 empty slots.
 
 #+begin_html
-<a href=""><img src="images/sampler/piano-gaps.png" width="300px" alt=""></a>
+<a href=""><img src="images/sampler/piano-gaps.png" width="400px" alt=""></a>
 #+end_html
 
 In this instance, when the sampler gets a =play-note= message
@@ -137,9 +137,9 @@ code if you're following along.
 
 When you unzip and untar =salamanderDrumkit.tar.bz2=, it will have a
 subdirectory called =OH=, which contains the wave files which
-represent the drum sound wave files. We're going to load (some of)
+contain the drum sounds. We're going to load (some of)
 these files into our =drums= sampler one at a time using the
-=set-sampler=index= function.
+=set-sampler-index= function.
 
 #+begin_src extempore
   (define drum-path "/Users/ben/Music/sample-libs/drums/salamander/OH/")
@@ -325,7 +325,7 @@ Awesome, we've got a piano.  Success!
 
 There are lots of possibilities at this stage.  If you're interested
 in seeing how to make vaguely 'conventional' musical material, then
-the posts on playing instruments (Part I and Part II) are a good place
+the posts on playing instruments ([[file:2012-10-15-playing-an-instrument-part-i.org][Part I]] and Part II) are a good place
 to start.  And I'm sure you can think of lots of other
 possibilities---go nuts :)
 
