@@ -751,46 +751,47 @@ a look at how this might look.
 
 * Beat & tempo
 
-'Bring back the beat' I hear you say. OK, onto Beat & Tempo.
+'Bring back the beat' I hear you say. OK, onto Beat & Tempo.  In this
+section we're going to need a drum instrument.  What a
+coincidence---todo this post shows you how to do exactly that!  It'll
+take a bit of time to set up the first time, and you may have to
+download some samples (all free and legal, of course).  But don't
+worry, I'll wait here till you get back.
 
-# todo set up a drum sampler. maybe use
-# http://win.autodafe.net/Samples/GSCW_DRUMS_Library_Vol.1.rar
-So far we have been using Extempore's default time standard---samples
-per second---to control rhythm and duration information. As musicians
-though, we are more used to working with beats and tempo. Here's a
-simple example working with samples. Note that throughout this
-tutorial I'm using a drum sampler, see this post for details on how to
-set that up. At the end of this page you'll find a list of general
-midi drum numbers which I'll be using in this tutorial:
-=*gm:maracas*=, etc...
+# todo put some 'girl from ipanema' elevator music in here
+
+Got a drum sampler set up? Great. So far we have been using
+Extempore's default time standard---samples per second---to control
+rhythm and duration information. As musicians though, we are more used
+to working with beats and tempo. Here's a simple example working with
+samples. Note that throughout this tutorial I'm using a drum sampler,
+see this post for details on how to set that up. At the end of this
+page you'll find a list of general midi drum numbers which I'll be
+using in this tutorial: =*gm-cowbell*=, etc...
 
 #+begin_src extempore
-  ;; to set up the drum (see other post for the definitions of
-  ;; drums_note_c and drums_fx
-  (define-instrument drums drums_note_c drums_fx)
-  
-  ;; 'samples per second' loop
+  ;; assuming you've set up and loaded the drums sampler as in
+  ;; http://benswift.me/2012-10-17-loading-and-using-a-sampler.html
   (define drum-loop
      (lambda (time dur)
-        (play-note time drums *gm:maracas* 80 dur)
+        (play-note time drums *gm-cowbell* 80 dur)
         (callback (+ time (* .5 dur)) 'drum-loop (+ time dur) (random '(22050 11025)))))
   
-  (drum-loop (now) 11025)
-  
+  (drum-loop (now) 11025)  
 #+end_src
 
 And here's one way that we could go about transforming this into a
 more abstract notion of time.
 
 #+begin_src extempore
-;; beat loop
-(define drum-loop
-   (lambda (time dur)
+  ;; beat loop
+  (define drum-loop
+    (lambda (time dur)
       (let ((d (* dur *samplerate*)))
-         (play-note time drums *gm:maracas* 80 d)
-         (callback (+ time (* .5 d)) 'drum-loop (+ time d) (random '(0.5 0.25))))))
-
-(drum-loop (now) 0.25)
+        (play-note time drums *gm-cowbell* 80 d)
+        (callback (+ time (* .5 d)) 'drum-loop (+ time d) (random '(0.5 0.25))))))
+  
+  (drum-loop (now) 0.25)
 #+end_src
 
 So what's the advantage here---is it more work for no benefit?
@@ -805,16 +806,18 @@ Let's play back the same example at 120 beats per minute
 bpm. We'll also add triplets to our quavers and semi-quavers.
 
 #+begin_src extempore
-;; beat loop at 120bpm
-(define drum-loop
-   (lambda (time dur)
+  ;; beat loop at 120bpm
+  (define drum-loop
+    (lambda (time dur)
       (let ((d (* dur .5 *samplerate*)))
-         (play-note time drums *gm:maracas* 80 d)
-         (callback (+ time (* .5 d)) 'drum-loop (+ time d)
-                   (random (list (/ 1 3) 0.5 0.25))))))
-
-(drum-loop (now) 0.25)
+        (play-note time drums *gm-cowbell* 80 d)
+        (callback (+ time (* .5 d)) 'drum-loop (+ time d)
+                  (random (list (/ 1 3) 0.5 0.25))))))
+  
+  (drum-loop (now) 0.25)
 #+end_src
+
+# todo I'm up to here
 
 Let's try using an oscillator to drift the playback speed back and
 forth over time.
@@ -824,7 +827,7 @@ forth over time.
 (define drum-loop
    (lambda (time dur)
       (let ((d (* dur (+ .5 (* .25 (cos (* 16 3.141592 time)))) *samplerate*)))
-         (play-note time drums *gm:maracas* 80 d)
+         (play-note time drums *gm-cowbell* 80 d)
          (callback (+ time (* .5 d)) 'drum-loop (+ time d)
                    (random (list 0.5))))))
 
@@ -858,7 +861,7 @@ demonstrate.
   (define drum-loop
     (lambda (time duration)
       (println time duration)
-      (play-note (*metro* time) drums *gm:maracas* 80 (*metro* 'dur duration))
+      (play-note (*metro* time) drums *gm-cowbell* 80 (*metro* 'dur duration))
       (callback (*metro* (+ time (* .5 duration))) 'drum-loop (+ time duration)
                 (random (list 0.5)))))
   
@@ -896,7 +899,7 @@ tempo in bpm.
 (define drum-loop
    (lambda (time duration)
       (*metro* 'set-tempo (+ 120 (* 40 (cos (* .25 3.141592 time)))))
-      (play-note (*metro* time) drums *gm:maracas* 80 (*metro* 'dur duration))
+      (play-note (*metro* time) drums *gm-cowbell* 80 (*metro* 'dur duration))
       (callback (*metro* (+ time (* .5 duration))) 'drum-loop (+ time duration)
                 (random (list 0.5)))))
 
@@ -904,12 +907,13 @@ tempo in bpm.
 #+end_src
 
 # todo And here's what it sounds like drums_two.mp3. 
-Much better, I'm sure you will agree. Now the really cool thing about
-=*metro*= is that you can now use it to sync as many =callback= loops
-as you like. Let's add a second =drum-loop= call. Notice also that we
-have added an argument to the ='get-beat= message that asks ='get-beat= to
-quantize to a =4.0= (i.e. four beats) instead of the default =1.0=. I'm
-going to play maracas and tambourine with a slight =0.25= offset.
+More cowbell! Much better, I'm sure you will agree. Now the really
+cool thing about =*metro*= is that you can now use it to sync as many
+=callback= loops as you like. Let's add a second =drum-loop= call.
+Notice also that we have added an argument to the ='get-beat= message
+that asks ='get-beat= to quantize to a =4.0= (i.e. four beats) instead
+of the default =1.0=. I'm going to play cowbell and triangle with a
+slight =0.25= offset.
 
 #+begin_src extempore
 ;; create a metronome starting at 120 bpm
@@ -929,8 +933,8 @@ going to play maracas and tambourine with a slight =0.25= offset.
       (*metro* 'set-tempo (+ 120 (* 40 (cos (* .25 3.141592 time)))))
       (callback (*metro* (+ time .2)) 'tempo-shift (+ time .25))))
 
-(drum-loop (*metro* 'get-beat 4) 0.5 *gm:maracas*)
-(drum-loop (*metro* 'get-beat 4.25) 0.5 *gm:tambourine*)
+(drum-loop (*metro* 'get-beat 4) 0.5 *gm-cowbell*)
+(drum-loop (*metro* 'get-beat 4.25) 0.5 *gm-open-triangle*)
 (tempo-shift (*metro* 'get-beat 1.0))
 #+end_src
 
@@ -971,7 +975,7 @@ beat of each 'bar'.
 (define metre-test
    (lambda (time)
       (if (*metre* time 1.0)
-          (play-note (*metro* time) drums *gm:side-stick* 80 10000))
+          (play-note (*metro* time) drums *gm-side-stick* 80 10000))
       (callback (*metro* (+ time 0.4)) 'metre-test (+ time 0.5))))
 
 (metre-test (*metro* 'get-beat 1.0))
@@ -997,9 +1001,9 @@ for the second metre.
 (define metre-test
    (lambda (time)
       (if (*metre1* time 1.0)
-          (play-note (*metro* time) drums *gm:side-stick* 80 10000))
+          (play-note (*metro* time) drums *gm-side-stick* 80 10000))
       (if (*metre2* time 1.0)
-          (play-note (*metro* time) drums *gm:snare* 60 10000))
+          (play-note (*metro* time) drums *gm-snare* 60 10000))
       (callback (*metro* (+ time 0.4)) 'metre-test (+ time 0.5))))
 
 (metre-test (*metro* 'get-beat 1.0))
@@ -1025,15 +1029,15 @@ also going to add some hi-hats to give it a constant pulse.
 (define metre-test
    (lambda (time)
       (play-note (*metro* time) drums
-                 (random (cons .8 *gm:closed-hi-hat*) (cons .2 *gm:open-hi-hat*))
+                 (random (cons .8 *gm-closed-hi-hat*) (cons .2 *gm-open-hi-hat*))
                  (+ 40 (* 20 (cos (* 2 3.441592 time))))
                  (random (cons .8 500)  (cons .2 2000)))
       (if (*metre1* time 1.0)
-          (begin (play-note (*metro* time) drums *gm:snare* 80 10000)
-                 (play-note (*metro* time) drums *gm:pedal-hi-hat* 80 100000)))
+          (begin (play-note (*metro* time) drums *gm-snare* 80 10000)
+                 (play-note (*metro* time) drums *gm-pedal-hi-hat* 80 100000)))
       (if (*metre2* time 1.0)
-          (begin (play-note (*metro* time) drums *gm:kick* 80 100000)
-                 (play-note (*metro* time) drums *gm:ride-bell* 100 100000)))
+          (begin (play-note (*metro* time) drums *gm-kick* 80 100000)
+                 (play-note (*metro* time) drums *gm-ride-bell* 100 100000)))
       (callback (*metro* (+ time 0.2)) 'metre-test (+ time 0.25))))
 
 (metre-test (*metro* 'get-beat 1.0))
@@ -1065,7 +1069,7 @@ to accentuate the pattern.
 (define metre-test
    (lambda (time degree)
       (play-note (*metro* time) drums
-                 (random (cons .8 *gm:closed-hi-hat*) (cons .2 *gm:open-hi-hat*))
+                 (random (cons .8 *gm-closed-hi-hat*) (cons .2 *gm-open-hi-hat*))
                  (+ 40 (* 20 (cos (* 2 3.141592 time))))
                  (random (cons .8 500)  (cons 2 2000))
                  9)
@@ -1074,15 +1078,15 @@ to accentuate the pattern.
                  (+ 50 (* 25 (cos (* .125 3.141592 time))))
                  100)
       (if (*metre1* time 1.0)
-          (begin (play-note (*metro* time) drums *gm:snare* 80 10000)
-                 (play-note (*metro* time) drums *gm:pedal-hi-hat* 80 100000)
+          (begin (play-note (*metro* time) drums *gm-snare* 80 10000)
+                 (play-note (*metro* time) drums *gm-pedal-hi-hat* 80 100000)
                  (play-note (*metro* time) bass
                             (+ 60 (car (pc:diatonic 9 '- degree)))
                             60
                             10000)))
       (if (*metre2* time 1.0)
-          (begin (play-note (*metro* time) drums *gm:kick* 100 100000)
-                 (play-note (*metro* time) drums *gm:ride-bell* 100 100000)
+          (begin (play-note (*metro* time) drums *gm-kick* 100 100000)
+                 (play-note (*metro* time) drums *gm-ride-bell* 100 100000)
                  (for-each (lambda (p)
                               (play-note (*metro* time) keys p 70 10000))
                            (pc:make-chord 65 80 3 (pc:diatonic 9 '- degree)))))
