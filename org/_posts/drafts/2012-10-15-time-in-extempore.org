@@ -8,8 +8,9 @@ categories:
 ---
 #+end_html
 
-# from Extempore basics
+adapted from [[http://impromptu.moso.com.au/tutorials/time.html][a tutorial]] Andrew wrote for Impromptu
 
+# from Extempore basics
 
 Most programming environments operate using an iterative "generate and
 test" style of programming. First, you write the program, then you run
