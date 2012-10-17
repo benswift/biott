@@ -1,3 +1,4 @@
+#+OPTIONS: toc:t
 #+begin_html
 ---
 layout: post
@@ -49,16 +50,16 @@ somewhere in the =dsp= output callback:
 
 #+begin_src extempore
   (load "libs/core/instruments.xtm")
-
+  
   ;; define a synth using the provided components
   ;; synth_note_c and synth_fx
   (define-instrument synth synth_note_c synth_fx)
-
+  
   ;; add the instrument to the DSP output sink closure
   (bind-func dsp:DSP
     (lambda (in time chan dat)
       (synth in time chan dat)))
-
+  
   (dsp:set! dsp)
 #+end_src
 
@@ -591,7 +592,6 @@ anywhere---however in the matrix above I have limited =I='s movement
 to =iii= =IV= =V= and =vi=. This is a pretty limited view of the
 harmonic world, but we'll stick with it for today.
 
-# todo add link to assoc doco
 Now for the cool part: we can use =random= and =assoc= to trivially
 implement this markov matrix in Extempore (if you don't know what
 =assoc= does then Dybvig's [[http://www.scheme.com/tspl3/objects.html][The Scheme Programming Language]] is a good
@@ -697,54 +697,44 @@ couple of performance changes:
 # todo And here's a recording of the harpsichord in action
 # progression_two.mp3. Not bad!
 
-# todo add extra instruments
-Ok so, as a final exercise let's try to make a simple ditty for
-woodwind quintet. We're going to need 5 parts and we should try to
-have some simple part movement (i.e. not just block chords
-everywhere). Now to do this, we're going to cheat and use pc:relative
-to move from our chord tones on /off beats/---Schoenberg would be most
-displeased! The other thing we're going to have to do is assign the
-right instrument to the right part. I'm playing my instruments on the
-same audiounit but using different midi-channels for each instrument.
-We'll also add an even longer duration option for =I= and =IV=. Let's take
-a look at how this might look.
+Ok so, as a final exercise let's try to make a simple =organ= ditty for 5
+parts, and we should try to have some simple part movement (i.e. not
+just block chords everywhere). Now to do this, we're going to cheat
+and use =pc:relative= to move from our chord tones on /off
+beats/---Schoenberg would be most displeased! We'll also add an even
+longer duration option for =I= and =IV=.
 
 #+begin_src extempore
-;; Wind Quintet
-
-(define flute 0)
-(define oboe 1)
-(define clarinet 2)
-(define horn 3)
-(define bassoon 4)
-
-(define progression
-   (lambda (time degree)
+  ;; Quintet
+  (define progression
+    (lambda (time degree)
       (let ((dur (if (member degree '(i iv)) (random (list 88200 (* 2 88200))) 44100)))
-         (for-each (lambda (p inst)
-                      (cond ((and (> (random) .7) (< dur 80000))
-                             (play-note time sampler p (random 60 70) (* .3 dur) inst)
-                             (play-note (+ time (* .5 dur)) sampler
-                                        (pc:relative p (random '(-1 1))
-                                                     '(0 2 4 5 7 9 11))
-                                        (random 60 80)
-                                        (* .3 dur) inst))
-                            (else (play-note time sampler p
-                                             (random 60 70)
-                                             (* .7 dur)
-                                             inst))))
-                   (pc:make-chord 36 90 5 (pc:diatonic 0 '^ degree))
-                   (list bassoon horn clarinet oboe flute))
-         (callback (+ time (* .8 dur)) 'progression (+ time dur)
-                   (random (cdr (assoc degree '((i iv v iii vi)
-                                                (ii v vii)
-                                                (iii vi)
-                                                (iv v ii vii i)
-                                                (v i vi)
-                                                (vii v i)
-                                                (vi ii)))))))))
-
-(progression (now) 'i)
+        (for-each (lambda (p)
+                    (cond ((and (> (random) .7) (< dur 80000))
+                           (play-note time organ p (random 60 70) (* .3 dur))
+                           (play-note (+ time (* .5 dur))
+                                      organ
+                                      (pc:relative p (random '(-1 1))
+                                                   '(0 2 4 5 7 9 11))
+                                      (random 60 80)
+                                      (* .3 dur)))
+                          (else (play-note time
+                                           organ
+                                           p
+                                           (random 60 70)
+                                           (* .7 dur)))))
+                  (pc:make-chord 36 90 5 (pc:diatonic 0 '^ degree)))
+        (callback (+ time (* .8 dur)) 'progression (+ time dur)
+                  (random (cdr (assoc degree '((i iv v iii vi)
+                                               (ii v vii)
+                                               (iii vi)
+                                               (iv v ii vii i)
+                                               (v i vi)
+                                               (vii v i)
+                                               (vi ii)))))))))
+  
+  (progression (now) 'i)
+  
 #+end_src
 
 # todo Wind Quintet Number 1. By Extempore progression_three.mp3 
@@ -753,7 +743,7 @@ a look at how this might look.
 
 'Bring back the beat' I hear you say. OK, onto Beat & Tempo.  In this
 section we're going to need a drum instrument.  What a
-coincidence---todo this post shows you how to do exactly that!  It'll
+coincidence---[[file:2012-10-17-loading-and-using-a-sampler.org][this post]] shows you how to do exactly that!  It'll
 take a bit of time to set up the first time, and you may have to
 download some samples (all free and legal, of course).  But don't
 worry, I'll wait here till you get back.
@@ -772,6 +762,12 @@ using in this tutorial: =*gm-cowbell*=, etc...
 #+begin_src extempore
   ;; assuming you've set up and loaded the drums sampler as in
   ;; http://benswift.me/2012-10-17-loading-and-using-a-sampler.html
+  (bind-func dsp:DSP
+    (lambda (in time chan dat)
+      (+ (synth in time chan dat)
+         (organ in time chan dat)
+         (drums in time chan dat))))
+  
   (define drum-loop
      (lambda (time dur)
         (play-note time drums *gm-cowbell* 80 dur)
@@ -817,21 +813,19 @@ bpm. We'll also add triplets to our quavers and semi-quavers.
   (drum-loop (now) 0.25)
 #+end_src
 
-# todo I'm up to here
-
 Let's try using an oscillator to drift the playback speed back and
 forth over time.
 
 #+begin_src extempore
-;; beat loop with tempo shift
-(define drum-loop
-   (lambda (time dur)
+  ;; beat loop with tempo shift
+  (define drum-loop
+    (lambda (time dur)
       (let ((d (* dur (+ .5 (* .25 (cos (* 16 3.141592 time)))) *samplerate*)))
-         (play-note time drums *gm-cowbell* 80 d)
-         (callback (+ time (* .5 d)) 'drum-loop (+ time d)
-                   (random (list 0.5))))))
-
-(drum-loop (now) 0.5)
+        (play-note time drums *gm-cowbell* 80 d)
+        (callback (+ time (* .5 d)) 'drum-loop (+ time d)
+                  (random (list 0.5))))))
+  
+  (drum-loop (now) 0.5)
 #+end_src
 
 # todo Have a listen to the result on my machine---drums_one.mp3
@@ -841,7 +835,6 @@ results of =drum-loop=, it's obvious that it /doesn't/ sound very
 even! It turns out that tempo is a lot more subtle than you might
 expect. What we actually need is a linear function that can more
 evenly distribute our beats with respect to tempo changes.
-# todo does time-lib still exist?
 
 As it turns out, =runtime/scheme.xtm= (which is loaded by default on
 startup) includes a function called =make-metro= which will solve a
@@ -873,37 +866,38 @@ You should notice a couple of things:
 1. We start our loop by calling =(*metro* 'get-beat)=. This asks our
    =*metro*= closure to return the next available beat number to us,
    i.e. =(fmod beat 1.0)=. =*metro*= starts ticking over beats as soon
-   as it's initalized.[fn:metro]
+   as it's initalized[fn:metro]
 2. =time= is now in beats (not in samples) and is cumulative. Check your
    logview for an idea about what the value of =time= is each time
    through the drum-loop. Also remember that floating point is subject to rounding
-   error---but don't lose too much sleep over that for the moment.
+   error---but don't lose too much sleep over that for the moment
 3. =(*metro* 'dur duration)= returns a duration in samples relative to
-   the current tempo.
+   the current tempo
 4. The closure returned by =(make-metro)= is really a kind of object
    and the symbol names are method names---message names really. Any
    arguments after the message name are passed with the message and
-   dispatched inside the closure to the appropriate "method". What we
-   are using here is a form of message passing. Who said scheme wasn't
+   dispatched inside the closure to the appropriate 'method'. What we
+   are using here is a form of message passing. Who said Scheme wasn't
    an OO language!
 
+# todo check if the quote works in the symbol name
 How about those tempo changes? No problem---we just need to use pass
-another message to =*metro*= closure: ='set-tempo=, which sets a new
-tempo in bpm.
+another message to =*metro*= closure: =set-tempo=, which sets a new
+tempo in bpm (and don't forget to quote the symbol).
 
 #+begin_src extempore
-;; create a metronome starting at 120 bpm
-(define *metro* (make-metro 120))
-
-;; beat loop with tempo shift
-(define drum-loop
-   (lambda (time duration)
+  ;; create a metronome starting at 120 bpm
+  (define *metro* (make-metro 120))
+  
+  ;; beat loop with tempo shift
+  (define drum-loop
+    (lambda (time duration)
       (*metro* 'set-tempo (+ 120 (* 40 (cos (* .25 3.141592 time)))))
       (play-note (*metro* time) drums *gm-cowbell* 80 (*metro* 'dur duration))
       (callback (*metro* (+ time (* .5 duration))) 'drum-loop (+ time duration)
                 (random (list 0.5)))))
-
-(drum-loop (*metro* 'get-beat) 0.5)
+  
+  (drum-loop (*metro* 'get-beat) 0.5)
 #+end_src
 
 # todo And here's what it sounds like drums_two.mp3. 
@@ -916,26 +910,26 @@ of the default =1.0=. I'm going to play cowbell and triangle with a
 slight =0.25= offset.
 
 #+begin_src extempore
-;; create a metronome starting at 120 bpm
-(define *metro* (make-metro 120))
-
-;; beat loop with tempo shift
-(define drum-loop
-   (lambda (time duration pitch)
+  ;; create a metronome starting at 120 bpm
+  (define *metro* (make-metro 120))
+  
+  ;; beat loop with tempo shift
+  (define drum-loop
+    (lambda (time duration pitch)
       (play-note (*metro* time) drums pitch 80 (*metro* 'dur duration))
       (callback (*metro* (+ time (* .5 duration))) 'drum-loop (+ time duration)
                 duration
                 pitch)))
-
-;; shift tempo over time using oscillator
-(define tempo-shift
-   (lambda (time)
+  
+  ;; shift tempo over time using oscillator
+  (define tempo-shift
+    (lambda (time)
       (*metro* 'set-tempo (+ 120 (* 40 (cos (* .25 3.141592 time)))))
       (callback (*metro* (+ time .2)) 'tempo-shift (+ time .25))))
-
-(drum-loop (*metro* 'get-beat 4) 0.5 *gm-cowbell*)
-(drum-loop (*metro* 'get-beat 4.25) 0.5 *gm-open-triangle*)
-(tempo-shift (*metro* 'get-beat 1.0))
+  
+  (drum-loop (*metro* 'get-beat 4) 0.5 *gm-cowbell*)
+  (drum-loop (*metro* 'get-beat 4.25) 0.5 *gm-open-triangle*)
+  (tempo-shift (*metro* 'get-beat 1.0))
 #+end_src
 
 # todo And it sounds like this drums_three.mp3 
@@ -946,88 +940,89 @@ two seperate loops!
 
 We now have almost enough information to build our first drum machine!
 
-The time-lib library also contains a very useful function called
-make-metre. Like the make-metro function, the make-metre function
-returns a closure which can subsequently be called. make-metre returns
-a closure that returns #t or #f based on a simple query---given an
-accumulated beat are we on a certain metric pulse? A practical demo
-should make this a little clearer.
+Extempore also has a very useful function called =make-metre=. Like
+the =make-metro= function, the =make-metre= function returns a closure
+which can subsequently be called. =make-metre= returns a closure that
+returns =#t= or =#f= based on a simple query: given an accumulated
+beat, are we on a certain metric pulse? A practical demo should make
+this a little clearer.
 
-First though, a brief explanation of make-metre initial arguments.
-First argument is a list of numerators and the second argument is a
-single denominator. What this implies is that make-metre can work with
-a series of revolving metre's. For example, (make-metre '(4) 1.0)
-gives us 4 * 1.0 metric pulses (recurring 4/4 bars); (make-metre '(3)
-0.5) gives us 3 * 0.5 metric pulses (recurring 3/8 bars); (make-metre
-'(2 3) 0.5) gives us 2 * 0.5 then 3 * 0.5 metric pulses (recurring
-series of 2/8 3/8 2/8 3/8 2/8 3/8 ... ).
+First though, a brief explanation of =make-metre= initial arguments.
+The first argument is /a list of/ numerators and the second argument
+is a /single/ denominator. What this implies is that =make-metre= can
+work with a series of revolving metres. Some examples:
+- =(make-metre '(4) 1.0)= gives us =4= times =1.0= metric pulses
+  (recurring every =4/4= bars);
+- =(make-metre '(3) 0.5)= gives us =3= times =0.5= metric pulses
+  (recurring every =3/8= bars)
+- =(make-metre '(2 3) 0.5)= gives us =2= times =0.5= then =3= times
+  =0.5= metric pulses (a recurring series of =2/8= =3/8= =2/8= =3/8=
+  =2/8= =3/8=...).
 
-Let's try an example. Note that we are only going to play the first
-beat of each 'bar'.
+Let's try using a =make-metre=. We'll only play the first beat of each
+bar.
 
 #+begin_src extempore
-(define *metro* (make-metro 90))
-
-;; a 2/8 3/8 2/8 cycle
-(define *metre* (make-metre '(2 3 2) 0.5))
-
-;; play first beat of each 'bar'
-(define metre-test
-   (lambda (time)
+  (define *metro* (make-metro 90))
+  
+  ;; a 2/8 3/8 2/8 cycle
+  (define *metre* (make-metre '(2 3 2) 0.5))
+  
+  ;; play first beat of each 'bar'
+  (define metre-test
+    (lambda (time)
       (if (*metre* time 1.0)
           (play-note (*metro* time) drums *gm-side-stick* 80 10000))
       (callback (*metro* (+ time 0.4)) 'metre-test (+ time 0.5))))
-
-(metre-test (*metro* 'get-beat 1.0))
+  
+  (metre-test (*metro* 'get-beat 1.0))
 #+end_src
 
-Well that was easy. Let's complicate things just a little by adding a
-second metre. We'll play the side stick for one metre and the snare
-for the second metre.
+Well, that was easy. Let's complicate things just a little by adding a
+second metre. We'll play the side stick for the first metre and the
+snare for the second metre.
 
 #+begin_src extempore
-;; classic 2 against 3
-;;
-
-(define *metro* (make-metro 180))
-
-;; 3/8
-(define *metre1* (make-metre '(3) .5))
-;; 2/8
-(define *metre2* (make-metre '(2) .5))
-
-
-;; play first beat of each 'bar'
-(define metre-test
-   (lambda (time)
+  ;; classic 2 against 3
+  (define *metro* (make-metro 180))
+  
+  ;; 3/8
+  (define *metre1* (make-metre '(3) .5))
+  ;; 2/8
+  (define *metre2* (make-metre '(2) .5))
+  
+  
+  ;; play first beat of each 'bar'
+  (define metre-test
+    (lambda (time)
       (if (*metre1* time 1.0)
           (play-note (*metro* time) drums *gm-side-stick* 80 10000))
       (if (*metre2* time 1.0)
           (play-note (*metro* time) drums *gm-snare* 60 10000))
       (callback (*metro* (+ time 0.4)) 'metre-test (+ time 0.5))))
-
-(metre-test (*metro* 'get-beat 1.0))
+  
+  (metre-test (*metro* 'get-beat 1.0))
 #+end_src
 
-The French composer Olivier Messiaen is well known for (amongst many
-things) symmetrical metric structures. Let's take his lead and build
-up a relatively complex poly-symmetric drum pattern. Again we're are
-going to work with two (poly) competing metric structures---both of
-which will be symmetric ( 2/8 3/8 4/8 3/8 2/8 ) and (3/8 5/8 7/8 5/8
-3/8). Note that because the second metric structure is uneven in
-length we should get some nice phasing effects (a la Steve Reich). I'm
-also going to add some hi-hats to give it a constant pulse.
+The French composer Olivier Messiaen is well known for (amongst other
+things) symmetrical metric structures. Let's follow his lead and build
+up a relatively complex poly-symmetric drum pattern. Again, we're
+going to work with two competing metric structures---both of which
+will be symmetric =(2/8 3/8 4/8 3/8 2/8)= and =(3/8 5/8 7/8 5/8 3/8)=.
+Because the second metric structure is uneven in length we should get
+some nice phasing effects, /a la/ Steve Reich. I'm also going to add
+some hi-hats to give it a constant pulse.
 
 #+begin_src extempore
-;; messiaen drum kit
-(define *metro* (make-metro 140))
-
-(define *metre1* (make-metre '(2 3 4 3 2) .5))
-(define *metre2* (make-metre '(3 5 7 5 3) .5))
-
-;; play first beat of each 'bar'
-(define metre-test
-   (lambda (time)
+  ;; messiaen drum kit
+  (define *metro* (make-metro 140))
+  
+  (define *metre1* (make-metre '(2 3 4 3 2) .5))
+  (define *metre2* (make-metre '(3 5 7 5 3) .5))
+  
+  ;; play first beat of each 'bar'
+  (define metre-test
+    (lambda (time)
       (play-note (*metro* time) drums
                  (random (cons .8 *gm-closed-hi-hat*) (cons .2 *gm-open-hi-hat*))
                  (+ 40 (* 20 (cos (* 2 3.441592 time))))
@@ -1039,48 +1034,50 @@ also going to add some hi-hats to give it a constant pulse.
           (begin (play-note (*metro* time) drums *gm-kick* 80 100000)
                  (play-note (*metro* time) drums *gm-ride-bell* 100 100000)))
       (callback (*metro* (+ time 0.2)) 'metre-test (+ time 0.25))))
-
-(metre-test (*metro* 'get-beat 1.0))
+  
+  (metre-test (*metro* 'get-beat 1.0))
 #+end_src
 
-Here's a short recording kit_one.mp3---I'm not sure what Messiaen
-would think of this :)
+# todo Here's a short recording kit_one.mp3---I'm not sure what Messiaen
+# would think of this :)
 
-There are a couple of things to note in the previous example. First
+There are a couple of things to note in the previous example. Firstly,
 our old oscillating volume is back in the hi-hat parts. We are also
-using a weighted random for the first time for both the choice of
-hi-hat pitch and the length of the hi-hat sound. Also notice that we
-are moving around our callback faster than before---but this does not
-affect our metre's as long as our time increment has a suitable ratio
-to both metre's.
+using a weighted =random= for both the choice of hi-hat pitch and the
+length of the hi-hat sound. Also notice that we are moving around our
+callback faster than before---but this is fine as long as our time
+increment has a suitable ratio to both metres.
 
-Let's keep going with this idea and add bass, bells and keyboard parts
-to accentuate the pattern.
+* Putting it all together
+
+Let's keep going with this idea and add some pitched musical content
+as well, using the =synth= and =organ= instruments we were using earlier
 
 #+begin_src extempore
-;; messiaen drum kit
-(define *metro* (make-metro 140))
-(au:set-global-tempo 140)
-
-(define *metre1* (make-metre '(2 3 4 3 2) .5))
-(define *metre2* (make-metre '(3 5 7 5 3) .5))
-
-;; play first beat of each 'bar'
-(define metre-test
-   (lambda (time degree)
+  (load "libs/core/pc_ivl.xtm")
+  
+  ;; messiaen drum kit
+  (define *metro* (make-metro 140))
+  
+  (define *metre1* (make-metre '(2 3 4 3 2) .5))
+  (define *metre2* (make-metre '(3 5 7 5 3) .5))
+  
+  ;; play first beat of each 'bar'
+  (define metre-test
+    (lambda (time degree)
       (play-note (*metro* time) drums
                  (random (cons .8 *gm-closed-hi-hat*) (cons .2 *gm-open-hi-hat*))
                  (+ 40 (* 20 (cos (* 2 3.141592 time))))
                  (random (cons .8 500)  (cons 2 2000))
                  9)
-      (play-note (*metro* time) bells
+      (play-note (*metro* time) synth
                  (pc:random 90 107 (pc:diatonic 9 '- degree))
                  (+ 50 (* 25 (cos (* .125 3.141592 time))))
                  100)
       (if (*metre1* time 1.0)
           (begin (play-note (*metro* time) drums *gm-snare* 80 10000)
                  (play-note (*metro* time) drums *gm-pedal-hi-hat* 80 100000)
-                 (play-note (*metro* time) bass
+                 (play-note (*metro* time) organ
                             (+ 60 (car (pc:diatonic 9 '- degree)))
                             60
                             10000)))
@@ -1088,28 +1085,35 @@ to accentuate the pattern.
           (begin (play-note (*metro* time) drums *gm-kick* 100 100000)
                  (play-note (*metro* time) drums *gm-ride-bell* 100 100000)
                  (for-each (lambda (p)
-                              (play-note (*metro* time) keys p 70 10000))
+                             (play-note (*metro* time) synth p 70 10000))
                            (pc:make-chord 65 80 3 (pc:diatonic 9 '- degree)))))
       (callback (*metro* (+ time 0.2)) 'metre-test (+ time 0.25)
-                (if (= 0.0 (fmod time 8.0))
+                (if (= 0.0 (modulo time 8.0))
                     (random (cdr (assoc degree '((i vii vii vi)
                                                  (n v)
                                                  (vi n)
                                                  (v vi i)
                                                  (vii i)))))
                     degree))))
-
-(metre-test (*metro* 'get-beat 1.0) 'i)
+  
+  (metre-test (*metro* 'get-beat 1.0) 'i)
 #+end_src
 
-Here is a short example from my machine kit_two.mp3. In this example
-we have used many of the techniques picked up in previous tutorials,
-so take some time and have a good look through this code. There are
-plenty of things here for you to further extend and try out on your
-own.
+# todo  Here is a short example from my machine kit_two.mp3. 
 
-We are now going to take a look at how we can control parameter
-changes over time.  Or are we?
+In this example we have used many of the techniques picked up in
+previous tutorials, so take some time and have a good look through
+this code. If you can understand it, then you're well on your way to
+making music in Extempore. It's also a good starting point for
+changing things yourself---there are plenty of interesting parameters
+& code chunks to tweak. Get in there and try it, and don't be afraid
+to break things :)
+
+And remember, the note-level control that we've looked at in this
+tutorial is just /one/ way to use Extempore.  You can also do DSP,
+graphics, distributed computing, network IO, high-performance
+number-crunching, and many other things.  Have a look at the [[http://benswift.me/extempore-docs][top-level
+docs page]] for more information.
 
 [fn:quarter-tone] Of course this is a somewhat ridiculous statement
 given that straight out of the gate Extempore's use of midi note
