@@ -11,7 +11,7 @@ categories:
 This post builds on [[file:2012-10-15-playing-an-instrument-part-i][Playing an instrument part I]], which covers the
 setting up an instrument and adding its output to the =dsp= sink, as
 well as the basics of playing a note on the instrument. This post
-(which is adapted from some tutorials Andrew originally wrote for
+(which is adapted from [[http://impromptu.moso.com.au/tutorials/making_music/The%2520Basics.html][some tutorials]] Andrew originally wrote for
 Impromptu) shows how make more complex musical patterns, with harmony,
 melody and rhythm as creative dimensions to explore.
 
@@ -594,9 +594,10 @@ harmonic world, but we'll stick with it for today.
 # todo add link to assoc doco
 Now for the cool part: we can use =random= and =assoc= to trivially
 implement this markov matrix in Extempore (if you don't know what
-=assoc= does go and quickly check your favourite Scheme book). For this
-first effort we're going to assume the key of C major and I'm going to
-limit the example to the =I=, =IV= and =V= chords only.
+=assoc= does then Dybvig's [[http://www.scheme.com/tspl3/objects.html][The Scheme Programming Language]] is a good
+online resource). For this first effort we're going to assume the key
+of C major and I'm going to limit the example to the =I=, =IV= and =V=
+chords only.
 
 #+begin_src extempore
   ;; markov chord progression I IV V

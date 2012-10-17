@@ -19,8 +19,8 @@ you'll have a better (but by no means necessary) understanding of
 what's going on 'under the hood' in this post.
 
 The note-level approach to music generation will be very familiar to
-Impromptu users.  This post is actually a modified version of a
-tutorial that Andrew wrote for Impromptu.
+Impromptu users.  This post is actually a modified version of [[http://impromptu.moso.com.au/tutorials/bing.html][a
+tutorial]] that Andrew wrote for Impromptu.
 
 * Setting up an instrument
 

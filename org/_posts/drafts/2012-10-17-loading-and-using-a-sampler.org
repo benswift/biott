@@ -99,28 +99,232 @@ quality and memory footprint.  If sound quality is more important, use
 more slots, but if low memory use is more important, use fewer slots
 and let the sampler interpolate in the gaps.
 
-* Creating a piano sampler
+* Creating a drum sampler
 
-Let's create an instance of Extempore's sampler called piano. To do
-this, we use the =define-sampler= Scheme macro (once we've loaded it
-from the =libs/external/instruments.xtm= library file).
+Ok, enough background material---let's make some noise. We'll create
+an instance of Extempore's sampler called =drums=. To do this, we use
+the =define-sampler= Scheme macro (once we've loaded it from the
+=libs/external/instruments.xtm= library file).
 
 #+begin_src extempore
   (load "libs/external/instruments.xtm")
   
-  ;; define a sampler (called piano) using the default sampler note kernel and effects
-  (define-sampler piano sampler-note-hermite sampler-fx)
+  ;; define a sampler (called drums) using the default sampler note kernel and effects
+  (define-sampler drums sampler_note_hermite_c sampler_fx)
   
   ;; add the sampler to the dsp output callback
   (bind-func dsp:DSP
     (lambda (in time chan dat)
       (cond ((< chan 2.0)
-             (sampler piano in time chan dat))
+             (drums in time chan dat))
             (else 0.0))))
+  
   (dsp:set! dsp)
 #+end_src
 
-* Creating a drum sampler
+But we're not done yet: the xtlang closure =drums= has been compiled,
+but it hasn't had any samples loaded into it's slots yet. So we need
+some drum samples, then. Extempore doesn't ship with any samples,
+you'll have to provide your own. The [[http://rytmenpinne.posterous.com/pages/salamander-drumkit][Salamander drumkit]] is pretty
+cool--and also free, which is nice :) So I'm going to load those
+samples into my =drums= sampler.
+
+First, download the Salamander drum kit samples, unzip and untar them
+and put the files somewhere. On my computer, I've put them into
+=/Users/ben/Music/sample-libs/drums/salamander=, but you can put them
+wherever you like. Just make sure that you set the right path in your
+code if you're following along.
+
+When you unzip and untar =salamanderDrumkit.tar.bz2=, it will have a
+subdirectory called =OH=, which contains the wave files which
+represent the drum sound wave files. We're going to load (some of)
+these files into our =drums= sampler one at a time using the
+=set-sampler=index= function.
+
+#+begin_src extempore
+  (define drum-path "/Users/ben/Music/sample-libs/drums/salamander/OH/")
+  (set-sampler-index drums (string-append drum-path "kick_OH_F_9.wav") *gm-kick* 0 0)
+  (set-sampler-index drums (string-append drum-path "snareStick_OH_F_9.wav") *gm-snare-stick* 0 0)
+  (set-sampler-index drums (string-append drum-path "snare_OH_FF_9.wav") *gm-snare* 0 0)
+  (set-sampler-index drums (string-append drum-path "hihatClosed_OH_F_20.wav") *gm-closed-hi-hat* 0 0)
+  (set-sampler-index drums (string-append drum-path "hihatFoot_OH_MP_12.wav") *gm-pedal-hi-hat* 0 0)
+  (set-sampler-index drums (string-append drum-path "hihatOpen_OH_FF_6.wav") *gm-open-hi-hat* 0 0)
+  (set-sampler-index drums (string-append drum-path "loTom_OH_FF_8.wav") *gm-low-floor-tom* 0 0)
+  (set-sampler-index drums (string-append drum-path "hiTom_OH_FF_9.wav") *gm-high-floor-tom* 0 0)
+  (set-sampler-index drums (string-append drum-path "crash1_OH_FF_6.wav") *gm-crash* 0 0)
+  (set-sampler-index drums (string-append drum-path "ride1_OH_FF_4.wav") *gm-ride* 0 0)
+  (set-sampler-index drums (string-append drum-path "china1_OH_FF_8.wav") *gm-chinese* 0 0)
+#+end_src
+
+If that works properly, some info will be printed to the log about the
+audio files which have been loaded into the sampler.  They should look
+something like this:
+
+#+begin_example
+---------------
+file name:     /Users/ben/Music/sample-libs/drums/salamander/OH/kick_OH_F_9.wav
+samplerate:    48000
+channels:      2
+samples read:  45796
+45796 samples
+read/Users/ben/Music/sample-libs/drums/salamander/OH/kick_OH_F_9.wav:
+2(channels) 22898(frames):357.781250(k)		into index:35
+#+end_example
+
+If the log doesn't show something like that, then there are a few
+things which could have gone wrong:
+- have you set up =libsndfile= properly on your system?
+- are the pathnames to to samples correct?
+- did you define the =drums= sampler and did it compile properly?
+
+Assuming things worked properly, we should be able to play our =drums=
+sampler.
+
+#+begin_src extempore
+  ;; evaluate these as you see fit!
+  (play-note (now) drums *gm-kick* 80 44100)
+  (play-note (now) drums *gm-snare* 80 44100)
+  (play-note (now) drums *gm-closed-hi-hat* 80 44100)
+#+end_src
+
+Cool, seems to work fine.  For a tutorial on how to generate beats and
+drum patterns, check out todo this post.
+
+* Creating a piano sampler
+
+Ok, drums are loaded, let's add one more sampler---this time a
+=piano=.  
+
+#+begin_src extempore
+  (define-sampler piano sampler_note_hermite_c sampler_fx)
+    
+  ;; add the piano sampler to the dsp output callback
+  ;; note how the drums is still there from before
+  (bind-func dsp:DSP
+    (lambda (in time chan dat)
+      (cond ((< chan 2.0)
+             (+ (drums in time chan dat)
+                (piano in time chan dat)))
+            (else 0.0))))
+    
+  
+#+end_src
+
+Luckily, there's a [[http://rytmenpinne.posterous.com/pages/salamander-grand-piano-46556][Salamander piano]] as well, which will do just fine
+for today. Go ahead and download that (you'll want the version called
+=SalamanderGrandPianoV2_44.1khz16bit.tar.bz2=). Again, unzip and untar
+the files to wherever you put that sort of thing. This time, the wave
+audio files should be in a =44.1khz16bit= subdirectory. Looking at the
+files in that directory (e.g. with =ls=), we get something like
+
+#+begin_example
+A0v1.wav   A5v6.wav   C4v2.wav    D#2v13.wav  F#1v1.wav   F#6v6.wav 
+A0v10.wav  A5v7.wav   C4v3.wav    D#2v14.wav  F#1v10.wav  F#6v7.wav 
+A0v11.wav  A5v8.wav   C4v4.wav    D#2v15.wav  F#1v11.wav  F#6v8.wav 
+A0v12.wav  A5v9.wav   C4v5.wav    D#2v16.wav  F#1v12.wav  F#6v9.wav 
+A0v13.wav  A6v1.wav   C4v6.wav    D#2v2.wav   F#1v13.wav  F#7v1.wav 
+A0v14.wav  A6v10.wav  C4v7.wav    D#2v3.wav   F#1v14.wav  F#7v10.wav
+
+... plus many more files
+#+end_example
+
+So it looks like the files are named with a simple naming convention,
+which makes use of scientific pitch notation. For example, =C4v5.wav=
+looks like it's a recording of C4 (middle C) on the piano, and the
+=v5= part probably means that it's the 5th velocity layer for the note
+C4. This means that there are multiple sound files (called /layers/)
+for each note, and the sampler will choose which one to play based on
+the velocity argument in the triggering call. Not all sample libraries
+will have multiple velocity layers, but they're a way of capturing the
+differences in sound between soft notes and loud notes---particularly
+on instruments where the difference between soft and loud is in more
+than just volume (such as a [[http://en.wikipedia.org/wiki/Rhodes_piano][Fender Rhodes]]).
+
+Extempore's built-in sampler *does not* support layers, although if
+you wanted to add that functionality in you could easily hack the
+sampler source code in =external/instruments.xtm=. So, what we want to
+do is choose just one of the layer files for each note to load into
+the sampler. We could choose the loudest layer, or the softest layer,
+or a random layer for each note (although this would lead to uneven
+loudness when playing the sampler with =play-note=). The main point is
+that we can only load /one/ of the layers by default.
+
+So if the audio files are named according to a meaninful convention,
+is there a way to make use of that? Loading each audio file
+individually can be pretty time-consuming---not to mention
+error-prone! How do we take a list of files (such as the output of
+=ls= above) and tell our sampler which files to load into which slots?
+
+To do this, =external/instruments.xtm= provides a helper macro called
+=load-sampler=. Looking at the definition for =load-sampler=, we see
+that it takes the three arguments:
+1. =sampler=, the sampler closure
+2. =path=, the path to the directory where the audio files are
+3.  =parser=, a (Scheme) function
+The first two arguments are fairly self-explanatory, but the third one
+(the parser function) is where the magic happens.  
+
+=load-sampler= will first get a list of all the files in the =path=
+directory---/all/ files, including hidden ones, other directories,
+etc.  This list of filenames is then passed (as the single argument)
+to function which was passed in as the =parser= argument to
+=load-sampler=.  This parser function's job is to take that messy list
+of filenames and return a nice neat list of lists, telling the sampler
+which files to load into which slots.  Each of the elements of this
+list returned by the parser function has to have four elements:
+1. the filename
+2. the slot (midi note number) to load the file into
+3. the sample offset (i.e. if the sample should start playing part-way
+   into the audio file)
+4. the sample length (or =0= to load the whole file, which is what
+   you'll want to do in most cases).
+
+So, going back to our filename example earlier, we want a filename
+like =C4v5.wav= to get mapped into a list like =("C4v5.wav" 60 0 0)=.
+The =60= is for middle C (C4), and the two =0= arguments mean a sample
+offset of =0= (so the file starts playing from the start) and plays
+for its whole length.  Writing a Scheme function which can do this
+parsing isn't too difficult, and would look something like this
+
+#+begin_src extempore
+  (define parse-salamander-piano
+    (lambda (file-list)
+      (map (lambda (fname)
+             (let ((result (regex:matched fname "^.*([ABCDEFG][#b]?[0-9])v([0-9]+)\.(wav|aif|aiff|ogg)$")))
+               (if (null? result)
+                   (begin (println 'Cannot 'parse 'filename: fname)
+                          #f)
+                   ;; load 4th velocity layer only
+                   (if (= (string->number (caddr result)) 4)
+                       (list fname
+                             (note-name-to-midi-number (cadr result))
+                             0                 
+                             0)
+                       #f))))
+           file-list)))
+  
+  (load-sampler piano
+                "/Users/ben/Music/sample-libs/piano/salamander/44.1khz16bit"
+                parse-salamander-piano)
+#+end_src
+
+When you call =load-sampler= at the bottom of that code chunk, it
+should load all the 4th velocity layers into the =piano= sampler.  And
+finally, to try it out:
+
+#+begin_src extempore
+  (play-note (now) piano (random 40 80) 80 44100)
+#+end_src
+
+Awesome, we've got a piano.  Success!
+
+* Doing cool things with samplers
+
+There are lots of possibilities at this stage.  If you're interested
+in seeing how to make vaguely 'conventional' musical material, then
+the posts on playing instruments (Part I and Part II) are a good place
+to start.  And I'm sure you can think of lots of other
+possibilities---go nuts :)
 
 [fn:external] The reason that the sampler is in the =libs/external=
 subdirectory instead of the =libs/core= subdirectory like the other
