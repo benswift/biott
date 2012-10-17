@@ -88,9 +88,9 @@ If we're not pitch-shifting by a whole octave, then the maths is a bit
 trickier (it's not just a matter of doubling the frequency), but
 luckily the Extempore sampler takes care of that for us (including all
 sorts of fancy stuff like interpolating between individual audio
-samples). When a =play-note= calls an empty slot in the sampler, the
-pitch-shifting up or down is taken care of, and it (in many cases)
-works as though we /did/ have an audio file in that slot.[fn:tempo]
+samples). When =play-note= calls an empty slot in the sampler, the
+pitch-shifting up or down is taken care of, and it works as though we
+/did/ have an audio file in that slot.[fn:tempo]
 
 There is the potential for a loss in audio quality the further (in
 pitch terms) an audio file has to be shifted. Still, the 'missing
