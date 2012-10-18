@@ -1,4 +1,3 @@
-#+OPTIONS: toc:t
 #+begin_html
 ---
 layout: post
