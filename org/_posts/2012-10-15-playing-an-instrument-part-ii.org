@@ -480,14 +480,14 @@ invention.
 
 * Making chords with pitch classes
 
-Ok, that's enough 13thC noise, let's go hard core 20thC and make a I
-IV V progression :) But first a crazy 21stC chord. Once =crazy-chord=
-is running, slowly start removing pitch classes from the end of the
-set. And just a heads up---I'm not going to remind you to re-evaluate
-anymore :) Listen to the C-major chord that starts to evolve. If your
-machine will handle a higher callback rate then go for it, we're after
-a wash of sound here. Try choosing a sound with a delay for extra
-impact.
+Ok, that's enough 13thC noise, let's go hard core 20thC and make a =I=
+=IV= =V= progression :) But first a crazy 21stC chord. Once
+=crazy-chord= is running, slowly start removing pitch classes from the
+end of the set. And just a heads up---I'm not going to remind you to
+re-evaluate anymore :) Listen to the C-major chord that starts to
+evolve. If your machine will handle a higher callback rate then go for
+it, we're after a wash of sound here. Try choosing a sound with a
+delay for extra impact.
 
 #+begin_src extempore
   (define crazy-chord
@@ -530,10 +530,10 @@ the pitch class set. You might also like to change the number of notes
 being generated for our chord---try changing =3= to =1=, or =2=, =4=,
 =5=...
 
-I'm getting a little sick of C-major, so let's add chord IV (F major)
-and V (G major) to the progression and make a random chord change one
+I'm getting a little sick of C-major, so let's add chord =IV= (F major)
+and =V= (G major) to the progression and make a random chord change one
 in five callbacks. Note that =random= can just as easily choose a
-=list= from a =list= as an =atom= from a =list=.
+/list/ from a list as an /atom/ from a list.
 
 #+begin_src extempore
   ;; I IV V
@@ -560,7 +560,7 @@ this post too.
 Time to move onto some serious composition, and what could be more
 serious than diatonic harmony ;)
 
-Now everyone knows that you don't follow V with ii, at least this is
+Now everyone knows that you don't follow =V= with =ii=, at least this is
 probably what your music teacher tried to tell you :) 18thC Harmony
 lessons aside, it /is/ worth questioning the validity of making random
 chord changes a progression.
@@ -580,7 +580,9 @@ add the circle of 5ths into the mix, we end up with a chord
 progression chart that in it's simplest form looks something like this
 (I've taken a few liberties based on a few hundred years of usage).
 
-# TODO insert figure
+#+begin_html
+<a href=""><img src="images/playing-an-instrument-part-i/markov-matrix.png" alt=""></a>
+#+end_html
 
 So reading this diagram from left to right we can move from =iii= to
 =vi=. Then from =vi= to either =IV= or =ii=. From =IV= we can then
