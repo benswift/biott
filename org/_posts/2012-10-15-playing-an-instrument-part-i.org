@@ -1,7 +1,7 @@
 #+begin_html
 ---
 layout: post
-title: "Playing an instrument part I"
+title: "Playing an instrument (part I)"
 date: 2012-10-15 10:30
 comments: true
 categories:
@@ -142,11 +142,11 @@ in doubt, a good idea (particularly when getting started) is to
 restart Extempore each time you want to run a new example or start a
 new project.
 
-The second part of this tutorial will give you a much better idea of
+The [[file:2012-10-15-playing-an-instrument-part-ii.org][second part of this tutorial]] will gives a much better idea of
 how you can build and evaluate code in a more Extempore-friendly
 manner.  It also shows how you can use pitch-classes and other
 music-theoretic notions to build complex (and cool-sounding) music in
-a relatively small amount of code.  Stay tuned!
+a relatively small amount of code.  Check it out!
 
 # Let's just finish off with a quick graphics example to see if we can
 # make hello world perform any better :) Again, copy the code into

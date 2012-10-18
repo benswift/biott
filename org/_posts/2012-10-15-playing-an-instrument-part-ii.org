@@ -2,7 +2,7 @@
 #+begin_html
 ---
 layout: post
-title: "Playing an instrument part II"
+title: "Playing an instrument (part II)"
 date: 2012-10-15 11:23
 comments: true
 categories:
