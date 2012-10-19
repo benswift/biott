@@ -8,22 +8,21 @@ categories:
 ---
 #+end_html
 
-adapted from [[http://impromptu.moso.com.au/tutorials/time.html][a tutorial]] Andrew wrote for Impromptu
+/This post is adapted from [[http://impromptu.moso.com.au/tutorials/time.html][a tutorial]] Andrew wrote for Impromptu./
 
 # from Extempore basics
 
-Most programming environments operate using an iterative "generate and
-test" style of programming. First, you write the program, then you run
+Most programming environments operate using an iterative 'generate and
+test' style of programming. First you write the program, then you run
 the program. If there are problems with the program you re-write the
-program and then re-run the program etc...
+program and then re-run the program, etc...
 
 Extempore is different. Extempore is a dynamic, interactive
 programming environment where programs are modified and extended while
-they are running. In fact Extempore is your program and it is already
-running. Let me give you a simple example. Place your cursor inside
-the expression below and press the eval button which is located at the
-top-right of the editor window (copy the (now) expression into your
-Extempore editor window and place the cursor inside the
+they are running. As a simple example: place your cursor
+inside the expression below and press the eval button which is located
+at the top-right of the editor window (copy the (now) expression into
+your Extempore editor window and place the cursor inside the
 expression---the expression will highlight once your cursor is placed
 correctly).
 

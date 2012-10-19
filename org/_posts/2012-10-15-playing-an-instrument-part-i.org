@@ -8,19 +8,22 @@ categories:
 ---
 #+end_html
 
+/This post is a modified version of [[http://impromptu.moso.com.au/tutorials/bing.html][a tutorial]] that Andrew wrote for
+Impromptu./
+
 Extempore (like [[http://impromptu.moso.com.au][Impromptu]] before it) supports playing 'instruments' at
 a note-level. This post covers the basics of how to play instruments
 in Extempore. If you're satisfied with just playing Extempore's
 built-in instruments (which can be found in
-=libs/core/instruments.xtm=) then you can just start at this post. If
-you'd like to have a [[file:2012-10-16-a-really-simple-instrument.org][brief]] or [[file:2012-09-28-making-an-instrument.org][in-depth]] look at how the instrument
-infrastructure works (including how to write your own in xtlang) then
-you'll have a better (but by no means necessary) understanding of
-what's going on 'under the hood' in this post.
+=libs/core/instruments.xtm=) then you can just start at this post. The
+note-level approach to music generation will be very familiar to
+Impromptu users.
 
-The note-level approach to music generation will be very familiar to
-Impromptu users.  This post is actually a modified version of [[http://impromptu.moso.com.au/tutorials/bing.html][a
-tutorial]] that Andrew wrote for Impromptu.
+If you want a deeper understanding of what's going on 'under the
+hood', there are [[file:2012-10-16-a-really-simple-instrument.org][brief]] or [[file:2012-09-28-making-an-instrument.org][in-depth]] posts looking at how the instrument
+infrastructure works (including how to write your own in xtlang).
+Still, it's not necessary to understand any of that to make music, as
+we'll cover in this tutorial.
 
 * Setting up an instrument
 
