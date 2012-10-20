@@ -325,7 +325,7 @@ Awesome, we've got a piano.  Success!
 
 There are lots of possibilities at this stage.  If you're interested
 in seeing how to make vaguely 'conventional' musical material, then
-the posts on playing instruments ([[file:2012-10-15-playing-an-instrument-part-i.org][Part I]] and Part II) are a good place
+the posts on playing instruments ([[file:2012-10-15-playing-an-instrument-part-i.org][Part I]] and [[file:2012-10-15-playing-an-instrument-part-ii.org][Part II]]) are a good place
 to start.  And I'm sure you can think of lots of other
 possibilities---go nuts :)
 

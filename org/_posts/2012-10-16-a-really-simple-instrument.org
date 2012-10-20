@@ -66,13 +66,14 @@ values which are passed in as arguments to the =lambda= form.  The
 value returned by the =saw= closure (as it is called repeatedly, once
 per audio sample) will trace out a [[http://en.wikipedia.org/wiki/Sawtooth_wave][sawtooth wave]].
 
-This is just a mono note kernel at this stage---=saw= is only called
-when =chan= is equal to =0.0=. The note kernel closure will actually
-be called one for /each/ output channel, and the =chan= argument will
-range from =0.0= for the first output channel to =(n-1).0= for the nth
-output channel (the number of output channels you have will depend on
-your audio device). It's therefore easy to generalise our note kernel
-to multiple channels, so let's make it a stereo note kernel
+This is just a mono note kernel at this stage, because =saw= is only
+called when =chan= is equal to =0.0=. The note kernel closure will
+actually be called one for /each/ output channel, and the =chan=
+argument will range from =0.0= for the first output channel to
+=n - 1.0= for the nth output channel (the number of output channels
+you have will depend on your audio device). It's therefore easy to
+generalise our note kernel to multiple channels, so let's make it a
+stereo note kernel
 
 #+begin_src extempore
   (bind-func saw_synth_note_c
@@ -158,8 +159,8 @@ should print for you
 ...and now your instrument is ready to play.
 
 What---is that the end?  Well, that's a bit frustrating: we haven't
-even got to /play/ our instrument yet!  Don't worry---we'll use our
-=saw_synth= instrument in this post about 'making it go bing'.
+even got to /play/ our instrument yet!  Don't worry, we'll use our
+=saw_synth= instrument in [[file:2012-10-15-playing-an-instrument-part-i.org][this post]] about 'making it go bing'.
 
 There are a couple of things to note which might be helpful for when
 you want to build your /own/ instruments

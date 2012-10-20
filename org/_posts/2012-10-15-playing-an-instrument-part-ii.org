@@ -8,8 +8,8 @@ categories:
 ---
 #+end_html
 
-/This post has been adapted from [[http://impromptu.moso.com.au/tutorials/making_music/The%2520Basics.html][some tutorials]] Andrew originally wrote for
-Impromptu./
+/This post has been adapted from/ [[http://impromptu.moso.com.au/tutorials/making_music/The%2520Basics.html][some tutorials]] /Andrew originally
+wrote for Impromptu./
 
 This post builds on [[file:2012-10-15-playing-an-instrument-part-i][Playing an instrument part I]], which covers the
 setting up an instrument and adding its output to the =dsp= sink, as
@@ -67,7 +67,7 @@ somewhere in the =dsp= output callback:
 * Playing scales and chords
 
 First, let's implement a simple iterative process. Remember that in
-midi note numbers (which =play-note= uses) =60= is middle C, =61= is
+MIDI note numbers (which =play-note= uses) =60= is middle C, =61= is
 C#, =62= is D, etc...
 
 #+begin_src extempore
@@ -214,9 +214,9 @@ but there are some subtle differences. To demonstrate, let's change
   (play-seq (now) '(60 62 65))
 #+end_src
 
-Ok, now while =play-seq= is running, change the ='(60 62 65)= (in the
-body of the =play-seq= function) to ='(60 62 67)= and re-evaluate the
-=play-seq= function. Now try changing it to ='(60 62 67 69)= and
+Ok, now while =play-seq= is running, change the =(60 62 65)= (in the
+body of the =play-seq= function) to =(60 62 67)= and re-evaluate the
+=play-seq= function. Now try changing it to =(60 62 67 69)= and
 re-evaluating. Because =play-seq= uses this list to reinitialize
 =plst= whenever =plst= is null, any changes we make are reflected when
 this re-initialization occurs---a useful little trick. Stop the
@@ -303,27 +303,25 @@ shorten the durations a little (constant legato gets a touch boring).
 
 * Pitch classes
 
-If you've read many 20th Century composition texts on pitch classes,
+If you've read many 20th Century composition texts on [[http://en.wikipedia.org/wiki/Pitch_class][pitch classes]],
 you could be forgiven for thinking pitch class sets a rather dry
 subject and of limited compositional value. Oh, how wrong you would
-be! Pitch classes are fantastically useful for the music programmer
-and trivial to understand and use effectively.
+be! Pitch classes are actually not too tricky to understand and
+fantastically useful for the music programmer.
 
-As a quick refresher---or introduction for those unfamiliar with pitch
-classes---pitch classes are based around the 12 semitones of the
-chromatic scale, and each semitone is given it's own class: =C=, =C#=,
-=D=, =D#= / =Eb=, =F=, =F#= etc. Now remove all octave reference and
-enharmonic signature, because pitch classes display enharmonic and
-octave equivalence (i.e. =D#= / =Eb= are the same pitch class in any
-octave). Of course in a programming space we use numbers to represent
-pitches, because numbers are easier for us to work with. This is why
-Extempore does not (by default) include pitch symbols. So, instead of
-=B#= / =C= / =Db= for example we use =0=, =C#= / =Db= is =1=, =D= is
-=2=... through to =A#= / =B= / =Cb= at =11= which rounds out the
+For those unfamiliar with pitch classes, they are based around the 12
+semitones of the chromatic scale, and each semitone is given it's own
+class: C, C#, D, D#/Eb, F, F# etc. Pitch classes also remove all
+octave reference and [[http://en.wikipedia.org/wiki/Enharmonic][enharmonic]] signature, because pitch classes
+display enharmonic and octave equivalence (i.e. D#/Eb are the same
+pitch class in any octave). Of course in a programming space we use
+numbers to represent pitches, because numbers are easier for us to
+work with. So, instead of B#/C/Db for example we use =0=, C#/Db is
+=1=, D is =2=... through to A#/B/Cb at =11= which rounds out the
 complete set of available pitch classes =0= to =11=.
 
 Now, the observant reader will note that we can use modulo arithmetic
-to find midi pitches of octave equivalence by using mod =12=. Try
+to find MIDI pitches of octave equivalence by using mod =12=. Try
 running this example, and check the log for the printed results.
 
 #+begin_src extempore
@@ -412,7 +410,7 @@ from the pitch class relative to our current pitch.
 #+end_src
 
 One more rule about an organum: we need our melody and harmony to
-start and finish on the same note (=C=). Here's one way we could go
+start and finish on the same note (C). Here's one way we could go
 about the task:
 
 #+begin_src extempore
@@ -759,7 +757,7 @@ rhythm and duration information. As musicians though, we are more used
 to working with beats and tempo. Here's a simple example working with
 samples. Note that throughout this tutorial I'm using a drum sampler,
 see this post for details on how to set that up. At the end of this
-page you'll find a list of general midi drum numbers which I'll be
+page you'll find a list of general MIDI drum numbers which I'll be
 using in this tutorial: =*gm-cowbell*=, etc...
 
 #+begin_src extempore
@@ -907,10 +905,10 @@ tempo in bpm (and don't forget to quote the symbol).
 More cowbell! Much better, I'm sure you will agree. Now the really
 cool thing about =*metro*= is that you can now use it to sync as many
 =callback= loops as you like. Let's add a second =drum-loop= call.
-Notice also that we have added an argument to the ='get-beat= message
-that asks ='get-beat= to quantize to a =4.0= (i.e. four beats) instead
-of the default =1.0=. I'm going to play cowbell and triangle with a
-slight =0.25= offset.
+Notice also that we have added an argument to the =get-beat= message
+that asks the metronome to return a beat number which is equal to =0=
+mod =4=. I'm going to play cowbell and triangle with a slight =0.25=
+offset.
 
 #+begin_src extempore
   ;; create a metronome starting at 120 bpm
@@ -1119,7 +1117,7 @@ number-crunching, and many other things.  Have a look at the [[http://benswift.m
 docs page]] for more information.
 
 [fn:quarter-tone] Of course this is a somewhat ridiculous statement
-given that straight out of the gate Extempore's use of midi note
+given that straight out of the gate Extempore's use of MIDI note
 numbers for pitches strongly preferences a traditional diatonic tonal
 system. Having said that, and as I've shown in [[file:./2012-06-07-dsp-basics-in-extempore.org][other]] [[file:./2012-06-07-more-dsp-and-extempore-types.org][DSP posts]], you
 can generate tones of any frequency---quarter tone composers should
