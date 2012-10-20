@@ -2,7 +2,6 @@
 ---
 layout: page
 title: "Bio"
-date: 2011-11-16 23:10
 comments: false
 sharing: false
 footer: true
@@ -19,10 +18,10 @@ to guess from the content of this blog). Before Extempore came along I
 was an [[http://impromptu.moso.com.au][Impromptu]] user, and have been live coding since 2007. You can
 check out some of my screencasts at my [[http://vimeo.com/benswift/videos][vimeo page]].
 
-I've recently had my PhD thesis accepted---yay! My research project was
-cross-disciplinary, mainly between computer science and digital media.
-Prior to that I did a BSc (Hons) in Mathematics. I'm a Canberra lad,
-born and bred.
+I've recently had my PhD thesis accepted---yay! My research project
+was cross-disciplinary, mainly between computer science and digital
+media. Prior to that I did a BSc (Hons) in Mathematics. I'm a Canberra
+lad, born and bred.
 
 If you want to get in touch, email is best---you can reach me on
 [[mailto:benjamin.j.swift@gmail.com][benjamin.j.swift@gmail.com]].
