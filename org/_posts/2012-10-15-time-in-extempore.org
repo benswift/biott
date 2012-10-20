@@ -28,7 +28,7 @@ your editor and [[file:2012-09-26-interacting-with-the-extempore-compiler.org][e
 
 Your editor's echo area should display the result of evaluating the
 expression, and it should be a big (integer) number---when I did it on
-my computer just now it came back with =770432=..
+my computer just now it came back with =770432=.
 
 Now try pressing the eval button again. It's a different result!
 =(now)= is a function that returns the time (in audio samples) since
