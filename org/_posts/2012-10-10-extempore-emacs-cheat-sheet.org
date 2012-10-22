@@ -167,10 +167,10 @@ again.
 
 * Getting out of (Emacs) trouble
 
-Cancel: =C-g= (if you get into trouble)
-Help (on a /function/): =C-h f=, then function name
-Help (on a /variable/): =C-h v=, then variable name
-Info: =C-h i=, then browse through the menus
+- cancel: =C-g= (if you get into trouble)
+- help (on a /function/): =C-h f=, then function name
+- help (on a /variable/): =C-h v=, then variable name
+- info: =C-h i=, then browse through the menus
 
 For further reading, I can recommend the [[http://www.masteringemacs.org/reading-guide/][Emacs reading guide]] at
 [[http://masteringemacs.org][masteringemacs.org]].
