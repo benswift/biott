@@ -44,7 +44,7 @@ the beginning steps.
 # - Building Extempore on Linux
 # - Building Extempore on Mac OSX
 # - Building/Getting Extempore on Windows
-- Emacs cheat sheet
+- [[file:../2012-10-10-extempore-emacs-cheat-sheet.org][Emacs cheat sheet]]
 - ST2 cheat sheet
 
 * xtlang reference material
