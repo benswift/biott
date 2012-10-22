@@ -40,7 +40,7 @@ Emacs 24).
 
 If you're a [[http://mxcl.github.com/homebrew/][homebrew]] user, then you can also get Emacs with
 
-#+begin_src shell
+#+begin_src sh
 brew install --cocoa emacs
 #+end_src
 
@@ -51,7 +51,7 @@ want to check which version is installed, and whether or not it
 includes a graphical interface (rather than one which only works in a
 terminal).  You can check the Emacs version with
 
-#+begin_src shell
+#+begin_src sh
 emacs --version
 #+end_src
 
