@@ -22,19 +22,16 @@ drop [[file:../bio/index.org][me]] a line at [[mailto:benjamin.j.swift@gmail.com
 These are the high-level descriptions about what Extempore /is/, how
 it works, and what it can do.
 
-- Extempore in 5 minutes (the tl;dr)
+- Extempore in 500 words
 - [[file:../2012-08-07-extempore-philosophy.org][The Extempore philosophy]]
 - Extempore for Impromptu users
 
 * Extempore key concepts
 
-These posts explain some of the key concepts about Extempore's
-architecture and runtime
-
 - [[file:../2012-09-26-interacting-with-the-extempore-compiler.org][Interacting with the Extempore compiler]]
 - [[file:../2012-10-15-time-in-extempore.org][Time in Extempore]]
-- Concurrency in Extempore
 - Scheme/xtlang interop
+# - Concurrency in Extempore
 
 * Getting started with Extempore
 
@@ -44,6 +41,7 @@ the beginning steps.
 # - Building Extempore on Linux
 # - Building Extempore on Mac OSX
 # - Building/Getting Extempore on Windows
+- Downloading and installing Extempore
 - [[file:../2012-10-10-extempore-emacs-cheat-sheet.org][Emacs cheat sheet]]
 - ST2 cheat sheet
 
@@ -60,7 +58,7 @@ documentation will be in xtlang.
 - [[file:../2012-08-17-memory-management-in-extempore.org][Memory management in Extempore]]
 - [[file:../2012-10-03-xtlang-type-diagrams.org][xtlang type diagrams]]
 - [[file:../2012-08-23-binding-to-c-libs.org][Binding to C libraries]]
-- xtlang for C programmers
+#todo - xtlang for C programmers
 
 * Audio programming in Extempore
 
@@ -79,7 +77,8 @@ together---in fact this is encouraged :)
 
 ** High-level (instrument-based) audio
 
-- Instrument basics
+- [[file:../2012-10-16-a-really-simple-instrument.org][A really simple instrument]]
+- [[file:../2012-10-17-loading-and-using-a-sampler.org][Loading and using a sampler]]
 - [[file:../2012-10-15-playing-an-instrument-part-i.org][Making it go bing: playing an instrument]]
 - [[file:../2012-10-15-playing-an-instrument-part-ii.org][Musical patterns: playing with pitch and rhythm]]
 
@@ -91,15 +90,18 @@ calls, or you can use the [[http://www.cairographics.org][cairo]] library for 2D
 use [[http://www.horde3d.org][Horde3D]] for a full-featured 3D engine. And again, because
 everything's in xtlang, you can mix-and-match!
 
+/These tutorials aren't quite done yet, but will be here soon. In the
+meantime, have a look in the/ =examples= /subdirectory./
+
 - OpenGL basics
 - 2D drawing with cairo
 - 3D rendering and meshes with Horde3D
-- Image processing and custom shaders
+- Image processing with GLSL shaders
 
 * Misc
 
 - [[file:../2012-10-15-xtlang-naming-conventions.org][xtlang naming conventions]]
-- xtlang blogging with Octopress
+#todo - xtlang blogging with Octopress
 
 * Getting help
 
