@@ -1,7 +1,7 @@
 #+BEGIN_HTML
 ---
 layout: post
-title: "Building Extempore on OS X"
+title: "Building Extempore from source"
 date: 2012-07-02 11:56
 comments: false
 categories: 
