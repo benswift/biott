@@ -24,7 +24,7 @@ it works, and what it can do.
 
 - Extempore in 500 words
 - [[file:../2012-08-07-extempore-philosophy.org][The Extempore philosophy]]
-- Extempore for Impromptu users
+- [[file:../2012-10-15-extempore-for-impromptu-users.org][Extempore for Impromptu users]]
 
 * Extempore key concepts
 
@@ -43,7 +43,7 @@ the beginning steps.
 # - Building/Getting Extempore on Windows
 - Downloading and installing Extempore
 - [[file:../2012-10-10-extempore-emacs-cheat-sheet.org][Emacs cheat sheet]]
-- ST2 cheat sheet
+- [[file:../2012-23-10-extempore-st2-cheat-sheet.org][ST2 cheat sheet]]
 
 * xtlang reference material
 
