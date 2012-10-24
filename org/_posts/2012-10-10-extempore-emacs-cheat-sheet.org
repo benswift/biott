@@ -147,21 +147,21 @@ Extempore code in Emacs:
 
 1. start Emacs (if it isn't running already)
 2. open up a shell buffer in Emacs with =M-x shell=
-3. =cd= into your Extempore directory and start up an =extempore=
-   process, e.g. =./extempore --device 2=
+3. =cd= into your Extempore directory and run =extempore=, e.g.
+   =./extempore --device 2=
 4. open up an Emacs buffer with an Extempore file (=extempore-mode=
    should be loaded automatically when Emacs sees the =.xtm= file
    extension, assuming you added the relevant code to your =.emacs=)
 5. connect to the running Extempore process: =C-x C-j= (needs to be
    done for /every/ =.xtm= buffer)
 
-Then, to [[file:2012-09-26-interacting-with-the-extempore-compiler.org][evaluate]] xtlang code, use either
+Then, to [[file:2012-09-26-interacting-with-the-extempore-compiler.org][evaluate]] Extempore code, use either
 
 - evaluate enclosing s-expression: =C-x C-x=
 - evaluate region: =C-x C-r=
 - evaluate whole buffer: =C-x C-b=
 
-To *restart the Extempore process*, just =C-c C-c= in the =*shell*=
+To restart the Extempore process, just =C-c C-c= in the =*shell*=
 buffer where =extempore= is running to kill it, then start it up
 again.
 
