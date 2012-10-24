@@ -695,8 +695,28 @@ couple of performance changes:
   (progression (now) 'i)
 #+end_src
 
-# todo And here's a recording of the harpsichord in action
+# todo And here's a recording of the organ in action
 # progression_two.mp3. Not bad!
+
+If you had any temporal recursion-based music (e.g. the /previous/
+=progression= callback loop) playing when you evaluated the
+=define-instrumnent= form, then you may have heard a pause in the
+audio output while the xtlang code compiled. This is because the
+compilation of =organ= was happening in the same Scheme process as the
+=progression= callback loop. The Scheme process has to wait until the
+compiler is done before it can continue with other Scheme code
+execution.
+
+The solution to this problem is to run the =progression= callback in a
+separate process. There's a blog post in the works about how Extempore
+handles multiple processes and concurrency, but for the moment if
+you're interested have a look at the stuff at the bottom of the
+=examples/external/horde3d_knight.xtm= example file. The
+=ipc:=-prefixed functions create and manage multiple processes in
+Extempore. If you're just mucking around at home, it's probably not a
+big problem to have a small pause in the audio output when you
+re-compile things. But if it /is/ a problem, take heart that there are
+fairly straightforward ways to get around the problem.
 
 Ok so, as a final exercise let's try to make a simple =organ= ditty for 5
 parts, and we should try to have some simple part movement (i.e. not
