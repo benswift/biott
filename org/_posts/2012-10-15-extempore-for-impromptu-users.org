@@ -97,7 +97,7 @@ libraries and examples you might find interesting are:
 - =examples/external/gpu_image.xtm=
 - =examples/external/horde3d_knight.xtm=
 
-* What will I have to change to switch from Impromptu to Extempore
+* What will I have to change to switch from Impromptu to Extempore?
 
 *Audio*
 

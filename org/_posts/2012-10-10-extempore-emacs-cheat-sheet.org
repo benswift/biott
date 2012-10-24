@@ -69,9 +69,10 @@ down to the bottom of that page for the most recent versions.
 Emacs is powered by a programming language called Emacs Lisp (elisp
 for short). In Emacs, everything you do---every key you press, every
 shortcut you invoke---is actually calling an elisp function. You can
-think of Emacs as a (very specialised) elisp interpreter, which has 30
-years (and millions of lines) of elisp code to help edit files,
-interact with the OS, and do all sorts of weird and wacky things.
+think of Emacs as a (very specialised) elisp interpreter, on top of
+which sits millions of lines (30+ years worth) of elisp code for
+editing files, interacting with the OS, and doing all sorts of weird
+and wacky things.
 
 In Emacs documentation, you'll often see something like =M-x
 load-theme= (pronounced /meta x, load theme/). To trigger this
