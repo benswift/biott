@@ -45,29 +45,27 @@ one another, and everyone pretty much just gets along fine. There are
 introduction of a new language and also how it works.
 
 The other main difference between Impromptu and Extempore are in audio
-and graphics. Impromptu was strongly tied to the AudioUnit framework
-for audio, Quartz for 2D graphics, and OpenGL for 3D graphics.
-AudioUnits and Quartz are both OSX-only, so there was a need to change
+and graphics. Impromptu was strongly tied to the [[https://developer.apple.com/library/mac/#documentation/MusicAudio/Conceptual/CoreAudioOverview/Introduction/Introduction.html][Core Audio]] framework
+for audio, [[https://developer.apple.com/library/mac/#documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/Introduction/Introduction.html][Quartz]] for 2D graphics, and [[http://www.opengl.org][OpenGL]] for 3D graphics.
+Core Audio and Quartz are both OSX-only, so there was a need to change
 this tight coupling in the move to make Extempore cross-platform.
 
 In the case of audio, audio signal processing in Extempore hasn't been
 replaced by another monolithic framework---it's been replaced by
 home-grown xtlang code. This 'turtles all the way down' approach
-brings a huge win over the previous (AU) approach: the dynamic
-run-time modifiability of the whole DSP chain. If you don't want to
-write your own instruments from scratch that's ok, too: Extempore
-ships with some synths and samplers, and hopefully the number of
-built-in instruments will grow as the community grows.
+brings a huge win over the previous approach: the dynamic run-time
+modifiability of the whole DSP chain. If you don't want to write your
+own instruments from scratch that's ok, too: Extempore ships with some
+synths and samplers, and hopefully the number of built-in instruments
+will grow as the community grows.
 
-In the graphics case, Extempore uses cairo (for 2D) and OpenGL (for 2D
+In the graphics case, Extempore uses [[http://www.cairographics.org][cairo]] (for 2D) and OpenGL (for 2D
 and 3D) cross-platform graphics programming. This involves a few
 platform-specific hacks in the source code for Extempore itself, but
 any Scheme/xtlang code you write to manipulate cairo or OpenGL
 graphics objects should be portable to any platform where Extempore
 runs. Some of Impromptu's OpenGL bindings have made it across to
-Extempore unchanged, while others (particularly those related to OS
-X-specific stuff) may be slightly different---have a look at
-=libs/external/opengl.xtm= for Extempore's OpenGL bindings.
+Extempore unchanged, while others may be slightly different.
 
 In fact, one of the key tenets of Extempore's design philosophy was to
 keep functionality out of the compiled =extempore= binary and provide
@@ -103,13 +101,14 @@ libraries and examples you might find interesting are:
 
 *Audio*
 
-All AudioUnit (AU) code will have to be changed. I know that's a
-pain---sorry!---but it was an inevitable consequence of making things
-cross-platform. The 'setting up the AU graph' section of your code
-will therefore need to be rewritten. You can either use the built-in
-synths and sampler, or you can [[file:2012-10-16-a-really-simple-instrument.org][build your own instruments]], or you could even use
-Extempore's MIDI in/out (see =libs/external/rtmidi.xtm=) to play an
-instrument running /outside/ of Extempore.[fn:vst]
+All AudioUnit code (i.e. any functions starting with =au:=) will have
+to be changed. I know that's a pain---sorry!---but it was an
+inevitable consequence of making things cross-platform. The 'setting
+up the AU graph' section of your code will therefore need to be
+rewritten. You can either use the built-in synths and sampler, or you
+can [[file:2012-10-16-a-really-simple-instrument.org][build your own instruments]], or you could even use Extempore's MIDI
+in/out (see =libs/external/rtmidi.xtm=) to play an instrument running
+/outside/ of Extempore.[fn:vst]
 
 The good news is that from =play-note= 'up', Extempore's audio
 infrastructure works pretty much exactly the same as Impromptu's.  In
@@ -149,7 +148,7 @@ and that excitement might dull the (hopefully small) pain of
 making the switch!
 
 [fn:vst] There's also the possibility of writing an xtlang harness for
-running VST plugins directly from Impromptu. Setting that up is a big
+running [[http://en.wikipedia.org/wiki/Virtual_Studio_Technology][VST]] or AU plugins directly from Impromptu. Setting that up is a big
 job, though, and I can't provide a timeline on it at this stage. If
-you end up adding VST support yourself, /that/ would be a very
+you end up adding VST/AU support yourself, /that/ would be a very
 welcome pull request :)

@@ -17,23 +17,15 @@ some suggestions about where to start.
 If anything isn't clear, or you have suggestions/corrections, then
 drop [[file:../bio/index.org][me]] a line at [[mailto:benjamin.j.swift@gmail.com][benjamin.j.swift@gmail.com]].
 
-* Introduction(s)
+* Key concepts
 
-These are the high-level descriptions about what Extempore /is/, how
-it works, and what it can do.
-
-- Extempore in 500 words
+- What is Extempore? (Extempore's tl;dr)
 - [[file:../2012-08-07-extempore-philosophy.org][The Extempore philosophy]]
-- [[file:../2012-10-15-extempore-for-impromptu-users.org][Extempore for Impromptu users]]
-
-* Extempore key concepts
-
 - [[file:../2012-09-26-interacting-with-the-extempore-compiler.org][Interacting with the Extempore compiler]]
 - [[file:../2012-10-15-time-in-extempore.org][Time in Extempore]]
-- Scheme/xtlang interop
 # - Concurrency in Extempore
 
-* Getting started with Extempore
+* Getting started
 
 Here's some help to get you up and running with Extempore, right from
 the beginning steps.
@@ -42,6 +34,7 @@ the beginning steps.
 # - Building Extempore on Mac OSX
 # - Building/Getting Extempore on Windows
 - Downloading and installing Extempore
+- [[file:../2012-10-15-extempore-for-impromptu-users.org][Extempore for Impromptu users]]
 - [[file:../2012-10-10-extempore-emacs-cheat-sheet.org][Emacs cheat sheet]]
 - [[file:../2012-10-23-extempore-st2-cheat-sheet.org][ST2 cheat sheet]]
 
@@ -58,9 +51,10 @@ documentation will be in xtlang.
 - [[file:../2012-08-17-memory-management-in-extempore.org][Memory management in Extempore]]
 - [[file:../2012-10-03-xtlang-type-diagrams.org][xtlang type diagrams]]
 - [[file:../2012-08-23-binding-to-c-libs.org][Binding to C libraries]]
+# - Scheme/xtlang interop
 #todo - xtlang for C programmers
 
-* Audio programming in Extempore
+* Audio
 
 Extempore is a great environment for audio DSP and number-crunching,
 particularly in a dynamic, interactive, 'live' coding context. It
