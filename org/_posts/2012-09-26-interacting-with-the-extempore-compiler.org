@@ -34,7 +34,7 @@ So, to do anything in Extempore you need a text editor which can
 1. open up a TCP connection to the compiler
 2. create a string which represents a valid chunk of Scheme or xtlang
    code
-3. send that string over the TCP connection
+3. send that string over the TCP connection[fn:security]
 
 There are lots of text editors which can perform these functions, so
 you basically have two options:
@@ -399,6 +399,14 @@ fact the Extempore compiler itself is fully runtime modifiable!
 # it's more of a spectrum, and both ends of the spectrum confer
 # different advantages and disadvantages. The pertinent question for
 # this post is /where does Extempore fit along this continuum/?
+
+[fn:security] Currently Extempore doesn't support encrypted
+connections for this purpose, and will blindly accept any connection
+which makes the right handshake. This is obviously a security risk,
+which will be addressed in a future release. For the moment, either
+block the default ports (=7098= and =7099=) in your firewall so that
+only machines on the local network can connect to Extempore, or cross
+your fingers and rely on security through obscurity.
 
 [fn:scm-vs-xtlang] There are lots of [[file:~/Documents/biott/org/_posts/2012-08-09-xtlang-type-reference.org][other]] [[file:~/Documents/biott/org/_posts/2012-08-17-memory-management-in-extempore.org][posts]] describing xtlang in
 more detail. In this post, I'll just refer to the code generally, only
