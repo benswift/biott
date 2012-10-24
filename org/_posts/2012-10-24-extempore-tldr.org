@@ -1,7 +1,7 @@
 #+begin_html
 ---
 layout: post
-title: "What is Extempore"
+title: "What is Extempore?"
 date: 2012-10-24 12:03
 comments: true
 categories:
