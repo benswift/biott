@@ -18,7 +18,7 @@ to guess from the content of this blog). Before Extempore came along I
 was an [[http://impromptu.moso.com.au][Impromptu]] user, and have been live coding since 2007. You can
 check out some of my screencasts at my [[http://vimeo.com/benswift/videos][vimeo page]].
 
-I've recently had my PhD thesis accepted---yay! My research project
+I've recently had my [[http://dl.dropbox.com/u/18333720/master.pdf][PhD thesis]] accepted---yay! My research project
 was cross-disciplinary, mainly between computer science and digital
 media. Prior to that I did a BSc (Hons) in Mathematics. I'm a Canberra
 lad, born and bred.
