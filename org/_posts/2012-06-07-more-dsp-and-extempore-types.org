@@ -8,26 +8,25 @@ categories:
 ---
 #+end_html
 
-So this blog post builds on [[http://benswift.github.com/blog/2012/06/07/dsp-basics-in-extempore/][the previous one]] in trying out some of the
-real-time DSP capabilities of Extempore (and specifically xtlang).
-That post showed how by writing our own =dsp= sink we could make any
-sound we wanted - essentially writing raw audio samples to
-=/dev/audio=. It also introduced some of the primitive types supported
-by the xtlang compiler: ints and floats of various lengths, and
-showed the syntax for typing variables in xtlang and interpreting the
-type signatures of xtlang closures.
+So this blog post builds on [[http://benswift.github.com/blog/2012/06/07/dsp-basics-in-extempore/][the previous one]] in covering Extempore's
+real-time DSP capability. That post showed that by writing our own
+=dsp= sink we could make any sound we wanted---essentially writing raw
+audio samples to =/dev/audio=. It also introduced some of the
+primitive types supported by the xtlang compiler: ints and floats of
+various lengths, and showed the syntax for typing variables in xtlang
+and interpreting the type signatures of xtlang closures.
 
 This post expands on that stuff by showing some of the 'compound'
-types and data structures that xtlang supports. These include tuples,
-arrays, and even vector types. Just like in C, xtlang can allocate and
-return pointers to chunks of memory, which in a DSP context can be
+[[file:2012-08-09-xtlang-type-reference.org][types]] and data structures that xtlang supports. These include tuples,
+arrays, and even vector types. Just like in C, [[file:2012-08-13-understanding-pointers-in-xtlang.org][xtlang can allocate and
+return pointers]] to chunks of memory, which in a DSP context can be
 used for, say, delay buffers or wavetable synthesis, but also allows
 for number crunching with speed comparable to C (so /orders of
 magnitude/ faster than dynamically typed interpreted language like
 scheme).
 
 If you've just stumbled in from the interwebs, I suggests
-reading the previous post linked above - it covers a lot of the basics
+reading the previous post linked above---it covers a lot of the basics
 of xtlang which I'll assume in this post.  And again, if you're the
 type of person who isn't satisfied until you've seen all the gory
 details, the full source for the Extempore project is
@@ -71,7 +70,7 @@ oscillators, then the =lambda= closes over them and so each time the
 oscillator is called increments its =phase= value appropriately?
 
 Any number of oscillators (think of them as unit generators) can be
-bound and added in this way - this allows us to do additive synthesis.
+bound and added in this way---this allows us to do additive synthesis.
 Having to define and refer to each osc individually doesn't scale up
 very well, though, so it would be great if we could create and
 initialise them programmatically. This brings us to a couple of new
@@ -86,8 +85,8 @@ inferred from the types of other variables and literals.
 Syntactically, tuples use angle brackets (=<>=).
 
 When programming in xtlang you don't really ever deal with tuples
-directly - you deal with them by /reference/ through pointers. There
-are no 'literals' for tuples either - you can't just go
+directly---you deal with them by /reference/ through pointers. There
+are no 'literals' for tuples either---you can't just go
 #+begin_src extempore
 (bind-func tuple_maker
   (lambda (a:i64)
@@ -106,9 +105,9 @@ call to =alloc=.
       (tset! tup 1 a)
       tup)))
 #+end_src
-I'll go into more detail about Extempore memory management in the next
-blog post, but for now the key point is that the call to =alloc=
-returns a /pointer/ to a tuple of the specified type.
+This post goes into more detail about [[file:2012-08-17-memory-management-in-extempore.org][memory management in Extempore]],
+but for now the key point is that the call to =alloc= returns a
+/pointer/ to a tuple of the specified type.
 
 Notice the =tset!= function, which is an alias for =tuple-set=. This
 function takes three arguments: a pointer to a tuple (in the case
@@ -117,11 +116,11 @@ above, that's =tup=), an =i64= (0-based) index for specifying which
 (which must be of the appropriate type, otherwise you'll get a type
 error).
 
-This new version of =tuple_maker= compiles - hooray! The type signature
+This new version of =tuple_maker= compiles---hooray! The type signature
 printed by the compiler is =Compiled tuple_maker >>>
 [<i64,i64>*,i64]*= and the type of =tuple_maker= is a pointer (denoted
 by the =*=) to a closure (denoted by the =[]=) which takes one =i64=
-argument and returns a pointer to a tuple of two =i64= s.
+argument and returns a pointer to a tuple of two =i64= values.
 
 Just to check that everything's working properly, let's write a little
 =test= function
@@ -286,8 +285,3 @@ language  and environment that you use even if you just want to
 trigger pre-made instruments.  These examples show how to do things
 from first principles, but feel free to mess around at whatever level
 of abstraction tickles your creative fancy.
-
-In the next couple of blog posts I'll cover the memory management in
-more depth, as well as showing how to manipulate buffers of audio for
-delays, wavetable synthesis and sample playback. If you get
-stuck, then the [[mailto:extemporelang@googlegroups.com][mailing list]] is a pretty friendly place.
