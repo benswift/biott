@@ -30,10 +30,8 @@ drop [[file:../bio/index.org][me]] a line at [[mailto:benjamin.j.swift@gmail.com
 Here's some help to get you up and running with Extempore, right from
 the beginning steps.
 
-# - Building Extempore on Linux
-# - Building Extempore on Mac OSX
-# - Building/Getting Extempore on Windows
-- Downloading and installing Extempore
+# - Downloading and installing Extempore
+- Building Extempore ([[file:../2012-11-06-building-extempore-on-osx.org][OSX]], [[file:../2012-11-05-building-extempore-on-windows.org][Windows]])
 - [[file:../2012-10-15-extempore-for-impromptu-users.org][Extempore for Impromptu users]]
 - [[file:../2012-10-10-extempore-emacs-cheat-sheet.org][Emacs cheat sheet]]
 - [[file:../2012-10-23-extempore-st2-cheat-sheet.org][ST2 cheat sheet]]

@@ -1,0 +1,86 @@
+#+begin_html
+---
+layout: post
+title: "Building Extempore on OSX"
+date: 2012-11-06 18:50
+comments: true
+categories:
+---
+#+end_html
+
+/If you're on Linux, then the instructions are pretty much the same,
+except you can to use the package manager of choice on your distro./
+
+The easiest way to get the Extempore dependencies is through [[http://mxcl.github.com/homebrew/][Homebrew]],
+and this walkthrough will assume you're using Homebrew.[fn:alternatives]
+To do that, you'll probably also have to get the OSX command line
+tools, but the Homebrew docs will walk you through that.
+
+* Dependencies
+
+On OSX, building Extempore requires the following libraries:
+
+- =pthread=
+- =pcre= (Perl-compatible Regular Expressions)
+- =portaudio=
+
+If you're using Homebrew, then you can get them all (except for LLVM) with
+
+#+begin_src sh
+brew install pthread prcre portaudio
+#+end_src
+
+That's probably the easiest way to do it.
+
+** Installing LLVM 3.0
+
+LLVM *must* be version 3.0 and needs to be built from source, because
+a small patch to =LLParser.cpp= (an LLVM source file) is required. The
+patch file =llparser.patch= is supplied in the =extempore/extras=
+directory. You can get the LLVM source from http://www.llvm.org/
+
+To apply the patch just move into  =llvm/lib/AsmParser= directory and
+then apply the =llparser.patch= file which in can be found in
+=extempore/extras=.  For example (change =/path/to/extempore= to
+whatever directory you cloned the extempore source code into)
+
+#+begin_src sh
+$ cd /path/to/llvm/lib/AsmParser
+$ patch < /path/to/extempore/extras/llparser.patch
+#+end_src
+
+After that, building LLVM is the usual =./configure; make; make install= process, with the addition of a =--prefix= location
+specifying where everything will be installed into (such as a =Build=
+directory)
+
+#+begin_src sh
+$ cd /path/to/llvm
+$ mkdir Build
+$ ./configure --prefix=/path/to/llvm/Build --enable-optimized
+$ make -j4
+$ make install
+#+end_src
+
+Once all of the libraries required for your platform (see list above)
+are installed, you can compile extempore. First, point extempore to
+your LLVM build directory by defining the shell variable
+=EXT_LLVM_DIR=, for example
+
+#+begin_src sh
+$ export EXT_LLVM_DIR=/path/to/llvm/Build
+#+end_src
+
+* Building Extempore
+
+Then you can build extempore using the =all.bash= shell script 
+
+#+begin_src sh
+$ ./all.bash
+#+end_src
+
+...and you should have a shiny new =extempore= executable in your
+directory to play with.
+
+[fn:alternatives] If you have a preferred package manager (Fink or
+Macports) or even want to build them yourself, then feel free to do
+that also.

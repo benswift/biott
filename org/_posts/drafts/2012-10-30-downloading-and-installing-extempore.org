@@ -20,6 +20,25 @@ runtime environment (including todo the scheduler) while the =.xtm=
 files in =runtime= provide some other necessary infrastructure (such
 as the xtlang compiler).
 
+* Downloading the Extempore zip file
+
+The downloads are available from Extempore's Github downloads page.
+If you just want the latest version, then here they are:
+
+- OSX
+- Windows 7/8 (64bit)
+
+/If you're on Linux, then I hope it's safe to assume that you're
+comfortable building from source (instructions here)./
+
+When you download and unzip the Extempore zip file, you can put the
+extracted =extempore= folder wherever you like.  If you have a place
+that you put that sort of thing (e.g. in a =Code= folder in your home.  As long as the =extempore=
+executable (=extempore.exe= in the Windows case) is in the top level
+and the =runtime= directory exists, then you can fire up a command
+prompt and start Extempore running.
+
+
 * OSX
 
 * Linux
