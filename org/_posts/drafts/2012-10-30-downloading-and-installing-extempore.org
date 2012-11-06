@@ -20,47 +20,12 @@ runtime environment (including todo the scheduler) while the =.xtm=
 files in =runtime= provide some other necessary infrastructure (such
 as the xtlang compiler).
 
-** OSX
+* OSX
 
-** Linux
+* Linux
 
-** Windows
+* Windows
 
-
-* Building Extempore from source
-
-** OSX
-
-** Linux
-
-** Windows
-
-*** Windows 7
-
-Other things:
-
-- cmake
-- git
-- 7zip (or equivalent)
-
-
-- [[http://msdn.microsoft.com/en-us/windows/bb980924.aspx][Win7]]
-
-- .NET framework 4.0
-- Windows 7 SDK
-- Visual Studio Express 2012 for Windows Desktop
-
-*General notes*
-
-- need to use the 'developer' version of the command prompt.
-- make an =llvm_build= directory (same level as the llvm source)
-- =cmake -G "Visual Studio 11" ../llvm-3.0=
-- ALL_BUILD.vxproj is the one to build (but I can't get it to build
-  from the command line with MSBuild.exe)
-
-*** Windows 8
-
-- [[http://msdn.microsoft.com/en-us/windows/desktop/hh852363][Win8]]
 
 [fn:startup] todo This post shows how to start up and interact with
     the =extempore= executable.

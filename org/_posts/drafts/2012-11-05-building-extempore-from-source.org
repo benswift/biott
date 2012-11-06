@@ -1,0 +1,91 @@
+#+begin_html
+---
+layout: post
+title: "Building Extempore from source"
+date: 2012-11-05 15:53
+comments: true
+categories:
+---
+#+end_html
+
+
+* OS X
+
+* Linux
+
+* Windows
+
+** Windows 7
+
+- [[http://msdn.microsoft.com/en-us/windows/bb980924.aspx][Win7]]
+
+Programs/utilities you'll need:
+# - .NET framework 4.0
+# - Windows 7 SDK
+- Visual Studio Express 2012 for Windows Desktop
+- cmake
+- git
+- 7zip (or equivalent)
+
+*** LLVM
+
+Must be version 3.0, and need to apply the patch (should the patch be
+updated? with the new =llvm::tie= bits?)
+
+- Generator: =Visual Studio 11 Win64=
+
+In the cmake GUI, you'll need to add the following flags
+
+- =CMAKE_CXX_FLAGS= & =CMAKE_CXX_FLAGS_DEBUG=: add =/D_VARIADIC_MAX=10= to the end
+- Need to change =tie= to =llvm::tie= in a couple of places
+  (namespacing issue)
+
+In VS
+
+- use the =ALL_BUILD= project
+
+other notes
+
+- need to use the 'developer' version of the command prompt.
+- make an =llvm_build= directory (same level as the llvm source)
+- =cmake -G "Visual Studio 11" ../llvm-3.0=
+- =ALL_BUILD.vxproj= is the one to build (but I can't get it to build
+  from the command line with =MSBuild.exe=)
+
+*** Boost
+
+I've used version 1.51
+
+- =bootstrap.bat=
+- =bjam --build-dir=<dir> toolset=msvc link=static address-model=64
+  variant=release --build-type=complete stage=
+
+*** Portaudio
+
+Need to download the ASIO SDK from Steinberg
+
+- First, you have to create a [[http://www.steinberg.net/nc/en/company/developer/sdk_download_portal/create_3rd_party_developer_account.html][third party developer account]]
+- then you can log in and [[http://www.steinberg.net/nc/en/company/developer/sdk_download_portal.html][download the ASIO SDK]] (make sure you get the
+  right SDK)
+
+In the Cmake GUI
+
+- Generator: =Visual Studio 11 Win64=
+
+Make sure that the VS project folder (the cmake /destination/ folder),
+and the ASIO SDK folder are at the same level.
+
+In VS, open up the =portaudio= project
+
+- in the =portaudio= project properties, add =PA_WDMKS_NO_KSGUID_LIB=
+  to the preprocessor defines
+
+*** PCRE
+
+pretty straightforward
+cmake & visual studio =ALL_BUILD=
+
+** Windows 8
+
+- [[http://msdn.microsoft.com/en-us/windows/desktop/hh852363][Win8]]
+
