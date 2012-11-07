@@ -31,7 +31,7 @@ Here's some help to get you up and running with Extempore, right from
 the beginning steps.
 
 # - Downloading and installing Extempore
-- Building Extempore ([[file:../2012-11-06-building-extempore-on-osx.org][OSX]], [[file:../2012-11-05-building-extempore-on-windows.org][Windows]])
+- Building Extempore ([[file:../2012-11-06-building-extempore-on-osx.org][OSX]], [[file:../2012-11-05-building-extempore-on-windows.org][Windows]], [[file:../2012-11-06-building-extempore-on-osx.org][Linux]])
 - [[file:../2012-10-15-extempore-for-impromptu-users.org][Extempore for Impromptu users]]
 - [[file:../2012-10-10-extempore-emacs-cheat-sheet.org][Emacs cheat sheet]]
 - [[file:../2012-10-23-extempore-st2-cheat-sheet.org][ST2 cheat sheet]]
