@@ -96,7 +96,7 @@ Hang on a sec---isn't working with real-time audio and video xtlang
 (and therefore Extempore's) /raison d'etre?/ Well, yes is is---the
 sluggishness (and non-determinism) of Impromptu's Scheme interpreter
 was the spark which ignited the development of xtlang (as mentioned in
-[[file:~/Documents/biott/posts/2012-08-07-Extempore-philosophy.org][this post]]).  Again, this isn't a knock on Scheme in general as
+[[file:../2012-08-07-Extempore-philosophy.org][this post]]).  Again, this isn't a knock on Scheme in general as
 slow---there are some very sprightly Scheme compilers, but Impromptu's
 one was slow.  The non-determinism was even more of a problem, because
 the last thing you want when you're generating audio or video is a
@@ -163,7 +163,7 @@ a zone.
 
 As I mentioned above, the stack is associated with function calls,
 their arguments and local variables.  Because xtlang uses (in general)
-[[file:~/Documents/biott/posts/2012-08-09-xtlang-type-reference.org][function /closures/]] rather than just plain functions, stack allocation
+[[file:2012-08-09-xtlang-type-reference.org][function /closures/]] rather than just plain functions, stack allocation
 and =salloc= in xtlang is used in the body of a closure.  Remember
 that closures are just functions with their enclosing scope: think of
 a function which has packaged up any variables it references and
@@ -222,7 +222,7 @@ it as creating input-output pairs for the function /f(x) = 2x/.
 
 Notice how the tuple pointer =tup:<i64,i64>*= was =let=-bound to the
 return value of the call to =salloc=. Initially, the memory was
-uninitialised (see [[file:~/Documents/biott/posts/2012-08-13-understanding-pointers-in-xtlang.org][this post]] for more background about pointers), then
+uninitialised (see [[file:2012-08-13-understanding-pointers-in-xtlang.org][this post]] for more background about pointers), then
 two =i64= values were filled into it with =tfill!=. This is basically
 all the closure does, apart from the =printf= calls which are just
 reading and printing out what's going on. 

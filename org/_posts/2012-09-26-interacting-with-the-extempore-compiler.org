@@ -24,7 +24,7 @@ The 'chunks' of code (serialised as strings) which are sent to the
 xtlang compiler may be anything from small one-liners to whole source
 files (via the =load= function). The functions and data (often
 referred to collectively as the /environment/) persist for as long as
-the =extempore= process is running. As discussed in [[file:~/Documents/biott/org/_posts/2012-08-07-extempore-philosophy.org][this post]], the
+the =extempore= process is running. As discussed in [[file:2012-08-07-extempore-philosophy.org][this post]], the
 Extempore compiler actually compiles /two/ languages: Scheme and
 xtlang (Extempore's own programming language).[fn:scm-vs-xtlang] But
 the process of evaluating them is the same---just sending strings to
@@ -186,7 +186,7 @@ displayed in the echo area. Nothing is printed in the console where
 first Extempore code!
 
 We can write some more code to =bind-val= a global variable =PI=,
-which is an xtlang global variable of [[file:~/Documents/biott/org/_posts/2012-08-09-xtlang-type-reference.org][type]] =double=. If you evaluate
+which is an xtlang global variable of [[file:2012-08-09-xtlang-type-reference.org][type]] =double=. If you evaluate
 this with =C-x C-x= (or whatever the command is in your editor) then
 what happens is
 
@@ -230,7 +230,7 @@ call =circle_area= with the argument =5.0=.
 When we evaluate the =(circle_area 5.0)= expression, a couple of
 things happen. The code is sent to the compiler, which returns the
 value =78.539816= to the editor. In addition, a message about
-'creating a new [[file:~/Documents/biott/org/_posts/2012-08-17-memory-management-in-extempore.org][memory zone]]' is printed to the log. That's because
+'creating a new [[file:2012-08-17-memory-management-in-extempore.org][memory zone]]' is printed to the log. That's because
 this is the first time we've /called/ some xtlang code, and so a
 memory zone needs to be set up to provide any =zalloc= memory. This
 zone allocation won't happen if we evaluate the same code again,
@@ -408,7 +408,7 @@ block the default ports (=7098= and =7099=) in your firewall so that
 only machines on the local network can connect to Extempore, or cross
 your fingers and rely on security through obscurity.
 
-[fn:scm-vs-xtlang] There are lots of [[file:~/Documents/biott/org/_posts/2012-08-09-xtlang-type-reference.org][other]] [[file:~/Documents/biott/org/_posts/2012-08-17-memory-management-in-extempore.org][posts]] describing xtlang in
+[fn:scm-vs-xtlang] There are lots of [[file:../2012-08-09-xtlang-type-reference.org][other]] [[file:../2012-08-17-memory-management-in-extempore.org][posts]] describing xtlang in
 more detail. In this post, I'll just refer to the code generally, only
 clarifying whether its Scheme or xtlang when there's a possibility for
 confusion.

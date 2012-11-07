@@ -9,7 +9,7 @@ categories:
 #+end_html
 
 This covers the basics of creating an /instrument/ in Extempore. While
-there are [[file:~/Documents/biott/org/_posts/2012-06-07-dsp-basics-in-extempore.org][other]] [[file:~/Documents/biott/org/_posts/2012-06-07-more-dsp-and-extempore-types.org][posts]] which cover audio digital signal processing
+there are [[file:2012-06-07-dsp-basics-in-extempore.org][other]] [[file:2012-06-07-more-dsp-and-extempore-types.org][posts]] which cover audio digital signal processing
 (DSP) at a lower level---from the basic building blocks of oscillators
 and filters, this tutorial covers the process of building an
 instrument which can be played using the conventional midi parameters
@@ -158,7 +158,7 @@ Compiling the function =organ_drone= does three things:
   oscillators. For each oscillator, this is =freq_ratio= (the
   frequency relationship to the fundamental), =drawbar_pos= (the
   amplitude of the sine tone) and =tonewheel= (the oscillator closure
-  itself).  This data is all stored via [[file:~/Documents/biott/org/_posts/2012-08-13-understanding-pointers-in-xtlang.org][pointers]] to [[file:~/Documents/biott/org/_posts/2012-08-17-memory-management-in-extempore.org][zone memory]]
+  itself).  This data is all stored via [[file:2012-08-13-understanding-pointers-in-xtlang.org][pointers]] to [[file:2012-08-17-memory-management-in-extempore.org][zone memory]]
   through the calls to =zalloc=.
 - *fill memory* with the appropriate values. For =freq_ratio= and
   =drawbar_pos=, the values are set 'manually' using =pfill!=, while
@@ -291,7 +291,7 @@ it works.[fn:dsp-chain]
 
 This notion of /note-level/ control is the key difference between an
 Extempore /instrument/ and the type of audio DSP which I've covered in
-[[file:~/Documents/biott/org/_posts/2012-06-07-dsp-basics-in-extempore.org][other]] [[file:~/Documents/biott/org/_posts/2012-06-07-more-dsp-and-extempore-types.org][posts]], which were just writing audio continuously to the sound
+[[file:2012-06-07-dsp-basics-in-extempore.org][other]] [[file:2012-06-07-more-dsp-and-extempore-types.org][posts]], which were just writing audio continuously to the sound
 card through the =dsp= callback. An instrument still needs to be in
 the =dsp= callback somewhere: otherwise it can't play its audio out
 through the speakers. But it also needs some way of triggering notes
@@ -301,9 +301,9 @@ time.
 =define-instrument= takes three arguments: 
 
 1. a name for the instrument 
-2. a *note kernel* closure, which must have the [[file:~/Documents/biott/org/_posts/2012-08-09-xtlang-type-reference.org][signature]]
+2. a *note kernel* closure, which must have the [[file:2012-08-09-xtlang-type-reference.org][signature]]
    =[[double,double,double,double,double]*]*=
-3. an *effect kernel* closure, which must have the [[file:~/Documents/biott/org/_posts/2012-08-09-xtlang-type-reference.org][signature]]
+3. an *effect kernel* closure, which must have the [[file:2012-08-09-xtlang-type-reference.org][signature]]
    =[double,double,double,double,double*]*=
 
 So, when we finally define our hammond organ instrument, the
@@ -313,7 +313,7 @@ definition will look like this
   (define-instrument organ organ_note_c organ_fx)
 #+end_src
 
-and in an [[file:~/Documents/biott/org/_posts/2012-10-03-xtlang-type-diagrams.org][xtlang type diagram]]
+and in an [[file:2012-10-03-xtlang-type-diagrams.org][xtlang type diagram]]
 
 #+begin_html
 <a href=""><img src="images/making-an-instrument/full-organ-inst.png" alt=""></a>
@@ -326,7 +326,7 @@ just regular xtlang closures, they just have to have a particular type
 signature to allow them to play nicely with the rest of the
 =define-instrument= processing chain.
 So, let's have a look at the lifecycle of a note played on our =organ=
-with the help of a few [[file:~/Documents/biott/org/_posts/2012-10-03-xtlang-type-diagrams.org][xtlang type diagrams]]. I'll assume at this point
+with the help of a few [[file:2012-10-03-xtlang-type-diagrams.org][xtlang type diagrams]]. I'll assume at this point
 that =organ= (and therefore =organ_note_c= and =organ_fx=) have been
 successfully compiled, even though they haven't---yet. The xtlang
 source code for all the functions I mention are in
@@ -637,7 +637,7 @@ Impromptu, so any audio code which triggers notes in this way should
 work unmodified (although the synth which receives and /plays/ these
 notes will be different).
 
-[fn:dsp-chain] [[file:~/Documents/biott/org/_posts/2012-06-07-dsp-basics-in-extempore.org][This post]] covers the DSP architecture in Extempore if
+[fn:dsp-chain] [[file:2012-06-07-dsp-basics-in-extempore.org][This post]] covers the DSP architecture in Extempore if
 you're looking for more background.
 
 [fn:closure] This is why they're called closures, because they /close
