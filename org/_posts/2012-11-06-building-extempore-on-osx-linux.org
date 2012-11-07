@@ -43,7 +43,7 @@ brew install pthread prcre portaudio
 As in the Linux case, the exception is LLVM v3.0, which must be
 patched and built manually.
 
-* Installing LLVM v3.0
+* Building LLVM v3.0
 
 LLVM *must* be version 3.0 and needs to be built from source, because
 a small patch to =LLParser.cpp= (an LLVM source file) is required. The
