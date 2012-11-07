@@ -184,7 +184,7 @@ is that it's easy to bind to shared libraries (=.dll=, =.so= or
 xtlang. You can even bind and rebind these shared libraries
 dynamically, switching the bindings around as you please. There's more
 details about binding to C shared libraries in the =examples/external=
-directory, and in [[http://todo][this blog post]].
+directory, and in [[file:2012-08-23-binding-to-c-libs.org][this post]].
 
 There's heaps more to say about the Scheme/xtlang interop in Extempore
 (as well as the details of xtlang itself!), but the key point is that
