@@ -145,7 +145,6 @@ The [[http://www.pcre.org][PCRE lib]] should be pretty straightforward, just Cma
 
 * Extempore
 
-
 After you've built the dependencies, open the Extempore VS project in
 Extempore's =msvc= subdirectory. You might have to do some fiddling
 with the include paths in =Properties > Configuration Properties >
@@ -154,4 +153,17 @@ make sure you've copied the compiled lib files into the top level of
 the build directories, because that's where the VS project expects to
 find them.
 
-If you have any issues, then feel free to fire an email to the [[mailto:extemporelang@googlegroups.com][mailing list]].
+If you have any issues, then feel free to fire an email to the [[mailto:extemporelang@googlegroups.com][mailing
+list]].
+
+* Ok, so how do I start using Extempore?
+
+The =extempore= executable on its own is cool, but things really start
+to get interesting when you can interact with it by sending it xtlang
+code to evaluate. So the next step is to [[file:2012-09-26-interacting-with-the-extempore-compiler.org][set up your text editor for
+working with Extempore source code]].
+
+After you're set up, then the next step is to learn about xtlang and
+the Extempore runtime. The [[file:../extempore-docs/index.org][docs index]] has a complete list of all the
+posts covering this stuff, and is probably the place to go next. Have
+fun :)
