@@ -24,8 +24,8 @@ both a high-level dynamic language (Scheme) and a low-level 'C like'
 language (xtlang) simultaneously, with tight integration and
 transparency between the two. A running Extempore process will compile
 both valid scheme and xtlang forms. Scheme objects (lists, closures,
-continuations, etc.) coexist with xtlang's structs and pointers to
-malloc'ed memory, and with a few 'helper functions' data can even flow
+continuations, etc.) coexist with [[file:2012-08-09-xtlang-type-reference.org][xtlang's types]] and [[file:2012-08-13-understanding-pointers-in-xtlang.org][pointers]] to
+[[file:2012-08-17-memory-management-in-extempore.org][malloc'ed memory]], and with a few 'helper functions' data can even flow
 through both languages fluidly.
 
 * What's scheme, and what's xtlang?
@@ -94,74 +94,95 @@ for compiling and linking.
 Why introduce this confusion? Why not just pick one language or the
 other (or design a new language which has aspects of both)? By way of
 explanation, let's do a bit of numerical processing. Say we want to
-calculate the partial sum of a geometric series with ratio 1/2:
-
-# \begin{equation}
-# S_n = \sum_{k=0}^{n} (\frac{1}{2})^k
-# \end{equation}
+calculate the highest common factor of two integers =a= and =b= using
+a brute-force approach:
 
 #+begin_src extempore
-  (define geom-sum-scm
-    (lambda (n k accum)
-      (if (> k n)
-          accum
-          (geom-sum-scm n
-                        (+ k 1)
-                        (+ accum
-                           (expt 0.5 k))))))
+  (define hcf-scheme
+    (lambda (a b)
+      (letrec ((hcf (lambda (i)
+                      (if (and (= (modulo a i) 0)
+                               (= (modulo b i) 0))
+                          i
+                          (hcf (- i 1))))))
+        (hcf (if (< a b) b a)))))
   
-  (bind-func geom_sum_xt
-    (lambda (n k accum)
-      (if (> k n)
-          accum
-          (geom_sum_xt n
-                       (+ k 1)
-                       (+ accum
-                          (pow 0.5 (i64tod k)))))))
+  (hcf-scheme 10 15) ;; returns 5
+  
+  (bind-func hcf_xtlang
+    (lambda (a:i64 b)
+      (let ((hcf (lambda (i)
+                   (if (and (= (modulo a i) 0)
+                            (= (modulo b i) 0))
+                       i
+                       (hcf (- i 1))))))
+        (hcf (if (< a b) b a)))))
+  
+  (hcf_xtlang 10 15)  ;; returns 5  
 #+end_src
 
-The code for Scheme (=geom-sum-scm=) and xtlang (=geom_sum_xt=) is
-identical except for a function name difference (=expt= in Scheme is
-the same as =pow= in xtlang) and the presence of the =i64tod=
-conversion function in =geom_sum_xt=. Both functions use tail call
-recursion, and are written in a fairly 'scheme-like' way. Although
-there are minimal type annotations, =geom_sum_xt= is actually strongly
-typed, it is a closure which takes three arguments (two =int64= s and
-one =double=) and returns a =double=. The reason that the type
-annotations are unneccesary here is because the compiler can
-unambiguously determine the types: =pow= needs two =double= arguments
-(hence the need for the =i64tod= type conversion of =k=, which also
-reveals that =k= is an =i64=) so accum must be a =double=. In more
-complex functions there may be a greater need to specify the types of
-the variables, and this can be done by appending the type to the
-variable name (seperated by a colon, e.g. =a:double=).
+The code for Scheme (=hcf-scheme=) and xtlang (=hcf_xtlang=) is
+identical except for an =i64= type annotation on the first argument
+=a= in =hcf_xtlang= and a =letrec= instead of a =let= in =hcf-scheme=.
+Both functions use tail call recursion, and are written in a fairly
+'scheme-like' way. Although there is only the one type annotation,
+=hcf_xtlang= is strongly (and fully) typed. The types of all the other
+variables and the return type of the closure are all inferred by the
+compiler from the type of =a=: the function =hcf_xtlang= takes two
+=i64= arguments and returns another =i64=. In more complex functions
+there may be a greater need to specify the types of the variables, but
+often just a few type annonations can unambiguously determine
+everything in scope. The [[file:2012-08-09-xtlang-type-reference.org][xtlang type reference]] has more info on how
+type inferencing works in the xtlang compiler.
 
 #+begin_src extempore
-  (profile (geom-sum-scm 10000000 0 0.0)) ; result = 2.000, done in 65.34 seconds
-  (profile (geom_sum_xt 10000000 0 0.0)) ; result = 2.000, done in 0.39 seconds
+  ;; first, figure out two large numbers with a common factor (133)
+  (println (map (lambda (x) (* x 133)) '(125219 123711))) ;; prints (16654127 16453563)
+  
+  ;; profile the scheme version
+  (let ((t (clock:clock)))
+    (println 'HCF '= (hcf-scheme 16654127 16453563))
+    (println 'elapsed 'time '= (- (clock:clock) t) 'seconds))
+  
+  ;; --result--
+  ;; HCF = 133
+  ;; elapsed time = 82.085036 seconds
+  
+  ;; profile the xtlang version
+  (let ((t (clock:clock)))
+    (println 'HCF '= (hcf_xtlang 16654127 16453563))
+    (println 'elapsed 'time '= (- (clock:clock) t) 'seconds))
+  
+  ;; --result--
+  ;; HCF = 133
+  ;; elapsed time = 0.257790 seconds
 #+end_src
 
-In a direct comparison, both calculate the first 10 million terms of
-the partial sum. Both functions return the same result, but the xtlang
-one finishes around 200 times faster. Now, this comparison is one
-datapoint: it isn't meant to start a flame war about dynamic vs
-statically typed languages or anything like that. It's a ridiculous
-brute-force algorithm for a problem which has a nice algebraic
-solution which doesn't require any iteration. What it does show,
-though, is that Extempore's Scheme interpreter is /slow/.  There are
-some crazy fast and efficient Scheme compilers, but Extempore's isn't
-one of them---it's dog slow.
+In a direct comparison, here I've calculate the HCF of the integers
+=16654127= and =16453563=, which are (by design) known to have at
+least one non-trivial factor (=133=). Both functions return =133=, but
+the xtlang one finishes over 300 times faster. I tried to use even
+bigger integers as input, but the Scheme version blew past the maximum
+runtime timeout, while the xtlang one finished in about 2 seconds :)
 
-You may now be thinking that this pretty much rules it out for
-anything computationally intensive, such as audio and graphics. Well,
-late one night[fn:late] in about 2010 Andrew (Extempore's creator) had
-pretty much the same realisation. At the time he was working on
-Impromptu, Extempore's predecessor, which had the same Scheme
-interpreter. And he realised that the Scheme interpreter would need
-some /serious/ work to bring it up to speed if it was going to be used
-for any number-crunching. At that point, he figured that he might as
-well write a new language, leveraging the LLVM compiler. And lo,
-xtlang was born (although it wasn't called that straight away).
+Now, this comparison is one datapoint: it isn't meant to start a flame
+war about dynamic vs statically typed languages or anything like that.
+It's a brute-force algorithm for a problem with many more elegant
+algorithms. What it does show, though, is that /Extempore's/ Scheme
+interpreter is /slow/. There are some crazy fast and efficient Scheme
+compilers, but Extempore's isn't one of them---it's dog slow.
+
+You may now be thinking that this pretty much rules Scheme out for
+anything computationally intensive in Extempore, such as audio and
+graphics. Well, late one night[fn:late] in about 2010 Andrew
+(Extempore's creator) had pretty much the same realisation. At the
+time he was working on Impromptu, Extempore's predecessor, which had
+the same Scheme interpreter. And he realised that the Scheme
+interpreter would need some /serious/ work to bring it up to speed if
+it was going to be used for any number-crunching. At that point, he
+figured that he might as well write a new language, leveraging the
+LLVM compiler. And lo, xtlang was born (although it wasn't called that
+straight away).
 
 After working on xtlang inside of Impromptu for a while, it became
 clear that introducing a whole new language to a programming
@@ -193,7 +214,13 @@ language for triggering events, and xtlang is a nice 'systems'
 language for building infrastructure and for doing computational heavy
 lifting. Extempore allows the programmer to live in both worlds, as
 long as they have some understanding of what's going on under the
-covers.
+covers. And as I work with Extempore (and as xtlang matures) I find
+myself using Scheme less and less and xtlang more and more. The code
+I'm writing is almost the same (since they're syntactically so
+similar), but with the performance benefits and bit-level control of
+working much closer to the metal. It's even nice (most of the time, at
+least!) to get the compile errors, it's better to catch type mismatches
+earlier rather than later.
 
 * /Live/ programming: Interacting with the Extempore compiler/runtime
 
@@ -250,8 +277,10 @@ Extempore compiler and programming environment:
 ** Real-time DSP
 
 Make your own DSP signal chain.  [[file:2012-06-07-dsp-basics-in-extempore.org][Start low-level]] (with unit
-generators, envelopes, LFOs, etc.) and build whatever abstractions
-take your fancy.  And because it's all dynamically compiled, if things
+generators, envelopes, LFOs, etc.) and [[file:2012-06-07-more-dsp-and-extempore-types.org][build whatever abstractions
+take your fancy]].  You can even build Extempore 'instruments' which can
+be played like soft synths (here's a simple and
+And because it's all dynamically compiled, if things
 aren't working for you you can dig into the source and change things
 on the fly :)
 
@@ -261,15 +290,17 @@ good place to start for this sort of thing.
 ** Higher-level (note based) audio sequencing
 
 If writing raw bits to the sound card isn't your cup of tea, then
-there's a 'note level' audio framework in Extempore as
-well.  You can load an instrument, trigger sounds using the familiar
-pitch/velocity/duration arguments (this type of musical coding will be
-familiar to Impromptu users).
+there's a '[[file:2012-10-16-a-really-simple-instrument.org][instrument]]' (note-level) audio framework in Extempore as
+well. You can [[file:2012-10-17-loading-and-using-a-sampler.org][load an instrument]], [[file:2012-10-15-playing-an-instrument-part-i.org][trigger sounds using the familiar
+pitch/velocity/duration arguments]], and build [[file:2012-10-15-playing-an-instrument-part-ii.org][complex rhythmic and
+harmonic patterns]] (this type of musical coding will be [[file:2012-10-15-extempore-for-impromptu-users.org][familiar to
+Impromptu users]]).
 
-The =examples/core/polysynth.xtm= example file is a good place to
-start for this type of musical interaction.  There aren't a heap of
-preset instruments available currently, but more will be added as
-development continues.
+Apart from the aforelinked blog posts, the
+=examples/core/polysynth.xtm= example file is a good place to start
+for this type of musical interaction. There aren't a heap of preset
+instruments available currently, but more will be added as development
+continues.
 
 It's important to point out that there's nothing forcing you to choose
 between these high-level and low-level music making approaches. Mixing
@@ -291,7 +322,7 @@ Extempore.
 
 If there's a particular C library that you'd like to explore in a more
 dynamic way than is possible with a statically compiled binary, then
-you can create xtlang bindings for the library, load it at runtime and
+you can [[file:2012-08-23-binding-to-c-libs.org][create xtlang bindings for the library]], load it at runtime and
 away you go.  This could be used, for instance, to add OpenCV image
 processing to a computer-vision based program, or to leverage
 GStreamer for playback and remixing of video content in real-time.  
@@ -309,20 +340,21 @@ even thought of :)
 
 * How do I start?
 
-Extempore works on Windows 7, OSX and Linux, and you can interact with
-the compiler using any client that can write strings to a TCP port.
-Having said that, there's an Emacs major mode, a vim plugin, and a
-Sublime Text 2 plugin in the =extras= directory, which all make the
+Extempore works on [[file:2012-11-05-building-extempore-on-windows.org][Windows 7]], [[file:2012-11-06-building-extempore-on-osx-linux.org][OSX and Linux]], and you can [[file:2012-09-26-interacting-with-the-extempore-compiler.org][interact with
+the compiler]] using any client that can write strings to a TCP port.
+Having said that, there's an [[file:2012-10-10-extempore-emacs-cheat-sheet.org][Emacs major mode]], a vim plugin, and a
+[[file:2012-10-23-extempore-st2-cheat-sheet.org][Sublime Text 2 plugin]] in the =extras= directory, which all make the
 programming/debugging experience a bit nicer than echoing strings to a
 port using =netcat=.  But hey, whatever floats your boat.
 
-There's a bunch more documentation on this blog, as well as the
-project's [[https://github.com/digego/extempore][github project page]] and [[https://github.com/digego/extempore/wiki/][wiki]].  There are some examples in
+There's [[file:../extempore-docs/index.org][a bunch more documentation]] on this blog, as well as the
+project's [[https://github.com/digego/extempore][github project page]].  There are some examples in
 the =examples= subdirectory which are a great way to start off.  And
 finally, because it's open source, if you really want to see how it
 works you can examine the source for yourself :)
 
-[fn:imp] in the form of [[http://impromptu.moso.com.au][Impromptu]], Extempore's predecessor
+[fn:imp] In the form of [[http://impromptu.moso.com.au][Impromptu]], Extempore's predecessor (see also
+[[file:2012-10-15-extempore-for-impromptu-users.org][Extempore for Impromptu users]]).
 
 [fn:typo] There are also a couple of naming conventions for
 distinguishing between Scheme and xtlang. In general, Scheme uses
