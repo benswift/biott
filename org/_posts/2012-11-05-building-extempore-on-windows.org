@@ -68,17 +68,24 @@ patch on Windows there are a couple of options:
 *** Building LLVM
 
 Using the Cmake (either at the command line or using the GUI), use the
-generator: =Visual Studio 11 Win64=. In the configure process, you'll
-need to add some arguments to the following flags:
-- =CMAKE_CXX_FLAGS= & =CMAKE_CXX_FLAGS_DEBUG=: add
-  =/D_VARIADIC_MAX=10= to the end
+generator: =Visual Studio 11 Win64=. You'll need to specify a build
+directory where the output files will go, e.g. a =llvm_build=
+directory next to the =llvm-3.0= source directory.
 
-After you've done that, try building the =ALL_BUILD= project. If it
-complains about two namespacing errors (which it might), you may also
-have to manually change =tie= to =llvm::tie= in one of the LLVM source
-files.
+In the configure process, you'll
+need to add some arguments to =CMAKE_CXX_FLAGS= &
+=CMAKE_CXX_FLAGS_DEBUG=: in both cases add =/D_VARIADIC_MAX=10= to the end.
 
-After you've done that, it should all build successfully.
+Set the configuration to =Release= and the platform to =x64= then
+build the =ALL_BUILD= project.
+
+- If the compiler complains about namespacing errors, you may also
+  have to manually change =tie= to =llvm::tie= in a couple of places
+  in one of the LLVM source files.
+# - You may also need to copy the =DataTypes.h= header from the /build
+#   dir/ =<llvm build dir>/include/llvm/Support= into the /source dir
+#   =llvm-3.0/include/llvm/Support= (the Extempore build process needs
+#   this header file).
 
 ** Boost
 
@@ -152,6 +159,10 @@ C/C++ > Additional Include Directories=. And like I mentioned earlier,
 make sure you've copied the compiled lib files into the top level of
 the build directories, because that's where the VS project expects to
 find them.
+
+# - need to put the ifndef TARGET_OS_WINDOWS around unistd.h
+# - should probably list all include paths, including both LLVM source
+# and build dirs
 
 If you have any issues, then feel free to fire an email to the [[mailto:extemporelang@googlegroups.com][mailing
 list]].
