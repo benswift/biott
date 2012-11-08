@@ -63,7 +63,7 @@ A couple of gotchas:
   be interpreted as =i64=, /unless/ the function signature suggests
   otherwise e.g. if the signature is =[double,i32]*=, then a
   (single) int literal argument will be read as an =i32=.
-- there is no =char= type, only =i8=. In xtlang, [[** Strings in xtlang][strings]] are
+- there is no =char= type, only =i8=. In xtlang, strings are
   null-terminated char arrays/pointers with the signature =i8*=.
 
 *** Floats
