@@ -10,14 +10,10 @@ categories:
 
 This post covers the type system of xtlang, the 'systems language'
 component of Extempore. It's not really possible to do that without a
-detour into some memory stuff as well, so we'll cover some of that as
+detour into some [[file:2012-08-17-memory-management-in-extempore.org][memory stuff]] as well, so we'll cover some of that as
 well. For more info on how xtlang fits into the big picture of
 Extempore, check out [[file:2012-08-07-extempore-philosophy.org][this post]] on the overall philosophy and
 architecture of the project.
-
-This info will probably go into the [[http://github.com/digego/extempore/wiki][wiki]] at some point, but for now
-it's just an attempt to explain things, and to help people understand
-and write working xtlang code.
 
 * xtlang type hierarchy
 
@@ -32,12 +28,12 @@ C, although there are a couple of slight differences. Just like C, the
 types are all low level in the sense that they represent a particular
 bit pattern in memory---there's no boxing and unboxing going on.
 
-In xtlang, [[*Type%20annotations][type annotations]] (a type definition following a colon in
+In xtlang, type annotations (a type definition following a colon in
 the source code) are used to tell the compiler about the types of
-variables. The compiler will [[*Type%20inferencing][infer]] incomplete type information (such
-as the size of int and float literals), but will never silently coerce the
-types. If there's a problem, the compiler will complain and you have
-to fix it, either with an explicit coercion or by changing the
+variables. The compiler will infer incomplete type information (such
+as the size of int and float literals), but will never silently coerce
+the types. If there's a problem, the compiler will complain and you
+have to fix it, either with an explicit coercion or by changing the
 structure of the code.
 
 The examples in this post use a lot of these type annotations. This is
@@ -67,7 +63,7 @@ A couple of gotchas:
   be interpreted as =i64=, /unless/ the function signature suggests
   otherwise e.g. if the signature is =[double,i32]*=, then a
   (single) int literal argument will be read as an =i32=.
-- there is no =char= type, only =i8=. [[**%20Strings%20in%20xtlang][Strings in xtlang]] are
+- there is no =char= type, only =i8=. In xtlang, [[** Strings in xtlang][strings]] are
   null-terminated char arrays/pointers with the signature =i8*=.
 
 *** Floats
@@ -121,7 +117,7 @@ from the heap (longest-lived). Finally, =alloc= is an alias for
 
 More detail about the Extempore's memory architecture (and the
 difference between =salloc=, =halloc= and =zalloc=) can be found in
-this post. For now, though, we'll just use =zalloc=, which allocates
+[[file:2012-08-17-memory-management-in-extempore.org][this post]]. For now, though, we'll just use =zalloc=, which allocates
 memory from the current zone, which for these examples will work fine.
 
 #+begin_src extempore
@@ -317,7 +313,7 @@ It's probably clear at this point that the combinations of types allow
 for heaps of flexibility, but can get pretty confusing if you use lots
 of nesting of aggregate types within one another. If you /do/ need to
 use complex types, then you can define your own types and the compiler
-can do some of the bookkeeping for you (more on this [[**%20Custom%20types][below]]).
+can do some of the bookkeeping for you (more on this [[** Custom types][below]]).
 
 Setting and getting values from arrays is done with (you guessed it!)
 =aref=, =aset!=, and =afill!=.  And if you want to get a pointer into
@@ -477,7 +473,7 @@ at least it's not called =char=, it's called =i8=.  So strings in
 xtlang are pointers to null terminated int arrays just like in C but
 instead have type =i8*=.  String literals in xtlang have this type.
 
-The usual =pref= and friends for pointers (described [[**Pointer%20types][above]]) are
+The usual =pref= and friends for pointers (described [[** Pointer types][above]]) are
 therefore your friends if you want to slice and dice strings around.
 A few familiar string functions have made their way over from the C
 standard library as well.
@@ -498,7 +494,7 @@ about then disappearing on you.
 ** Custom types
 
 To round it off, you can also define your own types. This is
-convenienct: it's easier to type =my_type= than
+convenient: it's easier to type =my_type= than
 =[double*,<i64,i32>,float,float]=, especially if it's a type that
 you'll be using a lot in your code.
 
@@ -676,15 +672,10 @@ how it all fits together).  And this post has just scratched the
 surface of Extempore's memory model and allocation functions.  But I
 hope it's been helpful.
 
-As usual, there are other places to look for more info: the file
-=examples/core/extempore_lang.xtm= is a good overview of all these
-types, and includes heaps of examples as well.  And there's always the
-project page and source code at [[https://github.com/digego/extempore][github]].
-
-# things to ask Sorryballs:
-# function closure?
-# aggregate types - good name?
-# 'array' as a name for the chunk of memory returned by alloc
+As usual, there are other places to look for more info: the [[file:../extempore-docs/index.org][main docs
+page]], the file =examples/core/extempore_lang.xtm= includes heaps of
+examples as well. And there's always the project page and source code
+at [[https://github.com/digego/extempore][github]].
 
 [fn:sc-typ] Note that the types used by xtlang are not the same as
 those used by scheme: a Scheme integer is not an xtlang integer (and
