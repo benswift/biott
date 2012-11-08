@@ -8,7 +8,7 @@ categories:
 ---
 #+end_html
 
-/This post has been adapted from/ [[http://impromptu.moso.com.au/tutorials/making_music/The%2520Basics.html][some tutorials]] /Andrew originally
+/This post has been adapted from some [[http://impromptu.moso.com.au/tutorials/making_music/The%2520Basics.html][tutorials]] Andrew originally
 wrote for Impromptu./
 
 This post builds on [[file:2012-10-15-playing-an-instrument-part-i][Playing an instrument part I]], which covers the

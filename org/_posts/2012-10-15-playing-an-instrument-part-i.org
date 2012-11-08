@@ -8,7 +8,7 @@ categories:
 ---
 #+end_html
 
-/This post is a modified version of/ [[http://impromptu.moso.com.au/tutorials/bing.html][a tutorial]] /that Andrew wrote for
+/This post is a modified version of [[http://impromptu.moso.com.au/tutorials/bing.html][a tutorial]] that Andrew wrote for
 Impromptu./
 
 Extempore (like [[http://impromptu.moso.com.au][Impromptu]] before it) supports playing 'instruments' at
