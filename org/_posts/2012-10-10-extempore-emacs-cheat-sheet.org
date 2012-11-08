@@ -24,11 +24,47 @@ Think of this post you're reading now as more as a 'cheat sheet', for
 dipping back into to refresh your memory when you just can't remember
 how to do something off the top of your head.
 
-* Installing Emacs
+* If you're already an Emacs user
+
+You'll need to add these lines to your =.emacs=
+
+#+begin_src emacs-lisp
+  (autoload 'extempore-mode "/path/to/extempore/extras/extempore.el" "" t)
+  (add-to-list 'auto-mode-alist '("\\.xtm$" . extempore-mode))
+#+end_src
+
+** Working with Extempore code
+
+These are the steps youll need to take to start hacking on a piece of
+Extempore code in Emacs:
+
+1. start Emacs (if it isn't running already)
+2. open up a shell buffer in Emacs with =M-x shell=
+3. =cd= into your Extempore directory and run =extempore= with the
+   appropriate audio device, e.g. =./extempore --device 2= (the
+   =--print-devices= option prints a list of available devices)
+4. open up an Emacs buffer with an Extempore file (=extempore-mode=
+   should be loaded automatically when Emacs sees the =.xtm= file
+   extension, assuming you added code above to your =.emacs=)
+5. connect to the running Extempore process: =C-x C-j= (needs to be
+   done for /every/ =.xtm= buffer)
+
+Then, to [[file:2012-09-26-interacting-with-the-extempore-compiler.org][evaluate]] Extempore code, use either
+
+- evaluate enclosing s-expression: =C-x C-x=
+- evaluate region: =C-x C-r=
+- evaluate whole buffer: =C-x C-b=
+
+To restart the Extempore process, just =C-c C-c= in the =*shell*=
+buffer where =extempore= is running to kill it, then start it up
+again.
+
+* If you're new to Emacs
 
 The Extempore Emacs mode (plugins are called 'modes' in Emacs)
 requires Emacs version 24, which has been the current stable release
-since about June 2012.
+since about June 2012. If for some reason you're stuck on Emacs 23,
+you can use the Extempore minor mode (=extras/extempore-minor.el=).
 
 *OS X*
 
@@ -38,7 +74,7 @@ best option, although if you know what you're doing feel free to
 choose some other option (but remember that =extmpore.el= requires
 Emacs 24).
 
-If you're a [[http://mxcl.github.com/homebrew/][homebrew]] user, then you can also get Emacs with
+If you're a [[http://mxcl.github.com/homebrew/][Homebrew]] user, then you can also get Emacs with
 
 #+begin_src sh
 brew install --cocoa emacs
@@ -64,7 +100,11 @@ instructions).
 The [[http://ftp.gnu.org/gnu/emacs/windows/][Official GNU Windows binaries]] are probably as good as any.  Scroll
 down to the bottom of that page for the most recent versions.
 
-* Genral Emacs notes
+Also, if you're running Extempore in an Emacs =shell= buffer on
+Windows you'll need to pass the =--term ansi= option when starting
+Extempore.
+
+** Genral Emacs notes
 
 Emacs is powered by a programming language called Emacs Lisp (elisp
 for short). In Emacs, everything you do---every key you press, every
@@ -96,15 +136,15 @@ state of the world is updated in response to these commands.  Of
 course, in lots of was Emacs and Extempore are very different, but it
 might be helpful in terms of thinking about how the whole thing works.
 
-Now, on to the cheat sheet...
+* Emacs cheat sheet
 
-* File navigation
+/A note on Emacs keyboard shortcuts:/ with a shortcut like =C-x C-f=,
+press =C-x= and /then/ =C-f=, so that the =x= is released before the
+=f= is pressed (although the =ctrl= key /may be/ held down the whole
+time). In contrast, with a key sequence like =C-M-x=, press the
+=ctrl=, =meta= and =x= keys simultaneously.
 
-Note: with a shortcut like =C-x C-f=, press =C-x= and /then/ =C-f=, so
-that the =x= is released before the =f= is pressed (although the
-=ctrl= key /may be/ held down the whole time). In contrast, with a key
-sequence like =C-M-x=, press the =ctrl=, =meta= and =x= keys
-simultaneously.
+** File navigation
 
 - open file: =C-x C-f=
 - save file: =C-x C-s=
@@ -113,7 +153,7 @@ simultaneously.
 - split window vertically: =C-x 3=
 - jump to other window (in split window setup): =C-x o=
 
-* Cursor movement
+** Cursor movement
 
 In most Emacs situations, you can use /either/ the regular arrow keys
 to navigate, or the default Emacs navigation commands:
@@ -134,39 +174,14 @@ limited to)
 
 Mastering Emacs has a great post on [[http://www.masteringemacs.org/reading-guide/][effective editing]].
 
-* Editing
+** Editing
 
 - kill (cut): =C-w=
 - copy: =M-w=
 - yank (paste): =C-y=, then =M-y= to cycle through previous kills
 - kill rest of line: =C-k=
 
-* Editing Extempore code
-
-These are the steps youll need to take to start hacking on a piece of
-Extempore code in Emacs:
-
-1. start Emacs (if it isn't running already)
-2. open up a shell buffer in Emacs with =M-x shell=
-3. =cd= into your Extempore directory and run =extempore=, e.g.
-   =./extempore --device 2=
-4. open up an Emacs buffer with an Extempore file (=extempore-mode=
-   should be loaded automatically when Emacs sees the =.xtm= file
-   extension, assuming you added the relevant code to your =.emacs=)
-5. connect to the running Extempore process: =C-x C-j= (needs to be
-   done for /every/ =.xtm= buffer)
-
-Then, to [[file:2012-09-26-interacting-with-the-extempore-compiler.org][evaluate]] Extempore code, use either
-
-- evaluate enclosing s-expression: =C-x C-x=
-- evaluate region: =C-x C-r=
-- evaluate whole buffer: =C-x C-b=
-
-To restart the Extempore process, just =C-c C-c= in the =*shell*=
-buffer where =extempore= is running to kill it, then start it up
-again.
-
-* Getting out of (Emacs) trouble
+** Getting out of (Emacs) trouble
 
 - cancel: =C-g= (if you get into trouble)
 - help (on a /function/): =C-h f=, then function name
