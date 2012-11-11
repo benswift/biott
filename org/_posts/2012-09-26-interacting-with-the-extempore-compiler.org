@@ -8,7 +8,7 @@ categories:
 ---
 #+end_html
 
-/If you have trouble understanding some of the concepts presented
+/Note: if you're unfamiliar with some of the concepts presented
 here, you might find the [[file:../extempore-docs/index.org][docs index]] helpful./
 
 The best way to think about programming and evaluating code in
