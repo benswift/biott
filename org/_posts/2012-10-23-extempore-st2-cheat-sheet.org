@@ -1,7 +1,7 @@
 #+begin_html
 ---
 layout: post
-title: "Extempore & Sublime Text 2 cheat sheet"
+title: "Extempore & Sublime Text 2"
 date: 2012-10-23 13:46
 comments: true
 categories:
@@ -14,9 +14,9 @@ it has some cool features, a large variety of plugins for different
 languages and tasks, and a great community.
 
 I won't cover all the basics of ST2 here, because the [[http://docs.sublimetext.info/en/latest/][(unofficial)
-documentation]] does that pretty well. Think of this post as more as a
-'cheat sheet', for dipping back into to refresh your memory when you
-just can't remember how to do something off the top of your head.
+documentation]] does that pretty well. Think of this post as a 'cheat
+sheet', for dipping back into to refresh your memory when you just
+can't remember how to do something off the top of your head.
 
 * Installing ST2
 
@@ -44,12 +44,15 @@ Extempore code in Emacs:
    extension)
 5. connect to the running Extempore process (=Tools > Extempore > Connect=)
 
-Then, to [[file:2012-09-26-interacting-with-the-extempore-compiler.org][evaluate]] Extempore code, highlight the code you want to
-evaluate and hit =evaluate region=, which by default is mapped to
-=ctrl+r=
+Then, to evaluate Extempore code, highlight the code you want to
+evaluate and hit =evaluate region= (which by default is mapped to
+=ctrl+r=).
 
 To restart the Extempore process, just =ctrl+c= in the shell where
 =extempore= is running to kill it, then start it up again.
+
+For more detail on how to 'program' in Extempore, have a look at this
+post on [[file:2012-09-26-interacting-with-the-extempore-compiler.org][interacting with the Extempore compiler]].
 
 * Known issues with the Extempore ST2 plugin
 
@@ -59,5 +62,5 @@ anything then feel free to submit a patch.
 
 Also, =extempore_evaluate= currently requires *highlighting* the code
 to evaluate. It would be nice if it would eval the top-level
-s-expression if no region was highlighted. This is hopefully trivial
-to add if you know a bit about how ST2 works.
+s-expression if no region was highlighted. This is hopefully not too
+tricky to add if you know a bit about how ST2 works.

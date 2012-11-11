@@ -1,7 +1,7 @@
 #+begin_html
 ---
 layout: post
-title: "Extempore & Emacs cheat sheet"
+title: "Extempore & Emacs cheat"
 date: 2012-10-10 14:13
 comments: true
 categories:
@@ -20,7 +20,7 @@ before, I suggest you go and read the [[http://www.masteringemacs.org/articles/2
 explains some of the basic concepts and terminology.  Emacs also has a
 built-in tutorial, which you can bring up with =C-h t=.
 
-Think of this post you're reading now as more as a 'cheat sheet', for
+Think of this post as more as a 'cheat sheet', for
 dipping back into to refresh your memory when you just can't remember
 how to do something off the top of your head.
 
@@ -57,7 +57,10 @@ Then, to [[file:2012-09-26-interacting-with-the-extempore-compiler.org][evaluate
 
 To restart the Extempore process, just =C-c C-c= in the =*shell*=
 buffer where =extempore= is running to kill it, then start it up
-again.
+again.  
+
+For more detail on how to 'program' in Extempore, have a look at this
+post on [[file:2012-09-26-interacting-with-the-extempore-compiler.org][interacting with the Extempore compiler]].
 
 * If you're new to Emacs
 

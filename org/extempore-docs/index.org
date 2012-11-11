@@ -32,9 +32,9 @@ the beginning steps.
 
 # - Downloading and installing Extempore
 - Building Extempore ([[file:../2012-11-06-building-extempore-on-osx-linux.org][OSX & Linux]], [[file:../2012-11-05-building-extempore-on-windows.org][Windows]])
+- Setting up your editor ([[file:../2012-10-10-extempore-emacs-cheat-sheet.org][Emacs]],  [[file:../2012-10-23-extempore-st2-cheat-sheet.org][Sublime Text 2]])
+- [[file:../2012-09-26-interacting-with-the-extempore-compiler.org][Interacting with the Extempore compiler]]
 - [[file:../2012-10-15-extempore-for-impromptu-users.org][Extempore for Impromptu users]]
-- [[file:../2012-10-10-extempore-emacs-cheat-sheet.org][Emacs cheat sheet]]
-- [[file:../2012-10-23-extempore-st2-cheat-sheet.org][ST2 cheat sheet]]
 
 * xtlang reference material
 
