@@ -8,10 +8,10 @@ categories:
 ---
 #+end_html
 
-On OSX and Linux, Extempore has three main static dependencies:
+On OSX and Linux, Extempore has three main dependencies:
 
 - =LLVM v3.0=
-- =pcre= (Perl-compatible Regular Expressions)
+- =pcre=
 - =portaudio v1.9=
 
 The one tricky dependency is LLVM v3.0, which requires a patch (see
@@ -21,9 +21,8 @@ me know on the [[mailto:extemporelang@googlegroups.com][Extempore mailing list]]
 
 *Linux*
 
-If you're on Linux, you probably already know what you're doing when
-building things from source. On a fresh Ubuntu 12.10, I needed the
-following packages (available through =apt-get= or =aptitude=)
+On a fresh Ubuntu 12.10, I needed the following packages (available
+through =apt-get= or =aptitude=)
 
 - =clang= (for compiling LLVM)
 - =g++= (for compiling Extempore)
