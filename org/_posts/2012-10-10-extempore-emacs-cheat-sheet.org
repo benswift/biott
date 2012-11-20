@@ -64,6 +64,14 @@ post on [[file:2012-09-26-interacting-with-the-extempore-compiler.org][interacti
 
 * If you're new to Emacs
 
+The first thing you'll need to do is install Emacs if it isn't already
+installed on your system. You can check if Emacs is installed (and
+which version) with
+
+#+begin_src sh
+emacs --version
+#+end_src
+
 The Extempore Emacs mode (plugins are called 'modes' in Emacs)
 requires Emacs version 24, which has been the current stable release
 since about June 2012. If for some reason you're stuck on Emacs 23,
@@ -73,9 +81,7 @@ you can use the Extempore minor mode (=extras/extempore-minor.el=).
 
 Binaries are available from [[http://emacsformacosx.com][emacsformacosx.com]]. In general, the
 default one (i.e. big 'Download' button on that page) is probably the
-best option, although if you know what you're doing feel free to
-choose some other option (but remember that =extmpore.el= requires
-Emacs 24).
+best option if you're unsure.
 
 If you're a [[http://mxcl.github.com/homebrew/][Homebrew]] user, then you can also get Emacs with
 
@@ -85,18 +91,13 @@ brew install --cocoa emacs
 
 *Linux*
 
-Your distro will probably will have Emacs installed, but you might
-want to check which version is installed, and whether or not it
-includes a graphical interface (rather than one which only works in a
-terminal).  You can check the Emacs version with
+On Ubuntu, you can get Emacs version 24 with
 
-#+begin_src sh
-emacs --version
-#+end_src
+#+begin_example
+sudo apt-get install emacs24
+#+end_example
 
-On ubuntu, the current default Emacs (v23) is out-of-date, but Damien
-Cassou [[https://launchpad.net/~cassou/%2Barchive/emacs][has provided some more recent Emacs versions]] (and installation
-instructions).
+Other distros will probably have a similar package.
 
 *Windows*
 
@@ -106,6 +107,29 @@ down to the bottom of that page for the most recent versions.
 Also, if you're running Extempore in an Emacs =shell= buffer on
 Windows you'll need to pass the =--term ansi= option when starting
 Extempore.
+
+** A .emacs to get you started
+
+In Emacs, user configuration code goes into a file called =.emacs= in
+your home directory. This includes settings about colour themes,
+installed packages, keybindings, and whatever else you need to set
+Emacs up just the way you like. Emacs will loads this file
+automatically on start-up.
+
+As a new Emacs user, you won't have a =.emacs= yet, but if you want a
+bit of help getting started you can use the one in the =extras=
+directory. To use it to get started, there are two things to do:
+
+1. copy =extras/.emacs= into your home directory
+2. change the =extempore-path= variable to point to your Extempore
+   source directory.
+
+After step 1, when you start Emacs it will automatically open up the
+=.emacs= file at the place where =extempore-path= is defined. You can
+then change it to suit your setup (you only have to do this once) and
+you're good to go. Also, don't worry if Emacs takes a while to load
+after you do this. On the first run-through it'll need to install some
+packages, but after that subsequent start-ups shouldn't take too long.
 
 ** Genral Emacs notes
 
