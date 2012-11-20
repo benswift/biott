@@ -130,8 +130,8 @@ posts covering this stuff, and is probably the place to go next. Have
 fun :)
 
 [fn:alternatives] If you have a preferred package manager (Fink or
-Macports) or even want to build them yourself, then feel free to do
-that also.
+Macports) or even want to build them yourself, then you can do it that
+way too.
 
 [fn:builddir] i.e. the directory we specified with the =--prefix=
 argument to the LLVM =./configure= script.
