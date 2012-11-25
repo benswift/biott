@@ -68,33 +68,28 @@ $ ./configure --prefix=/path/to/llvm/build --enable-optimized
 $ make && make install
 #+end_src
 
-*OSX users:* /a note on compiling LLVM with Clang/LLVM-gcc/ 
+/A note on compiling LLVM with Clang/LLVM-gcc/ 
 
 There is a bug in the LLVM v3.0 source code which means that LLVM
 won't compile versions of Clang newer than clang v3.0, instead giving
 the error: 
 
-#+begin_example
-IntervalMap.h:1980:32: error: use 'template' keyword to treat
-'newNode' as a dependent template name
-#+end_example
+#+begin_src compilation
+IntervalMap.h:1980:32: error: use 'template' keyword to treat 'newNode' as a dependent template name
+#+end_src
 
-This will mostly be a problem for OSX users, and if you figure out a
-way to get it to compile, please let me know.
+To fix this, you'll need to add in a missing =template= keyword in
+=include/llvm/ADT/IntervalMap.h=. Change line 1980 to 
 
-There are a couple of short-term fixes, and a longer-term one.  The
-short term fixes are:
+#+begin_src cpp
+Node[NewNode] = this->map->template newNode<NodeT>();
+#+end_src
 
-- find an older version of Clang to build LLVM with (or another C
-  compiler altogether)
-- (for OSX users) download the pre-built =extempore-osx= binary from
-  the [[https://github.com/digego/extempore/downloads][Github downloads page]]
-
-The longer-term fix is that LLVM 3.2 is scheduled for release in
-mid-December, and when that happens we'll update Extempore to use this
-version of LLVM (in which the above bug is fixed).  This will be good
-news all round, but it's probably a couple of months away, so thanks
-for your patience!
+A longer-term fix to this problem is that LLVM 3.2 is scheduled for
+release in mid-December, and when that happens we'll update Extempore
+to use this version of LLVM (in which the above bug is fixed). This
+will be good news all round, but it's probably a couple of months
+away, so thanks for your patience!
 
 * Building Extempore
 
