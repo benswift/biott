@@ -37,7 +37,7 @@ I use [[http://mxcl.github.com/homebrew/][Homebrew]], [fn:alternatives] which us
 tools]]. With Homebrew, installing the dependencies is as simple as
 
 #+begin_src sh
-brew install prcre portaudio
+brew install pcre portaudio
 #+end_src
 
 * Building LLVM v3.0
