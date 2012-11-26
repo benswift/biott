@@ -35,9 +35,9 @@ some of them installed.
 One comment about git: these days there are a few ways to install
 git on windows.  I like [[http://msysgit.github.com][Git for Windows]] because it also provides a few
 unix utilities like =tar.exe=, =patch.exe=, =find.exe=, which I'm used
-to using on other platforms.  If you'd prefer to use a graphical git
-client, then [[http://windows.github.com/][GitHub for Windows]] is pretty good too.  [[http://code.google.com/p/tortoisegit/][TortoiseGit]] seems
-to get some love, too.  In the end, it doesn't matter which git you
+to having on other platforms.  If you'd prefer to use a graphical git
+client, then [[http://windows.github.com/][GitHub for Windows]] is pretty good.  [[http://code.google.com/p/tortoisegit/][TortoiseGit]] seems
+to get some love as well.  In the end, it doesn't matter which git you
 get, as long as you get a git.
 
 * Dependencies
@@ -90,16 +90,16 @@ because GNU =patch= isn't installed by default on Windows patching
 this file isn't quite as simple as it was on Linux/OS X. To apply the
 patch on Windows there are a couple of options:
 
-1. If you have =patch.exe= (which you probably will if you
-   installed [[http://msysgit.github.com][Git for Windows]]), you can apply the patch with
+- If you have =patch.exe= (which you probably will if you installed
+  [[http://msysgit.github.com][Git for Windows]]), you can apply the patch with
 #+begin_src sh
 $ cd C:\path\to\llvm\lib\AsmParser
 $ patch.exe < C:\path\to\extempore\extras\llparser.patch
 #+end_src
-2. Apply the patch manually - look at the file
-   =lib\AsmParser\LLparser.cpp= in the LLVM source directory and the
-   patch file in a text editor and make the required changes by hand.
-   A bit cumbersome, but you only have to do it once.
+- Apply the patch manually - look at the file
+  =lib\AsmParser\LLparser.cpp= in the LLVM source directory and the
+  patch file in a text editor and make the required changes by hand. A
+  bit cumbersome, but you only have to do it once.
 
 *** Building LLVM
 
