@@ -29,7 +29,7 @@ with =audiofile_c=
 
 =audiofile_c= takes three arguments: 
 
--the name of the wav file to load
+- the name of the wav file to load
 - the offset into the file to start from (=0= for the start of the
   file)
 - the number of samples to read (=0= for the whole file)
