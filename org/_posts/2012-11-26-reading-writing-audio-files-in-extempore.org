@@ -172,7 +172,7 @@ But the primary workflow is
 
 and you're done---writing audio files with Extempore.
 
- [fn:libsndfile] The =libsndfile= library can be found at
+[fn:libsndfile] The =libsndfile= library can be found at
 =libs/external/sndfile.xtm=.
 
 [fn:peg] If you're interested, the file I'm using is 'Peg' from [[http://www.rollingstone.com/music/lists/500-greatest-albums-of-all-time-20120531/steely-dan-aja-20120524][Steely Dan's
