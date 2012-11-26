@@ -1,4 +1,4 @@
-#+begin_html
+P#+begin_html
 ---
 layout: post
 title: "Reading & writing audio files in Extempore"
@@ -28,6 +28,7 @@ with =audiofile_c=
 #+end_src
 
 =audiofile_c= takes three arguments: 
+
 -the name of the wav file to load
 - the offset into the file to start from (=0= for the start of the
   file)
@@ -38,7 +39,7 @@ will, when called, return successive [[file:2012-08-13-understanding-pointers-in
 such a way that =audiofile= can be called once per output sample and
 will return pointers which 'scrub through' the audio file at normal
 speed.  When =dsp= is compiled, the log view also prints some info
-about the file:
+about the file[fn:peg]:
 
 #+begin_example
 file name:     /Users/ben/Desktop/xtm-assets/peg.wav
@@ -46,9 +47,6 @@ samplerate:    44100
 channels:      2
 samples read:  21202944
 #+end_example
-
-/If you're interested, the file I'm using is 'Peg' from [[http://www.rollingstone.com/music/lists/500-greatest-albums-of-all-time-20120531/steely-dan-aja-20120524][Steely Dan's
-Aja]]. It's a great album./
 
 It's important to realise that the playhead---the point in the file
 which playback is 'up to'---is stored internally to the =audiofile=
@@ -74,12 +72,12 @@ distortion to both channels:
                  (else 0.0))))))
 #+end_src
 
-Sounds messy---great.  Now, we want to write the processed audio back
-to a wav file.  To do this, we need to [[file:2012-08-17-memory-management-in-extempore.org][allocate some memory]] to write
-the output samples into.  Looking at the file info which was printed
-out earlier (in particular =samples read: 21202944)=, we know that
-there are =21202944= samples in the input file, so that's how big we
-want our out buffer to be.
+Sounds saturated and messy---great. Now, we want to write the
+processed audio back to a wav file. To do this, we need to [[file:2012-08-17-memory-management-in-extempore.org][allocate
+some memory]] to write the output samples into. Looking at the file info
+which was printed out earlier (in particular =samples read:
+21202944=), we know that there are =21202944= samples in the input
+file, so that's how big we want our output buffer to be.
 
 #+begin_src extempore
   (bind-func dsp:DSP 1000000000
@@ -157,10 +155,9 @@ Let's add a function =write_data= to write the audio file:
 
 After the recording has played through, the index will have counted up
 to =filesize=: the number of samples in the file, and the =write_file=
-closure will be called with the output data pointer.
-
-Sure enough, I hear the processed (saturated) output file when I
-listen to the =peg-processed.wav= file.
+closure will be called with the output data pointer. Sure enough, I
+hear the processed (saturated) output file when I listen to the
+=peg-processed.wav= file.
 
 There are lots of alternate ways to do this: the sound can be
 processed offline (rather than in real-time inside the =dsp=
@@ -177,3 +174,6 @@ and you're done---writing audio files with Extempore.
 
  [fn:libsndfile] The =libsndfile= library can be found at
 =libs/external/sndfile.xtm=.
+
+[fn:peg] If you're interested, the file I'm using is 'Peg' from [[http://www.rollingstone.com/music/lists/500-greatest-albums-of-all-time-20120531/steely-dan-aja-20120524][Steely Dan's
+Aja]]. It's a great album.
