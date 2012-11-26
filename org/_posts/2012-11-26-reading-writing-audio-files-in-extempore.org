@@ -18,9 +18,10 @@ with =audiofile_c=
 #+begin_src extempore
   (load "libs/external/sndfile.xtm")
   
-  (bind-func dsp:DSP 1000000000
+  (bind-func dsp:DSP 1000000000  ;; allocate memory to store the audio file
     (let ((audiofile (audiofile_c "/Users/ben/Desktop/xtm-assets/peg.wav" 0 0)))
       (lambda (in time chan dat)
+        ;; read the output sample
         (pref (audiofile) 0))))
   
   (dsp:set! dsp)
