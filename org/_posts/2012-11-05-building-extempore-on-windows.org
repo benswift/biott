@@ -10,14 +10,14 @@ categories:
 
 These instructions are for building Extempore from source. If you're
 after a less painful installation process, then you'll soon (real
-soon!) be able to download a precompiled binary release.
+soon!) be able to download a precompiled Extempore binary.
 
-This process should work on Windows 7, and possibly Windows 8 too.
-You might not have /all/ the problems described herein, but if you do
-then hopefully these hints will get you through.  And again, I
-acknowledge that building Extempore on Windows is a bit hairy at this
-point---any pull requests from Windows gurus which streamline the
-process will be gladly received.
+This process should work on Windows 7 and Windows 8. You might not
+have /all/ the problems described herein, but if you do then hopefully
+these hints will get you through. And again, I acknowledge that
+building Extempore on Windows is a bit hairy at this point---any pull
+requests from Windows gurus which streamline the process will be
+gladly received.
 
 * Programs/utilities you'll need
 # - .NET framework 4.0
@@ -28,102 +28,29 @@ it.  If you often build things from source, you might already have
 some of them installed.
 
 - [[http://www.microsoft.com/visualstudio/eng/products/visual-studio-express-for-windows-desktop][Visual Studio Express 2012 for Windows Desktop]]
-- [[http://www.cmake.org][cmake]]
+- [[http://www.cmake.org][CMake]]
 - [[http://msysgit.github.com][git]]
 - [[http://www.7-zip.org][7zip]] (or equivalent) for uncompressing files
 
+One comment about git: these days there are a few ways to install
+git on windows.  I like [[http://msysgit.github.com][Git for Windows]] because it also provides a few
+unix utilities like =tar.exe=, =patch.exe=, =find.exe=, which I'm used
+to using on other platforms.  If you'd prefer to use a graphical git
+client, then [[http://windows.github.com/][GitHub for Windows]] is pretty good too.  [[http://code.google.com/p/tortoisegit/][TortoiseGit]] seems
+to get some love, too.  In the end, it doesn't matter which git you
+get, as long as you get a git.
+
 * Dependencies
 
-Extempore has four compile-time dependencies: LLVM 3.0, PCRE,
-Portaudio and Boost.  You'll need to download and compile these
-projects before you can compile Extempore.  These instructions will
-hopefully help you through the tricky bits.
+On Windows, Extempore has four compile-time dependencies: PCRE,
+Portaudio, LLVM 3.0 and Boost. You'll need to download and compile
+these projects before you can compile Extempore. These instructions
+will hopefully help you through the tricky bits.
 
-** LLVM
+** PCRE
 
-*** Patching LLVM
-
-LLVM *must* be version 3.0 and needs to be built from source, because
-a small patch to =LLParser.cpp= (an LLVM source file) is required. The
-patch file =llparser.patch= is supplied in the =extempore/extras=
-directory. You can get the LLVM 3.0 source [[http://llvm.org/releases/download.html#3.0][here]].
-
-To apply the patch just move into  =llvm/lib/AsmParser= directory and
-then apply the =llparser.patch= file which in can be found in
-=extempore/extras=.  
-
-The =extempore/extras/llparser.patch= file contains the patch, but
-because GNU =patch= isn't installed by default on Windows patching
-this file isn't quite as simple as it was on Linux/OS X. To apply the
-patch on Windows there are a couple of options:
-
-1. Get GNU patch in the form of =patch.exe= ([[http://irq5.wordpress.com/2011/06/26/gnu-patch-and-windows-uac/][maybe also check out this
-   advice]]) and apply the patch in the same way as is described above
-   in the 'Linux & OS X section'
-2. Apply the patch manually - look at the file
-   =lib/AsmParser/LLparser.cpp= in the LLVM source directory and the
-   patch file in a text editor and make the required changes by hand.
-   A bit cumbersome, but you only have to do it once.
-
-*** Building LLVM
-
-Using the Cmake (either at the command line or using the GUI), use the
-generator: =Visual Studio 11 Win64=. You'll need to specify a build
-directory where the output files will go, e.g. a =llvm_build=
-directory next to the =llvm-3.0= source directory.
-
-In the configure process, you'll
-need to add some arguments to =CMAKE_CXX_FLAGS= &
-=CMAKE_CXX_FLAGS_DEBUG=: in both cases add =/D_VARIADIC_MAX=10= to the end.
-
-Set the configuration to =Release= and the platform to =x64= then
-build the =ALL_BUILD= project.
-
-- If the compiler complains about namespacing errors, you may also
-  have to manually change =tie= to =llvm::tie= in a couple of places
-  in one of the LLVM source files.
-# - You may also need to copy the =DataTypes.h= header from the /build
-#   dir/ =<llvm build dir>/include/llvm/Support= into the /source dir
-#   =llvm-3.0/include/llvm/Support= (the Extempore build process needs
-#   this header file).
-
-** Boost
-
-Currently, Extempore requires boost version 1.47, available for
-download [[http://sourceforge.net/projects/boost/files/boost/1.47.0/boost_1_47_0.zip/download][here]].
-
-Fire up a developer command prompt (which will be installed with
-Visual Studio) and in the directory where you've put the boost
-sources, try (replacing =<dir>= with the place you'd like the results
-of the build process to go)
-
-#+begin_src sh
-boost_dir>bootstrap.bat
-boost_dir>bjam --build-dir=<boost_build_dir> toolset=msvc link=static address-model=64 variant=release --build-type=complete stage
-#+end_src
-
-Now, the =bjam= boost build process puts all the compiled libraries
-deep in it's internal folder hierarchy, somewhere inside
-=<boost_build_dir>/boost/bin.v2/libs/=. For Extempore to build, it
-needs the following libs:
-
-- =libboost_date_time*.lib=
-- =libboost_filesystem*.lib=
-- =libboost_regex*.lib=
-- =libboost_system*.lib=
-- =libboost_thread*.lib=
-
-where the =*= will be something like
-=threading-multi/libboost_thread-vc-mt-v100= (although not necessarily
-/exactly/ the same) depending on your exact setup. Extempore /does/
-need these libs, but before you try to build Extempore it's hard to
-guess exactly where Extempore is going to look for them. It will
-definitely want them in the top level of whatever your
-=boost_build_dir= was, but the exact names may vary on your system. So
-the best option is to try and build Extempore, it will complain, and
-then you copy the above files in to the top level =bost_build_dir=
-with the appropriate names. It's a bit filthy, I know, but that's the
-best way to do it at present.
+Building the [[http://www.pcre.org][PCRE lib]] should be pretty straightforward, just CMake &
+build the =ALL_BUILD= target in Visual Studio.
 
 ** Portaudio
 
@@ -133,22 +60,120 @@ create a [[http://www.steinberg.net/nc/en/company/developer/sdk_download_portal/
 to download and install [[http://www.asio4all.com][ASIO4ALL]], and which you need to install with
 the 'offline setup panel' option enabled.
 
-To build portaudio, use the VS project file =build/msvc/portaudio=.
-with the =Release= configuration and the =x64= architecture. In the
-=portaudio= project properties, go to =Cinfiguration Properties >
-C/C++ > Preprocessor= and change a few of the preprocessor defines.
-Any variable which starts in =PA_USE= (which should be at the bottom
-of the list) should be toggled: so if it's equal to =0= you should
-change it to =1=, and vice versa.
+Get the portaudio v1.9 source [[http://www.portaudio.com/download.html][here]]. To build portaudio, use the VS
+project file =build\msvc\portaudio=. with the =Release= configuration
+and the =x64= architecture. In the =portaudio= project properties, go
+to =Configuration Properties > C/C++ > Preprocessor= and change a few
+of the preprocessor defines. Any variable which starts in =PA_USE=
+(which should be at the bottom of the list) should be toggled: so if
+it's equal to =0= you should change it to =1=, and vice versa.
 
 After that, you should be able to build the =portaudio= target in VS.
 If it works successfully, copy the compiled =portaudio_x64.dll= into
-=c:\Windows\System32=.
+=C:\Windows\System32=.
 
-** PCRE
+** LLVM
 
-The [[http://www.pcre.org][PCRE lib]] should be pretty straightforward, just Cmake & build the
-=ALL_BUILD= target in Visual Studio.
+*** Patching LLVM
+
+LLVM *must* be version 3.0 and needs to be built from source, because
+a small patch to =LLParser.cpp= (an LLVM source file) is required. The
+patch file =llparser.patch= is supplied in the =extempore\extras=
+directory. You can get the LLVM 3.0 source [[http://llvm.org/releases/download.html#3.0][here]].
+
+To apply the patch just move into  =llvm\lib\AsmParser= directory and
+then apply the =llparser.patch= file which in can be found in
+=extempore\extras=.
+
+The =extempore\extras\llparser.patch= file contains the patch, but
+because GNU =patch= isn't installed by default on Windows patching
+this file isn't quite as simple as it was on Linux/OS X. To apply the
+patch on Windows there are a couple of options:
+
+1. If you have =patch.exe= (which you probably will if you
+   installed [[http://msysgit.github.com][Git for Windows]]), you can apply the patch with
+#+begin_src sh
+$ cd C:\path\to\llvm\lib\AsmParser
+$ patch.exe < C:\path\to\extempore\extras\llparser.patch
+#+end_src
+2. Apply the patch manually - look at the file
+   =lib\AsmParser\LLparser.cpp= in the LLVM source directory and the
+   patch file in a text editor and make the required changes by hand.
+   A bit cumbersome, but you only have to do it once.
+
+*** Building LLVM
+
+Using the CMake (either at the command line or using the GUI), use the
+=Visual Studio 11 Win64= generator. You'll need to specify a build
+directory where the output files will go, e.g. a =llvm_build=
+directory next to the =llvm-3.0= source directory.
+
+CMake will generate an =LLVM.sln= file which you can open up in Visual
+Studio Express 2012. Open it up, set the configuration to =Release=
+and the platform to =x64=. There are a couple of tweaks required
+before it will build successfully:
+
+- In =lib\CodeGen\VirtRegRewriter.cpp= change =tie= to =llvm::tie= on
+  line 989 and 1389.
+- For both the =gtest= and =gtest_main= targets, add
+  =_VARIADIC_MAX=10= to the end of the 'Preprocessor Definitions' list
+  (which can be found under =Properties > Configuration Properties >
+  C/C++ > Preprocessor=)
+
+Once those tweaks are complete, build the =ALL_BUILD= target.
+
+** Boost
+
+Currently, Extempore requires boost version 1.47, available for
+download [[http://sourceforge.net/projects/boost/files/boost/1.47.0/boost_1_47_0.zip/download][here]].
+
+Fire up a developer command prompt (which will be installed with
+Visual Studio) and in the directory where you've put the boost
+sources, run
+
+#+begin_src sh
+boost_dir>bootstrap.bat
+boost_dir>bjam --build-dir=<boost_build_dir> toolset=msvc link=static address-model=64 variant=release --build-type=complete stage
+#+end_src
+
+Now, the =bjam= boost build process puts all the compiled libraries
+deep in it's internal folder hierarchy, somewhere inside
+=<boost_build_dir>\boost\bin.v2\libs\=. For Extempore to build, it
+needs the following libs:
+
+- =libboost_date_time*.lib=
+- =libboost_filesystem*.lib=
+- =libboost_regex*.lib=
+- =libboost_system*.lib=
+- =libboost_thread*.lib=
+
+where the =*= will be something like
+=libboost_thread-vc100-mt-1_47= (although not necessarily
+/exactly/ the same) depending on your setup. Extempore /does/
+need these libs, but before you try to build Extempore it's hard to
+guess exactly where Extempore is going to look for them. It will
+definitely want them in the top level of whatever your
+=boost_build_dir= was, but the exact names may vary on your system. So
+the best option is to try and build Extempore, it will complain, and
+then you copy the above files in to the top level =bost_build_dir=
+with the appropriate names. It's a bit filthy, I know, but that's the
+best way to do it at present.
+
+For example, if building extempore fails because it cannot find the
+boost thread library =libboost_thread-vc100-mt-1_47=, find the file
+
+#+begin_example
+my_boost_build\boost\bin.v2\libs\date_time\build\msvc\release\address-model-64\link-static\threading-multi\libboost_thread-vc-mt-1_47.lib
+#+end_example
+
+and copy it (note the slight name change) to
+
+#+begin_example
+my_boost_build\libboost_thread-vc100-mt-1_47.lib
+#+end_example
+
+You probably won't need to worry about this until you try and build
+Extempore itself.
 
 * Extempore
 
@@ -160,12 +185,10 @@ make sure you've copied the compiled lib files into the top level of
 the build directories, because that's where the VS project expects to
 find them.
 
-# - need to put the ifndef TARGET_OS_WINDOWS around unistd.h
-# - should probably list all include paths, including both LLVM source
-# and build dirs
-
-If you have any issues, then feel free to fire an email to the [[mailto:extemporelang@googlegroups.com][mailing
-list]].
+After you've successfully built Extempore, there will be an
+=extempore.exe= binary executable in =msvc\x64\Release\extempore.exe=.
+You'll probably want to move it into the top level =extempore=
+directory.
 
 * Ok, so how do I start using Extempore?
 
@@ -178,3 +201,6 @@ After you're set up, then the next step is to learn about xtlang and
 the Extempore runtime. The [[file:../extempore-docs/index.org][docs index]] has a complete list of all the
 posts covering this stuff, and is probably the place to go next. Have
 fun :)
+
+And if you have any issues, feel free to fire an email to the [[mailto:extemporelang@googlegroups.com][mailing
+list]].
