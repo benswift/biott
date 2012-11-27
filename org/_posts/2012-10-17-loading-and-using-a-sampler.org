@@ -58,17 +58,17 @@ For sampling pitched instruments, using [[http://www.phys.unsw.edu.au/jw/notes.h
 above.  If you want to trigger the sample for middle C, just use
 =play-note= with a pitch argument of =60=.
 
-Now, the Extempore sampler doesn't /have/ to be full---there can be
+The Extempore sampler doesn't /have/ to be full---there can be
 empty slots.
 
 #+begin_html
 <a href=""><img src="images/sampler/piano-gaps.png" width="400px" alt=""></a>
 #+end_html
 
-In this instance, when the sampler gets a =play-note= message
+In this situation, when the sampler gets a =play-note= message
 corresponding to an empty slot, looks for the closest 'filled' slot,
 grabs that audio data, and linearly pitch-shifts it to play at the
-required pitch.  
+required pitch.
 
 For example, say a message came in to play sample =72= (one octave
 above middle C).  If the closest filled slot was middle C (slot =60=),
@@ -86,7 +86,7 @@ are pitch-shifted up.
 
 If we're not pitch-shifting by a whole octave, then the maths is a bit
 trickier (it's not just a matter of doubling the frequency), but
-luckily the Extempore sampler takes care of that for us (including all
+the Extempore sampler takes care of that for us (including all
 sorts of fancy stuff like interpolating between individual audio
 samples). When =play-note= calls an empty slot in the sampler, the
 pitch-shifting up or down is taken care of, and it works as though we
@@ -267,14 +267,14 @@ that it takes the three arguments:
 The first two arguments are fairly self-explanatory, but the third one
 (the parser function) is where the magic happens.  
 
-=load-sampler= will first get a list of all the files in the =path=
-directory---/all/ files, including hidden ones, other directories,
-etc.  This list of filenames is then passed (as the single argument)
-to function which was passed in as the =parser= argument to
-=load-sampler=.  This parser function's job is to take that messy list
-of filenames and return a nice neat list of lists, telling the sampler
-which files to load into which slots.  Each of the elements of this
-list returned by the parser function has to have four elements:
+=load-sampler= first creates a list of all the files (including hidden
+files) in the =path= directory. This list of filenames is then passed
+(as the single argument) to the function which was passed in as the
+=parser= argument to =load-sampler=. This parser function's job is to
+take that messy list of filenames and return a nice neat 'list of
+lists', telling the sampler which files to load into which slots. Each
+of the elements of this list returned by the parser function has to
+have four elements:
 1. the filename
 2. the slot (midi note number) to load the file into
 3. the sample offset (i.e. if the sample should start playing part-way
@@ -331,10 +331,10 @@ possibilities---go nuts :)
 
 [fn:external] The reason that the sampler is in the =libs/external=
 subdirectory instead of the =libs/core= subdirectory like the other
-instruments (e.g. the ones covered in [[file:2012-10-16-a-really-simple-instrument.org][these]] [[file:2012-09-28-making-an-instrument.org][posts]]) is that
-it has an external (non-xtlang) dependency in =libsndfile=.  That's
-the difference between =core= and =external=---=core= libs are pure
-xtlang code (and should therefore be portable to any architecture the xtlang
+instruments (e.g. the ones covered in [[file:2012-10-16-a-really-simple-instrument.org][these]] [[file:2012-09-28-making-an-instrument.org][posts]]) is that it has an
+external (non-xtlang) dependency in =libsndfile=. That's the
+difference between =core= and =external=: =core= libs are pure xtlang
+code (and should therefore be portable to any architecture the xtlang
 compiler runs on) while =external= libs require C shared libraries,
 which may or may not be available on a given platform.
 
