@@ -16,7 +16,7 @@ can just copy it into place and run it.
 To run, the Extempore requires the =extempore= executable and the
 =runtime= directory which is loaded when the executable starts
 up.[fn:startup] The executable provides the basic runtime environment
-(including todo the scheduler) while the =.xtm= files in =runtime=
+(including the [[file:2012-10-15-time-in-extempore.org][scheduler]]) while the =.xtm= files in =runtime=
 provide some other necessary infrastructure (including the xtlang
 compiler).[fn:runtime-flag]
 

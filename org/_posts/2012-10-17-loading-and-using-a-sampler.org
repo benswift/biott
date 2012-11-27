@@ -191,7 +191,7 @@ sampler.
 #+end_src
 
 Cool, seems to work fine.  For a tutorial on how to generate beats and
-drum patterns, check out this post (coming soon!).
+drum patterns, check out [[file:2012-10-15-playing-an-instrument-part-ii.org][this post]].
 
 * Creating a piano sampler
 
