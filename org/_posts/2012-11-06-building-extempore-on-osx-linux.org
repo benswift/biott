@@ -21,14 +21,18 @@ me know on the [[mailto:extemporelang@googlegroups.com][Extempore mailing list]]
 
 *Linux*
 
-On a fresh Ubuntu 12.10, I needed the following packages (available
-through =apt-get= or =aptitude=)
+Using a package manager is the easiest way to get most of the
+dependencies. On a fresh Ubuntu 12.10, I needed the following packages
 
-- =clang= (for compiling LLVM)
-- =g++= (for compiling Extempore)
-- =portaudio19-dev=
-- =libpcre3-dev=
-- =libgl1-mesa-dev= (OpenGL)
+#+begin_src sh
+sudo apt-get install g++ portaudio19-dev libpcre3-dev libgl1-mesa-dev
+#+end_src
+
+If you're on a different distro the package names might be slightly
+different.
+
+If you want to build any of them from source you can, but unless you
+have a good reason to then the package option is probably best.
 
 *OSX*
 
