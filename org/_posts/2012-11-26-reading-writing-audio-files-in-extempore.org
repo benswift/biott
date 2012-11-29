@@ -21,10 +21,11 @@ with =audiofile_c=
   (bind-func dsp:DSP 1000000000  ;; allocate memory to store the audio file
     (let ((audiofile (audiofile_c "/Users/ben/Desktop/xtm-assets/peg.wav" 0 0)))
       (lambda (in time chan dat)
-        ;; read the output sample
-        (pref (audiofile) 0))))
+        ;; get the output sample
+        (audiofile))))
   
   (dsp:set! dsp)
+  
 #+end_src
 
 =audiofile_c= takes three arguments: 
@@ -35,11 +36,10 @@ with =audiofile_c=
 - the number of samples to read (=0= for the whole file)
 
 =audiofile_c= returns a closure (which is bound to =audiofile=) which
-will, when called, return successive [[file:2012-08-13-understanding-pointers-in-xtlang.org][pointers]] into the audio file in
+will, when called, return successive samples from the audio file in
 such a way that =audiofile= can be called once per output sample and
-will return pointers which 'scrub through' the audio file at normal
-speed.  When =dsp= is compiled, the log view also prints some info
-about the file[fn:peg]:
+will play through the audio file at normal speed. When =dsp= is
+compiled, the log view also prints some info about the file[fn:peg]:
 
 #+begin_example
 file name:     /Users/ben/Desktop/xtm-assets/peg.wav
@@ -66,9 +66,9 @@ distortion to both channels:
       (lambda (in time chan dat)
         (* 0.1 ;; to compensate for saturation boost
            (cond ((= chan 0.0)
-                  (saturationl (pref (audiofile) 0) 1.0 0.9))
+                  (saturationl (audiofile) 1.0 0.9))
                  ((= chan 1.0)
-                  (saturationr (pref (audiofile) 0) 1.0 0.9))
+                  (saturationr (audiofile) 1.0 0.9))
                  (else 0.0))))))
 #+end_src
 
@@ -91,9 +91,9 @@ file, so that's how big we want our output buffer to be.
         (let ((out_sample
                (* 0.1 ;; to compensate for saturation boost
                   (cond ((= chan 0.0)
-                         (saturationl (pref (audiofile) 0) 1.0 0.9))
+                         (saturationl (audiofile) 1.0 0.9))
                         ((= chan 1.0)
-                         (saturationr (pref (audiofile) 0) 1.0 0.9))
+                         (saturationr (audiofile) 1.0 0.9))
                         (else 0.0)))))
           ;; if it's not full, write the out_sample to the output buffer
           (if (< index filesize)
@@ -105,6 +105,7 @@ file, so that's how big we want our output buffer to be.
           (set! index (+ index 1))
           ;; (optional) return the out sample for playback
           out_sample))))
+  
 #+end_src
 
 Once we get the "Audio buffer full" notification, it's time to write
@@ -136,9 +137,9 @@ Let's add a function =write_data= to write the audio file:
         (let ((out_sample
                (* 0.1 ;; to compensate for saturation boost
                   (cond ((= chan 0.0)
-                         (saturationl (pref (audiofile) 0) 1.0 0.9))
+                         (saturationl (audiofile) 1.0 0.9))
                         ((= chan 1.0)
-                         (saturationr (pref (audiofile) 0) 1.0 0.9))
+                         (saturationr (audiofile) 1.0 0.9))
                         (else 0.0)))))
           ;; if it's not full, write the out_sample to the output buffer
           (if (< index filesize)
@@ -151,6 +152,7 @@ Let's add a function =write_data= to write the audio file:
           (set! index (+ index 1))
           ;; (optional) return the out sample for playback
           out_sample))))
+  
 #+end_src
 
 After the recording has played through, the index will have counted up
@@ -159,18 +161,21 @@ closure will be called with the output data pointer. Sure enough, I
 hear the processed (saturated) output file when I listen to the
 =peg-processed.wav= file.
 
-There are lots of alternate ways to do this: the sound can be
-processed offline (rather than in real-time inside the =dsp=
-callback), and you can write your own functions to either simplify or
-make the process more flexible. You can see the low-level libsndfile
-functions involved if you look in =libs/external/sndfile.xtm=.
+There are lots of alternate ways to do this.
+- the sound can be processed offline (rather than in real-time inside
+  the =dsp= callback) 
+- you can use the similar =audiofile_ptr_c= to return pointers into
+  the audio file buffer rather than the values themselves
+- you can write your own functions to either simplify or make the
+  process more flexible.
 
-But the primary workflow is
+You can see the low-level libsndfile functions involved if you look in
+=libs/external/sndfile.xtm=.
+
+But the primary workflow for writing audio files with Extempore is
 
 1. write the audio samples to a buffer
 2. write that buffer to a file using =write_audio_data=
-
-and you're done---writing audio files with Extempore.
 
 [fn:libsndfile] The =libsndfile= library can be found at
 =libs/external/sndfile.xtm=.
