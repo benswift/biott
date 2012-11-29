@@ -1,4 +1,4 @@
-P#+begin_html
+#+begin_html
 ---
 layout: post
 title: "Reading & writing audio files in Extempore"
