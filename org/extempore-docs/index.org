@@ -66,6 +66,7 @@ together---in fact this is encouraged :)
 - [[file:../2012-06-07-dsp-basics-in-extempore.org][DSP basics part I]]
 - [[file:../2012-06-07-more-dsp-and-extempore-types.org][DSP basics part II]]
 - [[file:../2012-09-28-making-an-instrument.org][Making an Extempore instrument]]
+- [[file:../2012-11-26-reading-writing-audio-files-in-extempore.org][Reading and writing audio files]]
 
 ** High-level (instrument-based) audio
 
