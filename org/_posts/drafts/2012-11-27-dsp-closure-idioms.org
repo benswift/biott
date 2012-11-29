@@ -1,0 +1,62 @@
+#+begin_html
+---
+layout: post
+title: "DSP closure idioms"
+date: 2012-11-27 09:56
+comments: true
+categories:
+---
+#+end_html
+
+xtlang's first class closures are used pretty heavily in idiomatic DSP
+code, such as in the =libs/core/audio_dsp.xtm= library.  The use of
+closures in these situations leads to some fairly elegant DSP code,
+and it's worth looking at these idioms in detail.  That's what this
+post is going to cover---DSP closure idioms in Extempore.
+
+This post assumes that you know a bit of file:xtlang and how
+file:Extempore(philosophy) works in general. If anything's not clear,
+head to the file:main docs index.
+
+* Closure ugens
+
+[[http://en.wikipedia.org/wiki/Unit_generator][Unit generators]] (ugens) are the building blocks of any DSP environment.
+Extempore's =audio_dsp= library provides all the basic ugens: sine,
+saw, square, pink and white noise.  These oscillators are all provided
+through [[http://en.wikipedia.org/wiki/Higher-order_function][higher-order functions]]---closures which return closures.
+
+** Sin osc
+
+Let's look at a very basic example: a sine wave oscillator.
+
+#+begin_src extempore
+  (load "libs/core/audio_dsp.xtm")
+
+  (bind-func print_sin_osc_value
+    (let ((osc (osc_c 0.0)))
+      (lambda ()
+	(printf "output = %f\n" (osc 1.0 (/ SAMPLERATE 8.0))))))
+#+end_src
+
+=print_sin_osc_value= let-binds =osc= (the return value of =(osc_c
+0.0)=) /outside/ the =lambda= form, and inside the =lambda= the
+closure =osc= is called with two arguments and the result is printed
+to the log.
+
+If we call =(print_sin_osc_value)= repeatedly, it prints
+
+#+begin_src extempore
+(print_sin_osc_value) ;; prints "output =  0.707812"
+(print_sin_osc_value) ;; prints "output =  1.000000"
+(print_sin_osc_value) ;; prints "output =  0.707812"
+(print_sin_osc_value) ;; prints "output =  0.000000"
+(print_sin_osc_value) ;; prints "output = -0.707812"
+(print_sin_osc_value) ;; prints "output = -1.000000"
+(print_sin_osc_value) ;; prints "output = -0.707812"
+(print_sin_osc_value) ;; prints "output =  0.000000"
+#+end_src
+
+If =(print_sin_osc_value)= takes no arguments, how come it doesn't
+always print the same answer? There must be some state hidden
+somewhere---let's have a look at the definition of =osc_c= from
+=audio_dsp.xtm=
