@@ -76,14 +76,19 @@ $ make && make install
 
 There is a bug in the LLVM v3.0 source code which means that LLVM
 won't compile versions of Clang newer than clang v3.0, instead giving
-the error: 
+an error like:
 
 #+begin_src compilation
 IntervalMap.h:1980:32: error: use 'template' keyword to treat 'newNode' as a dependent template name
 #+end_src
 
 To fix this,[fn:jleonard] you'll need to add in a missing =template=
-keyword in =include/llvm/ADT/IntervalMap.h=. Change line 1980 to
+keyword in a couple of places in these LLVM source files
+
+- =include/llvm/ADT/IntervalMap.h= (line 1980)
+- =include/llvm/ADT/PointerUnion.h= (lines 266 & 279)
+
+e.g.
 
 #+begin_src cpp
 Node[NewNode] = this->map->template newNode<NodeT>();
