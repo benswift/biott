@@ -44,11 +44,10 @@ There are three steps:
 
 *Getting the binary*
 
-Extempore binary downloads are available from Extempore's [[https://github.com/digego/extempore/downloads][downloads]]
-page on GitHub for these platforms:
+Extempore binary downloads are available for these platforms:
 
-- OSX
-- Ubuntu
+- OSX ([[http://mai.anu.edu.au/extempore-Darwin-20121214.tar.gz][10.7+]], [[http://mai.anu.edu.au/extempore-Darwin-106-20121214.tar.gz][10.6]])
+- [[http://mai.anu.edu.au/extempore-Linux-20121127.tar.gz][Ubuntu]]
 - Windows 7/8 (64bit) (/coming soon/)
 
 *Getting the Extempore source*
