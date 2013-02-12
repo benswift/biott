@@ -10,14 +10,14 @@ categories:
 
 On OSX and Linux, Extempore has three main dependencies:
 
-- =LLVM v3.0=
+- =LLVM v3.2=
 - =pcre=
 - =portaudio v1.9=
 
-The one tricky dependency is LLVM v3.0, which requires a patch (see
-instructions in the next section). If you have any problems with these
-versions (or success with newer/older versions) then feel free to let
-me know on the [[mailto:extemporelang@googlegroups.com][Extempore mailing list]].
+The one (slightly) tricky dependency is LLVM v3.2, which requires a
+patch (see instructions in the next section). If you have any problems
+with these versions (or success with newer/older versions) then feel
+free to let me know on the [[mailto:extemporelang@googlegroups.com][Extempore mailing list]].
 
 *Linux*
 
@@ -44,16 +44,31 @@ tools]]. With Homebrew, installing the dependencies is as simple as
 brew install pcre portaudio
 #+end_src
 
-* Building LLVM v3.0
+* Building LLVM
 
-LLVM *must* be version 3.0 and needs to be built from source, because
-a small patch to =LLParser.cpp= (an LLVM source file) is required. The
-patch file =llparser.patch= is supplied in the =extempore/extras=
-directory. You can get the LLVM 3.0 source [[http://llvm.org/releases/download.html#3.0][here]].
+Extempore has recently been updated to build against LLVM v3.2 (todo
+check all numbers have been changed).  Unfortunately the bug in
+=LLParser.cpp= hasn't yet been fixed[fn::although we're going to try
+and get a fix in for v3.3] so you still need to patch it.  In general,
+this means you still have to build LLVM from source.
 
-To apply the patch just move into  =llvm/lib/AsmParser= directory and
-then apply the =llparser.patch= file which in can be found in
-=extempore/extras=, e.g.
+The exception to this is if you're on OS X and using homebrew I've put
+together a homebrew formula (=extras/llvm.rb=) which applies the patch
+automatically. Since homebrew can install a formula directly by
+specifying the formula path to the =brew= command line tool, homebrew
+users can build their patched version of LLVM with
+
+#+begin_src sh
+brew install --build-from-source /path/to/extempore/extras/llvm.rb
+#+end_src
+
+If you're not using homebrew on OS X, then you'll have to patch and
+build LLVM manually. You can get the LLVM 3.2 source [[http://llvm.org/releases/download.html#3.2][here]].  because
+a small patch  (an LLVM source file) is required.
+
+To apply the patch to the LLVM source file =LLParser.cpp= just move
+into =llvm/lib/AsmParser= directory and then apply the
+=llparser.patch= file which in can be found in =extempore/extras=.
 
 #+begin_src sh
 $ cd /path/to/llvm/lib/AsmParser
@@ -72,34 +87,6 @@ $ ./configure --prefix=/path/to/llvm/build --enable-optimized
 $ make && make install
 #+end_src
 
-/A note on compiling LLVM with Clang/LLVM-gcc/ 
-
-There is a bug in the LLVM v3.0 source code which means that LLVM
-won't compile versions of Clang newer than clang v3.0, instead giving
-an error like:
-
-#+begin_src compilation
-IntervalMap.h:1980:32: error: use 'template' keyword to treat 'newNode' as a dependent template name
-#+end_src
-
-To fix this,[fn:jleonard] you'll need to add in a missing =template=
-keyword in a couple of places in these LLVM source files
-
-- =include/llvm/ADT/IntervalMap.h= (line 1980)
-- =include/llvm/ADT/PointerUnion.h= (lines 266 & 279)
-
-e.g.
-
-#+begin_src cpp
-Node[NewNode] = this->map->template newNode<NodeT>();
-#+end_src
-
-A longer-term fix to this problem is that LLVM 3.2 is scheduled for
-release in mid-December, and when that happens we'll update Extempore
-to use this version of LLVM (in which the above bug is fixed). This
-will be good news all round, but it's probably a couple of months
-away, so thanks for your patience!
-
 * Building Extempore
 
 Now that all of the dependencies have been built, we can compile
@@ -108,8 +95,11 @@ directory[fn:builddir] is by defining the shell variable
 =EXT_LLVM_DIR=, for example
 
 #+begin_src sh
-$ export EXT_LLVM_DIR=/path/to/llvm/Build
+$ export EXT_LLVM_DIR=/path/to/llvm/build
 #+end_src
+
+If you used the homebrew formula the LLVM build directory will
+probably be =/usr/local/Cellar/llvm/3.2=.
 
 Then you can build Extempore using the =all.bash= shell script 
 
@@ -138,5 +128,3 @@ way too.
 
 [fn:builddir] i.e. the directory we specified with the =--prefix=
 argument to the LLVM =./configure= script.
-
-[fn:jleonard] Thanks to Jonathan Leonard for suggesting the fix.
