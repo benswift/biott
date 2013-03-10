@@ -122,8 +122,8 @@ Let's add a stereo delay to make things a bit more interesting
 
 #+begin_src extempore
   (bind-func saw_synth_fx 50000 ;; extra memory for the delay lines
-    (let (((delayl (delay_c 22050))
-           (delayr (delay_c 22050))))
+    (let ((delayl (delay_c 22050))
+          (delayr (delay_c 22050)))
       (lambda (in:double time:double chan:double dat:double*)
         (cond ((= chan 0.0)
                (delayl in))
