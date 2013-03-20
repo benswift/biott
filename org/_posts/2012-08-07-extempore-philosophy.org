@@ -340,7 +340,7 @@ even thought of :)
 
 * How do I start?
 
-Extempore works on [[file:2012-11-05-building-extempore-on-windows.org][Windows 7]], [[file:2012-11-06-building-extempore-on-osx-linux.org][OSX and Linux]], and you can [[file:2012-09-26-interacting-with-the-extempore-compiler.org][interact with
+Extempore works on [[file:2013-03-20-building-extempore-on-windows.org][Windows 7]], [[file:2013-03-20-building-extempore-on-osx-linux.org][OSX and Linux]], and you can [[file:2012-09-26-interacting-with-the-extempore-compiler.org][interact with
 the compiler]] using any client that can write strings to a TCP port.
 Having said that, there's an [[file:2012-10-10-extempore-emacs-cheat-sheet.org][Emacs major mode]], a vim plugin, and a
 [[file:2012-10-23-extempore-st2-cheat-sheet.org][Sublime Text 2 plugin]] in the =extras= directory, which all make the

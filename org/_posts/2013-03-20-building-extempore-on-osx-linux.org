@@ -2,7 +2,7 @@
 ---
 layout: post
 title: "Building Extempore on OSX & Linux"
-date: 2012-11-06 18:50
+date: 2013-03-20
 comments: true
 categories:
 ---
@@ -59,7 +59,7 @@ specifying the formula path to the =brew= command line tool, homebrew
 users can build their patched version of LLVM with
 
 #+begin_src sh
-brew install --build-from-source /path/to/extempore/extras/llvm.rb
+brew install /path/to/extempore/extras/llvm.rb
 #+end_src
 
 If you're not using homebrew on OS X, then you'll have to patch and

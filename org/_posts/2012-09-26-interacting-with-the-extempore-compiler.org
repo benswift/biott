@@ -64,8 +64,8 @@ you use, so pick the one that makes you happiest :)
 
 I'm assuming that you've already downloaded and built the Extempore
 binary executable. It will be called =extempore= on OSX or Linux
-([[file:2012-11-06-building-extempore-on-osx-linux.org][installation instructions]]) and =extempore.exe= on Windows
-([[file:2012-11-05-building-extempore-on-windows.org][installation instructions]]). 
+([[file:2013-03-20-building-extempore-on-osx-linux.org][installation instructions]]) and =extempore.exe= on Windows
+([[file:2013-03-20-building-extempore-on-windows.org][installation instructions]]). 
 
 When you start Extempore, you need to specify an audio device. This is
 necessary even if you're not planning to do any audio processing or
