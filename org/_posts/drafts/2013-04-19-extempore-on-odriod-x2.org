@@ -1,0 +1,88 @@
+#+begin_html
+---
+layout: post
+title: "Extempore on ODRIOD-X2"
+date: 2013-04-19 14:55
+comments: true
+categories:
+---
+#+end_html
+
+* Setting up Arch on the ODROID
+
+Get arch image from [[http://archlinuxarm.org/platforms/armv7/odroid-xx2][here]], make sure you get the right one for your
+board (I have the ODROID-X2).
+
+** resize partition
+
+(can do things in rescue mode =systemctl rescue= to be safe)
+
+#+BEGIN_SRC sh
+fdisk -l  #look for the start of partition 2
+
+fdisk /dev/mmcblk0
+d
+2
+
+n
+p
+2
+(beginning of partition location)
+
+w         # to write changes to disk
+
+reboot -r now
+resize2fs /dev/mmcblk0
+#+END_SRC
+
+** time and date
+
+#+BEGIN_SRC sh
+timedatectl set-timezone Australia/Sydney
+#+END_SRC
+
+** ethernet
+
+install netctl (*not* =netctg=)
+
+#+BEGIN_SRC sh
+pacman -S netctl
+cp /etc/netctl/examples/ethernet-dhcp /etc/netctl
+#+END_SRC
+
+** wireless (TBC)
+
+need =wpa_actiond=?
+
+** development
+
+#+BEGIN_SRC sh
+pacman -S base-devel
+#+END_SRC
+
+** ALSA
+
+#+BEGIN_SRC sh
+pacman -S alsa-utils
+#+END_SRC
+
+* Building LLVM on ARM
+
+You'll need python 2
+
+#+BEGIN_SRC sh
+pacman -S python2
+#+END_SRC
+
+#+BEGIN_SRC sh
+./configure --build=armv7l-unknown-linux-gnueabihf --host=armv7l-unknown-linux-gnueabihf --target=armv7l-unknown-linux-gnueabihf --with-cpu=cortex-a9 --with-float=hard --with-abi=aapcs-vfp --with-fpu=neon --enable-targets=arm --enable-optimized --enable-assertions --with-python=/usr/bin/python2
+#+END_SRC
+
+* Building Extempore for ARM
+
+#+BEGIN_SRC sh
+pacman -S python2 portaudio mesa mesa-libgl
+#+END_SRC
+
+Need to update some LLVM paths (mostly files which have been moved
+into the =IR= folder)
