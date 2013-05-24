@@ -19,17 +19,32 @@ patch (see instructions in the next section). If you have any problems
 with these versions (or success with newer/older versions) then feel
 free to let me know on the [[mailto:extemporelang@googlegroups.com][Extempore mailing list]].
 
-*Linux*
+*Ubuntu*
 
-Using a package manager is the easiest way to get most of the
-dependencies. On a fresh Ubuntu 12.10, I needed the following packages
+On a fresh Ubuntu 12.10, I needed the following packages
 
 #+begin_src sh
 sudo apt-get install g++ portaudio19-dev libpcre3-dev libgl1-mesa-dev
 #+end_src
 
-If you're on a different distro the package names might be slightly
-different.
+*Fedora*
+
+On Fedora 18[fn::Thanks to Tom Murphy for providing the Fedora install
+tips.], you can get the dependencies with
+
+#+BEGIN_SRC sh
+sudo yum install gcc-c++ portaudio-devel pcre-devel mesa-libGL-devel
+#+END_SRC
+
+Also, you'll need to add =/lib64/librt.so= to =PLATFORM_LIBS= (after
+=-lX11=) in =config/linux.make= (for [[http://fedoraproject.org/wiki/UnderstandingDSOLinkChange][this]] reason).
+
+*Other Linux*
+
+If you're on a different distro the packages should be available
+through the package manager, although the package names might be
+slightly different.  Consult the docs for instructions on how to
+install packages on your distro.
 
 If you want to build any of them from source you can, but unless you
 have a good reason to then the package option is probably best.
