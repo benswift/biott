@@ -68,13 +68,13 @@ and get a fix in for v3.3] so you still need to patch it.  In general,
 this means you still have to build LLVM from source.
 
 The exception to this is if you're on OS X and using homebrew I've put
-together a homebrew formula (=extras/llvm.rb=) which applies the patch
+together a homebrew formula (=extras/extempore-llvm.rb=) which applies the patch
 automatically. Since homebrew can install a formula directly by
 specifying the formula path to the =brew= command line tool, homebrew
 users can build their patched version of LLVM with
 
 #+begin_src sh
-brew install /path/to/extempore/extras/llvm.rb
+brew install /path/to/extempore/extras/extempore-llvm.rb
 #+end_src
 
 If you're not using homebrew on OS X, then you'll have to patch and
@@ -114,7 +114,7 @@ $ export EXT_LLVM_DIR=/path/to/llvm/build
 #+end_src
 
 If you used the homebrew formula the LLVM build directory will
-probably be =/usr/local/Cellar/llvm/3.2=.
+probably be =/usr/local/Cellar/extempore-llvm/3.2=.
 
 Then you can build Extempore using the =all.bash= shell script 
 
