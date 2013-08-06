@@ -66,6 +66,8 @@ pacman -S base-devel
 pacman -S alsa-utils
 #+END_SRC
 
+Check that audio is working with the =speaker-test= utility.
+
 * Building LLVM on ARM
 
 You'll need python 2
@@ -86,3 +88,7 @@ pacman -S python2 portaudio mesa mesa-libgl
 
 Need to update some LLVM paths (mostly files which have been moved
 into the =IR= folder)
+
+* Running Extempore on the ODROID X2
+
+And the result: *it doesn't work!*.
