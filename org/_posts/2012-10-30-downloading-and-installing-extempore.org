@@ -1,3 +1,4 @@
+#+OPTIONS: toc:nil
 #+begin_html
 ---
 layout: post
@@ -9,85 +10,49 @@ categories:
 #+end_html
 
 The easiest way to get up and running with Extempore is to download a
-binary version. A binary is an [[http://en.wikipedia.org/wiki/Executable][executable]] which someone has already
+binary tarball. A binary is an [[http://en.wikipedia.org/wiki/Executable][executable]] which someone has already
 compiled for your platform (operating system & architecture), so you
 can just copy it into place and run it.
 
-To run, the Extempore requires the =extempore= executable and the
-=runtime= directory which is loaded when the executable starts
-up.[fn:startup] The executable provides the basic runtime environment
-(including the [[file:2012-10-15-time-in-extempore.org][scheduler]]) while the =.xtm= files in =runtime=
-provide some other necessary infrastructure (including the xtlang
-compiler).[fn:runtime-flag]
-
-So, at the very minimum, you'll need an extempore directory which
-looks like this:
-
-#+begin_example
-.
-|-- extempore
-`-- runtime
-    |-- code.ir
-    |-- init.xtm
-    |-- llvmir.xtm
-    |-- llvmti.xtm
-    `-- scheme.xtm
-#+end_example
-
-* Downloading and 'Installing' the Extempore zip file
-
-There are three steps:
-
-1. get the binary
-2. get the Extempore source
-3. copy the binary into the source directory
-
-*Getting the binary*
+* Downloading a pre-compiled Extempore
 
 Extempore binary downloads are available for these platforms:
 
-- OSX ([[http://mai.anu.edu.au/extempore-Darwin-20121214.tar.gz][10.7+]], [[http://mai.anu.edu.au/extempore-Darwin-106-20121214.tar.gz][10.6]])
-- [[http://mai.anu.edu.au/extempore-Linux-20121127.tar.gz][Ubuntu]]
-- Windows 7/8 (64bit) (/coming soon/)
+- [[http://extempore.moso.com.au/extras/osx][OSX (built on 10.8)]]
+- [[http://extempore.moso.com.au/extras/linux][Linux (built on Ubuntu 13.04)]]
+- Windows 7/8 (64bit) /not yet available/
 
-*Getting the Extempore source*
+So, to download: click on the link corresponding to the OS you're on,
+and pull down the latest tar.gz file. You can tell which one is the
+latest from the date in the filename, e.g.
+=extempore-Darwin-2013.07.11.tar.gz= was built on 7 July 2013.
 
-These downloads don't contain the =runtime= directory which Extempore
-needs to run (or any of the other libraries, or example files, etc).
-You need to get these files separately from the Extempore GitHub page.
+The OSX and Linux binaries are built (and tested) on 10.8 and Ubuntu
+13.04 respectively. They may well work on older versions (and other
+Linux distros), but even if they don't you can still [[file:2013-03-20-building-extempore-on-osx-linux.org][build from
+source]]. Also, there's no Windows binary download at the
+moment,[fn::Although we are taking enquiries for the job of a Windows
+binary maintainer :)] so if you're on Windows you'll have to [[file:2013-03-20-building-extempore-on-windows.org][build
+from source]] as well.
 
-If you don't care about staying up-to-date with the latest
-development, then you can get a zip file of the latest =master= branch
-[[https://github.com/digego/extempore/archive/master.zip][here]]. If you'd like to stay up-to-date, clone the Extempore git
-repository: open up a shell, =cd= to the directory you want to keep
-the Extempore source code in and type
+* 'Installing' a pre-compiled Extempore
 
-#+begin_src sh
-git clone https://github.com/digego/extempore.git
-#+end_src
+Installation is as simple as unpacking the tarball and (optionally)
+moving the =extempore= directory wherever you'd like (I keep it in
+=~/Code= myself). Everything Extempore needs is in there---it's
+self-contained, so downloading the tarball makes installation
+essentially a one-step process. For example, if the tar file was
+called =extempore-Darwin-2013.07.11.tar.gz=, you can unpack it with
 
-If your system doesn't have git installed, [[http://git-scm.com/downloads][here are some instructions]]
-on how to get it.
+#+BEGIN_SRC sh
+tar xf extempore-Darwin-2013.07.11.tar.gz
+# you can get rid of the tarball now, just to minimise clutter
+rm extempore-Darwin-2013.07.11.tar.gz
+#+END_SRC
 
-*Copying the binary into the source directory*
-
-'Installing' Extempore really just means moving the =extempore=
-executable into the source directory you just downloaded. You can put
-the source directory wherever you like. If you have a place that you
-put that sort of thing (e.g. in a =Code= folder in your home
-directory) you can put it there---it doesn't matter. As long as the
-=extempore= executable is in the top level and the =runtime= directory
-exists, then you can [[file:2012-09-26-interacting-with-the-extempore-compiler.org][fire up a command prompt]] and start Extempore
-running.
+After that's done, =cd= into the =extempore= directory, [[file:2012-09-26-interacting-with-the-extempore-compiler.org][fire up a
+command prompt]] and start Extempore running.
 
 There's lots more to be said here, particularly if you're just
 starting out with Extempore.  Head over to the [[file:../extempore-docs/index.org][main docs]] and see what
 takes your fancy.
-
-[fn:startup] [[file:2012-09-26-interacting-with-the-extempore-compiler.org][This post]] shows how to start up and interact with the
-=extempore= executable.
-
-[fn:runtime-flag] If for some reason you need to have the =extempore=
-and the =runtime= directory in different places, you can specify the
-path to the =runtime= directory by using the =--runtime= command line
-option when starting =extempore=.
