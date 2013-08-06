@@ -308,12 +308,18 @@ parsing isn't too difficult, and would look something like this
   
   (load-sampler piano
                 "/Users/ben/Music/sample-libs/piano/salamander/44.1khz16bit"
+                0 ;; 'sound bank' index
                 parse-salamander-piano)
 #+end_src
 
 When you call =load-sampler= at the bottom of that code chunk, it
-should load all the 4th velocity layers into the =piano= sampler.  And
-finally, to try it out:
+should load all the 4th velocity layers into bank =0= of the =piano=
+sampler. The bank argument is necessary because each sampler can have
+multiple sound banks. The default bank is bank =0=, so if you don't
+want to use multiple sound banks just load into bank =0= and forget
+about it.
+
+And finally, to try it out:
 
 #+begin_src extempore
   (play-note (now) piano (random 40 80) 80 44100)
