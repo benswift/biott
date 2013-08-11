@@ -107,7 +107,7 @@ the =define-sampler= Scheme macro (once we've loaded it from the
 =libs/external/instruments.xtm= library file).
 
 #+begin_src extempore
-  (load "libs/external/instruments.xtm")
+  (sys:load "libs/external/instruments.xtm")
   
   ;; define a sampler (called drums) using the default sampler note kernel and effects
   (define-sampler drums sampler_note_hermite_c sampler_fx)

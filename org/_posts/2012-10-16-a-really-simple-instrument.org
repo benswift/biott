@@ -43,7 +43,7 @@ signal for the note, so that's where we put our code to generate the
 saw wave
 
 #+begin_src extempore
-  (load "libs/core/instruments.xtm")
+  (sys:load "libs/core/instruments.xtm")
   
   (bind-func saw_synth_note_c
     (lambda ()

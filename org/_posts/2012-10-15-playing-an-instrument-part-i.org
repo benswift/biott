@@ -32,7 +32,7 @@ loads an instrument and plays a single note.
 
 #+begin_src extempore
   ;; load the instruments file 
-  (load "libs/core/instruments.xtm")
+  (sys:load "libs/core/instruments.xtm")
   
   ;; define a synth using the provided components
   ;; synth_note_c and synth_fx

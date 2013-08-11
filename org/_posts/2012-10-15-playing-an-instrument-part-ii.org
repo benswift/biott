@@ -50,7 +50,7 @@ set up an instrument (in this case the built-in =synth=) and put it
 somewhere in the =dsp= output callback:
 
 #+begin_src extempore
-  (load "libs/core/instruments.xtm")
+  (sys:load "libs/core/instruments.xtm")
   
   ;; define a synth using the provided components
   ;; synth_note_c and synth_fx
@@ -341,7 +341,7 @@ creating a list of pitch classes that belong to the set. We can then
 test a pitch against that set by using =pc:?=
 
 #+begin_src extempore
-  (load "libs/core/pc_ivl.xtm")
+  (sys:load "libs/core/pc_ivl.xtm")
 
   ;; four examples tested against the pitch class set representation of a C major chord
   (pc:? 60 '(0 4 7))
@@ -1075,7 +1075,7 @@ Let's keep going with this idea and add some pitched musical content
 as well, using the =synth= and =organ= instruments we were using earlier
 
 #+begin_src extempore
-  (load "libs/core/pc_ivl.xtm")
+  (sys:load "libs/core/pc_ivl.xtm")
   
   ;; messiaen drum kit
   (define *metro* (make-metro 140))

@@ -116,7 +116,7 @@ generate. There are lots of ways to do this, but one nice way is to
 use oscillator closures created by Extempore's =osc_c= function.
 
 #+begin_src extempore
-  (load "libs/core/instruments.xtm")
+  (sys:load "libs/core/instruments.xtm")
   
   (bind-func organ_drone
     (let ((num_drawbars 9)
