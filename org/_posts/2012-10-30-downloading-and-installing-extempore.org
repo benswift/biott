@@ -18,6 +18,10 @@ can just copy it into place and run it.
 
 Extempore binary downloads are available for these platforms:
 
+@<i>Note: these binaries are changing pretty frequently at the moment
+as we nail down the xtlang standard library.  So if something is
+broken in any of the examples, let us know on the mailing list.@</i>
+
 - [[http://extempore.moso.com.au/extras/osx][OSX (built on 10.8)]]
 - [[http://extempore.moso.com.au/extras/linux][Linux (built on Ubuntu 13.04)]]
 - Windows 7/8 (64bit) /not yet available/
