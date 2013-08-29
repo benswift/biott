@@ -90,6 +90,15 @@ $ cd /path/to/llvm/lib/AsmParser
 $ patch < /path/to/extempore/extras/llparser.patch
 #+end_src
 
+If you don't patch LLVM, then Extempore will give you a fairly cryptic
+error when you try and compile any xtlang code, something like:
+
+#+BEGIN_SRC sh
+Extempore: <string>:1:22: error: use of undefined type named 'mzone'
+declare void @myfunc(%mzone)
+                    ^
+#+END_SRC
+
 After that, building LLVM is the usual =./configure; make; make
 install= process, with the addition of a =--prefix= location
 specifying where everything will be installed into (such as a =build=
