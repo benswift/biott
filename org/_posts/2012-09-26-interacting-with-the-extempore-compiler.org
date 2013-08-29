@@ -8,8 +8,8 @@ categories:
 ---
 #+end_html
 
-/Note: if you're unfamiliar with some of the concepts presented
-here, you might find the [[file:../extempore-docs/index.org][docs index]] helpful./
+@<i>Note: if you're unfamiliar with some of the concepts presented
+here, you might find the [[file:../extempore-docs/index.org][docs index]] helpful.@</i>
 
 The best way to think about programming and evaluating code in
 Extempore is to think of it as a /compiler-as-a-service/ (CaaS). The
@@ -101,11 +101,12 @@ to specify it explicitly, just to avoid any surprises.
 <a href=""><img src="images/interacting-with-compiler/extempore-start.png" alt=""></a> 
 #+end_html
 
-After running =extempore= with =--device 2=, it prints some
-information to =stdout= (which I'll often refer to as the /log/) about
-the device that it's using. As you can see, it all looks ok: 2
-channels out, samplerate of 44100Hz. At this point, the =extempore=
-process is running, and will keep doing so until you kill it.
+After running =extempore= with =--device 2=, it
+prints some information to =stdout= (which I'll often refer to as the
+/log/) about the device that it's using. As you can see, it all looks
+ok: 2 channels out, samplerate of 44100Hz. At this point, the
+=extempore= process is running, and will keep doing so until you kill
+it.
 
 Also, the compiler prints some information about 'starting up some
 processes', namely a =primary= process on port =7099= and a =utility=
@@ -117,6 +118,34 @@ the basis for Extempore's powerful distributed processing capability,
 which I'll cover in a future blog post. For the moment, though, you
 don't have to worry about multiple processes, we'll only connect and
 interact with the =primary= process.
+
+If you [[file:2012-10-30-downloading-and-installing-extempore.org][downloaded an Extempore binary]][fn::If you compiled Extempore
+from source, you can compile the standard library for yourself, too.
+The instructions for how to do this are at the top of =libs/xtm.xtm=],
+you should also have a (pre-compiled) copy of the xtlang standard
+library.  The standard library is both a binary file
+(=libs/xtm.{dll,so,dylib}= depending on your platform) and a
+=libs/xtm.xtm= file which is the 'header' for the xtlang code in this
+library---it tells Extempore about what closures and other data are
+present in the library and how to call them. You don't have to use
+the standard library, but it will save you a lot of time on startup,
+and you don't lose any flexibility (the xtlang functions can all
+still be re-defined on the fly) so it's probably not a bad idea to
+use the library unless you have a reason not to.
+
+To tell Extempore to automatically load this standard library on
+startup, you can also use the =--run= argument with a filename as an
+argument, and that file will be loaded on startup. To load the xtlang
+standard library, the terminal arguments become (for example)
+
+#+BEGIN_SRC sh
+  bash-3.2$ ./extempore --device 2 --run libs/xtm.xtm
+#+END_SRC
+
+If the standard library loads successfully, you'll get some nice stuff
+printed to the log letting you know everything's gone well. And if it
+doesn't load up properly, you should get some error messages telling
+you what went wrong (and hopefully how to fix it!).
 
 * Connecting to the Extempore compiler
 
