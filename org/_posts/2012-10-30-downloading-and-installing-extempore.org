@@ -1,4 +1,3 @@
-#+OPTIONS: toc:nil
 #+begin_html
 ---
 layout: post
@@ -9,9 +8,7 @@ categories:
 ---
 #+end_html
 
-@<i>Update 2013-9-25: Binaries are currently unavailable: we're hoping
-to have them back real soon.  In the meantime, instructions on how to
-build from source on [[file:2013-03-20-building-extempore-on-osx-linux.org][OSX/Linux]] or [[file:2013-03-20-building-extempore-on-windows.org][Windows]].@</i>
+*Update 2013-9-25: Binaries are currently unavailable: we're hoping to have them back real soon.  In the meantime, instructions on how to build from source on [[file:2013-03-20-building-extempore-on-osx-linux.org][OSX/Linux]] or [[file:2013-03-20-building-extempore-on-windows.org][Windows]].*
 
 The easiest way to get up and running with Extempore is to download a
 binary tarball. A binary is an [[http://en.wikipedia.org/wiki/Executable][executable]] which someone has already
@@ -22,9 +19,7 @@ can just copy it into place and run it.
 
 Extempore binary downloads are available for these platforms:
 
-@<i>Note: these binaries are changing pretty frequently at the moment
-as we nail down the xtlang standard library.  So if something is
-broken in any of the examples, let us know on the mailing list.@</i>
+# /Note: these binaries are changing pretty frequently at the moment as we nail down the xtlang standard library.  So if something is broken in any of the examples, let us know on the mailing list./
 
 - OSX (built on 10.8) /temporarily unavailable/
 - Linux (built on Ubuntu 13.04) /temporarily unavailable/

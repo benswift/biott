@@ -8,8 +8,8 @@ categories:
 ---
 #+end_html
 
-@<i>Note: if you're unfamiliar with some of the concepts presented
-here, you might find the [[file:../extempore-docs/index.org][docs index]] helpful.@</i>
+/Note: if you're unfamiliar with some of the concepts presented here,
+you might find the [[file:../extempore-docs/index.org][docs index]] helpful./
 
 The best way to think about programming and evaluating code in
 Extempore is to think of it as a /compiler-as-a-service/ (CaaS). The

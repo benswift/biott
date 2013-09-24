@@ -273,10 +273,7 @@ in the playback pitch of the organ tone.
 
 * Instruments and note-level control
 
-@<i>You can probably skim over this section if you're not
-concerned about the low-level details of how Extempore's instrument
-infrastructure. Still, if you've read this far then I can probably
-assume you have at least some interest :)@</i>
+/You can probably skim over this section if you're not concerned about the low-level details of how Extempore's instrument infrastructure. Still, if you've read this far then I can probably assume you have at least some interest :)/
 
 Making this =organ_drone= closure has really just been a prelude to
 the real business of making an /instrument/ in Extempore. An Extempore
