@@ -9,6 +9,10 @@ categories:
 ---
 #+end_html
 
+@<i>Update 2013-9-25: Binaries are currently unavailable: we're hoping
+to have them back real soon.  In the meantime, instructions on how to
+build from source on [[file:2013-03-20-building-extempore-on-osx-linux.org][OSX/Linux]] or [[file:2013-03-20-building-extempore-on-windows.org][Windows]].@</i>
+
 The easiest way to get up and running with Extempore is to download a
 binary tarball. A binary is an [[http://en.wikipedia.org/wiki/Executable][executable]] which someone has already
 compiled for your platform (operating system & architecture), so you
@@ -22,9 +26,8 @@ Extempore binary downloads are available for these platforms:
 as we nail down the xtlang standard library.  So if something is
 broken in any of the examples, let us know on the mailing list.@</i>
 
-- [[http://extempore.moso.com.au/distro/osx][OSX (built on 10.8)]]
-# - [[http://extempore.moso.com.au/distro/linux][Linux (built on Ubuntu 13.04)]]
-- Linux (built on Ubuntu 13.04) /coming real soon/
+- OSX (built on 10.8) /temporarily unavailable/
+- Linux (built on Ubuntu 13.04) /temporarily unavailable/
 - Windows 7/8 (64bit) /not yet available/
 
 So, to download: click on the link corresponding to the OS you're on,
