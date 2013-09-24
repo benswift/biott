@@ -95,7 +95,7 @@ meantime, have a look in the/ =examples= /subdirectory./
 * Misc
 
 - [[file:../2012-10-15-xtlang-naming-conventions.org][xtlang naming conventions]]
-#todo - xtlang blogging with Octopress
+# todo - xtlang blogging with Octopress
 
 * Getting help
 
