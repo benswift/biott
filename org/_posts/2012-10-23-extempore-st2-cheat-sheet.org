@@ -23,9 +23,9 @@ can't remember how to do something off the top of your head.
 Installing ST2 is a piece of cake---there are binaries for all
 platforms on the [[http://www.sublimetext.com/2][download]] page.
 
-You'll also need the [[https://github.com/mlozanov/extempore-sublime][ST2 Extempore plugin]], which provides syntax
+You'll also need the [[https://github.com/benswift/extempore-sublime][ST2 Extempore plugin]], which provides syntax
 highlighting and some commands for connecting to and working with a
-running Extempore process. To install the plugin, download the [[https://github.com/mlozanov/extempore-sublime/zipball/master][plugin
+running Extempore process. To install the plugin, download the [[https://github.com/benswift/extempore-sublime/zipball/master][plugin
 files]] (or clone the repo) and unzip them into your [[http://docs.sublimetext.info/en/latest/basic_concepts.html#the-packages-directory][ST2 packages
 directory]].
 
@@ -40,7 +40,7 @@ directory]].
 * Hacking on Extempore code in ST2
 
 These are the steps youll need to take to start hacking on a piece of
-Extempore code in Emacs:
+Extempore code in ST2:
 
 1. start ST2
 2. open up your favourite shell (e.g. Terminal on OS X or cmd.exe on

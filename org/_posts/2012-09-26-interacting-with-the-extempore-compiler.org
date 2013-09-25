@@ -41,7 +41,7 @@ you basically have two options:
 
 - *If you already have a favourite text editor*, then you'll probably
   want to write and evaluate your code using that editor. There are
-  already Extempore modes/plugins for [[https://github.com/digego/extempore/blob/master/extras/extempore.el][Emacs]], [[https://github.com/digego/extempore/blob/master/extras/extempore.vim][Vim]] and [[https://github.com/mlozanov/extempore-sublime][Sublime Text 2]]
+  already Extempore modes/plugins for [[https://github.com/digego/extempore/blob/master/extras/extempore.el][Emacs]], [[https://github.com/digego/extempore/blob/master/extras/extempore.vim][Vim]] and [[https://github.com/benswift/extempore-sublime][Sublime Text 2]]
   (see the =extras= subdirectory).
   If your favourite editor isn't one of those three, then you might
   even have the chops to hack together a plugin yourself---at its most
