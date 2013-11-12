@@ -1,0 +1,75 @@
+#+begin_html
+---
+layout: post
+title: "Building Extempore through Homebrew"
+date: 2013-11-12 16:54
+comments: true
+categories:
+---
+#+end_html
+If you've tried to install Extempore in the past, you'll know that
+building from source is a (moderately) painful process with about half
+a dozen steps. We've tried to make Extempore binaries, but making sure
+they work across the variety of platforms/processors is a massive
+pain, especially for all the shared lib dependencies.
+
+* Enter Homebrew
+
+[[http://brew.sh][Homebrew]] has been my go-to package manager on OSX for several years
+now.  In fact, over the last couple of years I've gradually been
+contributing packages for various Extempore dependencies to make my
+own life easier.
+
+Well, there's now a homebrew formula for Extempore.  The reason there
+hasn't been one in the past is the need to patch and use an old
+version (3.2) of LLVM, and since homebrew doesn't really allow for
+multiple versions of a package side-by-side, I haven't been able to
+get a patched LLVM for Extempore into the homebrew repo.
+
+However, it's super easy in homebrew for me to maintain my /own/
+package repo (which homebrew calls a *tap*), and I can have whatever
+packages I like in it.  So, assuming you have homebrew installed, you
+can tap my repo with
+
+#+BEGIN_SRC sh
+brew tap benswift/extempore
+#+END_SRC
+
+After that, homebrew knows about all the packages in my tap, which
+includes Extempore.  You can install it with
+
+#+BEGIN_SRC sh
+brew install extempore
+#+END_SRC
+
+which will install Extempore, as well as (by default) all of the
+shared libs you need for the Extempore standard library.
+
+Your extempore directory will be in
+=/usr/local/Cellar/extempore/HEAD=, unless you installed homebrew
+somewhere other than =/usr/local=. =cd= into that directory, run
+=./extempore= and then you're ready to connect up an editor and [[file:./2012-09-26-interacting-with-the-extempore-compiler.org][start
+evaluating Extempore code]].
+
+* Homebrew on Linux
+
+So that's great for OSX users, but what I only just discovered
+recently is that there's a fork of [[https://github.com/Homebrew/linuxbrew][homebrew for Linux]] as well.  If
+you're happy to install homebrew on your linux box, then you can tap
+my /Linux/ Extempore homebrew repo and install Extempore:
+
+#+BEGIN_SRC sh
+brew tap benswift/extempore-linux
+brew install extempore
+#+END_SRC
+
+If you'd rather not install homebrew on your linux box then you can
+still [[file:./2013-03-20-building-extempore-on-osx-linux.org][build from source]] as before.
+
+* using scoop.sh for easy building on Windows
+
+[[http://scoop.sh][scoop.sh]] seems promising as a similar alternative to homebrew on
+Windows.  I haven't looked into it in detail yet myself, but I'll
+hopefully have a crack at making an Extempore package for it at some
+stage.  If anyone has experience with it and wants to help out, they'd
+be very welcome :)
