@@ -9,7 +9,7 @@ categories:
 #+end_html
 If you've done any Extempore programming which relies on large
 libraries, such as the OpenGL library =libs/external/opengl.xtm= or
-the instrument library =libs/external/instruments.xtm=, you'll know
+the instrument library =libs/external/instruments_ext.xtm=, you'll know
 that re-compiling these xtlang libraries every time you start
 Extempore can be a pain.  Wouldn't it be awesome if you could save
 the compiled code to a shared library and then just load it up

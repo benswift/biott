@@ -15,7 +15,7 @@ Extempore's instrument infrastructure works, but this is more of a
 'quick and dirty' example instrument just to get a feel for things.
 
 All the instrument code is just regular [[file:./2012-08-09-xtlang-type-reference.org][xtlang]], and can be found in
-=libs/core/instruments.xtm= and =libs/external/instruments.xtm=.
+=libs/core/instruments.xtm= and =libs/external/instruments_ext.xtm=.
 
 * A saw-synth note kernel
 

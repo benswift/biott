@@ -77,7 +77,7 @@ libraries and examples you might find interesting are:
 
 - =libs/core/audio_dsp.xtm=
 - =libs/core/instruments.xtm=
-- =libs/external/instruments.xtm=
+- =libs/external/instruments_ext.xtm=
 - =libs/external/sndfile.xtm=
 
 - =examples/core/audio_101.xtm=

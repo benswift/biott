@@ -16,7 +16,7 @@ triggered by messages from a MIDI keyboard) or they can be used to
 play and manipulate non-acoustic sounds.
 
 Since samplers are so useful, Extempore provides a built-in sampler in
-=libs/external/instruments.xtm=.[fn:external] This sampler basically
+=libs/external/instruments_ext.xtm=.[fn:external] This sampler basically
 works like any other Extempore instrument, such as those described in
 the post about [[file:2012-09-28-making-an-instrument.org][making an instrument]]), except that the note kernel
 closure is already set up for you---you just have to load the sampler
@@ -104,10 +104,10 @@ and let the sampler interpolate in the gaps.
 Ok, enough background material---let's make some noise. We'll create
 an instance of Extempore's sampler called =drums=. To do this, we use
 the =define-sampler= Scheme macro (once we've loaded it from the
-=libs/external/instruments.xtm= library file).
+=libs/external/instruments_ext.xtm= library file).
 
 #+begin_src extempore
-  (sys:load "libs/external/instruments.xtm")
+  (sys:load "libs/external/instruments_ext.xtm")
   
   ;; define a sampler (called drums) using the default sampler note kernel and effects
   (define-sampler drums sampler_note_hermite_c sampler_fx)
