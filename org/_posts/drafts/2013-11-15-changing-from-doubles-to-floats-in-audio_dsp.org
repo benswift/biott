@@ -47,11 +47,10 @@ issue is [[http://stackoverflow.com/questions/4584637/double-or-float-which-is-f
 * Changing from doubles to floats
 
 There is one scenario where the smaller 32-bit floats are clearly
-beneficial is with [[http://en.wikipedia.org/wiki/SIMD][SIMD operations]], which xtlang supports through
-LLVM's [[http://llvm.org/docs/LangRef.html#vector-type][vector type]]. Going into the details is a job for another time,
-but basically it allows us to vectorise the audio stuff to be more
-efficient, which is handy for computationally expensive things like
-convolution reverb.
+beneficial is with [[http://en.wikipedia.org/wiki/SIMD][SIMD operations]] through xtlang's vector type. Going
+into the details is a job for another time, but basically it allows us
+to vectorise the audio stuff to be more efficient, which is handy for
+computationally expensive things like convolution reverb.
 
 So we've made the decision to change extempore's =dsp= callback to use
 =floats= by default. Actually, we've added a new type alias in
@@ -84,6 +83,40 @@ ended up doing things like =(< chan 0.5)= to select channel 1.
 So, we figured that while we were breaking things anyway with the
 =DSP= type signature, we might as well fix up those other things too.
 
+* Polymorphic math.h functions
+
+Part of the reason that the old =DSP= signature was all doubles was
+because =cos=, =sin=, =pow= etc. all took =double= arguments (the
+float versions were =cosf=, =sinf= and =powf=), so it was nice if
+everything was a =double=. To alleviate this pain, we've now made all
+those math.h functions polymorphic over =float= and =double=. The
+plain un-poly'd ones are still there in e.g. =cosf= and =cosd=, but if
+you call =cos= with /either/ a =float= or =double= argument then the
+xtlang compiler will figure out which of =cosf= and =cosd= to call.
+
+There's also now a special =convert= function which takes a variable
+and a type to convert /to/, and tries to figure out which specific
+conversion to make based on the variable's type.
+
+#+BEGIN_SRC extempore
+  (bind-func convert_test
+    (lambda ()
+      (let ((double_var 4.0))
+        (cos (convert double_var SAMPLE)))))
+
+  ;; note that convert_test returns a float
+  ;; Compiled convert_test >>> [float]*
+#+END_SRC
+
+See how we used the =SAMPLE= alias, and the =cos= function knew to
+apply the =dtof= conversion so that the output from the closure is a
+=float=?  Armed with =convert=, much of the pain of mixing =double=
+and =float= vars can be taken away. 
+
+Sometimes the compiler doesn't have enough information to figure out
+what the type of the variable is, and in those cases you can still to
+cast from =float= to =double= with =dtof= & =ftod=.
+
 * What this means for Extempore users
 
 Well, we've updated all the libs and examples to use the =SAMPLE=
@@ -92,9 +125,10 @@ us know on the [[mailto:extemporelang@googlegroups.com][mailing list]].  If you 
 anything which uses the =dsp= callback) then it'll be broken, but
 should be easy to update.
 
-Alternately, you can change the =SAMPLE= alias back to =double=, and
-make sure you update the the =audio_64bit= closure as well. Still,
-unless you've got a good reason to stick with =doubles=, moving to
-=floats= is a good idea. It'll mean that you can take advantage of the
-new vectorised audio stuff, including the cool
+You can change the =SAMPLE= alias back to =double=, and make sure you
+update the the =audio_64bit= closure as well. Even then, though, your
+existing code will be broken because of the =double= to =i64= change
+to =time= and =chan=. So unless you've got a good reason to stick with
+=doubles=, moving to =floats= is a good idea. It'll mean that you can
+take advantage of the new vectorised audio stuff, including the cool
 =examples/external/convolution_reverb.xtm=.
