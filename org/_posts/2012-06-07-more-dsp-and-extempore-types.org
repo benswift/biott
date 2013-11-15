@@ -40,29 +40,30 @@ using the /one/ oscillator, let's use a few of them to generate a
 whole bunch of sine tones of different frequencies:
 
 #+begin_src extempore
-(bind-func osc_c ; osc_c is the same as last time
-  (lambda (phase)
-    (lambda (amp freq)
-      (let ((inc (* 3.141592 (* 2.0 (/ freq 44100.0)))))
-        (set! phase (+ phase inc))
-        (* amp (sin phase))))))
-
-; remember that the dsp closure is called for every sample
-; also, for convenience, let's make a type signature for the
-; DSP closure
-
-(bind-alias DSP [double,double,double,double,double*]*)
-
-(bind-func dsp:DSP ; note the use of the type signature 'DSP'
-  (let ((osc1 (osc_c 0.0))
-        (osc2 (osc_c 0.0))
-        (osc3 (osc_c 0.0)))
-    (lambda (in time channel data)
-      (cond ((= channel 1.0) 
-             (+ (osc1 0.5 220.0)
-                (osc2 0.5 350.0)))
-            ((= channel 0.0) (osc3 0.5 210.0))
-            (else 0.0)))))
+  (bind-func osc_c ; osc_c is the same as last time
+    (lambda (phase)
+      (lambda (amp freq)
+        (let ((inc:SAMPLE (* 3.141592 (* 2.0 (/ freq 44100.0)))))
+          (set! phase (+ phase inc))
+          (* amp (sin phase))))))
+  
+  ; remember that the dsp closure is called for every sample
+  ; also, for convenience, let's make a type signature for the
+  ; DSP closure
+  
+  (bind-alias DSP [SAMPLE,SAMPLE,i64,i64,SAMPLE*]*)
+  
+  (bind-func dsp:DSP ; note the use of the type signature 'DSP'
+    (let ((osc1 (osc_c 0.0))
+          (osc2 (osc_c 0.0))
+          (osc3 (osc_c 0.0)))
+      (lambda (in time channel data)
+        (cond ((= channel 1) 
+               (+ (osc1 0.5 220.0)
+                  (osc2 0.5 350.0)))
+              ((= channel 0)
+               (osc3 0.5 210.0))
+              (else 0.0)))))
 #+end_src
 
 See how the =let= 'outside' the =lambda= sets up the three
@@ -88,22 +89,22 @@ When programming in xtlang you don't really ever deal with tuples
 directly---you deal with them by /reference/ through pointers. There
 are no 'literals' for tuples either---you can't just go
 #+begin_src extempore
-(bind-func tuple_maker
-  (lambda (a:i64)
-    (let ((tup:<i64,i64> <a,a>))
-      tup)))
-
-(tuple_maker 4) ; Compiler Error: unbound symbol: <a,a>
+  (bind-func tuple_maker
+    (lambda (a:i64)
+      (let ((tup:<i64,i64> <a,a>))
+        tup)))
+  
+  ; Compiler Error: unbound symbol: <a,a>
 #+end_src
 Instead, this time in the =let= we get a pointer to a tuple through a
 call to =alloc=.
 #+begin_src extempore
-(bind-func tuple_maker
-  (lambda (a:i64)
-    (let ((tup:<i64,i64>* (alloc)))
-      (tset! tup 0 a)
-      (tset! tup 1 a)
-      tup)))
+  (bind-func tuple_maker
+    (lambda (a:i64)
+      (let ((tup:<i64,i64>* (alloc)))
+        (tset! tup 0 a)
+        (tset! tup 1 a)
+        tup)))
 #+end_src
 This post goes into more detail about [[file:2012-08-17-memory-management-in-extempore.org][memory management in Extempore]],
 but for now the key point is that the call to =alloc= returns a
@@ -125,33 +126,33 @@ argument and returns a pointer to a tuple of two =i64= values.
 Just to check that everything's working properly, let's write a little
 =test= function
 #+begin_src extempore
-(bind-func test
-    (lambda (a:i64)
-      (let ((tup (tuple_maker a)))
-        (printf "<%d,%d>\n"
-                (tref tup 0)
-                (tref tup 1))
-        tup)))
-
-(test 4) ; prints <4,4> (as it should!)
+  (bind-func test
+      (lambda (a:i64)
+        (let ((tup (tuple_maker a)))
+          (printf "<%d,%d>\n"
+                  (tref tup 0)
+                  (tref tup 1))
+          tup)))
+  
+  (test 4) ; prints <4,4> (as it should!)
 #+end_src
 
 Tuples come in handy in lots of places, for instance we can use them
 to rewrite one of the =dsp= functions from earlier (the one with the
 three oscs)
 #+begin_src extempore
-(bind-alias osc_t [double,double,double]*)
-
-(bind-func dsp:DSP
-  (let ((osc_tuple:<osc_t,osc_t,osc_t>* (alloc)))
-    (tfill! osc_tuple (osc_c 0.0) (osc_c 0.0) (osc_c 0.0))
-    (lambda (in time channel data)
-      (cond ((= channel 1.0) 
-             (+ ((tref osc_tuple 0) 0.5 300.0)
-                ((tref osc_tuple 1) 0.5 420.0)))
-            ((= channel 0.0)
-             ((tref osc_tuple 2) 0.5 600.0))
-            (else 0.0)))))
+  (bind-alias osc_t [SAMPLE,SAMPLE,SAMPLE]*)
+  
+  (bind-func dsp:DSP
+    (let ((osc_tuple:<osc_t,osc_t,osc_t>* (alloc)))
+      (tfill! osc_tuple (osc_c 0.0) (osc_c 0.0) (osc_c 0.0))
+      (lambda (in time channel data)
+        (cond ((= channel 1) 
+               (+ ((tref osc_tuple 0) 0.5 300.0)
+                  ((tref osc_tuple 1) 0.5 420.0)))
+              ((= channel 0)
+               ((tref osc_tuple 2) 0.5 600.0))
+              (else 0.0)))))
 #+end_src
 This time, instead of binding each osc to its own symbol (=osc1=,
 =osc2= and =osc3=), we created =osc_tuple=, a (pointer to a) tuple,
@@ -163,7 +164,7 @@ element in the tuple manually with =(tset! osc_tuple 0 (osc_c
 
 Also, the use of =bind-alias= is helpful here, because it allows us to
 condense the verbose type of the closure oscs
-(=[double,double,double]*=) down to the more manageable =osc_t=, handy
+(=[SAMPLE,SAMPLE,SAMPLE]*=) down to the more manageable =osc_t=, handy
 when we then need to type the =osc_tuple= with three of them.
 
 There's no reason why the types in the tuple have to be the same.
@@ -188,33 +189,33 @@ and tuples to do some additive synthesis. We'll make an array
 to keep track of the amplitude and frequency values.
 
 #+begin_src extempore
-(bind-func dsp:DSP
-  (let ((osc_array:|30,[double,double,double]*|* (alloc))
-        (amp_array:|30,double|* (alloc))
-        (freq_array:|30,double|* (alloc))
-        (i 0))
-    ; initialise the arrays
-    (dotimes (i 30)
-      (aset! osc_array i (osc_c 0.0))
-      (aset! amp_array i (+ 0.2 (* 0.2 (random))))
-      (aset! freq_array i (+ 110.0 (* 1000.0 (random)))))
-    ; this is the dsp closure
-    (lambda (in time chan data)
-      (cond ((= chan 0.0) ; left channel
-             (let ((suml 0.0))
-               (dotimes (i 15) ; sum over the first 15 oscs
-                 (set! suml (+ suml ((aref osc_array i)
-                                     (aref amp_array i)
-                                     (aref freq_array i)))))
-               (/ suml 15.0))) ; normalise over all oscs
-            ((= chan 1.0) ; left channel
-             (let ((sumr 0.0))
-               (dotimes (i 15 15) ; sum over the first 15 oscs
-                 (set! sumr (+ sumr ((aref osc_array i)
-                                     (aref amp_array i)
-                                     (aref freq_array i)))))
-               (/ sumr 15.0)))
-            (else 0.0))))) ; any remaining channels
+  (bind-func dsp:DSP
+    (let ((osc_array:|30,[SAMPLE,SAMPLE,SAMPLE]*|* (alloc))
+          (amp_array:|30,SAMPLE|* (alloc))
+          (freq_array:|30,SAMPLE|* (alloc))
+          (i 0))
+      ; initialise the arrays
+      (dotimes (i 30)
+        (aset! osc_array i (osc_c 0.0))
+        (aset! amp_array i (+ 0.2 (* 0.2 (random))))
+        (aset! freq_array i (+ 110.0 (* 1000.0 (random)))))
+      ; this is the dsp closure
+      (lambda (in time chan data)
+        (cond ((= chan 0) ; left channel
+               (let ((suml 0.0))
+                 (dotimes (i 15) ; sum over the first 15 oscs
+                   (set! suml (+ suml ((aref osc_array i)
+                                       (aref amp_array i)
+                                       (aref freq_array i)))))
+                 (/ suml 15.0))) ; normalise over all oscs
+              ((= chan 1) ; left channel
+               (let ((sumr 0.0))
+                 (dotimes (i 15 15) ; sum over the first 15 oscs
+                   (set! sumr (+ sumr ((aref osc_array i)
+                                       (aref amp_array i)
+                                       (aref freq_array i)))))
+                 (/ sumr 15.0)))
+              (else 0.0))))) ; any remaining channels
 #+end_src
 
 This code is a bit more complex than the previous examples.
@@ -241,28 +242,28 @@ harmonics of a given base frequency (I've also simplified the output to
 one channel for clarity).
 
 #+begin_src extempore
-(bind-func dsp:DSP
-  (let ((osc_array:|30,[double,double,double]*|* (alloc))
-        (amp_array:|30,double|* (alloc))
-        (freq_array:|30,double|* (alloc))
-        (base_freq 110.0)
-        (i 0))
-    ; initialise the arrays
-    (dotimes (i 30)
-      (aset! osc_array i (osc_c 0.0))
-      (aset! amp_array
-             i
-             (if (= (/ i 2) 0)
-                 0.3
-                 0.0))
-      (aset! freq_array i (* (i64tod (+ i 1)) base_freq)))
-    (lambda (in time chan data)
-      (let ((sum 0.0))
-        (dotimes (i 30)
-          (set! sum (+ sum ((aref osc_array i)
-                            (aref amp_array i)
-                            (aref freq_array i)))))
-        (/ sum 30.0))))) ; normalise over all oscs
+  (bind-func dsp:DSP
+    (let ((osc_array:|30,[SAMPLE,SAMPLE,SAMPLE]*|* (alloc))
+          (amp_array:|30,SAMPLE|* (alloc))
+          (freq_array:|30,SAMPLE|* (alloc))
+          (base_freq 110.0)
+          (i 0))
+      ; initialise the arrays
+      (dotimes (i 30)
+        (aset! osc_array i (osc_c 0.0))
+        (aset! amp_array
+               i
+               (if (= (/ i 2) 0)
+                   0.3
+                   0.0))
+        (aset! freq_array i (* (convert (+ i 1) SAMPLE) base_freq)))
+      (lambda (in time chan data)
+        (let ((sum 0.0))
+          (dotimes (i 30)
+            (set! sum (+ sum ((aref osc_array i)
+                              (aref amp_array i)
+                              (aref freq_array i)))))
+          (/ sum 30.0))))) ; normalise over all oscs
 #+end_src
 
 See how we're using the same arrays as last time (for osc, amp and

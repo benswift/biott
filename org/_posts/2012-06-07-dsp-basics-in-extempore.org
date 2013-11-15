@@ -8,6 +8,8 @@ categories:
 ---
 #+end_html
 
+
+
 In Extempore you can write dynamic, hot-swappable DSP code. There is a
 special function in the environment called (funnily enough) =dsp=.
 This function is the audio output 'sink'---the value returned by this
@@ -17,35 +19,45 @@ output as sound through the computer speakers. Every audio sample
 arguments:
 
 #+begin_src extempore
-(bind-func dsp
-  (lambda (in:double time:double chan:double data:double*)
-    (sin (/ (* TWOPI 440.0 time)
-          44100.0))))
-
-; to let Extempore know that this function is the one 
-; it should call to get the output audio samples
-(dsp:set! dsp)
+  (bind-func dsp
+    (lambda (in:SAMPLE time:i64 chan:i64 data:SAMPLE*)
+      (sin (/ (* STWOPI 440.0 (convert time SAMPLE))
+            44100.0))))
+  
+  ; to let Extempore know that this function is the one 
+  ; it should call to get the output audio samples
+  (dsp:set! dsp)
 #+end_src
 
-This dsp takes as input three =double= and a /pointer/ to a =double=
-(i.e. a =double*=)
+This dsp takes as input:
 - =in=: the input audio sample, e.g. from the microphone
-- =time=: a double value representing the time
-- =chan=: another double which represents the channel index (0 for L,
-  1 for R, etc.).  Extempore can handle any number of channels.
-- =data=: this is a /pointer/ to a double, and can be used to pass
-  arbitrary data into the dsp function.
+- =time=: an =i64= representing the time
+- =chan=: another =i64= which represents the channel index (=0= for L,
+  =1= for R, etc.).  Extempore can handle any number of channels.
+- =data=: this is a /pointer/ to a =SAMPLE= type (which is =float= by
+  default), and can be used to pass arbitrary data into the =dsp=
+  function.
+
+By default, the type of =SAMPLE= is =float=, it's just a type alias:
+
+#+BEGIN_SRC extempore
+(bind-alias SAMPLE float)
+#+END_SRC
+
+but it can also be =double=. See [[./2013-11-15-changing-from-doubles-to-floats-in-audio_dsp.org][this post]] for more info.
 
 In the example above, I'm ignoring all of these arguments except for
 the =time= argument, which I'm using to generate a simple sinusoid at
-440Hz.  But the cool thing is that like all functions in Extempore,
-this =dsp= function can be redefined on-the-fly (as long as the type
-signature stays the same).  So, if I change the =dsp= function to:
+440Hz. Note the use of the =convert= function, which converts =time=
+(which is an =i64=) to whatever type =SAMPLE= is. But the cool thing
+is that like all functions in Extempore, this =dsp= function can be
+redefined on-the-fly, as long as the type signature stays the same.
+So, if I change the =dsp= function to
 
 #+begin_src extempore
-(bind-func dsp
-  (lambda (in:double time:double chan:double data:double*)
-    (* 0.1 (random))))
+  (bind-func dsp
+    (lambda (in:SAMPLE time:i64 chan:i64 data:SAMPLE*)
+      (* 0.1 (convert (random) SAMPLE))))
 #+end_src
 
 then the output changes to white noise.  This is the real power of
@@ -61,12 +73,12 @@ together.
 Let's create some oscillators:
 
 #+begin_src extempore
-(bind-func osc_c
-  (lambda (phase)
-    (lambda (amp freq)
-       (let ((inc (* TWOPI (/ freq 44100.0))))
-             (set! phase (+ phase inc))
-             (* amp (sin phase))))))
+  (bind-func osc_c
+    (lambda (phase)
+      (lambda (amp freq)
+         (let ((inc (* STWOPI (/ freq 44100.0))))
+               (set! phase (+ phase inc))
+               (* amp (sin phase))))))
 #+end_src
 
 This =osc_c= function doesn't return a primitive (int/float) value.
@@ -76,22 +88,23 @@ one, and comes up so much in xtlang code that by convention we give
 any closure which returns another closure a =_c= suffix.
 
 The type message printed by the compiler when we evaluate =osc_c= is
-=Compiled osc_c >>> [[double,double,double]*,double]*=. See that the
-return type of the =osc_c= function is =[double,double,double]*= a
-pointer to a closure which takes two =double= arguments and returns a
-=double=. This is our oscillator, and we can use our =osc_c= function
+=Compiled osc_c >>> [[float,float,float]*,float]*=.[fn::again, this is
+because =SAMPLE= is aliased to =float= by default] See that the
+return type of the =osc_c= function is =[float,float,float]*=: a
+pointer to a closure which takes two =float= arguments and returns a
+=float=. This is our oscillator, and we can use our =osc_c= function
 to create as many oscillators as we need:
 
 #+begin_src extempore
-(bind-func dsp
-  (let ((osc1 (osc_c 0.0))
-        (osc2 (osc_c 0.0)))
-    (lambda (in:double time:double channel:double data:double*)
-      (cond ; play a 200Hz tone in the left ear
-            ((= channel 0.0) (osc1 0.5 200.0)) 
-            ; play a 300Hz tone in the right ear
-            ((= channel 1.0) (osc2 0.5 300.0))
-            (else 0.0)))))
+  (bind-func dsp
+    (let ((osc1 (osc_c 0.0))
+          (osc2 (osc_c 0.0)))
+      (lambda (in:float time:i64 channel:i64 data:float*)
+        (cond ; play a 200Hz tone in the left ear
+              ((= channel 0) (osc1 0.5 200.0)) 
+              ; play a 300Hz tone in the right ear
+              ((= channel 1) (osc2 0.5 300.0))
+              (else 0.0)))))
 #+end_src
 
 The =phase= variable in each of our oscillator closures is how we

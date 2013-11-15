@@ -507,7 +507,7 @@ Examples:
   (bind-type my_type_2 <float,[i64,i32]*,|3,double|*>)
 #+end_src
 
-=bind-type= tells the LLVM compiler about your new type, which
+=bind-type= tells the xtlang compiler about your new type, which
 provides some safety benefits: the more the compiler knows about the
 types in your code, the more errors it can throw at compile time and
 save messy runtime errors and tricky debugging. 
@@ -587,10 +587,10 @@ containers library or the Java collections framework.
 the given type. The xtlang compiler, when it sees =my_alias= in the
 code, will simply substitute in the appropriate type (in this case
 =<i64,|3,double|*>*=) before it generates the LLVM IR to send to the
-LLVM compiler. =bind-alias= doesn't tell the compiler as much about
-the code as =bind-type= does, which can lead to execution-time
-problems which would otherwise have been caught by the compiler.  So
-you should almost always use =bind-type= over =bind-alias=.
+compiler. =bind-alias= doesn't tell the compiler as much about the
+code as =bind-type= does, which can lead to execution-time problems
+which would otherwise have been caught by the compiler. So you should
+almost always use =bind-type= over =bind-alias=.
 
 * Type inferencing in the xtlang compiler
 

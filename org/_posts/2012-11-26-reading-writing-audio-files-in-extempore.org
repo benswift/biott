@@ -65,9 +65,9 @@ distortion to both channels:
           (saturationr (saturation_c)))
       (lambda (in time chan dat)
         (* 0.1 ;; to compensate for saturation boost
-           (cond ((= chan 0.0)
+           (cond ((= chan 0)
                   (saturationl (audiofile) 1.0 0.9))
-                 ((= chan 1.0)
+                 ((= chan 1)
                   (saturationr (audiofile) 1.0 0.9))
                  (else 0.0))))))
 #+end_src

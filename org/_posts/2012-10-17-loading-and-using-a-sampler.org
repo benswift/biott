@@ -115,7 +115,7 @@ the =define-sampler= Scheme macro (once we've loaded it from the
   ;; add the sampler to the dsp output callback
   (bind-func dsp:DSP
     (lambda (in time chan dat)
-      (cond ((< chan 2.0)
+      (cond ((< chan 2)
              (drums in time chan dat))
             (else 0.0))))
   

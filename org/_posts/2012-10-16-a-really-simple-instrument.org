@@ -29,8 +29,11 @@ arguments:
 
 - =time=: the current (sample) time in Extempore
 - =chan=: the channel number
-- =freq=: the frequency (pitch) of the note
-- =amp=: the volume/loudness of the note
+- =freq=: the frequency (pitch) of the note as type =SAMPLE=
+- =amp=: the volume/loudness of the note as type =SAMPLE=
+
+In Extempore, =SAMPLE= is aliased to =float= by default, but could
+also be =double= (see [[./2013-11-15-changing-from-doubles-to-floats-in-audio_dsp.org][this post]] for more info).
 
 In an [[file:./2012-10-03-xtlang-type-diagrams.org][xtlang type diagram]]:
 
@@ -47,14 +50,14 @@ saw wave
   
   (bind-func saw_synth_note_c
     (lambda ()
-      (let ((saw (saw_c)))
-        (lambda (time:double chan:double freq:double amp:double)
-          (if (= chan 0.0)
+      (let ((saw (saw_c 0.)))
+        (lambda (time:i64 chan:i64 freq:SAMPLE amp:SAMPLE)
+          (if (= chan 0)
               (saw amp freq)
               0.0)))))
   
   ;; when we evaluate saw_synth_note_c, the compiler prints:
-  ;; Compiled saw_synth_note_c >>> [[double,double,double,double,double]*]*
+  ;; Compiled saw_synth_note_c >>> [[float,float,float,float,float]*]*
 #+end_src
 
 Notice that the saw [[http://en.wikipedia.org/wiki/Unit_generator][unit-generator]] (ugen) =saw= is bound (by calling
@@ -78,12 +81,12 @@ stereo note kernel
 #+begin_src extempore
   (bind-func saw_synth_note_c
     (lambda ()
-      (let ((sawl (saw_c))
-            (sawr (saw_c)))
-        (lambda (time:double chan:double freq:double amp:double)
-          (cond ((= chan 0.0)
+      (let ((sawl (saw_c 0.))
+            (sawr (saw_c 0.)))
+        (lambda (time:i64 chan:i64 freq:SAMPLE amp:SAMPLE)
+          (cond ((= chan 0)
                  (sawl amp freq))
-                ((= chan 1.0)
+                ((= chan 1)
                  (sawr amp freq))
                 (else 0.0))))))
 #+end_src
@@ -111,11 +114,11 @@ although it may just pass its input through untouched:
 
 #+begin_src extempore
   (bind-func saw_synth_fx
-    (lambda (in:double time:double chan:double dat:double*)
+    (lambda (in:i64 time:i64 chan:float dat:float*)
       in))
   
   ;; when we evaluate saw_synth_fx, the compiler prints:  
-  ;; Compiled saw_synth_fx >>> [double,double,double,double,double*]*
+  ;; Compiled saw_synth_fx >>> [i64,i64,i64,float,float*]*
 #+end_src
 
 Let's add a stereo delay to make things a bit more interesting
@@ -124,11 +127,11 @@ Let's add a stereo delay to make things a bit more interesting
   (bind-func saw_synth_fx 50000 ;; extra memory for the delay lines
     (let ((delayl (delay_c 22050))
           (delayr (delay_c 22050)))
-      (lambda (in:double time:double chan:double dat:double*)
-        (cond ((= chan 0.0)
-               (delayl in))
-              ((= chan 1.0)
-               (delayr in))
+      (lambda (in:SAMPLE time:i64 chan:i64 dat:SAMPLE*)
+        (cond ((= chan 0)
+               (delayl in 0.3 0.2))
+              ((= chan 1)
+               (delayr in 0.3 0.2))
               (else 0.0)))))
 #+end_src
 
@@ -153,7 +156,7 @@ closures have the right signature, then evaluating the above line
 should print for you
 
 #+begin_example 
-  Compiled saw_synth >>> [double,double,double,double,double*]*
+  Compiled saw_synth >>> [float,float,i64,i64,float*]*
 #+end_example
 
 ...and now your instrument is ready to play.

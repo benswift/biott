@@ -201,10 +201,10 @@ This is where the 'Compiler as a Service' (CaaS) thing starts to get
 real. Currently, the code =(+ 1 2)= is just text sitting in your
 editor. It won't get compiled until you send it for evaluation. If
 you're using Emacs, then the easiest way to do this is to move your
-cursor somewhere inside the code =(+ 1 2)= and hit =C-x C-x= (which is
+cursor somewhere inside the code =(+ 1 2)= and hit =C-M-x= (which is
 bound to =extempore-send-definition=). In ST2, you can highlight the
 code you want to evaluate and either go to =Tools > Extempore >
-Evaluate...= or just hit =C-x C-x=. This takes the whole expression
+Evaluate...= or just hit =C-M-x=. This takes the whole expression
 =(+ 1 2)= and sends it (as a string) to the running =extempore=
 compiler.
 
@@ -220,9 +220,9 @@ displayed in the echo area. Nothing is printed in the console where
 first Extempore code!
 
 We can write some more code to =bind-val= a global variable =PI=,
-which is an xtlang global variable of [[file:2012-08-09-xtlang-type-reference.org][type]] =double=. If you evaluate
-this with =C-x C-x= (or whatever the command is in your editor) then
-what happens is
+which is an xtlang global variable of [[file:2012-08-09-xtlang-type-reference.org][type]] =SAMPLE= (=float= by
+default). If you evaluate this with =C-M-x= (or whatever the command
+is in your editor) then what happens is
 
 #+begin_html
 <a href=""><img src="images/interacting-with-compiler/xtlang-eval-1.png" alt=""></a> 
