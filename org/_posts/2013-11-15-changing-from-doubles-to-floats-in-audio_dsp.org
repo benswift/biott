@@ -119,12 +119,6 @@ cast from =float= to =double= with =dtof= & =ftod=.
 
 * What this means for Extempore users
 
-Well, we've updated all the libs and examples to use the =SAMPLE=
-alias, so they should be all up-to-date.  If you have any issues let
-us know on the [[mailto:extemporelang@googlegroups.com][mailing list]].  If you have old audio code (basically
-anything which uses the =dsp= callback) then it'll be broken, but
-should be easy to update.
-
 You can change the =SAMPLE= alias back to =double=, and make sure you
 update the the =audio_64bit= closure as well. Even then, though, your
 existing code will be broken because of the =double= to =i64= change
@@ -132,3 +126,15 @@ to =time= and =chan=. So unless you've got a good reason to stick with
 =doubles=, moving to =floats= is a good idea. It'll mean that you can
 take advantage of the new vectorised audio stuff, including the cool
 =examples/external/convolution_reverb.xtm=.
+
+We've updated all the libs and examples to use the =SAMPLE= alias, so
+they should be all up-to-date. If you have any issues let us know on
+the [[mailto:extemporelang@googlegroups.com][mailing list]]. If you have old audio code (basically anything which
+uses the =dsp= callback) then it'll be broken, but should be easy to
+update.
+
+I'm also going back through all my old blog posts to make the change
+as well.  I'm probably going to miss things, though, so if there's
+stuff that's now broken I apologise.  Feel free to leave a comment and
+I'll fix it up.
+
