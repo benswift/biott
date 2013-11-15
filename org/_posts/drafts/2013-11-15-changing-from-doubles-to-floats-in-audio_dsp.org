@@ -1,0 +1,100 @@
+#+begin_html
+---
+layout: post
+title: "Changing from doubles to floats in audio_dsp"
+date: 2013-11-15 09:42
+comments: true
+categories:
+---
+#+end_html
+
+Up till now, the type signature of the =dsp= closure (which we give
+the alias =DSP= for convenience) has been
+
+#+BEGIN_SRC extempore
+(bind-alias DSP [double,double,double,double,double*]*)
+
+(bind-func dsp:DSP
+  (lambda (in time chan dat)
+    (cos (/ (* TWOPI time 440.0) SR))))
+#+END_SRC
+
+The =dsp= function here takes four arguments:
+
+- =in=: a =double= representing audio input (if your hardware has an
+  input device)
+- =time=: a =double= representing the global time value (in the =dsp=
+  function above we use this time argument to generate a sine wave
+- =chan=: a =double= indicating the channel (=0.0= for the first
+  channel, =1.0= for the second, etc.)
+- =data=: a =double*= (pointer to a buffer of doubles) which can be
+  used to pass arbitrary data into the =dsp= function
+
+The =dsp= function then returns a =double= value (in the range
+[-1.0,1.0] which is basically sent straight out through the speakers.
+When =dsp= is called once per audio sample (e.g. at 44100kHz) this
+generates the audio output that you hear through your speakers.
+
+Since Extempore is a 64-bit environment, up until this point all the
+audio and DSP infrastructure has used 64-bit (double precision) floats
+for each audio sample. Although the extra precision isn't strictly
+necessary[fn::although it does help in some cases with numerical
+stability in filters, etc.], Extempore's numerical performance is good
+enough that there hasn't been a real cost to the extra precision,
+coupled with the fact that the 32-bit vs 64-bit precision performance
+issue is [[http://stackoverflow.com/questions/4584637/double-or-float-which-is-faster][kindof complicated]] anyway on a 64-bit CPU.
+
+* Changing from doubles to floats
+
+There is one scenario where the smaller 32-bit floats are clearly
+beneficial is with [[http://en.wikipedia.org/wiki/SIMD][SIMD operations]], which xtlang supports through
+LLVM's [[http://llvm.org/docs/LangRef.html#vector-type][vector type]]. Going into the details is a job for another time,
+but basically it allows us to vectorise the audio stuff to be more
+efficient, which is handy for computationally expensive things like
+convolution reverb.
+
+So we've made the decision to change extempore's =dsp= callback to use
+=floats= by default. Actually, we've added a new type alias in
+=runtime/xtlang.xtm=
+
+#+BEGIN_SRC extempore
+(bind-alias SAMPLE float)
+#+END_SRC
+
+So the =DSP= alias in =libs/core/audio_dsp.xtm= is now
+
+#+BEGIN_SRC extempore
+;;;;;;;;;;;;; this for audio ;;;;;;;;;;;;;;;;;;
+;; THESE ALL NEED TO BE CHANGED TOGETHER!!!!
+(bind-alias SAMPLE float)
+(bind-func audio_64bit (lambda () #f))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+#+END_SRC
+
+You'll notice that the second (=time=) and third (=chan=)arguments are
+now =i64=, rather than =double= as they were before. This is because
+=time= has always been an =i64= under the covers, but was cast to a
+=double= to allow it to be easily used in signal processing stuff (as
+in the =cos= example earlier at the beginning of this post). =chan=
+was initially a double for this reason as well, but in practice you're
+usually testing for equality, and testing for equality on floats
+(particularly single precision ones) is always a bit dicey, so we
+ended up doing things like =(< chan 0.5)= to select channel 1.
+
+So, we figured that while we were breaking things anyway with the
+=DSP= type signature, we might as well fix up those other things too.
+
+* What this means for Extempore users
+
+Well, we've updated all the libs and examples to use the =SAMPLE=
+alias, so they should be all up-to-date.  If you have any issues let
+us know on the [[mailto:extemporelang@googlegroups.com][mailing list]].  If you have old audio code (basically
+anything which uses the =dsp= callback) then it'll be broken, but
+should be easy to update.
+
+Alternately, you can change the =SAMPLE= alias back to =double=, and
+make sure you update the the =audio_64bit= closure as well. Still,
+unless you've got a good reason to stick with =doubles=, moving to
+=floats= is a good idea. It'll mean that you can take advantage of the
+new vectorised audio stuff, including the cool
+=examples/external/convolution_reverb.xtm=.
