@@ -1,12 +1,15 @@
 #+begin_html
 ---
 layout: post
-title: "Building Extempore through Homebrew"
+title: "Building Extempore through Homebrew on OSX and Linux"
 date: 2013-11-12 16:54
 comments: true
 categories:
 ---
 #+end_html
+
+#+TOC: headlines 2
+
 If you've tried to install Extempore in the past, you'll know that
 building from source is a (moderately) painful process with about half
 a dozen steps. We've tried to make Extempore binaries, but making sure
@@ -20,7 +23,7 @@ now.  In fact, over the last couple of years I've gradually been
 contributing packages for various Extempore dependencies to make my
 own life easier.
 
-Well, there's now a homebrew formula for Extempore.  The reason there
+Well, now there's a homebrew formula for Extempore. The reason there
 hasn't been one in the past is the need to patch and use an old
 version (3.2) of LLVM, and since homebrew doesn't really allow for
 multiple versions of a package side-by-side, I haven't been able to
@@ -39,11 +42,11 @@ After that, homebrew knows about all the packages in my tap, which
 includes Extempore.  You can install it with
 
 #+BEGIN_SRC sh
-brew install extempore
+brew install --HEAD extempore
 #+END_SRC
 
 which will install Extempore, as well as (by default) all of the
-shared libs you need for the Extempore standard library.
+shared libs you need for the Extempore standard library.  
 
 Your extempore directory will be in
 =/usr/local/Cellar/extempore/HEAD=, unless you installed homebrew
@@ -51,16 +54,56 @@ somewhere other than =/usr/local=. =cd= into that directory, run
 =./extempore= and then you're ready to connect up an editor and [[file:./2012-09-26-interacting-with-the-extempore-compiler.org][start
 evaluating Extempore code]].
 
+The =--HEAD= flag is necessary because Extempore is currently a 'head
+only' formula: it just pulls down whatever the latest Extempore source
+code from =digego/master= on GitHub and compiles that. It doesn't have
+a specific version number, which also means that if you want to update
+Extempore you have to 'reinstall' Extempore with
+
+#+BEGIN_SRC sh
+brew reinstall --HEAD extempore
+#+END_SRC
+
+Once we get around to tagging stable releases for Extempore this won't
+be necessary.
+
 * Homebrew on Linux
 
 So that's great for OSX users, but what I only just discovered
-recently is that there's a fork of [[https://github.com/Homebrew/linuxbrew][homebrew for Linux]] as well.  If
-you're happy to install homebrew on your linux box, then you can tap
-my /Linux/ Extempore homebrew repo and install Extempore:
+recently is that there's a fork of [[https://github.com/Homebrew/linuxbrew][homebrew for Linux]] as well.
+Homebrew on Linux lives in a =.linuxberw= folder inside your home
+directory, so it shouldn't interfere with your 'regular' package
+manager (=apt-get=, =yum=, =pacman=, etc.).
+
+Once you've installed homebrew on your Linux box then you can tap my
+/Linux/ Extempore homebrew repo and install Extempore:
 
 #+BEGIN_SRC sh
-brew tap benswift/extempore-linux
-brew install extempore
+brew tap benswift/extemporelinux
+#+END_SRC
+
+This will print a few warnings about not linking formulae from this
+tap over the top of existing ones. The Linux situation is a bit more
+complicated than on OSX because I had to (on Ubuntu 13.10, anyway)
+tweak a couple of other dependencies so they would build: =cmake=,
+=assimp= and =shivavg=. Basically, what's happening is that homebrew
+on Linux by default just uses the same build formulae as on OSX, which
+in some cases works fine (thanks to their shared *nix underpinnings)
+but in other cases some small tweaks are required.
+
+All this means is that there's an extra step required to install the
+deps from my tap, which /should/ work, although your mileage may vary
+depending on which Linux distro you're on.  Let me know if you run
+into problems.
+
+#+BEGIN_SRC sh
+brew install benswift/extemporelinux/cmake benswift/extemporelinux/assimp benswift/extemporelinux/shivavg
+#+END_SRC
+
+After that, you should be able to successfully
+
+#+BEGIN_SRC sh
+brew install --HEAD extempore
 #+END_SRC
 
 If you'd rather not install homebrew on your linux box then you can
