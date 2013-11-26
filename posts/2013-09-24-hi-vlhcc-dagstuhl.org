@@ -1,0 +1,11 @@
+#+title: Hi, VL/HCC & Dagstuhl attendees
+
+If you were at [[https://sites.google.com/site/vlhcc2013/program/liveness][VL/HCC]] or [[http://www.dagstuhl.de/en/program/calendar/semhp/?semnr%3D13382][Dagstuhl]] last week, you may have seen
+Extempore and ended up here.  If so, welcome!
+
+I'm gonna be doing a few more bite-sized tutorials in the coming
+weeks, but for now if you're after Extempore documentation 
+[[file:../extempore-docs/index.org][you've come to the right place]].
+
+It was great to meet you all last week, and hopefully our paths will
+cross again.

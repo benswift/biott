@@ -1,0 +1,42 @@
+#+title: xtlang naming conventions
+
+These conventions aren't (currently) used consistently throughout the
+Extempore codebase, but we're hoping to bring everything into line
+eventually---pull requests welcome :)
+
+* Scheme conventions
+
+- *Spaces* in names should use dashes (=-=), e.g. =my-scheme-variable=
+- *Predicates* (functions that /test/ their arguments and return =#t= or
+  =#f=) should end in =?=, e.g. =integer?=
+- *Destructive functions* (which modify their arguments in-place) should
+  end in a =!=, e.g. =set-cdr!=
+- *Global variables* should be surrounded by =*=, e.g.
+  =*my-scheme-global*=
+
+* xtlang conventions
+
+Some of the differences between the xtlang and the Scheme conventions
+are for technical reasons (xtlang's identifiers have the same
+limitations as C, e.g. no =!=), while others are to help differentiate
+between Scheme and xtlang visually (e.g. dashes in Scheme vs
+underscores in xtlang).
+
+- *Spaces* in names should use underscores (=_=), e.g. =my_scheme_variable=
+- *Predicates* (functions that /test/ their arguments and return =TRUE= or
+  =FALSE=) should end in =p= (for single word predicates) or =_p= (for
+  multi-word predicates), e.g. =integerp=, =unicode_char_p=
+- *Destructive functions* (which modify their arguments in-place) should
+  end in a =_n=, e.g. =xsort_n=.  The exception to this is the special
+  forms for pointer/tuple/array/vector setting (e.g. =pset!=).
+- *Global variables* should be uppercased, e.g.
+  =MY_XTLANG_GLOBAL=
+- *Closures* which return closures (closure 'makers') should end in the
+  suffix =_c=, e.g. =osc_c=
+- *Types* (except for the [[file:2012-08-09-xtlang-type-reference.org][built-in types]]) should have a =_t=
+  suffix, e.g. =xlist_t=
+
+* Capitalisation conventions
+
+- In writing, /Extempore/ should be capitalised, while /xtlang/ should
+  remain uncapitalised.
