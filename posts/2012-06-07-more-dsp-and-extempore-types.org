@@ -1,4 +1,17 @@
-#+real-tme DSP capability. That post showed that by writing our ow
+#+begin_html
+---
+#+title: More DSP and more Extempore types
+alias: ["./2012-06-07-more-dsp-and-extempore-types.html"]
+---
+#+end_html
+
+So this blog post builds on [[http://benswift.github.com/blog/2012/06/07/dsp-basics-in-extempore/][the previous one]] in covering Extempore's
+real-time DSP capability. That post showed that by writing our own
+=dsp= sink we could make any sound we wanted---essentially writing raw
+audio samples to =/dev/audio=. It also introduced some of the
+primitive types supported by the xtlang compiler: ints and floats of
+various lengths, and showed the syntax for typing variables in xtlang
+and interpreting the type signatures of xtlang closures.
 
 This post expands on that stuff by showing some of the 'compound'
 [[file:2012-08-09-xtlang-type-reference.org][types]] and data structures that xtlang supports. These include tuples,

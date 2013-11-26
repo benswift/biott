@@ -1,10 +1,6 @@
 #+begin_html
 ---
-layout: page
-title: "Extempore Documentation"
-comments: false
-sharing: true
-footer: true
+title: Extempore Documentation
 ---
 #+end_html
 

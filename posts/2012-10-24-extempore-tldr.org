@@ -1,4 +1,9 @@
-#+title: What is Extempore?
+#+begin_html
+---
+title: What is Extempore?
+alias: ["./2012-10-24-extempore-tldr.html"]
+---
+#+end_html
 
 If you've just stumbled across this site, you've probably got a few
 high-level questions about what Extempore is.  Primarily, Extempore is

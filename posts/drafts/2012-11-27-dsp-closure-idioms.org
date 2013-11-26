@@ -1,10 +1,7 @@
 #+begin_html
 ---
-layout: post
-title: "DSP closure idioms"
-date: 2012-11-27 09:56
-comments: true
-categories:
+title: DSP closure idioms
+alias: ["./2012-11-27-dsp-closure-idioms.html"]
 ---
 #+end_html
 

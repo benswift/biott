@@ -1,6 +1,9 @@
-#+title: Extempore binary: beta testers wanted
-
-Hey folks
+#+begin_html
+---
+title: Extempore binary: beta testers wanted
+alias: ["./2013-10-15-extempore-binary-beta-testers-wanted.html"]
+---
+#+end_html
 
 Some good news from Extempore-land: we've got some Extempore binaries
 for OSX and Linux. This should make it a lot easier to get up and

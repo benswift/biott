@@ -1,5 +1,9 @@
-#+title: Time in Extempore
-
+#+begin_html
+---
+title: Time in Extempore
+alias: ["./2012-10-15-time-in-extempore.html"]
+---
+#+end_html
 # /This post is adapted from [[http://impromptu.moso.com.au/tutorials/time.html][a tutorial]] Andrew wrote for Impromptu./
 
 # from Extempore basics

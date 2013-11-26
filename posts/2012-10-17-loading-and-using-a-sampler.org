@@ -1,4 +1,9 @@
-#+title: Loading and using a sampler
+#+begin_html
+---
+title: Loading and using a sampler
+alias: ["./2012-10-17-loading-and-using-a-sampler.html"]
+---
+#+end_html
 
 A sampler is an instrument which stores chunks of audio which can be
 /triggered/---played back. Samplers are used in many different ways,

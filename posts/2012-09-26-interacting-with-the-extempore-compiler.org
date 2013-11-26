@@ -1,4 +1,9 @@
-#+title: Interacting with the Extempore Compiler
+#+begin_html
+---
+title: Interacting with the Extempore Compiler
+alias: ["./2012-09-26-interacting-with-the-extempore-compiler.html"]
+---
+#+end_html
 
 /Note: if you're unfamiliar with some of the concepts presented here,
 you might find the [[file:../extempore-docs/index.org][docs index]] helpful./

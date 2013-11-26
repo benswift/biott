@@ -1,5 +1,9 @@
-#+title: Building Extempore through Homebrew on OSX and Linux
-
+#+begin_html
+---
+title: Building Extempore through Homebrew on OSX and Linux
+alias: ["./2013-11-12-building-extempore-through-homebrew.html"]
+---
+#+end_html
 #+TOC: headlines 2
 
 If you've tried to install Extempore in the past, you'll know that

@@ -1,4 +1,9 @@
-#+title: Testing TOPclock
+#+begin_html
+---
+title: Testing TOPclock
+alias: ["./2013-10-15-testing-topclock.html"]
+---
+#+end_html
 
 There's been a flurry of activity recently on the TOPLAP list about
 the [[https://docs.google.com/document/d/19nTIibG_WoZaaK-GnQME70XcTH_il6I4Ckq93z3-98g/edit?pli%3D1][TOPLAP Clock Protocol]] (the protocol formerly known as TOPclock).

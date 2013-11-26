@@ -1,4 +1,9 @@
-#+title: The Extempore philosophy
+#+begin_html
+---
+title: The Extempore philosophy
+alias: ["./2012-08-07-extempore-philosophy.html"]
+---
+#+end_html
 
 Extempore is a programming language and runtime environment designed
 with /live/ programming in mind. It supports interactive programming

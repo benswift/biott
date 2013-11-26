@@ -1,4 +1,9 @@
-#+title: Extempore for Impromptu users
+#+begin_html
+---
+title: Extempore for Impromptu users
+alias: ["./2012-10-15-extempore-for-impromptu-users.html"]
+---
+#+end_html
 
 If you're an Impromptu user and you're thinking about making the
 switch to Extempore, you've probably got a few questions about what

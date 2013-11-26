@@ -1,10 +1,7 @@
 #+begin_html
 ---
-layout: post
-title: "Extempore on ODRIOD-X2"
-date: 2013-04-19 14:55
-comments: true
-categories:
+title: Extempore on ODRIOD-X2
+alias: ["./2013-04-19-extempore-on-odriod-x2.html"]
 ---
 #+end_html
 

@@ -1,4 +1,9 @@
-#+title: Binding to C libs
+#+begin_html
+---
+title: Binding to C libs
+alias: ["./2012-08-23-binding-to-c-libs.html"]
+---
+#+end_html
 
 There's a /lot/ of useful C library code out there. Sometimes there
 /are/ good reasons to write things from scratch, but other times you

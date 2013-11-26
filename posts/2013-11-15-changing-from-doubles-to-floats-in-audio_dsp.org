@@ -1,4 +1,9 @@
-#+title: Changing from doubles to floats in audio_dsp
+#+begin_html
+---
+title: Changing from doubles to floats in audio_dsp
+alias: ["./2013-11-15-changing-from-doubles-to-floats-in-audio_dsp.html"]
+---
+#+end_html
 
 Up till now, the type signature of the =dsp= closure (which we give
 the alias =DSP= for convenience) has been

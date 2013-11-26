@@ -1,4 +1,9 @@
-#+title: Building Extempore on Windows
+#+begin_html
+---
+title: Building Extempore on Windows
+alias: ["./2013-03-20-building-extempore-on-windows.html"]
+---
+#+end_html
 
 These instructions are for building Extempore from source. If you're
 after a less painful installation process, then you'll soon (real

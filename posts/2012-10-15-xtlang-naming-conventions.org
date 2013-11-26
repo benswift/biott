@@ -1,4 +1,9 @@
-#+title: xtlang naming conventions
+#+begin_html
+---
+title: xtlang naming conventions
+alias: ["./2012-10-15-xtlang-naming-conventions.html"]
+---
+#+end_html
 
 These conventions aren't (currently) used consistently throughout the
 Extempore codebase, but we're hoping to bring everything into line

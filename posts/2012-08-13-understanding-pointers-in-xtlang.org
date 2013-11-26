@@ -1,4 +1,9 @@
-#+title: Understanding pointers in xtlang
+#+begin_html
+---
+title: Understanding pointers in xtlang
+alias: ["./2012-08-13-understanding-pointers-in-xtlang.html"]
+---
+#+end_html
 
 xtlang's pointer types may cause some confusion for those who aren't
 used to (explicitly) working with reference types. That's nothing to

@@ -1,4 +1,9 @@
-#+title: Extempore & Sublime Text 2
+#+begin_html
+---
+title: Extempore & Sublime Text 2
+alias: ["./2012-10-23-extempore-st2-cheat-sheet.html"]
+---
+#+end_html
 
 [[http://www.sublimetext.com][Sublime Text 2]] (ST2) is a cross-platform text editor which runs on OS
 X, Linux and Windows. It's the 'spiritual successor' to Textmate, and

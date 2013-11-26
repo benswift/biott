@@ -1,4 +1,9 @@
-#+title: Playing an instrument (part I)
+#+begin_html
+---
+title: Playing an instrument (part I)
+alias: ["./2012-10-15-playing-an-instrument-part-i.html"]
+---
+#+end_html
 
 /This post is a modified version of [[http://impromptu.moso.com.au/tutorials/bing.html][a tutorial]] that Andrew wrote for
 Impromptu./

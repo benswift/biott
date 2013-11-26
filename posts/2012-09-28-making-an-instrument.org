@@ -1,4 +1,9 @@
-#+title: Making an Instrument
+#+begin_html
+---
+title: Making an Instrument
+alias: ["./2012-09-28-making-an-instrument.html"]
+---
+#+end_html
 
 This covers the basics of creating an /instrument/ in Extempore. While
 there are [[file:2012-06-07-dsp-basics-in-extempore.org][other]] [[file:2012-06-07-more-dsp-and-extempore-types.org][posts]] which cover audio digital signal processing

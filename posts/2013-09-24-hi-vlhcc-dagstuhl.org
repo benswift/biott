@@ -1,4 +1,9 @@
-#+title: Hi, VL/HCC & Dagstuhl attendees
+#+begin_html
+---
+title: Hi, VL/HCC & Dagstuhl attendees
+alias: ["./2013-09-24-hi-vlhcc-dagstuhl.html"]
+---
+#+end_html
 
 If you were at [[https://sites.google.com/site/vlhcc2013/program/liveness][VL/HCC]] or [[http://www.dagstuhl.de/en/program/calendar/semhp/?semnr%3D13382][Dagstuhl]] last week, you may have seen
 Extempore and ended up here.  If so, welcome!

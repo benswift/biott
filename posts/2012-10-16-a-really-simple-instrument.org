@@ -1,4 +1,9 @@
-#+title: A really simple instrument
+#+begin_html
+---
+title: A really simple instrument
+alias: ["./2012-10-16-a-really-simple-instrument.html"]
+---
+#+end_html
 
 In this post we'll make a really basic =saw_synth= instrument. An
 /instrument/ in Extempore allows you to trigger 'notes' like a MIDI

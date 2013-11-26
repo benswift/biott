@@ -1,4 +1,8 @@
-#+title: Research
+#+begin_html
+---
+title: Research
+---
+#+end_html
 
 I'm an [[http://people.cecs.anu.edu.au/user/3895][Adjunct Research Assistant]] in the School of Computer Science at
 the Australian National University, working under Prof. John Hosking

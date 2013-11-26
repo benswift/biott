@@ -1,4 +1,9 @@
-#+title: Building Extempore on OSX & Linux
+#+begin_html
+---
+title: Building Extempore on OSX & Linux
+alias: ["./2013-03-20-building-extempore-on-osx-linux.html"]
+---
+#+end_html
 
 On OSX and Linux, Extempore has three main dependencies:
 

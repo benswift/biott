@@ -1,4 +1,9 @@
-#+title: Extempore & Emacs cheat
+#+begin_html
+---
+title: Extempore & Emacs cheat
+alias: ["./2012-10-10-extempore-emacs-cheat-sheet.html"]
+---
+#+end_html
 
 Learning [[http://www.gnu.org/software/emacs/][Emacs]] can be pretty daunting, and you don't /have/ to use Emacs
 to use Extempore (see the [[https://github.com/benswift/extempore-sublime][Sublime Text 2 plugin]], for instance).

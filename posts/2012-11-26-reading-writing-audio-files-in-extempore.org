@@ -1,4 +1,9 @@
-#+title: Reading & writing audio files in Extempore
+#+begin_html
+---
+title: Reading & writing audio files in Extempore
+alias: ["./2012-11-26-reading-writing-audio-files-in-extempore.html"]
+---
+#+end_html
 
 Extempore's =libsndfile= bindings[fn:libsndfile] provide functionality
 for both reading and writing audio files. Here's a short example of

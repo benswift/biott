@@ -1,4 +1,10 @@
-#+title: Using xtlang modules for faster startup
+#+begin_html
+---
+title: Using xtlang modules for faster startup
+alias: ["./2013-08-06-using-xtlang-modules-for-faster-startup.html"]
+---
+#+end_html
+
 If you've done any Extempore programming which relies on large
 libraries, such as the OpenGL library =libs/external/opengl.xtm= or
 the instrument library =libs/external/instruments_ext.xtm=, you'll know

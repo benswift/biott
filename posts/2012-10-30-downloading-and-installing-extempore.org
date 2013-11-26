@@ -1,7 +1,12 @@
-#+title: Downloading and installing Extempore
+#+begin_html
+title: Downloading and installing Extempore
+alias: ["./2012-10-30-downloading-and-installing-extempore.html"]
+#+end_html
 
-*Update 2013-9-25: Binaries are currently unavailable: we're hoping to
-have them back real soon.  In the meantime, check out the instructions on how to build from source on [[file:2013-03-20-building-extempore-on-osx-linux.org][OSX/Linux]] or [[file:2013-03-20-building-extempore-on-windows.org][Windows]].*
+---
+*Update 2013-9-25: Binaries are now dead, homebrew or building source
+([[file:2013-03-20-building-extempore-on-osx-linux.org][OSX/Linux]] or [[file:2013-03-20-building-extempore-on-windows.org][Windows]]) is the way to go.*
+---
 
 The easiest way to get up and running with Extempore is to download a
 binary tarball. A binary is an [[http://en.wikipedia.org/wiki/Executable][executable]] which someone has already

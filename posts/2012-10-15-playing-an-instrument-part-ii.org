@@ -1,4 +1,9 @@
-#+title: Playing an instrument (part II)
+#+begin_html
+---
+title: Playing an instrument (part II)
+alias: ["./2012-10-15-playing-an-instrument-part-ii.html"]
+---
+#+end_html
 
 /This post has been adapted from some [[http://impromptu.moso.com.au/tutorials/making_music/The%2520Basics.html][tutorials]] Andrew originally
 wrote for Impromptu./
