@@ -1,0 +1,9 @@
+#+begin_html
+---
+layout: post
+title: "OSC & Extempore CaaS"
+date: 2013-02-08 14:38
+comments: true
+categories:
+---
+#+end_html
