@@ -18,3 +18,7 @@ On the weekends I [[http://ridecanberra.com.au][ride my mountain bike]], play [[
 the [[http://www.hawthornfc.com.au][footy]] and go to [[http://crossroads.asn.au][church]]. I'm also trying to learn Mandarin so that
 I can better communicate with my in-laws.  Ask me how I'm going with
 that in a year.
+
+#+begin_html
+<a href=""><img src="../images/biopic.jpg" alt=""></a>
+#+end_html
