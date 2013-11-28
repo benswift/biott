@@ -54,10 +54,6 @@ If you want to get in touch, email is best---you can reach me on
   mind attention interface. /OZCHI '07: Proceedings of the
   Australasian Conference on Computer-Human Interaction./
 
-#+begin_html
-<a href=""><img src="../images/biopic.jpg" alt=""></a>
-#+end_html
-
 # I live mainly in the world of Human-Computer Interaction (HCI),
 # although I also have a digital artist (Dr. Alistair Riddell) and a
 # geographer (Dr. David Bissell) on my panel. I'm interested in group
