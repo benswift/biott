@@ -15,7 +15,7 @@ drop [[file:../bio/index.org][me]] a line at [[mailto:benjamin.j.swift@gmail.com
 
 * Key concepts
 
-- [[file:../2012-10-24-extempore-tldr.org][What is Extempore?]] (Extempore's tl;dr)
+# - [[file:../2012-10-24-extempore-tldr.org][What is Extempore?]] (Extempore's tl;dr)
 - [[file:../2012-08-07-extempore-philosophy.org][The Extempore philosophy]]
 - [[file:../2012-09-26-interacting-with-the-extempore-compiler.org][Interacting with the Extempore compiler]]
 - [[file:../2012-10-15-time-in-extempore.org][Time in Extempore]]
