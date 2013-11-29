@@ -1,7 +1,8 @@
 #+begin_html
 ---
-#+title: More DSP and more Extempore types
+title: More DSP and more Extempore types
 alias: ["./2012-06-07-more-dsp-and-extempore-types.html"]
+tags: xtlang audio
 ---
 #+end_html
 

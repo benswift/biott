@@ -2,6 +2,7 @@
 ---
 title: xtlang type diagrams
 alias: ["./2012-10-03-xtlang-type-diagrams.html"]
+tags: xtlang
 ---
 #+end_html
 
@@ -42,7 +43,7 @@ might not make a lot of sense, and you might want to read up on
 * The xtlang type key
 
 #+begin_html
-<a href=""><img src="images/type-key.png" alt=""></a>
+<a href=""><img src="/img/type-key.png" alt=""></a>
 #+end_html
 
 To start, cast your eye over the type key: these are the visual
@@ -52,7 +53,7 @@ all compound and custom types.
 ** Int and float values
 
 #+begin_html
-<a href=""><img src="images/int-float-examples.png" alt=""></a>
+<a href=""><img src="/img/int-float-examples.png" alt=""></a>
 #+end_html
 
 The primitive float and int types of different widths are all
@@ -75,7 +76,7 @@ variable
 then the name will be written inside the box:
 
 #+begin_html
-<a href=""><img src="images/named-int-float-vars.png" width="350px" alt=""></a>
+<a href=""><img src="/img/named-int-float-vars.png" width="350px" alt=""></a>
 #+end_html
 
 The names can be bound either through global assignment (as above), or
@@ -88,7 +89,7 @@ Pointer types are indicated with a (half-height) orange bar, and the
 number of orange bars indicates the pointer 'depth'.
 
 #+begin_html
-<a href=""><img src="images/pointer-examples.png" width="350px" alt=""></a>
+<a href=""><img src="/img/pointer-examples.png" width="350px" alt=""></a>
 #+end_html
 
 Pointers are used frequently to deal with aggregate types: tuples,
@@ -105,7 +106,7 @@ elements in the tuple.  Some examples are probably the clearest way to
 explain this:
 
 #+begin_html
-<a href=""><img src="images/tuple-examples.png" alt=""></a>
+<a href=""><img src="/img/tuple-examples.png" alt=""></a>
 #+end_html
 
 Notice that all of the examples show tuple pointers: this is the
@@ -120,7 +121,7 @@ that. As an example, the comparison between
 # todo maybe put some xtlang in here to demonstrate it too
 
 #+begin_html
-<a href=""><img src="images/size-comparison.png" width="400px" alt=""></a>
+<a href=""><img src="/img/size-comparison.png" width="400px" alt=""></a>
 #+end_html
 
 both the pair of primitives and the tuple take up the exact same room
@@ -139,7 +140,7 @@ elements) and the type of the elements.  Like tuples, arrays are
 normally handled in xtlang via pointers.
 
 #+begin_html
-<a href=""><img src="images/array-examples.png" alt=""></a>
+<a href=""><img src="/img/array-examples.png" alt=""></a>
 #+end_html
 
 The third example shows how the elements of an xtlang array can be of
@@ -153,7 +154,7 @@ Vectors are exactly the same as arrays from a type diagram
 perspective---the only difference is the colour.
 
 #+begin_html
-<a href=""><img src="images/vector-examples.png" width="350px" alt=""></a>
+<a href=""><img src="/img/vector-examples.png" width="350px" alt=""></a>
 #+end_html
 
 It's worth keeping in mind, though, that vectors and arrays are very
@@ -201,7 +202,7 @@ The closure is given a name (=closure1=), takes no arguments, and
 returns an =i64=.
 
 #+begin_html
-<a href=""><img src="images/named-closure-1.png" width="150px" alt=""></a>
+<a href=""><img src="/img/named-closure-1.png" width="150px" alt=""></a>
 #+end_html
 
 Notice that the top 'layer' of the closure is blank (white) to
@@ -257,7 +258,7 @@ And here are the xtlang type diagrams of =closure1=, =closure2= and
 =closure3=
 
 #+begin_html
-<a href=""><img src="images/named-closure-2.png" alt=""></a>
+<a href=""><img src="/img/named-closure-2.png" alt=""></a>
 #+end_html
 
 See how =closure1= (a simple closure which takes no arguments) and

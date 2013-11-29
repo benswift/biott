@@ -2,6 +2,7 @@
 ---
 title: Loading and using a sampler
 alias: ["./2012-10-17-loading-and-using-a-sampler.html"]
+tags: xtlang audio c-interop
 ---
 #+end_html
 
@@ -29,7 +30,7 @@ You can think of a sampler as a series of 'slots', each of which
 contains a sound file.
 
 #+begin_html
-<a href=""><img src="images/sampler/piano-full.png" width="400px" alt=""></a>
+<a href=""><img src="/img/sampler/piano-full.png" width="400px" alt=""></a>
 #+end_html
 
 Each slot has a unique index, and playing the sampler generally
@@ -59,7 +60,7 @@ The Extempore sampler doesn't /have/ to be full---there can be
 empty slots.
 
 #+begin_html
-<a href=""><img src="images/sampler/piano-gaps.png" width="400px" alt=""></a>
+<a href=""><img src="/img/sampler/piano-gaps.png" width="400px" alt=""></a>
 #+end_html
 
 In this situation, when the sampler gets a =play-note= message

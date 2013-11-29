@@ -2,6 +2,7 @@
 ---
 title: xtlang type reference
 alias: ["./2012-08-09-xtlang-type-reference.html"]
+tags: xtlang
 ---
 #+end_html
 
@@ -43,7 +44,7 @@ of variables in many cases.
 *** Integers
 
 #+begin_html
-<a href=""><img src="images/int-examples.png" alt=""></a>
+<a href=""><img src="/img/int-examples.png" alt=""></a>
 #+end_html
 
 Extempore supports signed integers of various different sizes:
@@ -65,7 +66,7 @@ A couple of gotchas:
 *** Floats
 
 #+begin_html
-<a href=""><img src="images/float-examples.png" alt=""></a>
+<a href=""><img src="/img/float-examples.png" alt=""></a>
 #+end_html
 
 There are two sizes of floating point number: 
@@ -80,7 +81,7 @@ unless the type signatures suggest otherwise (as is the case with
 ** Pointer types
 
 #+begin_html
-<a href=""><img src="images/pointer-examples.png" alt=""></a>
+<a href=""><img src="/img/pointer-examples.png" alt=""></a>
 #+end_html
 
 xtlang supports [[http://en.wikipedia.org/wiki/Pointer_(computer_programming)][pointers]] to any type, in fact some types (such as
@@ -245,7 +246,7 @@ and will be added in a future release.
 Examples:
 
 #+begin_html
-<a href=""><img src="images/tuple-examples.png" alt=""></a>
+<a href=""><img src="/img/tuple-examples.png" alt=""></a>
 #+end_html
 
 - =<double,i32>*= is a pointer to a 2-tuple: the first element is a
@@ -296,7 +297,7 @@ with the pipe (=|=) character.
 Examples:
 
 #+begin_html
-<a href=""><img src="images/array-examples.png" alt=""></a>
+<a href=""><img src="/img/array-examples.png" alt=""></a>
 #+end_html
 
 - =|4,double|*=:  a pointer to an array of 4 =double=
@@ -335,7 +336,7 @@ they're going /faster/.
 Examples:
 
 #+begin_html
-<a href=""><img src="images/vector-examples.png" alt=""></a>
+<a href=""><img src="/img/vector-examples.png" alt=""></a>
 #+end_html
 
 - =/4,float/*=: a pointer to a vector of four floats
@@ -369,7 +370,7 @@ other elements representing the type signature of the function.
 Examples:
 
 #+begin_html
-<a href=""><img src="images/closure-examples.png" alt=""></a>
+<a href=""><img src="/img/closure-examples.png" alt=""></a>
 #+end_html
 
 - =[i64]*=: a pointer to a closure which takes no arguments and

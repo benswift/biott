@@ -2,6 +2,7 @@
 ---
 title: Extempore & Sublime Text 2
 alias: ["./2012-10-23-extempore-st2-cheat-sheet.html"]
+tags: tools sublime-text
 ---
 #+end_html
 

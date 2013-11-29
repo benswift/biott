@@ -2,6 +2,7 @@
 ---
 title: Playing an instrument (part I)
 alias: ["./2012-10-15-playing-an-instrument-part-i.html"]
+tags: audio time
 ---
 #+end_html
 

@@ -2,6 +2,7 @@
 ---
 title: Extempore and LLVM 3.2
 alias: ["./2013-03-20-extempore-and-llvm-3-2.html"]
+tags: setup
 ---
 #+end_html
 

@@ -2,6 +2,7 @@
 ---
 title: A really simple instrument
 alias: ["./2012-10-16-a-really-simple-instrument.html"]
+tags: xtlang audio
 ---
 #+end_html
 
@@ -35,7 +36,7 @@ also be =double= (see [[./2013-11-15-changing-from-doubles-to-floats-in-audio_ds
 In an [[file:./2012-10-03-xtlang-type-diagrams.org][xtlang type diagram]]:
 
 #+begin_html
-<a href=""><img src="images/simple-instrument/note-kernel.png" width="300px" alt=""></a>
+<a href=""><img src="/img/simple-instrument/note-kernel.png" width="300px" alt=""></a>
 #+end_html
 
 The /returned/ closure will be called to provide the basic audio
@@ -101,7 +102,7 @@ individually, but rather to the total audio output of the instrument.
 And that's where the *fx closure* comes in.
 
 #+begin_html
-<a href=""><img src="images/simple-instrument/fx.png" width="300px" alt=""></a>
+<a href=""><img src="/img/simple-instrument/fx.png" width="300px" alt=""></a>
 #+end_html
 
 The most important argument to the fx closure is the =in= argument,
@@ -145,7 +146,7 @@ Finally, to complete the instrument, we use a special
 #+end_src
 
 #+begin_html
-<a href=""><img src="images/simple-instrument/whole-instrument.png" alt=""></a>
+<a href=""><img src="/img/simple-instrument/whole-instrument.png" alt=""></a>
 #+end_html
 
 As long as your kernel (=saw_synth_note_c=) and fx (=saw_synth_fx=)

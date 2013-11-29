@@ -2,6 +2,7 @@
 ---
 title: Making an Instrument
 alias: ["./2012-09-28-making-an-instrument.html"]
+tags: xtlang audio
 ---
 #+end_html
 
@@ -60,7 +61,7 @@ The key tone-shaping controls in a Hammond organ are its drawbars,
 which look like this:
 
 #+begin_html
-<a href=""><img src="images/making-an-instrument/drawbars.png" alt=""></a>
+<a href=""><img src="/img/making-an-instrument/drawbars.png" alt=""></a>
 #+end_html
 
 Each drawbar controls the relative amplitude of a given tonewheel. The
@@ -200,7 +201,7 @@ you'd be right. Each closure 'closes over' a state variable called
 In an xtlang type diagram, =osc_c= looks like this
 
 #+begin_html
-<a href=""><img src="images/making-an-instrument/osc_c.png" width="450px" alt=""></a>
+<a href=""><img src="/img/making-an-instrument/osc_c.png" width="450px" alt=""></a>
 #+end_html
 
 =osc_c= is a higher-order closure, because it returns a closure,
@@ -310,7 +311,7 @@ definition will look like this
 and in an [[file:2012-10-03-xtlang-type-diagrams.org][xtlang type diagram]]
 
 #+begin_html
-<a href=""><img src="images/making-an-instrument/full-organ-inst.png" alt=""></a>
+<a href=""><img src="/img/making-an-instrument/full-organ-inst.png" alt=""></a>
 #+end_html
 
 =define-instrument= is actually a (Scheme) macro, and it takes the two
@@ -353,7 +354,7 @@ The playing of a note happens through a function called
 =_play_note=.[fn:play-note-underscore]
 
 #+begin_html
-<a href=""><img src="images/making-an-instrument/play-note.png" alt=""></a>
+<a href=""><img src="/img/making-an-instrument/play-note.png" alt=""></a>
 #+end_html
 
 which takes four arguments:
@@ -391,7 +392,7 @@ That's all a bit hard to wrap your head when it's described with
 words.  So, here's the same explanation in (pretty) pictures:
 
 #+begin_html
-<a href=""><img src="images/making-an-instrument/note-lifecycle.png" alt=""></a>
+<a href=""><img src="/img/making-an-instrument/note-lifecycle.png" alt=""></a>
 #+end_html
 
 Don't be overwhelmed if you don't understand the whole thing---you
@@ -516,7 +517,7 @@ called directly for playback in the =dsp= closure), =organ_note_c=
 returns a /closure/.  A type diagram highlights the difference:
 
 #+begin_html
-<a href=""><img src="images/making-an-instrument/organ-drone-vs-note.png" alt=""></a>
+<a href=""><img src="/img/making-an-instrument/organ-drone-vs-note.png" alt=""></a>
 #+end_html
 
 As I described in the previous section, this provides the flexibility

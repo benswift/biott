@@ -2,6 +2,7 @@
 ---
 title: Hi, VL/HCC & Dagstuhl attendees
 alias: ["./2013-09-24-hi-vlhcc-dagstuhl.html"]
+tags:
 ---
 #+end_html
 

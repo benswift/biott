@@ -2,6 +2,7 @@
 ---
 title: Interacting with the Extempore Compiler
 alias: ["./2012-09-26-interacting-with-the-extempore-compiler.html"]
+tags: extempore-overview
 ---
 #+end_html
 
@@ -75,7 +76,7 @@ executable provides a handy command-line argument called
 directory (where the executable will be) and run
 
 #+begin_html
-<a href=""><img src="images/interacting-with-compiler/extempore-print-devices.png" alt=""></a> 
+<a href=""><img src="/img/interacting-with-compiler/extempore-print-devices.png" alt=""></a> 
 #+end_html
 
 As you can see, running =extempore= with the =--print-devices=
@@ -95,7 +96,7 @@ whatever device is found at index =0=. But it's probably a good idea
 to specify it explicitly, just to avoid any surprises.
 
 #+begin_html
-<a href=""><img src="images/interacting-with-compiler/extempore-start.png" alt=""></a> 
+<a href=""><img src="/img/interacting-with-compiler/extempore-start.png" alt=""></a> 
 #+end_html
 
 After running =extempore= with =--device 2=, it
@@ -163,7 +164,7 @@ source code, and load the appropriate Extempore plugin. Here's a
 (short) example file containing some Extempore code:
 
 #+begin_html
-<a href=""><img src="images/interacting-with-compiler/text-editor-start.png" alt=""></a> 
+<a href=""><img src="/img/interacting-with-compiler/text-editor-start.png" alt=""></a> 
 #+end_html
 
 The content of the file is at the top, and I've also included a
@@ -191,7 +192,7 @@ for you to give it some code to evaluate. So, from a 'blank slate'
 playing along, you can write =(+ 1 2)= into your file somewhere.
 
 #+begin_html
-<a href=""><img src="images/interacting-with-compiler/scheme-code-input.png" alt=""></a> 
+<a href=""><img src="/img/interacting-with-compiler/scheme-code-input.png" alt=""></a> 
 #+end_html
 
 This is where the 'Compiler as a Service' (CaaS) thing starts to get
@@ -206,7 +207,7 @@ Evaluate...= or just hit =C-M-x=. This takes the whole expression
 compiler.
 
 #+begin_html
-<a href=""><img src="images/interacting-with-compiler/scheme-eval.png" alt=""></a> 
+<a href=""><img src="/img/interacting-with-compiler/scheme-eval.png" alt=""></a> 
 #+end_html
 
 The orange 'box' in the diagram indicates code that has been sent for
@@ -222,7 +223,7 @@ default). If you evaluate this with =C-M-x= (or whatever the command
 is in your editor) then what happens is
 
 #+begin_html
-<a href=""><img src="images/interacting-with-compiler/xtlang-eval-1.png" alt=""></a> 
+<a href=""><img src="/img/interacting-with-compiler/xtlang-eval-1.png" alt=""></a> 
 #+end_html
 
 One difference from the previous (Scheme) example is that the
@@ -239,7 +240,7 @@ connection.
 How about compiling an xtlang closure?
 
 #+begin_html
-<a href=""><img src="images/interacting-with-compiler/xtlang-eval-2.png" alt=""></a> 
+<a href=""><img src="/img/interacting-with-compiler/xtlang-eval-2.png" alt=""></a> 
 #+end_html
 
 =circle_area= is an xtlang closure which takes a (=double=) argument
@@ -255,7 +256,7 @@ Let's find out the area of a circle of radius =5.0= units. We need to
 call =circle_area= with the argument =5.0=.
 
 #+begin_html
-<a href=""><img src="images/interacting-with-compiler/xtlang-eval-3.png" alt=""></a> 
+<a href=""><img src="/img/interacting-with-compiler/xtlang-eval-3.png" alt=""></a> 
 #+end_html
 
 When we evaluate the =(circle_area 5.0)= expression, a couple of
@@ -279,7 +280,7 @@ call to =println=. =println= is a built-in function which prints (to
 the log) a string representation of whatever arguments it is passed.
 
 #+begin_html
-<a href=""><img src="images/interacting-with-compiler/xtlang-eval-4.png" alt=""></a> 
+<a href=""><img src="/img/interacting-with-compiler/xtlang-eval-4.png" alt=""></a> 
 #+end_html
 
 This time, the result (=78.539816=) is printed to the log. And the
@@ -295,7 +296,7 @@ As a final basic example, we can send code to the compiler more than
 figuring out the area of a 'doughnut'
 
 #+begin_html
-<a href=""><img src="images/interacting-with-compiler/doughnut-area.png" width="250px" alt=""></a> 
+<a href=""><img src="/img/interacting-with-compiler/doughnut-area.png" width="250px" alt=""></a> 
 #+end_html
 
 Because we already have a closure (=circle_area=) for figuring out the
@@ -305,7 +306,7 @@ outer circle (radius =r1=) minus the area of the inner circle (radius
 =r2=).
 
 #+begin_html
-<a href=""><img src="images/interacting-with-compiler/xtlang-eval-5.png" alt=""></a> 
+<a href=""><img src="/img/interacting-with-compiler/xtlang-eval-5.png" alt=""></a> 
 #+end_html
 
 See how this time both the definition of the =doughnut_area= closure
@@ -325,14 +326,14 @@ all worked fine. But when we kill the =extempore= process (i.e. with
 destroyed.
 
 #+begin_html
-<a href=""><img src="images/interacting-with-compiler/extempore-restart.png" width="300px" alt=""></a> 
+<a href=""><img src="/img/interacting-with-compiler/extempore-restart.png" width="300px" alt=""></a> 
 #+end_html
 
 After restarting the =extempore= process above, and reconnecting the
 editor to it, let's try compiling the =doughnut_area= closure first:
 
 #+begin_html
-<a href=""><img src="images/interacting-with-compiler/xtlang-compile-error.png" alt=""></a> 
+<a href=""><img src="/img/interacting-with-compiler/xtlang-compile-error.png" alt=""></a> 
 #+end_html
 
 The =circle_area= closure isn't there anymore, and so the compiler
@@ -347,7 +348,7 @@ So, if we go back and evaluate all the necessary code, everything
 works properly
 
 #+begin_html
-<a href=""><img src="images/interacting-with-compiler/xtlang-eval-6.png" alt=""></a> 
+<a href=""><img src="/img/interacting-with-compiler/xtlang-eval-6.png" alt=""></a> 
 #+end_html
 
 One other thing you can do is /redefine/ the behaviour of existing
@@ -359,7 +360,7 @@ In the editor, /change the code/ for the =circle_area= closure and
 re-evaluate:
 
 #+begin_html
-<a href=""><img src="images/interacting-with-compiler/xtlang-eval-7.png" alt=""></a> 
+<a href=""><img src="/img/interacting-with-compiler/xtlang-eval-7.png" alt=""></a> 
 #+end_html
 
 The result is (slightly) different, but not too far off---not bad for

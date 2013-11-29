@@ -2,6 +2,7 @@
 ---
 title: Understanding pointers in xtlang
 alias: ["./2012-08-13-understanding-pointers-in-xtlang.html"]
+tags: xtlang memory
 ---
 #+end_html
 
@@ -38,7 +39,7 @@ like a row of little boxes, and each box has an address (the location
 of the box) and also a value (what's /in/ the box).
 
 #+begin_html
-<a href=""><img src="images/pointer-tut-1.png" alt=""></a>
+<a href=""><img src="/img/pointer-tut-1.png" alt=""></a>
 #+end_html
 
 In this image the computer's memory is represented by the blue boxes.
@@ -73,7 +74,7 @@ first =printf= call prints "You have 4 cats... ".  The memory at this
 point might look like this:
 
 #+begin_html
-  <a href=""><img src="images/pointer-tut-2a.png" alt=""></a>
+  <a href=""><img src="/img/pointer-tut-2a.png" alt=""></a>
 #+end_html
 
 But then a new value (=13=) is set into =num_cats= with the call to
@@ -82,7 +83,7 @@ cats!". After the call to =set!=, this is what the memory looks
 like:
 
 #+begin_html
-  <a href=""><img src="images/pointer-tut-2b.png" alt=""></a>
+  <a href=""><img src="/img/pointer-tut-2b.png" alt=""></a>
 #+end_html
 
 Notice how this time the memory address for =num_cats= is different to
@@ -171,7 +172,7 @@ After the call to =zalloc=, the memory therefore will look like this
 pointer type and not an =i64= value type)
 
 #+begin_html
-<a href=""><img src="images/pointer-tut-3.png" alt=""></a>
+<a href=""><img src="/img/pointer-tut-3.png" alt=""></a>
 #+end_html
 
 This is cool, we can see that the value in memory location 27 is
@@ -201,7 +202,7 @@ the memory will look like this (the only difference from last time is
 that the value 5 is stored in address 29, just as it should be).
 
 #+begin_html
-<a href=""><img src="images/pointer-tut-4.png" alt=""></a>
+<a href=""><img src="/img/pointer-tut-4.png" alt=""></a>
 #+end_html
 
 Notice also that in =print_num_cats4= we don't pass =num_cats_ptr=
@@ -275,7 +276,7 @@ these memory slots.  And this is where the second 'offset' argument to
 =pref= and =pset!= come in.
 
 #+begin_html
-<a href=""><img src="images/pointer-tut-5.png" alt=""></a>
+<a href=""><img src="/img/pointer-tut-5.png" alt=""></a>
 #+end_html
 
 See how the repeated calls to =pset!= and =pref= above have different
@@ -325,7 +326,7 @@ for 5 =i64= values, and just fills it with ascending numbers:
 After the =dotimes= the memory will look like this:
 
 #+begin_html
-<a href=""><img src="images/pointer-tut-6.png" alt=""></a>
+<a href=""><img src="/img/pointer-tut-6.png" alt=""></a>
 #+end_html
 
 There's one more useful function for working with pointers:
@@ -396,7 +397,7 @@ have a pointer to a chunk of memory, but the tuples in this memory are
 uninitialised (indicated by u).
 
 #+begin_html
-<a href=""><img src="images/pointer-tut-7.png" alt=""></a>
+<a href=""><img src="/img/pointer-tut-7.png" alt=""></a>
 #+end_html
 
 After using =pref= and =tset!= in step 2, the values get set into the
@@ -404,7 +405,7 @@ tuples.  Step 3 simply reads these values back out---it doesn't change
 the memory.
 
 #+begin_html
-<a href=""><img src="images/pointer-tut-8.png" alt=""></a>
+<a href=""><img src="/img/pointer-tut-8.png" alt=""></a>
 #+end_html
 
 There are a couple of other things worth discussing about this example.
@@ -450,7 +451,7 @@ value of =4= to represent how many cats we had, a more accurate
 diagram of the actual memory layout in this situation is:
 
 #+begin_html
-<a href=""><img src="images/pointer-tut-9.png" alt=""></a>
+<a href=""><img src="/img/pointer-tut-9.png" alt=""></a>
 #+end_html
 
 See how each =i64= value takes up 8 bytes?  Also, each byte has a
@@ -460,7 +461,7 @@ bytes along from the previous one.
 Now, consider the layout of an aggregate type like a tuple:
 
 #+begin_html
-<a href=""><img src="images/pointer-tut-10.png" alt=""></a>
+<a href=""><img src="/img/pointer-tut-10.png" alt=""></a>
 #+end_html
 
 Each tuple contains (and therefore takes up the space of) an =i64= and

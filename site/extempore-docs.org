@@ -1,6 +1,7 @@
 #+begin_html
 ---
 title: Extempore Documentation
+tags:
 ---
 #+end_html
 

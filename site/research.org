@@ -1,6 +1,7 @@
 #+begin_html
 ---
 title: Research
+tags:
 ---
 #+end_html
 
@@ -9,7 +10,7 @@ the Australian National University, working under Prof. John Hosking
 and Assoc. Prof. Henry Gardner.
 
 My primary research interest these days is *live coding*, and I'm
-currently working on the [[https://github.com/digego/extempore][Extempore]] project (as you may have been able
+currently working on [[https://github.com/digego/extempore][Extempore]] (as you may have been able
 to guess from the content of this blog). Before Extempore came along I
 was an [[http://impromptu.moso.com.au][Impromptu]] user, and have been live coding since 2007. You can
 check out some of my screencasts at my [[http://vimeo.com/benswift/videos][vimeo page]].
@@ -28,7 +29,6 @@ If you want to get in touch, email is best---you can reach me on
 # project ideas.
 
 * Publications
-
 
 - *B Swift, A Sorensen, H Gardner, J Hosking* (2013). Visual Code
   Annotations for Cyberphysical Programming. /LIVE '13: Workshop on
