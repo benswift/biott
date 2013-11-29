@@ -2,56 +2,19 @@
 ---
 title: Extempore binary: beta testers wanted
 alias: ["./2013-10-15-extempore-binary-beta-testers-wanted.html"]
+tags:
 ---
 #+end_html
 
-Some good news from Extempore-land: we've got some Extempore binaries
-for OSX and Linux. This should make it a lot easier to get up and
-running with Extempore---just download a tarball/zipfile, unpack it
-and away you go. Some of you may have been waiting for ages for these
-binaries, so thanks for your patience.
+This page used to have info about downloading pre-compiled Extempore
+binaries.  Unfortunately, that experiment didn't really work
+out---trying to keep binary compatibility between all the libs across
+all the OSes was just a massive pain.
 
-What we really need right now is some beta-testers for these binaries.
-It's tricky to build a binary (and all the necessary shared libs,
-which are included in the tarball) which will work on all the
-different versions of OSX and various flavours which are out there. We
-think these ones work, but we need your help to iron out all the rough
-edges.
+A (hopefully) better approach to making it easier to get up and
+running with Extempore is through Homebrew, and you can read about how
+to do that [[file:2013-11-12-building-extempore-through-homebrew.org][here]].  Of course, building from source is still an option
+as well ([[file:../2013-03-20-building-extempore-on-osx-linux.org][OSX & Linux]], [[file:../2013-03-20-building-extempore-on-windows.org][Windows]]).
 
-So, if you're on OSX or Linux, it would be great if you could help us
-out by:
-
-1. grabbing the binary archive from the server ([[http://extempore.moso.com.au/extras/extempore_osx_20131012.tgz][OSX]], [[http://extempore.moso.com.au/extras/extempore_linux_20131012.tgz][Linux]])
-2. unpacking it somewhere
-3. in the top-level =extempore= directory, run these example files and
-   let us know if they work
-
-#+BEGIN_SRC sh
-# move into the extempore directory
-> cd extempore
-
-# this example should play some audio (a little synth pattern)
-# don't worry about the stutter in the audio at the beginning
-> ./extempore --run examples/core/polysynth.xtm
-
-# this example should open up a 3D graphics scene
-> ./extempore --run examples/external/xtmrender2.xtm
-#+END_SRC
-
-If you hear some audio (for the =polysynth.xtm= example) and see a 3D
-scene rendered (for =xtmrender2.xtm=) then your're golden. Let us know
-on the [[mailto:extemporelang@googlegroups.com][mailing list]] (including which OS version/distro you're
-running).
-
-If Extempore crashes, then it would be great if you could [[mailto:extemporelang@googlegroups.com][let us know]]
-about that too, including any details you can give about what went
-wrong.
-
-So far, we're reasonably confident about
-
-- *OSX* 10.7+ (and possibly 10.6)
-- *Ubuntu* 12.10, 13.04
-
-If you're on another distros/versions we're keen to hear from you.
-
-Thanks in advance :)
+Still, I want to give a big thankyou to everyone who helped out with
+testing the binaries :)
