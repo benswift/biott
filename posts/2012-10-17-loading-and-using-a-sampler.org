@@ -2,7 +2,7 @@
 ---
 title: Loading and using a sampler
 alias: ["./2012-10-17-loading-and-using-a-sampler.html"]
-tags: xtlang audio c-interop
+tags: xtlang audio C-interop
 ---
 #+end_html
 

@@ -2,7 +2,7 @@
 ---
 title: Binding to C libs
 alias: ["./2012-08-23-binding-to-c-libs.html"]
-tags: xtlang c-interop
+tags: xtlang C-interop
 ---
 #+end_html
 
