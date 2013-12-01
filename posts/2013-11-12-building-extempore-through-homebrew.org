@@ -28,8 +28,21 @@ get a patched LLVM for Extempore into the homebrew repo.
 
 However, it's super easy in homebrew for me to maintain my /own/
 package repo (which homebrew calls a *tap*), and I can have whatever
-packages I like in it.  So, assuming you have homebrew installed, you
-can tap my repo with
+packages I like in it.  So, assuming you have homebrew installed, make
+sure everything is up-to-date
+
+#+BEGIN_SRC sh
+brew update
+
+# check if anything is outdated
+brew outdated
+
+# upgrade all outdated packages
+brew upgrade
+#+END_SRC
+
+
+Then, tap my homebrew repo
 
 #+BEGIN_SRC sh
 brew tap benswift/extempore
