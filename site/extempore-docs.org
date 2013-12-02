@@ -5,14 +5,23 @@ tags:
 ---
 #+end_html
 
+#+BEGIN_HTML
+  <h2 class="ui header">Extempore Docs</h2>
+#+END_HTML
+
 This blog contains a bunch of posts and tutorials covering [[https://github.com/digego/extempore][Extempore]],
 a programming environment for live coding of multimedia and real-time
 systems (among other things). If you're here to learn/find out more
 about Extempore, then here's an overview of all the documentation and
-some suggestions about where to start.
+some suggestions about where to start.  This list is hand-curated to
+provide the best 'journey' through the concepts necessary to begin
+using Extempore in anger.
+
+Alternately, there's an automatically-generated [[/tags/index.html][tags page]] which also
+allows you to browse by category.
 
 If anything isn't clear, or you have suggestions/corrections, then
-drop [[file:../bio/index.org][me]] a line at [[mailto:benjamin.j.swift@gmail.com][benjamin.j.swift@gmail.com]].
+drop [[/bio.html][me]] a line at [[mailto:benjamin.j.swift@gmail.com][benjamin.j.swift@gmail.com]].
 
 * Key concepts
 
@@ -73,16 +82,33 @@ together---in fact this is encouraged :)
 - [[file:../2012-10-15-playing-an-instrument-part-i.org][Making it go bing: playing an instrument]]
 - [[file:../2012-10-15-playing-an-instrument-part-ii.org][Musical patterns: playing with pitch and rhythm]]
 
+** Example code
+
+
+
 * Graphics
 
 Extempore supports working with graphics at several different levels
-of abstraction. You can write raw triangles with low-leve [[http://www.opengl.org][OpenGL]]
-calls, or you can use the [[http://www.cairographics.org][cairo]] library for 2D graphics, or you can
-use [[http://www.horde3d.org][Horde3D]] for a full-featured 3D engine. And again, because
+of abstraction. You can use low-leve [[http://www.opengl.org][OpenGL]] calls, or you can use the
+higher-level 2D or 3D graphics libraries. And again, because
 everything's in xtlang, you can mix-and-match!
 
-/These tutorials aren't quite done yet, but will be here soon. In the
-meantime, have a look in the/ =examples= /subdirectory./
+** 2D
+
+2D graphics primitives (like Quartz, Processing or Cairo) can be found
+in =libs/external/openvg.xtm=. For an example of this stuff in action,
+check out =examples/external/openvg.xtm=.
+
+** 3D
+
+Extempore has a 3D drawing pipeline written in xtlang,
+which supports blender models, lighting (and other custom shaders) and
+scene-graph type rendering.  And because it's all written in xtlang,
+the whole pipeline itself is dynamic and tweakable on the fly.
+
+The best place to see the 3D rendering pipeline in action is in the
+=xtmrender= examples in =examples/external/=.
+
 
 - OpenGL basics
 - 2D drawing with cairo

@@ -5,6 +5,10 @@ tags:
 ---
 #+end_html
 
+#+BEGIN_HTML
+  <h2 class="ui header">Bio</h2>
+#+END_HTML
+
 #+begin_html
     <img class="ui large floated image"
          src="img/biopic.jpg" 
