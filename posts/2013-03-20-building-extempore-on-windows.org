@@ -30,13 +30,13 @@ some of them installed.
 - [[http://msysgit.github.com][git]]
 - [[http://www.7-zip.org][7zip]] (or equivalent) for uncompressing files
 
-One comment about git: these days there are a few ways to install
-git on windows.  I like [[http://msysgit.github.com][Git for Windows]] because it also provides a few
-unix utilities like =tar.exe=, =patch.exe=, =find.exe=, which I'm used
-to having on other platforms.  If you'd prefer to use a graphical git
-client, then [[http://windows.github.com/][GitHub for Windows]] is pretty good.  [[http://code.google.com/p/tortoisegit/][TortoiseGit]] seems
-to get some love as well.  In the end, it doesn't matter which git you
-get, as long as you get a git.
+One comment about git: these days there are a few ways to install git
+on windows. I like [[http://msysgit.github.com][Git for Windows]] because it also provides a few unix
+utilities like =tar.exe=, =patch.exe=, =find.exe=, which I'm used to
+having on other platforms. If you'd prefer to use a graphical git
+client, then [[http://windows.github.com/][GitHub for Windows]] or [[http://www.sourcetreeapp.com/][SourceTree]] are both pretty good.
+[[http://code.google.com/p/tortoisegit/][TortoiseGit]] seems to get some love as well. In the end, it doesn't
+matter which git you get, as long as you get a git.
 
 * Dependencies
 
