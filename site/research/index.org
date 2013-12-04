@@ -15,7 +15,7 @@ and Assoc. Prof. Henry Gardner.
 
 My primary research interest these days is *live coding*, and I'm
 currently working on [[https://github.com/digego/extempore][Extempore]] (as you may have been able
-to guess from the content of this blog). Before Extempore came along I
+to guess from the content of [[../latest-posts/index.html][this blog]]). Before Extempore came along I
 was an [[http://impromptu.moso.com.au][Impromptu]] user, and have been live coding since 2007. You can
 check out some of my screencasts [[http://vimeo.com/benswift/videos][on vimeo]].
 

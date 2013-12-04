@@ -36,7 +36,9 @@ also be =double= (see [[./2013-11-15-changing-from-doubles-to-floats-in-audio_ds
 In an [[file:./2012-10-03-xtlang-type-diagrams.org][xtlang type diagram]]:
 
 #+begin_html
-<a href=""><img src="/img/simple-instrument/note-kernel.png" width="300px" alt=""></a>
+<div class="ui image segment">
+  <img src="/img/simple-instrument/note-kernel.png" width="300px" alt="">
+</div>
 #+end_html
 
 The /returned/ closure will be called to provide the basic audio
@@ -102,7 +104,9 @@ individually, but rather to the total audio output of the instrument.
 And that's where the *fx closure* comes in.
 
 #+begin_html
-<a href=""><img src="/img/simple-instrument/fx.png" width="300px" alt=""></a>
+<div class="ui image segment">
+  <img src="/img/simple-instrument/fx.png" width="300px" alt="">
+</div>
 #+end_html
 
 The most important argument to the fx closure is the =in= argument,
@@ -146,16 +150,18 @@ Finally, to complete the instrument, we use a special
 #+end_src
 
 #+begin_html
-<a href=""><img src="/img/simple-instrument/whole-instrument.png" alt=""></a>
+<div class="ui image segment">
+  <img src="/img/simple-instrument/whole-instrument.png" alt="">
+</div>
 #+end_html
 
 As long as your kernel (=saw_synth_note_c=) and fx (=saw_synth_fx=)
 closures have the right signature, then evaluating the above line
 should print for you
 
-#+begin_example 
+#+begin_src sh 
   Compiled saw_synth >>> [float,float,i64,i64,float*]*
-#+end_example
+#+end_src
 
 ...and now your instrument is ready to play.
 

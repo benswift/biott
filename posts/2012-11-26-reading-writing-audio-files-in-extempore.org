@@ -22,8 +22,7 @@ with =audiofile_c=
         ;; get the output sample
         (audiofile))))
   
-  (dsp:set! dsp)
-  
+  (dsp:set! dsp)  
 #+end_src
 
 =audiofile_c= takes three arguments: 
@@ -39,12 +38,12 @@ such a way that =audiofile= can be called once per output sample and
 will play through the audio file at normal speed. When =dsp= is
 compiled, the log view also prints some info about the file[fn:peg]:
 
-#+begin_example
+#+begin_src sh
 file name:     /Users/ben/Desktop/xtm-assets/peg.wav
 samplerate:    44100
 channels:      2
 samples read:  21202944
-#+end_example
+#+end_src
 
 It's important to realise that the playhead---the point in the file
 which playback is 'up to'---is stored internally to the =audiofile=

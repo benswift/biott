@@ -30,7 +30,9 @@ You can think of a sampler as a series of 'slots', each of which
 contains a sound file.
 
 #+begin_html
-<a href=""><img src="/img/sampler/piano-full.png" width="400px" alt=""></a>
+<div class="ui image segment">
+  <img src="/img/sampler/piano-full.png" width="400px" alt="">
+</div>
 #+end_html
 
 Each slot has a unique index, and playing the sampler generally
@@ -60,7 +62,9 @@ The Extempore sampler doesn't /have/ to be full---there can be
 empty slots.
 
 #+begin_html
-<a href=""><img src="/img/sampler/piano-gaps.png" width="400px" alt=""></a>
+<div class="ui image segment">
+  <img src="/img/sampler/piano-gaps.png" width="400px" alt="">
+</div>
 #+end_html
 
 In this situation, when the sampler gets a =play-note= message
@@ -161,8 +165,7 @@ If that works properly, some info will be printed to the log about the
 audio files which have been loaded into the sampler.  They should look
 something like this:
 
-#+begin_example
----------------
+#+begin_src
 file name:     /Users/ben/Music/sample-libs/drums/salamander/OH/kick_OH_F_9.wav
 samplerate:    48000
 channels:      2
@@ -170,7 +173,7 @@ samples read:  45796
 45796 samples
 read/Users/ben/Music/sample-libs/drums/salamander/OH/kick_OH_F_9.wav:
 2(channels) 22898(frames):357.781250(k)		into index:35
-#+end_example
+#+end_src
 
 If the log doesn't show something like that, then there are a few
 things which could have gone wrong:
@@ -218,7 +221,7 @@ the files to wherever you put that sort of thing. This time, the wave
 audio files should be in a =44.1khz16bit= subdirectory. Looking at the
 files in that directory (e.g. with =ls=), we get something like
 
-#+begin_example
+#+begin_src sh
 A0v1.wav   A5v6.wav   C4v2.wav    D#2v13.wav  F#1v1.wav   F#6v6.wav 
 A0v10.wav  A5v7.wav   C4v3.wav    D#2v14.wav  F#1v10.wav  F#6v7.wav 
 A0v11.wav  A5v8.wav   C4v4.wav    D#2v15.wav  F#1v11.wav  F#6v8.wav 
@@ -227,7 +230,7 @@ A0v13.wav  A6v1.wav   C4v6.wav    D#2v2.wav   F#1v13.wav  F#7v1.wav
 A0v14.wav  A6v10.wav  C4v7.wav    D#2v3.wav   F#1v14.wav  F#7v10.wav
 
 ... plus many more files
-#+end_example
+#+end_src
 
 So it looks like the files are named with a simple naming convention,
 which makes use of scientific pitch notation. For example, =C4v5.wav=

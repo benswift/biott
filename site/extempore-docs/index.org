@@ -17,11 +17,11 @@ some suggestions about where to start.  This list is hand-curated to
 provide the best 'journey' through the concepts necessary to begin
 using Extempore in anger.
 
-Alternately, there's an automatically-generated [[/tags/index.html][tags page]] which also
+Alternately, there's an automatically-generated [[../tags/index.html][tags page]] which also
 allows you to browse by category.
 
 If anything isn't clear, or you have suggestions/corrections, then
-drop [[/bio.html][me]] a line at [[mailto:benjamin.j.swift@gmail.com][benjamin.j.swift@gmail.com]].
+drop [[../bio/index.html][me]] a line at [[mailto:benjamin.j.swift@gmail.com][benjamin.j.swift@gmail.com]].
 
 * Key concepts
 

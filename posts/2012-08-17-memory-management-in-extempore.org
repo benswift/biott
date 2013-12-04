@@ -381,10 +381,10 @@ This time, with a region length of one million, the code still works
 (at least, the 367Th element is still correct), but the compiler also
 prints a warning message to the log:
 
-#+begin_example
+#+begin_src sh
 Zone:0x7ff7ac99a100 size:100000 is full ... leaking 8000000 bytes
 Leaving a leaky zone can be dangerous ... particularly for concurrency
-#+end_example
+#+end_src
 
 So what's wrong? Well, remember that the =memzone= has a size (in
 bytes) which is specified by its first argument. We can calculate how
@@ -458,10 +458,10 @@ so the memory will be coming from the zone associated with the closure
 =fill_buffer_closure_zone=. When we try and compile that, we get the
 warning:
 
-#+begin_example
+#+begin_src sh
 Zone:0x7fb8b3a4a610 size:8192 is full ... leaking 32 bytes
 Leaving a leaky zone can be dangerous ... particularly for concurrency
-#+end_example
+#+end_src
 
 Let's try it again, but with a 'zone size' argument to =bind-func=
 
@@ -585,14 +585,14 @@ Don't try and allocate a memory region of 10^{15} 8-byte =i64=:
 When I call =(fill_massive_buffer)= on my computer (with 8GB of RAM),
 disaster strikes.
 
-#+begin_example
+#+begin_src sh
 Zone:0x7fc5cbc268c0 size:100000 is full ... leaking 8000000000000000 bytes
 Leaving a leaky zone can be dangerous ... particularly for concurrency
 extempore(21386,0x11833d000) malloc: *** mmap(size=8000000000000000) failed (error code=12)
 error: can't allocate region
 set a breakpoint in malloc_error_break to debug
 Segmentation fault: 11
-#+end_example
+#+end_src
 
 If you're not used to working directly with memory, you'll almost
 certainly crash (segfault) Extempore when you start out. In fact,

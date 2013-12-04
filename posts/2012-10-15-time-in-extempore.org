@@ -105,7 +105,7 @@ in the future. Once a task has been scheduled, thread execution moves
 immediately onto the next expression. A pseudocode example may help to
 illustrate this difference.
 
-#+begin_example
+#+begin_src extempore
 //synchronous timing
 play-note(now)
 time = (now) + 44100
@@ -114,7 +114,7 @@ play-note(now)
 //asynchronous timing
 play-note(now)
 play-note(now + 44100)
-#+end_example
+#+end_src
 
 Strongly timed code holds up thread execution until the global time is
 equal to the value =time=, and multitasking is achieved by running

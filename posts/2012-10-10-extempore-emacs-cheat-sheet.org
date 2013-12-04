@@ -91,9 +91,9 @@ brew install --cocoa emacs
 
 On Ubuntu, you can get Emacs version 24 with
 
-#+begin_example
+#+begin_src sh
 sudo apt-get install emacs24
-#+end_example
+#+end_src
 
 Other distros will probably have a similar package.
 

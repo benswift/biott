@@ -11,7 +11,7 @@ tags:
 
 #+begin_html
     <img class="ui large floated image"
-         src="img/biopic.jpg" 
+         src="/img/biopic.jpg" 
          alt="Me!">
 #+end_html
 

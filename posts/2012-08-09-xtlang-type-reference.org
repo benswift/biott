@@ -44,7 +44,9 @@ of variables in many cases.
 *** Integers
 
 #+begin_html
-<a href=""><img src="/img/int-examples.png" alt=""></a>
+<div class="ui image segment">
+  <img src="/img/int-examples.png" alt="">
+</div>
 #+end_html
 
 Extempore supports signed integers of various different sizes:
@@ -66,7 +68,9 @@ A couple of gotchas:
 *** Floats
 
 #+begin_html
-<a href=""><img src="/img/float-examples.png" alt=""></a>
+<div class="ui image segment">
+  <img src="/img/float-examples.png" alt="">
+</div>
 #+end_html
 
 There are two sizes of floating point number: 
@@ -81,7 +85,9 @@ unless the type signatures suggest otherwise (as is the case with
 ** Pointer types
 
 #+begin_html
-<a href=""><img src="/img/pointer-examples.png" alt=""></a>
+<div class="ui image segment">
+  <img src="/img/pointer-examples.png" alt="">
+</div>
 #+end_html
 
 xtlang supports [[http://en.wikipedia.org/wiki/Pointer_(computer_programming)][pointers]] to any type, in fact some types (such as
@@ -246,7 +252,9 @@ and will be added in a future release.
 Examples:
 
 #+begin_html
-<a href=""><img src="/img/tuple-examples.png" alt=""></a>
+<div class="ui image segment">
+  <img src="/img/tuple-examples.png" alt="">
+</div>
 #+end_html
 
 - =<double,i32>*= is a pointer to a 2-tuple: the first element is a
@@ -297,7 +305,9 @@ with the pipe (=|=) character.
 Examples:
 
 #+begin_html
-<a href=""><img src="/img/array-examples.png" alt=""></a>
+<div class="ui image segment">
+  <img src="/img/array-examples.png" alt="">
+</div>
 #+end_html
 
 - =|4,double|*=:  a pointer to an array of 4 =double=
@@ -336,7 +346,9 @@ they're going /faster/.
 Examples:
 
 #+begin_html
-<a href=""><img src="/img/vector-examples.png" alt=""></a>
+<div class="ui image segment">
+  <img src="/img/vector-examples.png" alt="">
+</div>
 #+end_html
 
 - =/4,float/*=: a pointer to a vector of four floats
@@ -370,7 +382,9 @@ other elements representing the type signature of the function.
 Examples:
 
 #+begin_html
-<a href=""><img src="/img/closure-examples.png" alt=""></a>
+<div class="ui image segment">
+  <img src="/img/closure-examples.png" alt="">
+</div>
 #+end_html
 
 - =[i64]*=: a pointer to a closure which takes no arguments and
@@ -420,9 +434,9 @@ are provided in the initial argument list) and returns their sum. It's
 also worth noting that when we compile =xt_add= the log view prints
 the closure's type signature:
 
-#+begin_example
+#+begin_src sh
 Compiled xt_add >>> [i64,i64,i64]*
-#+end_example
+#+end_src
 
 As another example, if you want to return a closure from the function
 it's exactly like you would do it in Scheme:
@@ -563,10 +577,10 @@ instead of being our new =point= type.
 
 Now, instead of compiling nicely, we get the compiler error:
 
-#+begin_example
+#+begin_src sh
 Compiler Error: Type Error: (euclid_distance bot_left top_right)
  function argument does not match. Expected "%point*" but got "{double,double}*"
-#+end_example
+#+end_src
 
 Even though =point= /is/ just a =<double,double>= (check the
 =bind-type= definition above), the compiler won't let us compile the
@@ -639,10 +653,10 @@ How about if we try removing =a='s type annotation as well?
 
 This time, the compiler prints the message:
 
-#+begin_example
+#+begin_src sh
 Compiler Error: could not resolve ("a" "b" "xt_add3") you could try
 forcing the type of one or more of these symbols
-#+end_example
+#+end_src
 
 There just isn't enough info to unambiguously determine the types of
 =a= and =b=.  They could be both =i32=, or both =floats=---the

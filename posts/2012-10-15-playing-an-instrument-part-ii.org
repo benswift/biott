@@ -579,7 +579,9 @@ progression chart that in it's simplest form looks something like this
 (I've taken a few liberties based on a few hundred years of usage).
 
 #+begin_html
-<a href=""><img src="/img/playing-an-instrument-part-i/markov-matrix.png" alt=""></a>
+<div class="ui image segment">
+  <img src="/img/playing-an-instrument-part-i/markov-matrix.png" alt="">
+</div>
 #+end_html
 
 So reading this diagram from left to right we can move from =iii= to
