@@ -10,7 +10,7 @@ tags:
 #+END_HTML
 
 #+begin_html
-    <img class="ui large floated image"
+    <img class="ui large right floated image segment"
          src="/img/biopic.jpg" 
          alt="Me!">
 #+end_html
