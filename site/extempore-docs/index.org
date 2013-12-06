@@ -82,9 +82,14 @@ together---in fact this is encouraged :)
 - [[file:../2012-10-15-playing-an-instrument-part-i.org][Making it go bing: playing an instrument]]
 - [[file:../2012-10-15-playing-an-instrument-part-ii.org][Musical patterns: playing with pitch and rhythm]]
 
-** Example code
+** Relevant examples
 
-
+- =examples/core/audio_101.xtm=
+- =examples/core/polysynth.xtm=
+- =examples/core/fmsynth.xtm=
+- =examples/external/electrofunk.xtm=
+- =examples/external/audio_player.xtm=
+- =examples/external/convolution_reverb.xtm=
 
 * Graphics
 

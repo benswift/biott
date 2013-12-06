@@ -1,3 +1,10 @@
+#+begin_html
+---
+title: 404
+tags:
+---
+#+end_html
+
 #+BEGIN_HTML
   <h2 class="ui header">Page not found</h2>
 #+END_HTML

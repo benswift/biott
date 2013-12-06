@@ -95,11 +95,11 @@ brew tap benswift/extemporelinux
 This will print a few warnings about not linking formulae from this
 tap over the top of existing ones. The Linux situation is a bit more
 complicated than on OSX because I had to (on Ubuntu 13.10, anyway)
-tweak a couple of other dependencies so they would build: =cmake=,
-=assimp= and =shivavg=. Basically, what's happening is that homebrew
-on Linux by default just uses the same build formulae as on OSX, which
-in some cases works fine (thanks to their shared *nix underpinnings)
-but in other cases some small tweaks are required.
+tweak a couple of other dependencies so they would build: =assimp= and
+=shivavg=. Basically, what's happening is that homebrew on Linux by
+default just uses the same build formulae as on OSX, which in some
+cases works fine (thanks to their shared *nix underpinnings) but in
+other cases some small tweaks are required.
 
 All this means is that there's an extra step required to install the
 deps from my tap, which /should/ work, although your mileage may vary
@@ -107,7 +107,7 @@ depending on which Linux distro you're on.  Let me know if you run
 into problems.
 
 #+BEGIN_SRC sh
-brew install benswift/extemporelinux/cmake benswift/extemporelinux/assimp benswift/extemporelinux/shivavg
+brew install benswift/extemporelinux/assimp benswift/extemporelinux/shivavg
 #+END_SRC
 
 After that, you should be able to successfully
@@ -118,6 +118,21 @@ brew install --HEAD extempore
 
 If you'd rather not install homebrew on your linux box then you can
 still [[file:./2013-03-20-building-extempore-on-osx-linux.org][build from source]] as before.
+
+** Troubleshooting on Linux
+
+Here are some additional notes from Andrew on his homebrew Ubuntu 12.10
+experience:
+
+- =brew install pcre= might require bz2 header files (which you can
+  get with e.g. =sudo apt-get install libbz2-dev=)
+- =python-dev= package (i.e. python header files) needs to be
+  installed before boost (and therefore assimp) will compile.
+
+I'm working on smoothing out these issues, I'll keep this post updated
+as I fix them. If you find any other gotchas (and I'm sure there will
+be some, there are lots of Linux distros out there) then send an email
+to the [[mailto:extemporelang@googlegroups.com][Extempore mailing list]] and I'll add them here as well.
 
 * using scoop.sh for easy building on Windows
 
