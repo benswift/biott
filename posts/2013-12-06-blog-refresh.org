@@ -1,6 +1,6 @@
 #+begin_html
 ---
-title: "Blog refresh"
+title: Blog refresh
 alias: ["./2013-12-06-Blog refresh.html"]
 categories:
 ---
