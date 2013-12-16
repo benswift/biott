@@ -2,7 +2,7 @@
 ---
 title: Building the Extempore standard library
 alias: ["./2013-12-16-building-the-extempore-standard-library.html"]
-categories: xtlang setup
+tags: xtlang setup
 ---
 #+end_html
 

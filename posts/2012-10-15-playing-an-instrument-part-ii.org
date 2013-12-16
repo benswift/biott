@@ -2,7 +2,7 @@
 ---
 title: Playing an instrument (part II)
 alias: ["./2012-10-15-playing-an-instrument-part-ii.html"]
-tags: audio time composition
+tags: audio time musicmaking
 ---
 #+end_html
 

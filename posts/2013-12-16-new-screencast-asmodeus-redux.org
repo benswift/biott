@@ -2,7 +2,7 @@
 ---
 title: New screencast: Asmodeus Redux
 alias: ["./2013-12-16-new-screencast-asmodeus-redux.html"]
-categories: screencast
+tags: screencast
 ---
 #+end_html
 
@@ -33,8 +33,8 @@ the portamento and vibrato. See if you can figure out how it all
 works!
 
 #+BEGIN_SRC extempore
-;; this closure gives a logarithmic 'fader'
 (bind-func fadelog_c
+  "a logarithmic 'fader' closure"
   (lambda (base)
     (let ((t 0.)
           (inc (/ 1. SR)))
@@ -47,8 +47,8 @@ works!
                   final
                   (+ initial (* diff (/ (- (pow base t) 1.) (- base 1.)))))))))))
 
-;; the theremin note closure
 (bind-func theremin_note_c
+  "the theremin note closure"
   (lambda (nargs:i64 dargs:float*)
     (let ((oscl (osc_c 0.0))
           (oscr (osc_c 0.0))
@@ -70,8 +70,8 @@ works!
                               (+ 1. (tremoscr vibr_amp vibr_freq)))))
                 (else 0.0)))))))
 
-;; theremin fx function
 (bind-func theremin_fx 1000000
+  "theremin fx function"
   (let ((chorusl (chorus_c 0.0))
         (chorusr (chorus_c 1.0)))
     (lambda (in:float time:i64 chan:i64 dat:float*)
@@ -81,14 +81,14 @@ works!
              (chorusr in 0.6 0.65))
             (else 0.0)))))
 
-;; theremin instrument definition
+;; put it all together
 (define-instrument theremin theremin_note_c theremin_fx)
 
-;; ADSR for the theremin
+;; ADSR envelope
 (theremin.attack 300.0)
 (theremin.decay 300.0)
-(theremin.release 300.0)
 (theremin.sustain 0.8)
+(theremin.release 300.0)
 #+END_SRC
 
 Anyway, you don't need to understand the code at all to enjoy the
