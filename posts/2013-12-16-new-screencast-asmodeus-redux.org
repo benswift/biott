@@ -1,0 +1,96 @@
+#+begin_html
+---
+title: New screencast: Asmodeus Redux
+alias: ["./2013-12-16-new-screencast-asmodeus-redux.html"]
+categories: screencast
+---
+#+end_html
+
+I put this up on Vimeo a little while ago, but was waiting till the
+blog redesign was done to post it on here.
+
+#+BEGIN_HTML
+  <iframe src="//player.vimeo.com/video/78788032" width="800" height="450" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+#+END_HTML
+
+I should emphasise that not all the instruments I'm using in this
+screencast are in the mainline Extempore distribution. The theremin,
+for instance, is an instrument I put together specifically for that
+gig, since my livecoding set was following a performance from a
+[[http://soa.anu.edu.au/event/revenant-media][quartet of actual theremins]][fn::does anyone knows what the plural of
+theremin is?].
+
+Because I love you, blog readers, I'll let you in to my creative world
+and post the code from the theremin instrument used in the Asmodeus
+Redux screencast. I'm sure it'll be a collectors item someday.
+
+Remember that [[./2012-10-16-a-really-simple-instrument.org][an instrument in Extempore]] is just regular xtlang
+code---a note 'closure maker' =theremin_note_c= (which creates a new
+closure for every note) and an effects function =theremin_fx=. The
+note closure takes a few extra arguments over and above the usual
+pitch-velocity-duration triad, which control the time and amplitude of
+the portamento and vibrato. See if you can figure out how it all
+works!
+
+#+BEGIN_SRC extempore
+;; this closure gives a logarithmic 'fader'
+(bind-func fadelog_c
+  (lambda (base)
+    (let ((t 0.)
+          (inc (/ 1. SR)))
+      (lambda (initial:float final dur)
+        (let ((diff (- final initial)))
+          (set! t (+ t (/ inc dur)))
+          (if (< t 0.)
+              initial
+              (if (> t 1.)
+                  final
+                  (+ initial (* diff (/ (- (pow base t) 1.) (- base 1.)))))))))))
+
+;; the theremin note closure
+(bind-func theremin_note_c
+  (lambda (nargs:i64 dargs:float*)
+    (let ((oscl (osc_c 0.0))
+          (oscr (osc_c 0.0))
+          (port_time (if (> nargs 0) (pref dargs 0) 1.0))
+          (port_jump (if (> nargs 1) (pref dargs 1) 0.0))
+          (vibr_amp (if (> nargs 2) (pref dargs 2) 0.0))
+          (vibr_freq (if (> nargs 3) (pref dargs 3) 0.0))
+          (fadel (fadelog_c 2.))
+          (fader (fadelog_c 2.))
+          (tremoscl (osc_c 0.0))
+          (tremoscr (osc_c 0.0)))
+      (lambda (time:i64 chan:i64 freq:float amp:float)
+        (let ((freq_final (midi2frq (+ port_jump (frq2midi freq)))))
+          (cond ((= chan 0)
+                 (oscl amp (* (fadel freq freq_final port_time)
+                              (+ 1. (tremoscl vibr_amp vibr_freq)))))
+                ((= chan 1)
+                 (oscr amp (* (fader freq freq_final port_time)
+                              (+ 1. (tremoscr vibr_amp vibr_freq)))))
+                (else 0.0)))))))
+
+;; theremin fx function
+(bind-func theremin_fx 1000000
+  (let ((chorusl (chorus_c 0.0))
+        (chorusr (chorus_c 1.0)))
+    (lambda (in:float time:i64 chan:i64 dat:float*)
+      (cond ((= chan 0)
+             (chorusl in 0.64 0.7))
+            ((= chan 1)
+             (chorusr in 0.6 0.65))
+            (else 0.0)))))
+
+;; theremin instrument definition
+(define-instrument theremin theremin_note_c theremin_fx)
+
+;; ADSR for the theremin
+(theremin.attack 300.0)
+(theremin.decay 300.0)
+(theremin.release 300.0)
+(theremin.sustain 0.8)
+#+END_SRC
+
+Anyway, you don't need to understand the code at all to enjoy the
+music.  In fact, you don't even have to enjoy the music, I guess.  But
+I hope that you do all the same.
