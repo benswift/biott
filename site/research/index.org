@@ -9,11 +9,11 @@ tags:
   <h2 class="ui header">Research</h2>
 #+END_HTML
 
-I'm an [[http://people.cecs.anu.edu.au/user/3895][Adjunct Research Assistant]] in the School of Computer Science at
+I'm a [[http://people.cecs.anu.edu.au/user/4919][Research Fellow]] in the School of Computer Science at
 the Australian National University, working under Prof. John Hosking
 and Assoc. Prof. Henry Gardner.
 
-My primary research interest these days is *live coding*, and I'm
+My primary research interest these days is *livecoding*, and I'm
 currently working on [[https://github.com/digego/extempore][Extempore]] (as you may have been able
 to guess from the content of [[../latest-posts/index.html][this blog]]). Before Extempore came along I
 was an [[http://impromptu.moso.com.au][Impromptu]] user, and have been live coding since 2007. You can
@@ -27,10 +27,12 @@ did a BSc (Hons) in Mathematics at the ANU.
 If you want to get in touch, email is best---you can reach me on
 [[mailto:benjamin.j.swift@gmail.com][benjamin.j.swift@gmail.com]].
 
-# * Potential students
+* Potential students
 
-# If you're interested in coming to do research with me, here are some
-# project ideas.
+If you're interested in doing research with me, particularly in
+livecoding with Extempore, then [[mailto:benjamin.j.swift@gmail.com][get in touch]]. If you can, send me a
+link to something you've made: a livecoding video, a project on
+GitHub, or something like that.
 
 * Publications
 
