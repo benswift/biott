@@ -36,7 +36,7 @@ drop [[../bio/index.html][me]] a line at [[mailto:benjamin.j.swift@gmail.com][be
 Here's some help to get you up and running with Extempore, right from
 the beginning steps.
 
-- [[file:../2012-10-30-downloading-and-installing-extempore.org][Downloading and installing Extempore]]
+- [[./2013-11-12-building-extempore-through-homebrew.org][Building Extempore with Homebrew]]
 - Building Extempore ([[file:../2013-03-20-building-extempore-on-osx-linux.org][OSX & Linux]], [[file:../2013-03-20-building-extempore-on-windows.org][Windows]])
 - Setting up your editor ([[file:../2012-10-10-extempore-emacs-cheat-sheet.org][Emacs]],  [[file:../2012-10-23-extempore-st2-cheat-sheet.org][Sublime Text 2]])
 - [[file:../2012-09-26-interacting-with-the-extempore-compiler.org][Interacting with the Extempore compiler]]
