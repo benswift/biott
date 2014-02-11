@@ -52,38 +52,28 @@ After that, homebrew knows about all the packages in my tap, which
 includes Extempore.  You can install it with
 
 #+BEGIN_SRC sh
-brew install --HEAD extempore
+brew install extempore
 #+END_SRC
 
-which will install Extempore, as well as (by default) all of the
-shared libs you need for the Extempore standard library.  
+which will install the latest stable version of Extempore, as well as
+(by default) all of the shared libs you need for the Extempore
+standard library. If you want to grab the latest version from the
+=master= branch, you can tell =brew= to do that with an additional
+=--HEAD= argument.
 
 Your extempore directory will be in
-=/usr/local/Cellar/extempore/HEAD=, unless you installed homebrew
-somewhere other than =/usr/local=. =cd= into that directory, run
-=./extempore= and then you're ready to connect up an editor and [[file:./2012-09-26-interacting-with-the-extempore-compiler.org][start
+=/usr/local/Cellar/extempore/<VERSION_NUMBER>=, unless you installed
+homebrew somewhere other than =/usr/local=. =cd= into that directory,
+run =./extempore= and then you're ready to connect up an editor and
+[[file:./2012-09-26-interacting-with-the-extempore-compiler.org][start
 evaluating Extempore code]].
-
-The =--HEAD= flag is necessary because Extempore is currently a 'head
-only' formula: it just pulls down whatever the latest Extempore source
-code from =digego/master= on GitHub and compiles that. It doesn't have
-a specific version number, which also means that if you want to update
-Extempore you have to 'reinstall' Extempore with
-
-#+BEGIN_SRC sh
-brew reinstall --HEAD extempore
-#+END_SRC
-
-Once we get around to tagging stable releases for Extempore this won't
-be necessary.
 
 * Homebrew on Linux
 
-So that's great for OSX users, but what I only just discovered
-recently is that there's a fork of [[https://github.com/Homebrew/linuxbrew][homebrew for Linux]] as well.
-Homebrew on Linux lives in a =.linuxberw= folder inside your home
-directory, so it shouldn't interfere with your 'regular' package
-manager (=apt-get=, =yum=, =pacman=, etc.).
+There's a fork of [[https://github.com/Homebrew/linuxbrew][homebrew for Linux]] as well. Homebrew on Linux lives
+in a =.linuxbrew= folder inside your home directory, so it shouldn't
+interfere with your 'regular' package manager (=apt-get=, =yum=,
+=pacman=, etc.).
 
 Once you've installed homebrew on your Linux box then you can tap my
 /Linux/ Extempore homebrew repo and install Extempore:
@@ -103,17 +93,17 @@ other cases some small tweaks are required.
 
 All this means is that there's an extra step required to install the
 deps from my tap, which /should/ work, although your mileage may vary
-depending on which Linux distro you're on.  Let me know if you run
+depending on which Linux distro you're on.  [[mailto:extemporelang@googlegroups.com][Let me know]] if you run
 into problems.
 
 #+BEGIN_SRC sh
 brew install benswift/extemporelinux/assimp benswift/extemporelinux/shivavg
 #+END_SRC
 
-After that, you should be able to successfully
+After that, you can
 
 #+BEGIN_SRC sh
-brew install --HEAD extempore
+brew install extempore
 #+END_SRC
 
 If you'd rather not install homebrew on your linux box then you can
@@ -126,7 +116,7 @@ experience:
 
 - =brew install pcre= might require bz2 header files (which you can
   get with e.g. =sudo apt-get install libbz2-dev=)
-- =python-dev= package (i.e. python header files) needs to be
+- =python-dev= package (i.e. python header files) might need to be
   installed before boost (and therefore assimp) will compile.
 
 I'm working on smoothing out these issues, I'll keep this post updated
