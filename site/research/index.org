@@ -36,6 +36,15 @@ GitHub, or something like that.
 
 * Publications
 
+- *A Sorensen, B Swift, A Riddell* (2014, to appear). The Many Meanings
+  of Live Coding. /Computer Music Journal 38:1/
+- *B Swift, A Sorensen, M Martin, H Gardner* (2014, to appear). Coding
+  Livecoding. /CHI '14: Proceedings of the International Conference on
+  Human Factors in Computing Systems./
+- *X Duan, J Wu, B Swift, and TB Kirk* (2014). Texture analysis of the
+  3D collagen network and automatic classification of the physiology
+  of articular cartilage. /Computer Methods in Biomechanics and
+  Biomedical Engineering/
 - *B Swift, A Sorensen, H Gardner, J Hosking* (2013). Visual Code
   Annotations for Cyberphysical Programming. /LIVE '13: Workshop on
   Live Programming at ICSE '13/
@@ -48,8 +57,7 @@ GitHub, or something like that.
 - *B Swift* (2011) Impish Grooves. /2011 Computer Music Journal DVD/
 - *B Swift, H Gardner, A Riddell* (2011). A Chasing After the Wind:
   Experience in Computer-Supported Group Music-Making. /When Words
-  Fail: What can music interaction tell us about HCI? Workshop at BCS
-  HCI 2011./
+  Fail: What can music interaction tell us about HCI? Workshop at BCS HCI 2011./
 - *B Swift, H Gardner, A Riddell* (2010). Engagement Networks in Social
   Music-making. /OZCHI '10: Proceedings of the Australasian
   Conference on Computer-Human Interaction./
