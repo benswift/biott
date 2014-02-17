@@ -1,0 +1,27 @@
+#+begin_html
+---
+title: New screencast: Another Late Christmas
+alias: ["./2014-02-17-new-screencast-another-late-christmas.html"]
+tags: screencast
+---
+#+end_html
+
+Another livecoding screencast in Extempore. I had planned to put it up
+at Christmas time, but holidays and things meant that it's going up in
+February, hence the title :)
+
+#+BEGIN_HTML
+  <iframe src="//player.vimeo.com/video/86664303" width="800" height="450" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+#+END_HTML
+
+As usual, all instruments are pure xtlang, and this time they're in
+the main Extempore trunk.  The 'beats' are just me adding white noise
+(through the =random= function) straight into the =dsp= callback, and
+the distortion is also just =dsp= callback shenanigans.
+
+The samples I'm using are from the freely-avaliable [[http://sso.mattiaswestlund.net/][Sonatina Symphonic
+Orchestra]] sample pack put together by Mattias Westlund.
+
+Also, if you're in Canberra I'm going to be performing at a couple of
+local festivals in March, I'll post the details on this blog as soon
+as they're locked in.
