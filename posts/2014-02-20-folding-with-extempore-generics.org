@@ -2,7 +2,7 @@
 ---
 title: Folding with Extempore generics
 alias: ["./~/Documents/biott/draft-posts/2014-02-20-folding-with-extempore-generics.html"]
-tags:
+tags: xtlang generics
 ---
 #+end_html
 
