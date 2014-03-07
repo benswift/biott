@@ -1,7 +1,7 @@
 #+begin_html
 ---
-title: Folding with Extempore generics
-alias: ["./~/Documents/biott/draft-posts/2014-02-20-folding-with-extempore-generics.html"]
+title: Extempore Generics
+alias: ["./2014-02-20-extempore-generics.html"]
 tags: xtlang generics
 ---
 #+end_html
