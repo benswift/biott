@@ -1,0 +1,15 @@
+#+begin_html
+---
+title: Upcoming gigs: 15 March
+alias: ["./2014-03-07-upcoming-gigs-15-march.html"]
+tags: gig
+---
+#+end_html
+
+If you're in Canberra, Australia (or are willing to make a trip) then
+I've got two upcoming livecoding gigs, *both on Saturday March 15*
+
+- [[http://artnotapart.com/live-coding][Art, Not Apart]] Festival, 4:20pm, New Acton
+- [[http://youareherecanberra.com.au/events/cmag/in-case-of-sound-round-one/][You Are Here]] Festival, 9pm, Canberra Museum and Gallery
+
+Both gigs are free, and it'd be great to see you there :)
