@@ -122,34 +122,6 @@ which I'll cover in a future blog post. For the moment, though, you
 don't have to worry about multiple processes, we'll only connect and
 interact with the =primary= process.
 
-If you [[file:2012-10-30-downloading-and-installing-extempore.org][downloaded an Extempore binary]][fn::If you compiled Extempore
-from source, you can compile the standard library for yourself, too.
-The instructions for how to do this are at the top of =libs/xtm.xtm=],
-you should also have a (pre-compiled) copy of the xtlang standard
-library.  The standard library is both a binary file
-(=libs/xtm.{dll,so,dylib}= depending on your platform) and a
-=libs/xtm.xtm= file which is the 'header' for the xtlang code in this
-library---it tells Extempore about what closures and other data are
-present in the library and how to call them. You don't have to use
-the standard library, but it will save you a lot of time on startup,
-and you don't lose any flexibility (the xtlang functions can all
-still be re-defined on the fly) so it's probably not a bad idea to
-use the library unless you have a reason not to.
-
-To tell Extempore to automatically load this standard library on
-startup, you can also use the =--run= argument with a filename as an
-argument, and that file will be loaded on startup. To load the xtlang
-standard library, the terminal arguments become (for example)
-
-#+BEGIN_SRC sh
-  bash-3.2$ ./extempore --device 2 --run libs/xtm.xtm
-#+END_SRC
-
-If the standard library loads successfully, you'll get some nice stuff
-printed to the log letting you know everything's gone well. And if it
-doesn't load up properly, you should get some error messages telling
-you what went wrong (and hopefully how to fix it!).
-
 * Connecting to the Extempore compiler
 
 So far, all the stuff we've done has been in a shell console. The
@@ -228,10 +200,10 @@ displayed in the echo area. Nothing is printed in the console where
 =extempore= is running. Congratulations---you've just evaluated your
 first Extempore code!
 
-We can write some more code to =bind-val= a global variable =PI=,
-which is an xtlang global variable of [[file:2012-08-09-xtlang-type-reference.org][type]] =SAMPLE= (=float= by
-default). If you evaluate this with =C-M-x= (or whatever the command
-is in your editor) then what happens is
+We can write some more code to =bind-val= a global variable =myPI=,
+which is an xtlang global variable of [[file:2012-08-09-xtlang-type-reference.org][type]] =double=. If you evaluate
+this with =C-M-x= (or whatever the command is in your editor) then
+what happens is
 
 #+begin_html
   <div class="ui image segment">
@@ -240,7 +212,7 @@ is in your editor) then what happens is
 #+end_html
 
 One difference from the previous (Scheme) example is that the
-=extempore= compiler now prints a message to the console: =Bound PI
+=extempore= compiler now prints a message to the console: =Bound myPI
 >>> double=. Evaluating /xtlang/ code will always print a message to
 the log about the name and type of the variables.[fn:scheme-output]
 Also, notice how the string that is echoed back is "#t", which is the
@@ -260,7 +232,7 @@ How about compiling an xtlang closure?
 
 =circle_area= is an xtlang closure which takes a (=double=) argument
 representing the radius of a circle and returns the area of that
-circle (another =double=). It also uses the global variable =PI= which
+circle (another =double=). It also uses the global variable =myPI= which
 we evaluated earlier. The closure compiled successfully, and the
 compiler prints =Compiled circle_area >>> [double,double]*= to the
 log. If there was a problem with the compilation, then the compiler
@@ -426,6 +398,28 @@ iceberg. Extempore's CaaS will also let you do things like query for
 all bound symbols, print all closures of a particular signature type,
 return the [[http://en.wikipedia.org/wiki/Abstract_syntax_tree][abstract syntax tree]] of a particular closure, etc... In
 fact the Extempore compiler itself is fully runtime modifiable!
+
+* Next steps
+
+There are lots of places to go now, you can keep reading through [[file:~/Documents/biott/extempore-docs/index.org][the
+docs]], or start poking around the =examples/= subdirectory in the
+Extempore sources.
+
+Once you start doing that, you'll notice that loading whole libraries
+on startup each time is /slow/. The good news is you can get around
+this by [[file:2013-12-16-building-the-extempore-standard-library.org][pre-compiling the xtlang standard library]]. You
+don't have to use the standard library, but it will save you a lot of
+time on startup, and you don't lose any flexibility (the xtlang
+functions can all still be re-defined on the fly) so it's probably not
+a bad idea to use the library unless you have a reason not to.
+
+Enjoy, and remember that if you have any problems you can hit us up on
+ the [[mailto:extemporelang@googlegroups.com][mailing list]].
+ The standard
+library is both a binary file (=libs/xtm.{dll,so,dylib}= depending on
+your platform) and a =libs/xtm.xtm= file which is the 'header' for the
+xtlang code in this library---it tells Extempore about what closures
+and other data are present in the library and how to call them. 
 
 # If you've read a few of the other blog post on this site about
 # programming in (with xtlang or Scheme) in Extempore, then you've

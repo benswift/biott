@@ -65,8 +65,10 @@ Your extempore directory will be in
 =/usr/local/Cellar/extempore/<VERSION_NUMBER>=, unless you installed
 homebrew somewhere other than =/usr/local=. =cd= into that directory,
 run =./extempore= and then you're ready to connect up an editor and
-[[file:./2012-09-26-interacting-with-the-extempore-compiler.org][start
-evaluating Extempore code]].
+[[file:./2012-09-26-interacting-with-the-extempore-compiler.org][start evaluating Extempore code]]. You might also want to think about
+[[file:2013-12-16-building-the-extempore-standard-library.org][pre-building the Extempore standard library]], since that will make
+loading the audio and graphics libraries on startup /much/ quicker
+(~20 seconds vs several minutes).
 
 * Homebrew on Linux
 
