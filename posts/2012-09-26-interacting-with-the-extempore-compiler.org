@@ -401,9 +401,11 @@ fact the Extempore compiler itself is fully runtime modifiable!
 
 * Next steps
 
-There are lots of places to go now, you can keep reading through [[file:~/Documents/biott/extempore-docs/index.org][the
-docs]], or start poking around the =examples/= subdirectory in the
-Extempore sources.
+There are lots of places to go now, you can keep reading through the
+[[file:../extempore-docs/index.org][docs]], or start poking around the =examples/= subdirectory in the
+Extempore source folder (which will be in
+=/usr/local/Cellar/extempore/<version>/= if you installed Extempore
+through homebrew).
 
 Once you start doing that, you'll notice that loading whole libraries
 on startup each time is /slow/. The good news is you can get around
