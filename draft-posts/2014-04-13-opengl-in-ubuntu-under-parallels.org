@@ -1,0 +1,54 @@
+#+begin_html
+---
+title: OpenGL in Ubuntu under Parallels
+alias: ["./2014-04-13-opengl-in-ubuntu-under-parallels.html"]
+tags:
+---
+#+end_html
+I've been doing a bit of Extempore development in an Ubuntu VM (under
+Parallels) recently. Getting things up and running is pretty painless
+except for 3D graphics, so here are the magical incantations I uttered
+to get it to work.  I'm running Ubuntu 13.10 on a Retina MBP
+(Late 2013) under Parallels Desktop 9.
+
+* Graphics drivers
+
+The hybrid integrated+discrete graphics chip configuration on the RMBP
+was a bit fiddly to set up. I finally got it working with the
+(closed-source) NVIDIA drivers through
+bumblebee.
+
+#+BEGIN_SRC sh
+sudo apt-get install bumblebee-nvidia
+#+END_SRC
+
+Make sure that 3D Acceleration is enabled under the "Video" tab in the Paralells
+configuration for your Ubuntu VM.  You might want to bump the video
+memory up a bit as well.
+
+* libGL
+
+If you're going to use OpenGL graphics in your app (as we do in
+Extempore), you need to link against libGL. Under Ubuntu you'll
+usually have lots of different =libGL.so= shared libs sitting
+around---use =locate libGL.so= to see exactly how many.
+
+#+BEGIN_SRC sh
+locate libGL.so
+#+END_SRC
+
+The =libGL.so= in the =TODO/Parallels Tools/blah= is the one we want
+to link against to give our Ubuntu VM the best chance of getting
+hardware-accelerated 3D OpenGL graphics. In Ubuntu/Debian the
+=update-alternatives= tool is supposed to manage these different libs,
+but I've never really got my head around how that works. So in the end
+I used the quick-and-dirty solution of symlinking the Parallels Tools
+=libGL.so= into =/usr/lib=
+
+#+BEGIN_SRC sh
+cd /usr/lib
+sudo ln -s TODOpath libGL.so
+#+END_SRC
+
+Let me know if you have any troubles (or successes!) on the [[mailto:extemporelang@googlegroups.com][Extempore
+mailing list]].
