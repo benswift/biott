@@ -36,37 +36,113 @@ GitHub, or something like that.
 
 * Publications
 
-- *A Sorensen, B Swift, A Riddell* (2014, to appear). The Many Meanings
-  of Live Coding. /Computer Music Journal 38:1/
-- *B Swift, A Sorensen, M Martin, H Gardner* (2014, to appear). Coding
-  Livecoding. /CHI '14: Proceedings of the International Conference on
-  Human Factors in Computing Systems./
-- *X Duan, J Wu, B Swift, and TB Kirk* (2014). Texture analysis of the
-  3D collagen network and automatic classification of the physiology
-  of articular cartilage. /Computer Methods in Biomechanics and
-  Biomedical Engineering/
-- *B Swift, A Sorensen, H Gardner, J Hosking* (2013). Visual Code
-  Annotations for Cyberphysical Programming. /LIVE '13: Workshop on
-  Live Programming at ICSE '13/
-- *B Swift* (2012). Becoming Sound: Affect and Assemblage in
-  Improvisational Digital Music-Making. /CHI '12: Proceedings of the
-  International Conference on Human Factors in Computing Systems./
-- *B Swift* (2012). Chasing a Feeling: Experience in
-  Computer Supported Jamming. /Music and Human-Computer Interaction./
-  Springer.
-- *B Swift* (2011) Impish Grooves. /2011 Computer Music Journal DVD/
-- *B Swift, H Gardner, A Riddell* (2011). A Chasing After the Wind:
-  Experience in Computer-Supported Group Music-Making. /When Words
-  Fail: What can music interaction tell us about HCI? Workshop at BCS HCI 2011./
-- *B Swift, H Gardner, A Riddell* (2010). Engagement Networks in Social
-  Music-making. /OZCHI '10: Proceedings of the Australasian
-  Conference on Computer-Human Interaction./
-- *B Swift, H Gardner, A Riddell* (2009). Distributed Performance in
-  Live Coding. /ACMC '09: Proceedings of the Australasian Computer
-  Music Conference./
-- *B Swift, H Gardner, A Riddell* (2007). Mind-modulated music in the
-  mind attention interface. /OZCHI '07: Proceedings of the
-  Australasian Conference on Computer-Human Interaction./
+- *Swift, Ben*, Henry J Gardner, and Alistair Riddell (2009).
+  "Distributed Performance in Live Coding". In: /ACMC '09: Proceedings
+  of the Australasian Computer Music Conference/, pp. 1– 6
+- Swift,Ben (2011). "Impish Grooves". In: /Computer Music Journal/
+  35.4, pp.119–137
+- *Swift, Ben*, Henry J Gardner, and Alistair Riddell (2011). "A
+  Chasing After the Wind: Experience in Computer-Supported Group
+  Music-Making". In: /When Words Fail: What can Music Interaction tell
+  us about HCI?/ Workshop at BCS HCI 2011
+- *Swift, Ben* (2012). "Becoming-sound: Affect and Assemblage in
+  Improvisational Digital Music Making". In: /Proceedings of the
+  SIGCHI Conference on Human Factors in Computing Systems./ CHI '12.
+  Austin, Texas, USA: ACM, pp. 1815–1824. ISBN: 978-1-4503-1015-4
+- *Swift, Ben*, J Sheridan, Z Yang, and Henry J Gardner (2007).
+  "Mind-modulated Music in the Mind Attention Interface". In:
+  /Proceedings of the 19th Australasian Conference on Computer-Human
+  Interaction./ OZCHI '07. Adelaide, Australia: ACM, pp. 83–86. ISBN:
+  978-1-59593-872-5
+- Charles Martin, Henry J Gardner, and *Swift, Ben* (2014). "Exploring
+  Percussive Gesture on iPads with Ensemble Metatone". In:
+  /Proceedings of the 2014 CHI Conference on Human Factors in
+  Computing./ CHI '14 [accepted 17 Jan. 2014]
+- *Swift, Ben*, Andrew Sorensen, Michael Martin, and Henry J Gardner
+  (2014). "Coding Livecoding". In: /Proceedings of the 2014 CHI
+  Conference on Human Factors in Computing./ CHI '14 [accepted 17 Jan.
+  2014]
+- *Swift, Ben*, Andrew Sorensen, Henry J Gardner, and John Hosking
+  (2013). "Visual code annotations for cyberphysical programming". In:
+  /LIVE: 1st International Workshop on Live Programming/, pp. 27–30
+- *Swift, Ben*, Henry Gardner, and Alistair Riddell (2010).
+  "Engagement Networks in Social Music-making". In: /Proceedings of
+  the 22nd Australasian Conference on Computer-Human Interaction./
+  OZCHI '10. Brisbane, Australia: ACM, pp. 104–111. ISBN:
+  978-1-4503-0502-0
+
+* Curated Artistic Performances
+
+- Swift,Ben(2009).CuratedLivecodingPerformance.Ed.byAndrewSorensen.AustralasianComputer
+  Music Conference
+- Swift,Ben(2010a).CuratedLivecodingPerformance.Ed.byMartinJolly."Beginning,Mid-
+  dle, End" Festival, ANU School of Art. Canberra, Australia
+- *Swift, Ben* (2014b). Curated Livecoding Performance. Ed. by Tom
+  Swann. "You Are Here" Arts Festival. Canberra, Australia
+- *Swift, Ben* and Torben Sko (2014). Curated Livecoding Performance.
+  Ed. by David Caffery. "Art, Not Apart" Festival. Canberra, Australia
+- *Swift, Ben* (2008). Curated Livecoding Performance. "Transmissions in
+  Sound" Festival, ANU School of Art. Canberra, Australia
+- *Swift, Ben* (2013b). Curated Livecoding Performance. Revenant Media:
+  Theremin '75 Exhi- bition, ANU School of Art. Canberra, Australia
+- *Swift, Ben* and Andrew Sorensen (2013a). Curated Livecoding
+  Performance. Ed. by Oliver Bown. MUME '13: Musical Metacreation
+  Weekend at ISEA 2013: International Symposium on Electronic Art.
+  Sydney, Australia
+- Andrew Sorensen, *Swift, Ben*, and Alistair Riddell (2014). "The Many
+  Meanings of Live Coding". In: Computer Music Journal 1, [accepted 12
+  Nov. 2013, to appear]
+- XiaojuanDuanetal.(2014)."Textureanalysisofthe3Dcollagennetworkandautomatic
+  classification of the physiology of articular cartilage". In:
+  Computer Methods in Biomechan- ics and Biomedical Engineering,
+  [published online 16 Jan 2014]
+- *Swift, Ben* (2013a). "Chasing a Feeling: Experience in Computer
+  Supported Jamming". English. In: Music and Human-Computer
+  Interaction. Ed. by Simon Holland et al. Springer Series on Cultural
+  Computing. Springer London, pp. 85–99. ISBN: 978-1-4471-2989-9
+
+* Invited Talks
+
+- *Swift, Ben* and Andrew Sorensen (2013). "Live Coding Live". In:
+  /IEEE Symposium on Visual Languages and Human-Centric Computing. San
+  Jose, USA/
+- *Swift, Ben* (2010). "Livecoding in Impromptu". /Invited
+  presentation at National University of Singapore/ 12 July 2000
+
+
+
+
+# - *A Sorensen, B Swift, A Riddell* (2014, to appear). The Many Meanings
+#   of Live Coding. /Computer Music Journal 38:1/
+# - *B Swift, A Sorensen, M Martin, H Gardner* (2014, to appear). Coding
+#   Livecoding. /CHI '14: Proceedings of the International Conference on
+#   Human Factors in Computing Systems./
+# - *X Duan, J Wu, B Swift, and TB Kirk* (2014). Texture analysis of the
+#   3D collagen network and automatic classification of the physiology
+#   of articular cartilage. /Computer Methods in Biomechanics and
+#   Biomedical Engineering/
+# - *B Swift, A Sorensen, H Gardner, J Hosking* (2013). Visual Code
+#   Annotations for Cyberphysical Programming. /LIVE '13: Workshop on
+#   Live Programming at ICSE '13/
+# - *B Swift* (2012). Becoming Sound: Affect and Assemblage in
+#   Improvisational Digital Music-Making. /CHI '12: Proceedings of the
+#   International Conference on Human Factors in Computing Systems./
+# - *B Swift* (2012). Chasing a Feeling: Experience in
+#   Computer Supported Jamming. /Music and Human-Computer Interaction./
+#   Springer.
+# - *B Swift* (2011) Impish Grooves. /2011 Computer Music Journal DVD/
+# - *B Swift, H Gardner, A Riddell* (2011). A Chasing After the Wind:
+#   Experience in Computer-Supported Group Music-Making. /When Words
+#   Fail: What can music interaction tell us about HCI? Workshop at BCS HCI 2011./
+# - *B Swift, H Gardner, A Riddell* (2010). Engagement Networks in Social
+#   Music-making. /OZCHI '10: Proceedings of the Australasian
+#   Conference on Computer-Human Interaction./
+# - *B Swift, H Gardner, A Riddell* (2009). Distributed Performance in
+#   Live Coding. /ACMC '09: Proceedings of the Australasian Computer
+#   Music Conference./
+# - *B Swift, H Gardner, A Riddell* (2007). Mind-modulated music in the
+#   mind attention interface. /OZCHI '07: Proceedings of the
+#   Australasian Conference on Computer-Human Interaction./
 
 # I live mainly in the world of Human-Computer Interaction (HCI),
 # although I also have a digital artist (Dr. Alistair Riddell) and a
