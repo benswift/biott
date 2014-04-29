@@ -41,8 +41,7 @@ GitHub, or something like that.
   Conference on Human Factors in Computing./ CHI '14 [accepted 17 Jan.
   2014]
 - Andrew Sorensen, *Ben Swift*, and Alistair Riddell (2014). "The Many
-  Meanings of Live Coding". In: /Computer Music Journal/ 1, [accepted
-  12 Nov. 2013, to appear]
+  Meanings of Live Coding". In: /Computer Music Journal/ 38.1, pp. 65-76
 - Charles Martin, Henry J Gardner, and *Swift, Ben* (2014). "Exploring
   Percussive Gesture on iPads with Ensemble Metatone". In:
   /Proceedings of the 2014 CHI Conference on Human Factors in
