@@ -145,20 +145,20 @@ these files into our =drums= sampler one at a time using the
 
 #+begin_src extempore
   (define drum-path "/Users/ben/Music/sample-libs/drums/salamander/OH/")
-  (set-sampler-index drums (string-append drum-path "kick_OH_F_9.wav") *gm-kick* 0 0)
-  (set-sampler-index drums (string-append drum-path "snareStick_OH_F_9.wav") *gm-snare-stick* 0 0)
-  (set-sampler-index drums (string-append drum-path "snare_OH_FF_9.wav") *gm-snare* 0 0)
-  (set-sampler-index drums (string-append drum-path "hihatClosed_OH_F_20.wav") *gm-closed-hi-hat* 0 0)
-  (set-sampler-index drums (string-append drum-path "hihatFoot_OH_MP_12.wav") *gm-pedal-hi-hat* 0 0)
-  (set-sampler-index drums (string-append drum-path "hihatOpen_OH_FF_6.wav") *gm-open-hi-hat* 0 0)
-  (set-sampler-index drums (string-append drum-path "loTom_OH_FF_8.wav") *gm-low-floor-tom* 0 0)
-  (set-sampler-index drums (string-append drum-path "hiTom_OH_FF_9.wav") *gm-high-floor-tom* 0 0)
-  (set-sampler-index drums (string-append drum-path "crash1_OH_FF_6.wav") *gm-crash* 0 0)
-  (set-sampler-index drums (string-append drum-path "ride1_OH_FF_4.wav") *gm-ride* 0 0)
-  (set-sampler-index drums (string-append drum-path "china1_OH_FF_8.wav") *gm-chinese* 0 0)
-  (set-sampler-index drums (string-append drum-path "cowbell_FF_9.wav") *gm-cowbell* 0 0)
-  (set-sampler-index drums (string-append drum-path "bellchime_F_3.wav") *gm-open-triangle* 0 0)
-  (set-sampler-index drums (string-append drum-path "ride1Bell_OH_F_6.wav") *gm-ride-bell* 0 0)
+  (set-sampler-index drums (string-append drum-path "kick_OH_F_9.wav") *gm-kick* 0 0 0 1)
+  (set-sampler-index drums (string-append drum-path "snareStick_OH_F_9.wav") *gm-side-stick* 0 0 0 1)
+  (set-sampler-index drums (string-append drum-path "snare_OH_FF_9.wav") *gm-snare* 0 0 0 1)
+  (set-sampler-index drums (string-append drum-path "hihatClosed_OH_F_20.wav") *gm-closed-hi-hat* 0 0 0 1)
+  (set-sampler-index drums (string-append drum-path "hihatFoot_OH_MP_12.wav") *gm-pedal-hi-hat* 0 0 0 1)
+  (set-sampler-index drums (string-append drum-path "hihatOpen_OH_FF_6.wav") *gm-open-hi-hat* 0 0 0 1)
+  (set-sampler-index drums (string-append drum-path "loTom_OH_FF_8.wav") *gm-low-floor-tom* 0 0 0 1)
+  (set-sampler-index drums (string-append drum-path "hiTom_OH_FF_9.wav") *gm-hi-floor-tom* 0 0 0 1)
+  (set-sampler-index drums (string-append drum-path "crash1_OH_FF_6.wav") *gm-crash* 0 0 0 1)
+  (set-sampler-index drums (string-append drum-path "ride1_OH_FF_4.wav") *gm-ride* 0 0 0 1)
+  (set-sampler-index drums (string-append drum-path "china1_OH_FF_8.wav") *gm-chinese* 0 0 0 1)
+  (set-sampler-index drums (string-append drum-path "cowbell_FF_9.wav") *gm-cowbell* 0 0 0 1)
+  (set-sampler-index drums (string-append drum-path "bellchime_F_3.wav") *gm-open-triangle* 0 0 0 1)
+  (set-sampler-index drums (string-append drum-path "ride1Bell_OH_F_6.wav") *gm-ride-bell* 0 0 0 1)
 #+end_src
 
 If that works properly, some info will be printed to the log about the
@@ -214,7 +214,7 @@ Ok, drums are loaded, let's add one more sampler---this time a
   
 #+end_src
 
-Luckily, there's a [[http://rytmenpinne.posterous.com/pages/salamander-grand-piano-46556][Salamander piano]] as well, which will do just fine
+Luckily, there's a [[http://download.linuxaudio.org/lau/SalamanderGrandPianoV2/SalamanderGrandPianoV2_44.1khz16bit.tar.bz2][Salamander piano]] as well, which will do just fine
 for today. Go ahead and download that (you'll want the version called
 =SalamanderGrandPianoV2_44.1khz16bit.tar.bz2=). Again, unzip and untar
 the files to wherever you put that sort of thing. This time, the wave
@@ -306,7 +306,7 @@ parsing isn't too difficult, and would look something like this
                              0)
                        #f))))
            file-list)))
-  
+
   (load-sampler piano
                 "/Users/ben/Music/sample-libs/piano/salamander/44.1khz16bit"
                 0 ;; 'sound bank' index
