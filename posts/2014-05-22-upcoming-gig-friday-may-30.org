@@ -1,0 +1,23 @@
+#+begin_html
+---
+title: Upcoming gig: Friday May 30
+alias: ["./2014-05-22-upcoming-gig-friday-may-30.html"]
+tags: gigs
+---
+#+end_html
+I'm doing a livecoding set (actually /two/ livecoding sets)
+
+- *Date:* Friday May 30
+- *Time:*
+  - /Set 1:/ 3:30pm--4:30pm
+  - /Set 2:/ 4:30pm--5:30pm 
+- *Location:* [[http://lostoncampus.com.au/13229][Room N101]], Building 108 (CSIT building), ANU
+
+As well as being a chance for me to drop some beats, these sets are
+going to be part of a research project on visualisation and
+livecoding. That's why there are two sets: we're trying two different
+visualisation approaches, and after each set you'll get a chance to
+fill out a short feedback survey (either on paper or on your mobile
+phone). It's science!
+
+Come to either set. All welcome, no cover charge. Be part of science.
