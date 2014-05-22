@@ -1,0 +1,42 @@
+#+begin_html
+---
+title: Using tags to jump around the Extempore codebase in Emacs
+alias: ["./2014-04-29-using-tags-to-jump-around-the-extempore-codebase-in-emacs.html"]
+tags: emacs tools
+---
+#+end_html
+
+There's a fair bit of code in the various libraries which come with
+Extempore.  Some of this is part of the [[file:2013-12-16-building-the-extempore-standard-library.org][standard library]], but there's
+also some other nifty bits and pieces---have a browse through the
+=libs/= directory sometime.
+
+* navigating in the current file with imenu
+
+Emacs' =extempore-mode= has support for =imenu= tags, so in any
+Extempore buffer you can use =M-x imenu= to jump to any
+function/variable/type/lib definition.
+
+If you've souped up your imenu with fuzzy matching, imenu-anywhere or
+any other funky things like that, you should get all the benefits of
+those tweaks in Extempore navigation.
+
+* generating an (offline) tags database with etags
+
+There's a script in the =extras/= directory for
+generating a TAGS file for the Extempore codebase. To generate (or
+update) the TAGS database, from a shell in the the top-level extempore
+directory run:
+
+#+BEGIN_SRC sh
+  ./extras/make-tags.sh
+#+END_SRC
+
+This will create a file called =TAGS= in the top-level extempore
+directory. You can then use =M-.= to jump to any tag (function
+definition, global variable, type declaration, etc.). This database
+covers the whole =extempore/= directory (not just the current or open
+files). You don't have to re-build it each time you start Extempore,
+although if Extempore changes too much then you might have to re-build
+it with the same steps as before.
+
