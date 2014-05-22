@@ -2,7 +2,7 @@
 ---
 title: Upcoming gigs: 15 March
 alias: ["./2014-03-07-upcoming-gigs-15-march.html"]
-tags: gig
+tags: gigs
 ---
 #+end_html
 
