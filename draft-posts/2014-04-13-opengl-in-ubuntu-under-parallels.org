@@ -48,6 +48,7 @@ I used the quick-and-dirty solution of symlinking the Parallels Tools
 #+BEGIN_SRC sh
 cd /usr/lib
 sudo ln -s TODOpath libGL.so
+sudo ln -s TODOpath libGLU.so
 #+END_SRC
 
 Let me know if you have any troubles (or successes!) on the [[mailto:extemporelang@googlegroups.com][Extempore
