@@ -1,0 +1,23 @@
+#+begin_html
+---
+title: Extempore moves to LLVM 3.4
+alias: ["./2014-05-22-extempore-moves-to-llvm-34.html"]
+tags:
+---
+#+end_html
+
+Hey folks
+
+Extempore is keeping pace with LLVM updates, and I've just pushed some
+changes to use LLVM 3.4.1.  
+
+*If you build Extempore from source yourself*, [[file:2013-03-20-building-extempore-on-osx-linux.org][the instructions]] have
+been updated (do a a =git pull= to make sure you've got the latest
+Extempore source).
+
+*If you build Extempore through [[file:2013-11-12-building-extempore-through-homebrew.org][homebrew]]*, then you should be able to
+do a =brew update; brew upgrade= and everything will magically update
+itself.
+
+Happy hacking.  As usual, if everything breaks, let us know on the
+[[mailto:extemporelang@googlegroups.com][mailing list]].

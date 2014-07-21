@@ -6,6 +6,8 @@ tags: setup
 ---
 #+end_html
 
+*Note:* this blog post is now out of date, [[file:2014-05-22-extempore-moves-to-llvm-34.org][we're up to LLVM 3.4.1]] now.
+
 Extempore has recently been updated to build against LLVM 3.2, and
 this morning I've pushed the changes to the =master= branch on GitHub.
 We've tested it and are fairly convinced that it's working well,

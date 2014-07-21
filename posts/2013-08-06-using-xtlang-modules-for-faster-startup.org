@@ -60,14 +60,14 @@ The bitcode file is not a loadable shared library, though. To create
 that, we need the =llc= compiler which is part of the LLVM compiler
 suite. This is done outside Extempore using a shell command. To
 produce a shared library from the bitcode file (make sure you replace
-=/path/to/llvm-3.2/= with the right path for your machine)
+=/path/to/llvm-3.4.1/= with the right path for your machine)
 
 #+BEGIN_SRC sh
   # Linux (with gcc):
-  /path/to/llvm-3.2/bin/llc -O3 -relocation-model=pic -tailcallopt /tmp/libtriple.bc && gcc --shared -g /tmp/libtriple.s -o ./libtriple.so
+  /path/to/llvm-3.4.1/bin/llc -O3 -relocation-model=pic -tailcallopt /tmp/libtriple.bc && gcc --shared -g /tmp/libtriple.s -o ./libtriple.so
   
   # OSX (with clang):
-  /path/to/llvm-3.2/bin/llc -O3 -relocation-model=pic -tailcallopt /tmp/libtriple.bc && clang -O3 -dynamiclib -undefined dynamic_lookup /tmp/libtriple.s -o ./libtriple.dylib
+  /path/to/llvm-3.4.1/bin/llc -O3 -relocation-model=pic -tailcallopt /tmp/libtriple.bc && clang -O3 -dynamiclib -undefined dynamic_lookup /tmp/libtriple.s -o ./libtriple.dylib
 #+END_SRC
 
 The =llc= compiler produces an assembler (=.s=) file, which =gcc= or

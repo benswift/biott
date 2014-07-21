@@ -12,13 +12,13 @@ library:
 - make sure you've set your =EXT_LLVM_DIR= environment variable to
   point to your LLVM build directory[fn::if you're using homebrew on
   OSX, the default location will be
-  =/usr/local/Cellar/extempore/3.2=]
+  =/usr/local/Cellar/extempore-llvm/3.4.1=]
 - in a new Extempore session, eval the file =libs/create-stdlib.xtm=
   from top to bottom (or load it at startup with =./extempore --run
   libs/create-stdlib.xtm=)
-- if the standard library compiles successfully, follow the
-  instructions printed to the log and move the =xtm.dylib= / =xtm.so=
-  into your =extempore/= directory.
+- if the standard library compiles successfully, the shared library
+  =xtm.dylib= / =xtm.so= will be moved into place in your
+  =extempore/libs= directory.
 
 Then you're done. To load the standard lib, use =(sys:load
 libs/xtm.xtm)= and you'll have all the main maths, audio and graphics
@@ -30,7 +30,3 @@ You can pre-compile /any/ xtlang code in this fashion, not just the
 the standard library. I'll put together a blog post on that at some
 stage, but the basic ideas can be gleaned from taking a look at
 =libs/create-stdlib.xtm= and =libs/xtm.xtm=.
-
-*Note to Windows users*: [[https://github.com/arrian][Arrian]] has being doing some good things with
-Extempore on Windows recently. If you want to find out where he's up
-to you should drop us all a line on the [[mailto:extemporelang@googlegroups.com][extempore mailing list]].
