@@ -1,0 +1,38 @@
+#+begin_html
+---
+title: Extempore workshop: 12-13 July in Melbourne
+alias: ["./2014-07-04-extempore-workshop-12-13-july-in-melbourne.html"]
+tags:
+---
+#+end_html
+
+As part of the [[http://acma.asn.au/acmc-2014/][Australasian Computer Music Conference]] (ACMC), Andrew
+and I are going to run an Extempore workshop on 12--13 July in
+Melbourne, Australia.
+
+No Extempore experience required, just bring a Mac/Linux laptop and
+we'll start from scratch.
+
+** Date & time
+
+Saturday July 12 & Sunday July 13
+
+10am--3pm
+
+**  Venue
+
+CAE Building, Room B427, Level 4 (cnr Degraves Street) 
+
+253 Flinders Ln
+
+Melbourne, VIC, Australia
+
+** To register
+
+The cost of the workshop is $20, and you can register through the [[http://www.trybooking.com/88393][ACMC
+rego website]] (click "continue booking" and then just select the
+"weekend workshop" down the bottom of the list).
+
+Non-attendees of ACMC are welcome to attend the workshop too, you can
+still book through the link above.
+
