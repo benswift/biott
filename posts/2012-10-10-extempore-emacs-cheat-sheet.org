@@ -37,25 +37,24 @@ These are the steps youll need to take to start hacking on a piece of
 Extempore code in Emacs:
 
 1. start Emacs (if it isn't running already)
-2. open up a shell buffer in Emacs with =M-x shell=
-3. =cd= into your Extempore directory and run =extempore= with the
-   appropriate audio device, e.g. =./extempore --device 2= (the
-   =--print-devices= option prints a list of available devices)
-4. open up an Emacs buffer with an Extempore file (=extempore-mode=
+2. open up an Emacs buffer with an Extempore file (=extempore-mode=
    should be loaded automatically when Emacs sees the =.xtm= file
    extension, assuming you added code above to your =.emacs=)
-5. connect to the running Extempore process: =C-x C-j= (needs to be
+3. call =M-x switch-to-extempore= (=C-c C-z=), and if Extempore isn't
+   already running you'll can add (optional) command line args for Extempore
+   here, such as which audio device to use (e.g. =./extempore --device 2=)
+5. connect to the running Extempore process: =C-x C-j= (this needs to be
    done for /every/ =.xtm= buffer)
 
 Then, to [[file:2012-09-26-interacting-with-the-extempore-compiler.org][evaluate]] Extempore code, use either
 
-- evaluate enclosing s-expression: =C-x C-x=
-- evaluate region: =C-x C-r=
-- evaluate whole buffer: =C-x C-b=
+- evaluate enclosing s-expression: =C-M-x=
+- evaluate region: =C-c C-r=
+- evaluate whole buffer: =C-c C-b=
 
-To restart the Extempore process, just =C-c C-c= in the =*shell*=
-buffer where =extempore= is running to kill it, then start it up
-again.  
+To restart the Extempore process, just =C-c C-c= in the =*extempore*=
+buffer where =extempore= is running to kill it, then start it up again
+with =M-x switch-to-extempore= (=C-c C-z=).
 
 For more detail on how to 'program' in Extempore, have a look at this
 post on [[file:2012-09-26-interacting-with-the-extempore-compiler.org][interacting with the Extempore compiler]].
