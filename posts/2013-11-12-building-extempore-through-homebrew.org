@@ -77,8 +77,10 @@ in a =.linuxbrew= folder inside your home directory, so it shouldn't
 interfere with your 'regular' package manager (=apt-get=, =yum=,
 =pacman=, etc.).
 
-Once you've installed homebrew on your Linux box then you can tap my
-/Linux/ Extempore homebrew repo and install Extempore:
+Once you've installed homebrew on your Linux box (make sure you get
+all the dependencies as well---see the *Dependencies* section of the
+Linuxbrew readme) then you can tap my /Linux/ Extempore homebrew repo
+and install Extempore:
 
 #+BEGIN_SRC sh
 brew tap benswift/extemporelinux
