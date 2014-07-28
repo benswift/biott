@@ -47,17 +47,17 @@ saw wave
 
 #+begin_src extempore
   (sys:load "libs/core/instruments.xtm")
-  
+
   (bind-func saw_synth_note_c
-    (lambda ()
+    (lambda (nargs:i64 dargs:SAMPLE*)
       (let ((saw (saw_c 0.)))
         (lambda (time:i64 chan:i64 freq:SAMPLE amp:SAMPLE)
           (if (= chan 0)
               (saw amp freq)
               0.0)))))
-  
+
   ;; when we evaluate saw_synth_note_c, the compiler prints:
-  ;; Compiled saw_synth_note_c >>> [[float,float,float,float,float]*]*
+  ;; Compiled:  saw_synth_note_c >>> [[float,i64,i64,float,float]*,i64,float*]*
 #+end_src
 
 Notice that the saw [[http://en.wikipedia.org/wiki/Unit_generator][unit-generator]] (ugen) =saw= is bound (by calling
@@ -70,17 +70,17 @@ value returned by the =saw= closure (as it is called repeatedly, once
 per audio sample) will trace out a [[http://en.wikipedia.org/wiki/Sawtooth_wave][sawtooth wave]].
 
 This is just a mono note kernel at this stage, because =saw= is only
-called when =chan= is equal to =0.0=. The note kernel closure will
+called when =chan= is equal to =0=. The note kernel closure will
 actually be called one for /each/ output channel, and the =chan=
-argument will range from =0.0= for the first output channel to
-=n - 1.0= for the nth output channel (the number of output channels
+argument will range from =0= for the first output channel to
+=n - 1= for the nth output channel (the number of output channels
 you have will depend on your audio device). It's therefore easy to
 generalise our note kernel to multiple channels, so let's make it a
 stereo note kernel
 
 #+begin_src extempore
   (bind-func saw_synth_note_c
-    (lambda ()
+    (lambda (nargs:i64 dargs:SAMPLE*)
       (let ((sawl (saw_c 0.))
             (sawr (saw_c 0.)))
         (lambda (time:i64 chan:i64 freq:SAMPLE amp:SAMPLE)
@@ -116,9 +116,9 @@ although it may just pass its input through untouched:
 
 #+begin_src extempore
   (bind-func saw_synth_fx
-    (lambda (in:i64 time:i64 chan:float dat:float*)
+    (lambda (in:SAMPLE time:i64 chan:i64 dat:SAMPLE*)
       in))
-  
+
   ;; when we evaluate saw_synth_fx, the compiler prints:  
   ;; Compiled saw_synth_fx >>> [i64,i64,i64,float,float*]*
 #+end_src
@@ -126,7 +126,7 @@ although it may just pass its input through untouched:
 Let's add a stereo delay to make things a bit more interesting
 
 #+begin_src extempore
-  (bind-func saw_synth_fx 50000 ;; extra memory for the delay lines
+  (bind-func saw_synth_fx 200000 ;; extra memory for the delay lines
     (let ((delayl (delay_c 22050))
           (delayr (delay_c 22050)))
       (lambda (in:SAMPLE time:i64 chan:i64 dat:SAMPLE*)
