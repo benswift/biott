@@ -115,15 +115,15 @@ still [[file:./2013-03-20-building-extempore-on-osx-linux.org][build from source
 
 ** Troubleshooting on Linux
 
-Here are some additional notes from Andrew on his homebrew Ubuntu 12.10
-experience:
+Here are some additional tips if you get stuck:
 
 - =brew install pcre= might require bz2 header files (which you can
   get with e.g. =sudo apt-get install libbz2-dev=)
+- if you're missing the asound headers, you might need to =sudo apt-get install libasound2-dev=
 - =python-dev= package (i.e. python header files) might need to be
   installed before boost (and therefore assimp) will compile.
 - Mesa is a good bet for OpenGL stuff, I've had the best experiences
-  on ubuntu, where the packages are =sudo apt-get install
+  on Ubuntu, where the packages are =sudo apt-get install
   libgl1-mesa-dev libglu1-mesa-dev=
 
 I'm working on smoothing out these issues, I'll keep this post updated
