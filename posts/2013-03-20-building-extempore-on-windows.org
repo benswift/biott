@@ -6,6 +6,10 @@ tags: setup windows
 ---
 #+end_html
 
+*Note:* Extempore on Windows hadn't seen much love until recently,
+when (with the assistance of Ross Bencina) we got it up and running
+again.  I'll update this post soon with the new build instructions.
+
 These instructions are for building Extempore from source. If you're
 after a less painful installation process, then you'll soon (real
 soon!) be able to download a precompiled Extempore binary.
