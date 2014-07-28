@@ -6,27 +6,32 @@ tags: xtlang setup
 ---
 #+end_html
 
-Here are the steps to building and loading the Extempore standard
+*Note:* /these instructions have changed as of Extempore 0.53
+(2014-07-28)/
+
+Compiling some of the 'standard' Extempore libraries (e.g.
+=libs/core/instruments.xtm=) from scratch each time can take a while,
+and that gets tedious fast. Luckily, you can pre-compile some of the
+standard extempore libraries so that they load up /much/ faster.
+
+Here are the steps to pre-compiling the Extempore standard
 library:
 
-- make sure you've set your =EXT_LLVM_DIR= environment variable to
-  point to your LLVM build directory[fn::if you're using homebrew on
-  OSX, the default location will be
-  =/usr/local/Cellar/extempore-llvm/3.4.1=]
-- in a new Extempore session, eval the file =libs/create-stdlib.xtm=
-  from top to bottom (or load it at startup with =./extempore --run
-  libs/create-stdlib.xtm=)
-- if the standard library compiles successfully, the shared library
-  =xtm.dylib= / =xtm.so= will be moved into place in your
-  =extempore/libs= directory.
+- if you built from source (i.e. not [[file:2013-11-12-building-extempore-through-homebrew.org][through homebrew]]) make sure
+  you've set your =EXT_LLVM_DIR= environment variable to point to your
+  LLVM build directory[fn::if you're using homebrew (on OSX, at least)
+  it should work automatically]
+- in a terminal, in the Extempore home directory, run the shell script
+  =./compile-stdlib.sh=
 
-Then you're done. To load the standard lib, use =(sys:load
-libs/xtm.xtm)= and you'll have all the main maths, audio and graphics
-libraries loaded up. This takes the Extempore startup time on my
-machine from several minutes down to about 4 seconds. Pretty handy if
-you're having to start it up regularly as I am :)
+Then you're done. Now, when you try to =sys:load= a file (e.g.
+=libs/core/audio_dsp.xtm=) then if you’ve precompiled it then it'll
+just load that one (quick) and if not it’ll compile it from scratch
+(slow). The only caveat is that this if you haven't precompiled the
+lib for a while (and the =.xtm= source file has changed) then you need
+to manually recompile---there's no automatic re-compilation.
 
 You can pre-compile /any/ xtlang code in this fashion, not just the
 the standard library. I'll put together a blog post on that at some
-stage, but the basic ideas can be gleaned from taking a look at
-=libs/create-stdlib.xtm= and =libs/xtm.xtm=.
+stage, but the basic ideas can be gleaned from taking a look at e.g.
+=libs/core/audio_dsp.xtm= and the =create-stdlib.sh= script.
