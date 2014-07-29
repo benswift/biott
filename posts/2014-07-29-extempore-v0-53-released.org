@@ -1,0 +1,42 @@
+#+begin_html
+---
+title: Extempore v0.53 released
+alias: ["./2014-07-29-extempore-v0-53-released.html"]
+tags:
+---
+#+end_html
+
+Just a heads up that I’ve pushed an Extempore v0.53 (=b534ba2=)
+release to homebrew. It includes fixes for a few of the things we’ve
+been discussing on the list recently, as well as the new
+precompilation stuff (see [[file:2013-12-16-building-the-extempore-standard-library.org][this post]] for more info).
+
+Anyway, if you’re using homebrew, then 
+
+#+BEGIN_SRC shell
+brew update
+brew outdated   # extempore should show up as outdated
+brew upgrade
+#+END_SRC
+
+should do the trick.
+
+Also, if you’ve used homebrew but built from HEAD (i.e. =brew install
+--HEAD extempore=) then you’ll need to *either*
+
+#+BEGIN_SRC shell
+brew reinstall --HEAD extempore 
+# this will keep you up with the current head, which is always a manual process (no auto-update)
+#+END_SRC
+
+*or*
+
+#+BEGIN_SRC shell
+2. brew rm extempore && brew install extempore 
+# this’ll move you to 0.53, which is currently the tip of git master anyway
+#+END_SRC
+
+Note that if you’ve built from source, then just =git pull=, rebuild
+with =./all.bash= and we’ll all be on the same page.
+
+[[mailto:extemporelang@googlegroups.com][Let me know]] if there are any issues.
