@@ -13,7 +13,7 @@ precompilation stuff (see [[file:2013-12-16-building-the-extempore-standard-libr
 
 Anyway, if you’re using homebrew, then 
 
-#+BEGIN_SRC shell
+#+BEGIN_SRC sh
 brew update
 brew outdated   # extempore should show up as outdated
 brew upgrade
@@ -24,14 +24,14 @@ should do the trick.
 Also, if you’ve used homebrew but built from HEAD (i.e. =brew install
 --HEAD extempore=) then you’ll need to *either*
 
-#+BEGIN_SRC shell
+#+BEGIN_SRC sh
 brew reinstall --HEAD extempore 
 # this will keep you up with the current head, which is always a manual process (no auto-update)
 #+END_SRC
 
 *or*
 
-#+BEGIN_SRC shell
+#+BEGIN_SRC sh
 2. brew rm extempore && brew install extempore 
 # this’ll move you to 0.53, which is currently the tip of git master anyway
 #+END_SRC
