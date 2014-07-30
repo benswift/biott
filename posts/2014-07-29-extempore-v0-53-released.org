@@ -2,7 +2,7 @@
 ---
 title: Extempore v0.53 released
 alias: ["./2014-07-29-extempore-v0-53-released.html"]
-tags:
+tags: setup
 ---
 #+end_html
 
