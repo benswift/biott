@@ -79,34 +79,18 @@ interfere with your 'regular' package manager (=apt-get=, =yum=,
 
 Once you've installed homebrew on your Linux box (make sure you get
 all the dependencies as well---see the *Dependencies* section of the
-Linuxbrew readme) then you can tap my /Linux/ Extempore homebrew repo
-and install Extempore:
+Linuxbrew Readme) you'll probably need one or two other packages from
+your 'regular' package manager.  On Ubuntu 14.04 I needed
+
+#+BEGIN_SRC sh
+sudo apt-get install libasound2-dev libgl1-mesa-dev libglu1-mesa-dev
+#+END_SRC
+
+After that, you can tap my /Linux/ Extempore homebrew repo and install
+Extempore:
 
 #+BEGIN_SRC sh
 brew tap benswift/extemporelinux
-#+END_SRC
-
-This will print a few warnings about not linking formulae from this
-tap over the top of existing ones. The Linux situation is a bit more
-complicated than on OSX because I had to (on Ubuntu 13.10, anyway)
-tweak a couple of other dependencies so they would build: =kissfft=
-and =shivavg=. Basically, what's happening is that homebrew on Linux
-by default just uses the same build formulae as on OSX, which in some
-cases works fine (thanks to their shared *nix underpinnings) but in
-other cases some small tweaks are required.
-
-All this means is that there's an extra step required to install the
-deps from my tap, which /should/ work, although your mileage may vary
-depending on which Linux distro you're on.  [[mailto:extemporelang@googlegroups.com][Let me know]] if you run
-into problems.
-
-#+BEGIN_SRC sh
-brew install benswift/extemporelinux/kissfft benswift/extemporelinux/shivavg
-#+END_SRC
-
-After that, you can
-
-#+BEGIN_SRC sh
 brew install extempore
 #+END_SRC
 
