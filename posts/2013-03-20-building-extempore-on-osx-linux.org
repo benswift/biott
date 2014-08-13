@@ -108,7 +108,7 @@ installed into (such as a =build= directory)
 #+begin_src sh
 $ cd /path/to/llvm
 $ mkdir build
-$ ./configure --prefix=/path/to/llvm/build --enable-optimized
+$ ./configure --prefix=/path/to/llvm/build --enable-optimized --enable-curses=no --enable-terminfo=no
 $ make && make install
 #+end_src
 
