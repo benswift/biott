@@ -75,12 +75,24 @@ loading the audio and graphics libraries on startup /much/ quicker
 There's a fork of [[https://github.com/Homebrew/linuxbrew][homebrew for Linux]] as well. Homebrew on Linux lives
 in a =.linuxbrew= folder inside your home directory, so it shouldn't
 interfere with your 'regular' package manager (=apt-get=, =yum=,
-=pacman=, etc.).
+=pacman=, etc.). This (homebrew) installation method works pretty
+reliably on Ubuntu 14.04, and should also work for older Ubuntus.
+Linuxbrew nominally also works on Fedora, but things are a bit hairier
+there---[[mailto:extemporelang@googlegroups.com][let me know]] if you get it to work and I'll add any tips here.
 
-Once you've installed homebrew on your Linux box (make sure you get
-all the dependencies as well---see the *Dependencies* section of the
-Linuxbrew Readme) you'll probably need one or two other packages from
-your 'regular' package manager.  On Ubuntu 14.04 I needed
+You can install homebrew on Ubuntu (or Debian) with
+
+#+BEGIN_SRC
+sudo apt-get install build-essential curl git m4 ruby texinfo libbz2-dev libcurl4-openssl-dev libexpat-dev libncurses-dev zlib1g-dev
+ruby -e "$(wget -O- https://raw.github.com/Homebrew/linuxbrew/go/install)"
+#+END_SRC
+
+For other Linux distros, see the [[https://github.com/Homebrew/linuxbrew#dependencies][Linuxbrew readme]] for installation
+instructions.
+
+Once you've installed homebrew on your Linux box, to install Extempore
+you'll need one or two other packages from your 'regular' package
+manager. On Ubuntu 14.04 I needed these packages:
 
 #+BEGIN_SRC sh
 sudo apt-get install libasound2-dev libgl1-mesa-dev libglu1-mesa-dev
@@ -103,7 +115,8 @@ Here are some additional tips if you get stuck:
 
 - =brew install pcre= might require bz2 header files (which you can
   get with e.g. =sudo apt-get install libbz2-dev=)
-- if you're missing the asound headers, you might need to =sudo apt-get install libasound2-dev=
+- if you're missing the asound headers, you might need to =sudo
+  apt-get install libasound2-dev=
 - =python-dev= package (i.e. python header files) might need to be
   installed before boost (and therefore assimp) will compile.
 - Mesa is a good bet for OpenGL stuff, I've had the best experiences
