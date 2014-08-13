@@ -1,0 +1,42 @@
+#+begin_html
+---
+title: Linux homebrew improvements
+alias: ["./2014-08-13-linux-homebrew-improvements.html"]
+tags:
+---
+#+end_html
+
+There's been a flurry of Extempore development in the last couple of
+weeks, most of which has revolved around the installation and
+precompilation process on Linux. This has (hopefully) culminated in
+the release of Extempore 0.57 this afternoon on GitHub and homebrew.
+
+Some highlights of Extempore 0.57 include
+
+- [[file:2013-11-12-building-extempore-through-homebrew.org][Homebrew installation]] on Ubuntu should Just Work(TM)
+- [[file:2013-03-20-building-extempore-on-osx-linux.org][Building from source]] should be pretty straightforward on all
+  distros
+- [[file:2013-12-16-building-the-extempore-standard-library.org][Building the standard library]] is now fixed on Linux
+- a =--with-stdlib= option for =brew install= to automatically build
+  the standard library
+
+Long story short, if you've given Extempore on Linux a go in the past
+and given up, then it might be a good time to have another try. I hope
+it'll be a lot nicer this time around. In particular, there are some
+significant bug fixes for the precomp stuff, which make hacking xtlang
+on Linux much nicer (startup times of ~10sec vs several minutes).
+
+If you're on a Linux distro that isn't covered by the installation
+instructions linked above, I hope it'll still be easier than it was
+before.
+
+It's worth saying that on Ubuntu, the default audio setup (e.g.
+pulseaudio) isn't great for low-latency DSP stuff, so you might have
+to mess around with that a bit.
+
+OSX users should see a few improvements as well. Basically, there's no
+reason not to go and get yourself a fresh 0.57 install (or even a Git
+HEAD build if you're into that sort of thing).
+
+As usual, if you have any comments (or war stories) then let us know
+on the [[mailto:extemporelang@googlegroups.com][mailing list]].
