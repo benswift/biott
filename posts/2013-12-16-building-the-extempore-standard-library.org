@@ -14,20 +14,44 @@ Compiling some of the 'standard' Extempore libraries (e.g.
 and that gets tedious fast. Luckily, you can pre-compile some of the
 standard extempore libraries so that they load up /much/ faster.
 
-Here are the steps to pre-compiling the Extempore standard
-library:
+* If you've already installed Extempore
 
-- if you built from source (i.e. not [[file:2013-11-12-building-extempore-through-homebrew.org][through homebrew]]) make sure
-  you've set your =EXT_LLVM_DIR= environment variable to point to your
-  LLVM build directory[fn::if you're using homebrew (on OSX, at least)
-  it should work automatically]
-- in a terminal, in the Extempore home directory, run the shell script
-  =./compile-stdlib.sh=
+If you've already installed Extempore, here are the steps to
+pre-compiling the Extempore standard library:
 
-Then you're done. Now, when you try to =sys:load= a file (e.g.
-=libs/core/audio_dsp.xtm=) then if you’ve precompiled it then it'll
-just load that one (quick) and if not it’ll compile it from scratch
-(slow). The only caveat is that this if you haven't precompiled the
+1. if you *didn't* build Extempore through [[file:2013-11-12-building-extempore-through-homebrew.org][homebrew]], make sure you've
+   set your =EXT_LLVM_DIR= environment variable to point to your LLVM
+   build directory[fn::if you're using homebrew (on OSX, at least) it
+   should work automatically]
+2. in a terminal, in the Extempore home directory, run the shell
+   script =./compile-stdlib.sh=
+
+* If you haven't installed Extempore
+
+If you haven't installed Extempore (or your Extempore is out-of-date
+and you have to upgrade it) and *you're getting it through
+homebrew*, then note that the Extempore homebrew formula now has a
+=--with-stdlib= option, which will compile the stdlib for you
+automatically as part of the build/upgrade process:
+
+
+#+BEGIN_SRC sh
+  brew install --with-stdlib extempore
+#+END_SRC
+
+Then you're done. 
+
+* Using the standard library
+
+Once you've built the standard library, when you try to =sys:load= a
+file (e.g. =libs/core/audio_dsp.xtm=) then:
+
+- /if you’ve precompiled that library/ then it'll just load that one
+  (quick), and
+- /if you haven't precompiled that library/ it’ll compile it from
+  scratch (slow)
+
+The only caveat is that this if you haven't precompiled the
 lib for a while (and the =.xtm= source file has changed) then you need
 to manually recompile---there's no automatic re-compilation.
 
@@ -35,3 +59,14 @@ You can pre-compile /any/ xtlang code in this fashion, not just the
 the standard library. I'll put together a blog post on that at some
 stage, but the basic ideas can be gleaned from taking a look at e.g.
 =libs/core/audio_dsp.xtm= and the =create-stdlib.sh= script.
+
+* The 'core' standard library
+
+In the Extempore source tarball there's also a =create-stdlib-core.sh=
+script for building a smaller 'core' standard library. This only
+includes libraries from =libs/core=, nothing from =libs/external=.
+This might be handy if you don't want the external Extempore
+libraries, perhaps if you don't need any graphics stuff and want to
+keep things lean and mean. It's also handy if you've built Extempore
+from source yourself and haven't had the time to chase down all the
+deps for a full stdlib build.

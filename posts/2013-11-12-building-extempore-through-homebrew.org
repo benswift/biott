@@ -82,7 +82,7 @@ there---[[mailto:extemporelang@googlegroups.com][let me know]] if you get it to 
 
 You can install homebrew on Ubuntu (or Debian) with
 
-#+BEGIN_SRC
+#+BEGIN_SRC sh
 sudo apt-get install build-essential curl git m4 ruby texinfo libbz2-dev libcurl4-openssl-dev libexpat-dev libncurses-dev zlib1g-dev
 ruby -e "$(wget -O- https://raw.github.com/Homebrew/linuxbrew/go/install)"
 #+END_SRC
@@ -113,20 +113,39 @@ still [[file:./2013-03-20-building-extempore-on-osx-linux.org][build from source
 
 Here are some additional tips if you get stuck:
 
-- =brew install pcre= might require bz2 header files (which you can
-  get with e.g. =sudo apt-get install libbz2-dev=)
+- If you've already installed portaudio through your system package
+  manager, then that can cause problems---in particular Extempore will
+  crash on startup. If =extempore --print-devices= prints no devies,
+  this is probably the problem. To fix it, the best solution we've
+  found is to uninstall the portaudio through the package manager,
+  build extempore through homebrew, and then reinstall portaudio
+  through the package manager. Messy, I know, and it may break other
+  things, so if you find a better way then let me know.
 - if you're missing the asound headers, you might need to =sudo
   apt-get install libasound2-dev=
-- =python-dev= package (i.e. python header files) might need to be
-  installed before boost (and therefore assimp) will compile.
 - Mesa is a good bet for OpenGL stuff, I've had the best experiences
   on Ubuntu, where the packages are =sudo apt-get install
   libgl1-mesa-dev libglu1-mesa-dev=
+- On ubuntu, make sure you've got the right OpenGL drivers---which you
+  can select with the "Additional Drivers" tool
 
 I'm working on smoothing out these issues, I'll keep this post updated
 as I fix them. If you find any other gotchas (and I'm sure there will
 be some, there are lots of Linux distros out there) then send an email
 to the [[mailto:extemporelang@googlegroups.com][Extempore mailing list]] and I'll add them here as well.
+
+* Automatically building the standard library as well
+
+As of Extempore v0.55, homebrew can [[file:2013-12-16-building-the-extempore-standard-library.org][build the Extempore standard
+library]] for you as part of the install/upgrade process:
+
+#+BEGIN_SRC sh
+brew install --with-stdlib extempore
+#+END_SRC
+
+Currently, this flag is off by default (since it does take a while),
+but it's a handy option to use if you know that you're going to be
+tearing down and starting Extempore regularly.
 
 * using scoop.sh for easy building on Windows
 

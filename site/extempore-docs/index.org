@@ -37,7 +37,8 @@ Here's some help to get you up and running with Extempore, right from
 the beginning steps.
 
 - [[./2013-11-12-building-extempore-through-homebrew.org][Building Extempore with Homebrew]]
-- Building Extempore ([[file:../2013-03-20-building-extempore-on-osx-linux.org][OSX & Linux]], [[file:../2013-03-20-building-extempore-on-windows.org][Windows]])
+- Building Extempore from source ([[file:../2013-03-20-building-extempore-on-osx-linux.org][OSX & Linux]], [[file:../2013-03-20-building-extempore-on-windows.org][Windows]])
+- [[../2013-12-16-building-the-extempore-standard-library.org][Building the Extempore standard library]]
 - Setting up your editor ([[file:../2012-10-10-extempore-emacs-cheat-sheet.org][Emacs]],  [[file:../2012-10-23-extempore-st2-cheat-sheet.org][Sublime Text 2]])
 - [[file:../2012-09-26-interacting-with-the-extempore-compiler.org][Interacting with the Extempore compiler]]
 - [[file:../2012-10-15-extempore-for-impromptu-users.org][Extempore for Impromptu users]]

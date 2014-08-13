@@ -1,6 +1,6 @@
 #+begin_html
 ---
-title: Building Extempore on OSX & Linux
+title: Building Extempore from source on OSX & Linux
 alias: ["./2013-03-20-building-extempore-on-osx-linux.html"]
 tags: setup osx linux
 ---
@@ -27,16 +27,16 @@ free to let me know on the [[mailto:extemporelang@googlegroups.com][Extempore ma
 On a fresh Ubuntu 12.10, I needed the following packages
 
 #+begin_src sh
-sudo apt-get install g++ portaudio19-dev libpcre3-dev libgl1-mesa-dev
+sudo apt-get git install g++ portaudio19-dev libpcre3-dev libgl1-mesa-dev
 #+end_src
 
 *Fedora*
 
-On Fedora 18[fn::Thanks to Tom Murphy for providing the Fedora install
+On Fedora 18+[fn::Thanks to Tom Murphy for providing the Fedora install
 tips.], you can get the dependencies with
 
 #+BEGIN_SRC sh
-sudo yum install gcc-c++ portaudio-devel pcre-devel mesa-libGL-devel
+sudo yum install git gcc gcc-c++ portaudio-devel pcre-devel mesa-libGL-devel
 #+END_SRC
 
 Also, you'll need to add =/lib64/librt.so= to =PLATFORM_LIBS= (after
@@ -120,7 +120,7 @@ directory[fn:builddir] is by defining the shell variable
 =EXT_LLVM_DIR=, for example
 
 #+begin_src sh
-$ export EXT_LLVM_DIR=/path/to/llvm/build
+export EXT_LLVM_DIR=/path/to/llvm/build
 #+end_src
 
 If you used the homebrew formula the LLVM build directory will
@@ -129,7 +129,7 @@ probably be =/usr/local/Cellar/extempore-llvm/3.4.1=.
 Then you can build Extempore using the =all.bash= shell script 
 
 #+begin_src sh
-$ ./all.bash
+./all.bash
 #+end_src
 
 ...and you should have a shiny new =extempore= executable in your
@@ -141,6 +141,9 @@ The =extempore= executable on its own is cool, but things really start
 to get interesting when you can interact with it by sending it xtlang
 code to evaluate. So the next step is to [[file:2012-09-26-interacting-with-the-extempore-compiler.org][set up your text editor for
 working with Extempore source code]].
+
+It's probably worth [[file:2013-12-16-building-the-extempore-standard-library.org][building the standard library]] as well---it'll save
+you heaps of time if you're restarting Extempore often.
 
 After you're set up, then the next step is to learn about xtlang and
 the Extempore runtime. The [[file:../extempore-docs/index.org][docs index]] has a complete list of all the
