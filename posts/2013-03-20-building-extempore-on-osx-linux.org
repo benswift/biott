@@ -22,15 +22,15 @@ patch (see instructions in the next section). If you have any problems
 with these versions (or success with newer/older versions) then feel
 free to let me know on the [[mailto:extemporelang@googlegroups.com][Extempore mailing list]].
 
-*Ubuntu*
+** Ubuntu/Debian
 
-On a fresh Ubuntu 12.10, I needed the following packages
+On Ubuntu 14.04 & Debian Wheezy, I needed the following packages
 
 #+begin_src sh
-sudo apt-get git install g++ portaudio19-dev libpcre3-dev libgl1-mesa-dev
+sudo apt-get install git g++ portaudio19-dev libpcre3-dev libgl1-mesa-dev
 #+end_src
 
-*Fedora*
+** Fedora
 
 On Fedora 18+[fn::Thanks to Tom Murphy for providing the Fedora install
 tips.], you can get the dependencies with
@@ -42,7 +42,7 @@ sudo yum install git gcc gcc-c++ portaudio-devel pcre-devel mesa-libGL-devel
 Also, you'll need to add =/lib64/librt.so= to =PLATFORM_LIBS= (after
 =-lX11=) in =config/linux.make= (for [[http://fedoraproject.org/wiki/UnderstandingDSOLinkChange][this]] reason).
 
-*Other Linux*
+** Other Linux
 
 If you're on a different distro the packages should be available
 through the package manager, although the package names might be
@@ -52,7 +52,7 @@ install packages on your distro.
 If you want to build any of them from source you can, but unless you
 have a good reason to then the package option is probably best.
 
-*OSX*
+** OSX
 
 The easiest way to get the dependencies is through a package manager.
 I use [[http://mxcl.github.com/homebrew/][Homebrew]], [fn:alternatives] which uses the [[https://developer.apple.com/downloads/index.action?%3Dcommand%2520line%2520tools][OSX command line
