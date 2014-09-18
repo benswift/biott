@@ -487,7 +487,7 @@ To make the =organ_note_c= kernel, we'll fill in the template from the
           (drawbar_pos:SAMPLE* (zalloc num_drawbars)))
       (pfill! freq_ratio 0.5 1.5 1.0 2.0 3.0 4.0 5.0 6.0 8.0)
       (pfill! drawbar_pos 8. 8. 8. 0. 0. 0. 0. 0. 0.)
-      (lambda (nargs:i64 dargs:SAMPLE*)
+      (lambda (data:NoteInitData* nargs:i64 dargs:SAMPLE*)
         (let ((tonewheel:[SAMPLE,SAMPLE,SAMPLE]** (zalloc (* 2 num_drawbars)))
               (freq_smudge:SAMPLE* (zalloc num_drawbars))
               (i:i64 0))

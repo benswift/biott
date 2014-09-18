@@ -33,13 +33,13 @@ arguments:
 In Extempore, =SAMPLE= is aliased to =float= by default, but could
 also be =double= (see [[./2013-11-15-changing-from-doubles-to-floats-in-audio_dsp.org][this post]] for more info).
 
-In an [[file:./2012-10-03-xtlang-type-diagrams.org][xtlang type diagram]]:
+# In an [[file:./2012-10-03-xtlang-type-diagrams.org][xtlang type diagram]]:
 
-#+begin_html
-<div class="ui image segment">
-  <img src="/img/simple-instrument/note-kernel.png" width="300px" alt="">
-</div>
-#+end_html
+# #+begin_html
+# <div class="ui image segment">
+#   <img src="/img/simple-instrument/note-kernel.png" width="300px" alt="">
+# </div>
+# #+end_html
 
 The /returned/ closure will be called to provide the basic audio
 signal for the note, so that's where we put our code to generate the
@@ -49,7 +49,7 @@ saw wave
   (sys:load "libs/core/instruments.xtm")
 
   (bind-func saw_synth_note_c
-    (lambda (nargs:i64 dargs:SAMPLE*)
+    (lambda (data:NoteInitData* nargs:i64 dargs:SAMPLE*)
       (let ((saw (saw_c 0.)))
         (lambda (time:i64 chan:i64 freq:SAMPLE amp:SAMPLE)
           (if (= chan 0)
@@ -57,7 +57,7 @@ saw wave
               0.0)))))
 
   ;; when we evaluate saw_synth_note_c, the compiler prints:
-  ;; Compiled:  saw_synth_note_c >>> [[float,i64,i64,float,float]*,i64,float*]*
+  ;; Compiled:  saw_synth_note_c >>> [[float,i64,i64,float,float]*,NoteInitData*,i64,float*]*
 #+end_src
 
 Notice that the saw [[http://en.wikipedia.org/wiki/Unit_generator][unit-generator]] (ugen) =saw= is bound (by calling
@@ -80,7 +80,7 @@ stereo note kernel
 
 #+begin_src extempore
   (bind-func saw_synth_note_c
-    (lambda (nargs:i64 dargs:SAMPLE*)
+    (lambda (data:NoteInitData* nargs:i64 dargs:SAMPLE*)
       (let ((sawl (saw_c 0.))
             (sawr (saw_c 0.)))
         (lambda (time:i64 chan:i64 freq:SAMPLE amp:SAMPLE)

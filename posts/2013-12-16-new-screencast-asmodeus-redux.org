@@ -49,7 +49,7 @@ works!
 
 (bind-func theremin_note_c
   "the theremin note closure"
-  (lambda (nargs:i64 dargs:float*)
+  (lambda (data:NoteInitData* nargs:i64 dargs:SAMPLE*)
     (let ((oscl (osc_c 0.0))
           (oscr (osc_c 0.0))
           (port_time (if (> nargs 0) (pref dargs 0) 1.0))
