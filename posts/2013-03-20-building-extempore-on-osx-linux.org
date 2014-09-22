@@ -42,6 +42,18 @@ sudo yum install git gcc gcc-c++ portaudio-devel pcre-devel mesa-libGL-devel
 Also, you'll need to add =/lib64/librt.so= to =PLATFORM_LIBS= (after
 =-lX11=) in =config/linux.make= (for [[http://fedoraproject.org/wiki/UnderstandingDSOLinkChange][this]] reason).
 
+** Arch Linux
+
+From a minimal Arch Linux install, this one-liner will get the deps needed to build Extempore
+
+#+BEGIN_SRC sh
+pacman -Syu && pacman -S gcc curl make patch unzip portaudio pcre mesa-libgl python
+#+END_SRC
+
+Note that this list is up-to-date as of September 22, but with Arch's
+rolling release approach this may not be true in the future.  Let me
+know if you have any problems and I'll update the list.
+
 ** Other Linux
 
 If you're on a different distro the packages should be available
