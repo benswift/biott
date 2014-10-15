@@ -80,6 +80,9 @@ reliably on Ubuntu 14.04, and should also work for older Ubuntus.
 Linuxbrew nominally also works on Fedora, but things are a bit hairier
 there---[[mailto:extemporelang@googlegroups.com][let me know]] if you get it to work and I'll add any tips here.
 
+If you'd rather not install homebrew on your linux box then you can
+still [[file:./2013-03-20-building-extempore-on-osx-linux.org][build from source]] as before.
+
 You can install homebrew on Ubuntu (or Debian) with
 
 #+BEGIN_SRC sh
@@ -106,8 +109,33 @@ brew tap benswift/extemporelinux
 brew install extempore
 #+END_SRC
 
-If you'd rather not install homebrew on your linux box then you can
-still [[file:./2013-03-20-building-extempore-on-osx-linux.org][build from source]] as before.
+** If you want Jack support
+
+If you want to build Portaudio with Jack support (through homebrew),
+then you have to do a bit more mucking around.
+ 
+*After* doing a full install (including portaudio and extempore) as
+described above, then you need to remove portaudio and extempore
+
+#+BEGIN_SRC sh
+brew remove portaudio extempore
+#+END_SRC
+
+Then, rebuild portaudio while telling it where the Jack files are:
+
+#+BEGIN_SRC sh
+JACK_LIBS="-L/usr/lib/x86_64-linux-gnu -ljack" JACK_CFLAGS="-I/usr/include/jack" brew install --verbose portaudio
+#+END_SRC
+
+where =JACK_LIBS= and =JACK_CFLAGS= reflect where Jack is on *your*
+platform---also check the output to see that Jack was indeed compiled
+properly.
+
+Finally, you can reinstall extempore
+
+#+BEGIN_SRC sh
+brew install extempore 
+#+END_SRC
 
 ** Troubleshooting on Linux
 
