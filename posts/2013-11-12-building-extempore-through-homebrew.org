@@ -83,7 +83,7 @@ there---[[mailto:extemporelang@googlegroups.com][let me know]] if you get it to 
 You can install homebrew on Ubuntu (or Debian) with
 
 #+BEGIN_SRC sh
-sudo apt-get install build-essential curl git m4 ruby texinfo libbz2-dev libcurl4-openssl-dev libexpat-dev libncurses-dev zlib1g-dev
+sudo apt-get install build-essential curl git m4 ruby texinfo libbz2-dev python-setuptools libcurl4-openssl-dev libexpat-dev libncurses-dev zlib1g-dev
 ruby -e "$(wget -O- https://raw.github.com/Homebrew/linuxbrew/go/install)"
 #+END_SRC
 
