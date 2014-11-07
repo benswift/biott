@@ -5,6 +5,7 @@ alias: ["./2014-11-07-hacking-extempore-in-vim.html"]
 tags:
 ---
 #+end_html
+
 Extempore's =vim= plugin can be found in the =extras/= subdirectory.
 The plugin uses python to get the job done, so it won't work in =vi=.
 To install it, you can either =:source= it each time, or put it in
