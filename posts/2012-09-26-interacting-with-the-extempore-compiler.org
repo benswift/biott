@@ -39,7 +39,7 @@ you basically have two options:
 
 - *If you already have a favourite text editor*, then you'll probably
   want to write and evaluate your code using that editor. There are
-  already Extempore modes/plugins for [[https://github.com/digego/extempore/blob/master/extras/extempore.el][Emacs]], [[https://github.com/digego/extempore/blob/master/extras/extempore.vim][Vim]] and [[https://github.com/benswift/extempore-sublime][Sublime Text 2]]
+  already Extempore modes/plugins for [[https://github.com/digego/extempore/blob/master/extras/extempore.el][Emacs]], [[https://github.com/digego/extempore/blob/master/extras/extempore.vim][vim]] and [[https://github.com/benswift/extempore-sublime][Sublime Text 2]]
   (see the =extras= subdirectory).
   If your favourite editor isn't one of those three, then you might
   even have the chops to hack together a plugin yourself---at its most
@@ -47,16 +47,15 @@ you basically have two options:
   (you can even use =telnet= or =netcat=).
 
 - *If you don't have a favourite text editor* then pick one of the
-  ones listed above ([[http://www.gnu.org/software/emacs/][Emacs]], [[http://www.vim.org][Vim]] or [[http://www.sublimetext.com][Sublime Text 2]]). The Emacs
+  ones listed above ([[http://www.gnu.org/software/emacs/][Emacs]], [[http://www.vim.org][vim]] or [[http://www.sublimetext.com][Sublime Text 2]]). The Emacs
   Extempore mode is the most mature and featureful. However, if you
   don't want to deal with the (admittedly daunting) task of learning
   Emacs /as well as/ Extempore, then the ST2 plugin is pretty good as
   well (although ST2 does cost money).
 
-If you do end using either Emacs or ST2, there are some installation
-instructions and basic tips in the [[file:2012-10-10-extempore-emacs-cheat-sheet.org][Emacs cheat sheet]] and [[file:2012-10-23-extempore-st2-cheat-sheet.org][ST2 cheat
-sheet]] respectively. In the end it doesn't matter too much which editor
-you use, so pick the one that makes you happiest :)
+There are some "cheat sheets" for using Extempore in [[file:2012-10-10-extempore-emacs-cheat-sheet.org][Emacs]], [[file:2014-11-07-hacking-extempore-in-vim.org][vim]] and
+[[file:2012-10-23-extempore-st2-cheat-sheet.org][ST2]]. In the end it doesn't matter too much which editor you use, so
+pick the one that makes you happiest :)
 
 * Running Extempore
 
