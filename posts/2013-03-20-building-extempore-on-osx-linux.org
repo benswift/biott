@@ -36,7 +36,7 @@ On Fedora 18+[fn::Thanks to Tom Murphy for providing the Fedora install
 tips.], you can get the dependencies with
 
 #+BEGIN_SRC sh
-sudo yum install git gcc gcc-c++ portaudio-devel pcre-devel mesa-libGL-devel
+sudo yum install git gcc gcc-c++ portaudio-devel pcre-devel mesa-libGL-devel gtest gtest-devel
 #+END_SRC
 
 Also, you'll need to add =/lib64/librt.so= to =PLATFORM_LIBS= (after
