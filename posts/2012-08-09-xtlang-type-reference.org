@@ -674,6 +674,37 @@ type directly with the definition of the =xt_add3= symbol
   (xt_add4 2 9) ;; returns 11
 #+end_src
 
+* Scheme and xtlang types
+
+Extempore can run both scheme and xtlang code but xtlang's reference
+types (tuples,array, vectors, closures) are simply opaque pointers to
+scheme. scheme can pass these pointers around. getting them as the result
+of one xtlang closure and passing them off as an argument to another,
+but scheme itself doesn't know how to do much else with them.
+Primitive types such as =double= and =i64= do not have this limitation.
+Here's an example to make things a bit clearer:
+
+#+begin_src extempore
+;; tuple-maker return a tuple and tuple-taker takes one as an argument.
+
+(bind-func tuple-maker
+  (lambda ()
+    (let ((a:<i64,double>* (alloc)))
+          (tset! a 0 42)
+          a)))
+
+(bind-func tuple-taker
+  (lambda (a:<i64,double>*)
+    (tuple-ref a 0)))
+
+(tuple-maker) ; Returns a CPTR (to a tuple, but scheme doesn't know that)
+(tref (tuple-maker) 0) ; error, scheme doesn't know about xtlang types
+(tuple-taker (tuple-maker)) ; returns 42. scheme *can* pass tuples around
+
+#+end_src
+
+Have a look at =extampore_lang.xtm= for more examples.
+
 * Where to from here?
 
 Hopefully that's a good overview of how the type system works in
