@@ -81,7 +81,7 @@ then there's always Scheme.
 
 The xtlang compiler uses an [[http://llvm.org][LLVM]] backend to generate high-performance
 machine code.  Basically, Extempore's xtlang
-compiler generates the LLVM IR, and then this is then passed to LLVM
+compiler generates the LLVM IR, and this is then passed to LLVM
 for compiling and linking.
 
 # #+CAPTION: The xtlang dynamic compilation process.
@@ -236,7 +236,7 @@ compiled) upon completion and then left to run unmolested. In
 Extempore, on the other hand, this interactive development style is
 supported (and encouraged) through the whole software lifecycle---up
 to and including the deployment and running of the 'final' code. An
-Extempore codebase is not necessarily a static artefact: the behaviour
+Extempore codebase is not necessarily a static artifact: the behaviour
 of the system is determined by the development of the code over the
 whole time the system is running, and this behaviour may be differ
 substantially between the commencement and completion of this process.
