@@ -162,24 +162,28 @@ the Extempore runtime. The [[file:../extempore-docs/index.org][docs index]] has 
 posts covering this stuff, and is probably the place to go next. Have
 fun :)
 
-* Optional: Precompiling the stdlib  [fn:Credit_G]
+* Optional: Precompiling the stdlib[fn:Credit_G]
 
-=extempore= includes a substantial core library (under =libs/core=) as
+Extempore includes a substantial core library (under =libs/core=) as
 as well as many additional wrappers around 3rd party libraries such as
-OpenGL, Cairo, Bullet, etc' (which live under =libs/external=).
-While =extempore= can and will compile these dynamically when you tell
-it to load them, you can speed things up considerably by precompiling
-them just once beforehand using the provided shell scripts.
-Running =compile-stdlib.sh= will invoke the =extempore= compiler and generate
-a shared library + an xtm wrapper file in the the =libs/= directory.
-When you next tell =extempore= to load the library
-(using =(sys:load "libs/foo/bar.xtm")=) it will try to load the precompiled
-library directly from =libs/= instead, which should be significantly faster.
+OpenGL, Cairo, Bullet, etc. (which live under =libs/external=). While
+Extempore can and will compile these dynamically when you tell it to
+load them, you can speed things up considerably by precompiling them
+just once beforehand using the provided shell scripts. 
+
+Running =compile-stdlib.sh= will invoke the Extempore compiler and
+generate a shared library plus an xtm wrapper file in the the =libs/=
+directory. When you next tell Extempore to load the library (using
+=(sys:load "libs/foo/bar.xtm")=) it will try to load the precompiled
+library directly from =libs/= instead, which should be significantly
+faster, and fall through to the usual just-in-time compilation
+approach if there isn't a precompiled version to be found.
+
 Note that many of the library components under =libs/external= expect
 various 3rd party libs to be installed on you system and will fail to
 compile otherwise. You can ignore these errors if you do not need them
-but if you do, take a look at the associated source file for instructions
-on obtaining the required dependencies.
+but if you do, take a look at the associated source file for
+instructions on obtaining the required dependencies.
 
 [fn:alternatives] If you have a preferred package manager (Fink or
 Macports) or even want to build them yourself, then you can do it that
@@ -188,4 +192,4 @@ way too.
 [fn:builddir] i.e. the directory we specified with the =--prefix=
 argument to the LLVM =./configure= script.
 
-[fn:Credit_G] Thanks to Giora Heller for contributing this section.
+[fn:Credit_G] Thanks to Giora Heller for contributing to this section.

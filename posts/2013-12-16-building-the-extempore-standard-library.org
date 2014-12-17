@@ -34,7 +34,6 @@ homebrew*, then note that the Extempore homebrew formula now has a
 =--with-stdlib= option, which will compile the stdlib for you
 automatically as part of the build/upgrade process:
 
-
 #+BEGIN_SRC sh
   brew install --with-stdlib extempore
 #+END_SRC
@@ -42,7 +41,7 @@ automatically as part of the build/upgrade process:
 Then you're done. 
 
 * Using the standard library
-
+  
 Once you've built the standard library, when you try to =sys:load= a
 file (e.g. =libs/core/audio_dsp.xtm=) then:
 

@@ -236,7 +236,7 @@ compiled) upon completion and then left to run unmolested. In
 Extempore, on the other hand, this interactive development style is
 supported (and encouraged) through the whole software lifecycle---up
 to and including the deployment and running of the 'final' code. An
-Extempore codebase is not necessarily a static artifact: the behaviour
+Extempore codebase is not necessarily a static artefact: the behaviour
 of the system is determined by the development of the code over the
 whole time the system is running, and this behaviour may be differ
 substantially between the commencement and completion of this process.

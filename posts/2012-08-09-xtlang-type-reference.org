@@ -676,16 +676,26 @@ type directly with the definition of the =xt_add3= symbol
 
 * Scheme and xtlang types
 
-Extempore can run both scheme and xtlang code but xtlang's reference
-types (tuples,array, vectors, closures) are simply opaque pointers to
-scheme. scheme can pass these pointers around. getting them as the result
-of one xtlang closure and passing them off as an argument to another,
-but scheme itself doesn't know how to do much else with them.
-Primitive types such as =double= and =i64= do not have this limitation.
+Extempore can run both Scheme and xtlang code, but Scheme doesn't know
+anything about xtlang's types---things like tuples, arrays, vectors,
+closures, and user-defined types through =bind-type=. Scheme only
+knows about [[https://groups.csail.mit.edu/mac/ftpdir/scheme-reports/r5rs-html/r5rs_8.html#SEC48][Scheme types]][fn::R5RS builtins, for those who are
+interested] like symbols, integers, reals, strings, c pointers, etc.
+
+There is some (approximate) overlap in these type systems, for ints,
+floats, strings and c pointers, although even in these cases there are
+some caveats, e.g. Scheme only supports /double precision/ floats,
+while Extempore can work with both =floats= and =doubles= natively.
+Similarly, xtlang's pointers are typed, but Scheme only supports void
+(opaque) c pointers. Where possible, Extempore will do the work to
+allow xtlang code from Scheme (coercing argument types), but for any
+composite types (e.g. list) you can't call xtlang code from Scheme.
+
 Here's an example to make things a bit clearer:
 
 #+begin_src extempore
-;; tuple-maker return a tuple and tuple-taker takes one as an argument.
+;; tuple-maker returns a pointer to a tuple and tuple-taker takes 
+;; a pointer to a tuple as an argument.
 
 (bind-func tuple-maker
   (lambda ()
@@ -697,13 +707,13 @@ Here's an example to make things a bit clearer:
   (lambda (a:<i64,double>*)
     (tuple-ref a 0)))
 
-(tuple-maker) ; Returns a CPTR (to a tuple, but scheme doesn't know that)
-(tref (tuple-maker) 0) ; error, scheme doesn't know about xtlang types
-(tuple-taker (tuple-maker)) ; returns 42. scheme *can* pass tuples around
-
+(tuple-maker)               ;; Returns a CPTR (to a tuple, but scheme doesn't know that)
+(tref (tuple-maker) 0)      ;; error, scheme doesn't know about xtlang types
+(tuple-taker (tuple-maker)) ;; returns 42. scheme can pass *pointers* to tuples around 
+                            ;; as void pointers, but you lose the type checking
 #+end_src
 
-Have a look at =extampore_lang.xtm= for more examples.
+Have a look at =examples/core/extempore_lang.xtm= for more examples.
 
 * Where to from here?
 
