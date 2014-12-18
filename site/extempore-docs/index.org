@@ -29,6 +29,7 @@ drop [[../bio/index.html][me]] a line at [[mailto:benjamin.j.swift@gmail.com][be
 - [[file:../2012-08-07-extempore-philosophy.org][The Extempore philosophy]]
 - [[file:../2012-09-26-interacting-with-the-extempore-compiler.org][Interacting with the Extempore compiler]]
 - [[file:../2012-10-15-time-in-extempore.org][Time in Extempore]]
+- [[http://extempore.moso.com.au/temporal_recursion.html][The Many Faces of a Temporal Recursion]] - from Andrew's website.
 # - Concurrency in Extempore
 
 * Getting started
