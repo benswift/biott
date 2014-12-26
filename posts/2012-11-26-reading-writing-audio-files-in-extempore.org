@@ -66,10 +66,10 @@ distortion to both channels:
                   (saturationl (audiofile) 1.0 0.9))
                  ((= chan 1)
                   (saturationr (audiofile) 1.0 0.9))
-                 (else 0.0))))))
+                 (else (convert 0.0 SAMPLE)))))))
 #+end_src
 
-Sounds saturated and messy---great. Now, we want to write the
+Sounds saturated and messy---great.[fn:SAMPLE] Now, we want to write the
 processed audio back to a wav file. To do this, we need to [[file:2012-08-17-memory-management-in-extempore.org][allocate
 some memory]] to write the output samples into. Looking at the file info
 which was printed out earlier (in particular =samples read:
@@ -91,7 +91,7 @@ file, so that's how big we want our output buffer to be.
                          (saturationl (audiofile) 1.0 0.9))
                         ((= chan 1.0)
                          (saturationr (audiofile) 1.0 0.9))
-                        (else 0.0)))))
+                        (else (convert 0.0 SAMPLE))))))
           ;; if it's not full, write the out_sample to the output buffer
           (if (< index filesize)
               (pset! out_buffer index out_sample))
@@ -137,7 +137,7 @@ Let's add a function =write_data= to write the audio file:
                          (saturationl (audiofile) 1.0 0.9))
                         ((= chan 1.0)
                          (saturationr (audiofile) 1.0 0.9))
-                        (else 0.0)))))
+                        (else (convert 0.0 SAMPLE)))))
           ;; if it's not full, write the out_sample to the output buffer
           (if (< index filesize)
               (pset! out_buffer index out_sample))
@@ -179,3 +179,6 @@ But the primary workflow for writing audio files with Extempore is
 
 [fn:peg] If you're interested, the file I'm using is 'Peg' from [[http://www.rollingstone.com/music/lists/500-greatest-albums-of-all-time-20120531/steely-dan-aja-20120524][Steely Dan's
 Aja]]. It's a great album.
+
+[fn:SAMPLE] We had to wrap the =0.0= value in a =convert= call to get the
+types right, as discussed in another [[file:2013-11-15-changing-from-doubles-to-floats-in-audio_dsp.org][post]].

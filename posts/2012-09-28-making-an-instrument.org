@@ -449,7 +449,7 @@ The 'template' for the note kernel and effects kernel is something
 like this (this is just a skeleton---it won't compile)
 
 #+begin_src extempore
-  (bind-func organ_note
+  (bind-func organ_note_c
     (lambda ()
       (lambda (time:i64 chan:i64 freq:float amp:float)
         (cond ((= chan 0)
@@ -586,8 +586,8 @@ Now, let's see if our instrument works! Having compiled both
 =define-instrument= to make our xtlang hammond organ
 
 #+begin_src extempore
-  (define-instrument organ organ_note organ_fx)
-  
+  (define-instrument organ organ_note_c organ_fx)
+
   ;; Compiled organ >>> [float,float,i64,i64,float*]*
   
   (bind-func dsp:DSP

@@ -57,6 +57,7 @@ documentation will be in xtlang.
 - [[file:../2012-08-17-memory-management-in-extempore.org][Memory management in Extempore]]
 - [[file:../2012-10-03-xtlang-type-diagrams.org][xtlang type diagrams]]
 - [[file:../2012-08-23-binding-to-c-libs.org][Binding to C libraries]]
+- [[file:../2014-02-20-extempore-generics.org][Extempore Generics]]
 # TODO
 # - Scheme/xtlang interop
 # - xtlang for C programmers
