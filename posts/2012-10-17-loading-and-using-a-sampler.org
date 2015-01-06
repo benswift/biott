@@ -127,7 +127,7 @@ the =define-sampler= Scheme macro (once we've loaded it from the
 But we're not done yet: the xtlang closure =drums= has been compiled,
 but it hasn't had any samples loaded into it's slots yet. So we need
 some drum samples, then. Extempore doesn't ship with any samples,
-you'll have to provide your own. The [[http://rytmenpinne.posterous.com/pages/salamander-drumkit][Salamander drumkit]] is pretty
+you'll have to provide your own. The [[https://archive.org/download/SalamanderDrumkit/salamanderDrumkit.tar.bz2][Salamander drumkit]] is pretty
 cool--and also free, which is nice :) So I'm going to load those
 samples into my =drums= sampler.
 
