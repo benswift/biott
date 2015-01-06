@@ -14,4 +14,4 @@ theme, hand-rolled with a little help from [[http://semantic-ui.com/][Semantic U
 All the links should still work, and I'm also categorising my
 Extempore docs with [[http://benswift.me/tags/index.html][tags]] as well as the usual hand-curated [[http://benswift.me/extempore-docs/index.html][docs]] page.
 
-As usual, if you find any problems, then [[mailto:benjamin.j.swift@gmail.com][let me know]].
+As usual, if you find any problems, then [[mailto:benswift@fastmail.com][let me know]].

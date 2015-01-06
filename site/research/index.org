@@ -25,12 +25,12 @@ between computer science and digital media ([[http://dl.dropbox.com/u/18333720/m
 did a BSc (Hons) in Mathematics at the ANU.
 
 If you want to get in touch, email is best---you can reach me on
-[[mailto:benjamin.j.swift@gmail.com][benjamin.j.swift@gmail.com]].
+[[mailto:benswift@fastmail.com][benswift@fastmail.com]].
 
 * Potential students
 
 If you're interested in doing research with me, particularly in
-livecoding with Extempore, then [[mailto:benjamin.j.swift@gmail.com][get in touch]]. If you can, send me a
+livecoding with Extempore, then [[mailto:benswift@fastmail.com][get in touch]]. If you can, send me a
 link to something you've made: a livecoding video, a project on
 GitHub, or something like that.
 
@@ -149,7 +149,7 @@ GitHub, or something like that.
 # between musicians in that context. I've built an iOS-based group
 # jamming system called Viscotheque, and I've been using it to jam
 # around with some musicians from around campus. If you'd like to get
-# involved, [[mailto:benjamin.j.swift@gmail.com][drop me a line]].
+# involved, [[mailto:benswift@fastmail.com][drop me a line]].
 
 # I'm also interested in critically examining the logical-positivist
 # underpinnings of HCI theory and practice, especially when it comes to
