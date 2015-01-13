@@ -1,3 +1,4 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2014-11-07-hacking-extempore-in-vim.xtm
 #+begin_html
 ---
 title: Hacking Extempore in vim

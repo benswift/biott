@@ -1,3 +1,4 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2014-12-22-help-wanted-submit-an-extempore-test.xtm
 #+begin_html
 ---
 title: Help wanted: submit an Extempore test

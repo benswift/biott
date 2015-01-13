@@ -1,3 +1,4 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2012-10-10-extempore-emacs-cheat-sheet.xtm
 #+begin_html
 ---
 title: Extempore & Emacs cheat

@@ -1,3 +1,4 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2012-10-15-extempore-for-impromptu-users.xtm
 #+begin_html
 ---
 title: Extempore for Impromptu users

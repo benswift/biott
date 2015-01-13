@@ -1,3 +1,4 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2014-04-29-using-tags-to-jump-around-the-extempore-codebase-in-emacs.xtm
 #+begin_html
 ---
 title: Using tags to jump around the Extempore codebase in Emacs

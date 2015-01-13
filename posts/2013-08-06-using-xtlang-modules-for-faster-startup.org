@@ -1,3 +1,4 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2013-08-06-using-xtlang-modules-for-faster-startup.xtm
 #+begin_html
 ---
 title: Using xtlang modules for faster startup

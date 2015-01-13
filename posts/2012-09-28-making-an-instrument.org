@@ -1,3 +1,4 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2012-09-28-making-an-instrument.xtm
 #+begin_html
 ---
 title: Making an Instrument

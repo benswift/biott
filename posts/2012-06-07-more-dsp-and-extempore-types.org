@@ -1,3 +1,4 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2012-06-07-more-dsp-and-extempore-types.xtm
 #+begin_html
 ---
 title: More DSP and more Extempore types

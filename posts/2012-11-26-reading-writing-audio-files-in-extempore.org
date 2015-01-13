@@ -1,3 +1,4 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2012-11-26-reading-writing-audio-files-in-extempore.xtm
 #+begin_html
 ---
 title: Reading & writing audio files in Extempore

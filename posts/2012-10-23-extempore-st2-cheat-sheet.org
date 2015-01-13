@@ -1,3 +1,4 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2012-10-23-extempore-st2-cheat-sheet.xtm
 #+begin_html
 ---
 title: Extempore & Sublime Text 2

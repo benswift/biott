@@ -1,3 +1,4 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2012-08-23-binding-to-c-libs.xtm
 #+begin_html
 ---
 title: Binding to C libs

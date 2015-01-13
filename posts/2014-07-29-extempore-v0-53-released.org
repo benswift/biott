@@ -1,3 +1,4 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2014-07-29-extempore-v0-53-released.xtm
 #+begin_html
 ---
 title: Extempore v0.53 released

@@ -1,3 +1,4 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2012-10-03-xtlang-type-diagrams.xtm
 #+begin_html
 ---
 title: xtlang type diagrams

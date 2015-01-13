@@ -1,3 +1,4 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2013-03-20-building-extempore-on-osx-linux.xtm
 #+begin_html
 ---
 title: Building Extempore from source on OSX & Linux

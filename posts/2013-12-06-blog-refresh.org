@@ -1,3 +1,4 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2013-12-06-blog-refresh.xtm
 #+begin_html
 ---
 title: Blog refresh

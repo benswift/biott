@@ -1,3 +1,4 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2012-10-17-loading-and-using-a-sampler.xtm
 #+begin_html
 ---
 title: Loading and using a sampler

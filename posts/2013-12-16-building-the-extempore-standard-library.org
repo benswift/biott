@@ -1,3 +1,4 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2013-12-16-building-the-extempore-standard-library.xtm
 #+begin_html
 ---
 title: Building the Extempore standard library

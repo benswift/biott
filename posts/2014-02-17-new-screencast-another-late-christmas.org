@@ -1,3 +1,4 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2014-02-17-new-screencast-another-late-christmas.xtm
 #+begin_html
 ---
 title: New screencast: Another Late Christmas

@@ -1,3 +1,4 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2014-07-29-turning-the-sound-off-in-extempore.xtm
 #+begin_html
 ---
 title: Turning the sound off in Extempore

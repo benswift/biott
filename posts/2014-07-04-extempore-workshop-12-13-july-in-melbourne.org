@@ -1,3 +1,4 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2014-07-04-extempore-workshop-12-13-july-in-melbourne.xtm
 #+begin_html
 ---
 title: Extempore workshop: 12-13 July in Melbourne

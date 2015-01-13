@@ -1,3 +1,4 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2012-08-13-understanding-pointers-in-xtlang.xtm
 #+begin_html
 ---
 title: Understanding pointers in xtlang

@@ -1,3 +1,4 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2012-08-07-extempore-philosophy.xtm
 #+begin_html
 ---
 title: The Extempore philosophy

@@ -1,3 +1,4 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2012-09-26-interacting-with-the-extempore-compiler.xtm
 #+begin_html
 ---
 title: Interacting with the Extempore Compiler

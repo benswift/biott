@@ -1,3 +1,4 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2014-04-28-chi-2014-talk.xtm
 #+begin_html
 ---
 title: CHI 2014 talk

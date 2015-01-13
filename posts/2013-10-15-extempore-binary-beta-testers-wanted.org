@@ -1,3 +1,4 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2013-10-15-extempore-binary-beta-testers-wanted.xtm
 #+begin_html
 ---
 title: Extempore binary: beta testers wanted
