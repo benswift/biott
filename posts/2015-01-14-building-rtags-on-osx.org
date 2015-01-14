@@ -7,8 +7,11 @@ tags:
 ---
 #+end_html
 
-Assuming you've built =llvm= through homebrew with the =--clang=
-option:
+Build =llvm= through homebrew (with clang)
+
+#+BEGIN_SRC sh
+  brew install llvm --with-clang
+#+END_SRC
 
 Clone the latest RTags repo from GH, and create a =build= directory
 (always good practice with =cmake=)
@@ -18,7 +21,7 @@ Clone the latest RTags repo from GH, and create a =build= directory
   cd rtags && mkdir build && cd build
 #+END_SRC
 
-Then, need to update the submodules
+Update the submodules
 
 #+BEGIN_SRC sh
   cd /path/to/rtags/build
@@ -29,7 +32,7 @@ Then, need to update the submodules
   The source directory rtags/src/rct does not contain a CMakeLists.txt file
 #+END_SRC
 
-To build RTags:
+Build RTags:
 
 #+BEGIN_SRC sh
   cmake .. -DCMAKE_PREFIX_PATH=/usr/local/opt/llvm && make && make install
