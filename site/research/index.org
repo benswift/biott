@@ -36,6 +36,9 @@ GitHub, or something like that.
 
 * Publications
 
+- Arrian Purcell, Henry Gardner and *Ben Swift* (2014). "Visualising a
+  Live Coding Arts Process". In: /Proceedings of the 26th Australasian
+  Conference on Computer-Human Interaction./ OZCHI '14.
 - *Swift, Ben*, Andrew Sorensen, Michael Martin, and Henry J Gardner
   (2014). "Coding Livecoding". In: /Proceedings of the 2014 CHI
   Conference on Human Factors in Computing./ CHI '14 [accepted 17 Jan.
