@@ -36,10 +36,10 @@ GitHub, or something like that.
 
 * Publications
 
-- Arrian Purcell, Henry Gardner and *Ben Swift* “Visualising a
-  Live Coding Arts Process” In Proceedings of the 26th
-  Conference of the Computer-Human Interaction Special Interest Group
-  of Australia on Computer-Human Interaction, OZCHI ’14.
+- Arrian Purcell, Henry Gardner and *Ben Swift* “Visualising a Live
+  Coding Arts Process” In Proceedings of the 26th Conference of the
+  Computer-Human Interaction Special Interest Group of Australia on
+  Computer-Human Interaction, OZCHI ’14.
 - Duan, Xiaojuan, Jianping Wu, *Benjamin Swift*, and Thomas Brett
   Kirk. “Texture Analysis of the 3D Collagen Network and Automatic
   Classification of the Physiology of Articular Cartilage.” Computer
@@ -96,7 +96,6 @@ GitHub, or something like that.
 If you have trouble tracking any of these down, [[mailto:ben@benswift.me][send me an email]] and I
 can rustle you up a pre-print.
 
-
 * Curated Artistic Performances
 
 - *Swift, Ben* (2014). In: "/You Are Here/" /Arts Festival/. April 2014,
@@ -119,6 +118,9 @@ can rustle you up a pre-print.
 
 * Invited Talks
 
+- *Swift, Ben* "Livecoding Physics Simulation as Performance",
+  /Invited presentation at the 2014 Australian Institute of Physics
+  Congress/ http://www.aip2014.org.au/
 - *Swift, Ben* and Andrew Sorensen (2013). "Live Coding Live". In:
   /IEEE Symposium on Visual Languages and Human-Centric Computing. San
   Jose, USA/
