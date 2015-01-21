@@ -36,61 +36,61 @@ GitHub, or something like that.
 
 * Publications
 
-- Arrian Purcell, Henry Gardner and *Ben Swift* “Visualising a Live
-  Coding Arts Process” In Proceedings of the 26th Conference of the
+- Arrian Purcell, Henry Gardner and *Ben Swift* /Visualising a Live
+  Coding Arts Process/ In Proceedings of the 26th Conference of the
   Computer-Human Interaction Special Interest Group of Australia on
-  Computer-Human Interaction, OZCHI ’14.
+  Computer-Human Interaction, OZCHI '14.
 - Duan, Xiaojuan, Jianping Wu, *Benjamin Swift*, and Thomas Brett
-  Kirk. “Texture Analysis of the 3D Collagen Network and Automatic
-  Classification of the Physiology of Articular Cartilage.” Computer
+  Kirk. /Texture Analysis of the 3D Collagen Network and Automatic
+  Classification of the Physiology of Articular Cartilage./ Computer
   Methods in Biomechanics and Biomedical Engineering, January 16,
   2014, 1–13. doi:10.1080/10255842.2013.864284.
-- Martin, Charles, Henry Gardner, and *Ben Swift*. “Exploring
-  Percussive Gesture on iPads with Ensemble Metatone.” In Proceedings
+- Martin, Charles, Henry Gardner, and *Ben Swift*. /Exploring
+  Percussive Gesture on iPads with Ensemble Metatone./ In Proceedings
   of the SIGCHI Conference on Human Factors in Computing Systems,
-  1025–28. CHI ’14. New York, NY, USA: ACM, 2014.
+  1025–28. CHI '14. New York, NY, USA: ACM, 2014.
   doi:10.1145/2556288.2557226.
-- Martin, Charles, Henry Gardner, and *Ben Swift*. “Metatravels and
-  Metalonsdale: Ipad Apps for Percussive Improvisation.” In CHI ’14
+- Martin, Charles, Henry Gardner, and *Ben Swift*. /Metatravels and
+  Metalonsdale: Ipad Apps for Percussive Improvisation./ In CHI '14
   Extended Abstracts on Human Factors in Computing Systems, 547–50.
-  CHI EA ’14. New York, NY, USA: ACM, 2014.
+  CHI EA '14. New York, NY, USA: ACM, 2014.
   doi:10.1145/2559206.2574805.
-- Sorensen, Andrew, *Ben Swift*, and Alistair Riddell. “The Many
-  Meanings of Live Coding.” Computer Music Journal 38, no. 1 (2014):
+- Sorensen, Andrew, *Ben Swift*, and Alistair Riddell. /The Many
+  Meanings of Live Coding./ Computer Music Journal 38, no. 1 (2014):
   65–76.
-- *Swift, Ben*. “Chasing a Feeling: Experience in Computer Supported
-  Jamming.” In Music and Human-Computer Interaction, edited by Simon
+- *Swift, Ben*. /Chasing a Feeling: Experience in Computer Supported
+  Jamming./ In Music and Human-Computer Interaction, edited by Simon
   Holland, Katie Wilkie, Paul Mulholland, and Allan Seago, 85–99.
   Springer Series on Cultural Computing. Springer London, 2013.
   http://link.springer.com/chapter/10.1007/978-1-4471-2990-5_5.
-- *Swift, Ben*, Henry J Gardner, and Alistair Riddell. “A Chasing
+- *Swift, Ben*, Henry J Gardner, and Alistair Riddell. /A Chasing
   After the Wind: Experience in Computer-Supported Group
-  Music-Making.” In When Words Fail: What Can Music Interaction Tell
+  Music-Making./ In When Words Fail: What Can Music Interaction Tell
   Us about HCI? Workshop at BCS HCI 2011, 2011.
   http://mcl.open.ac.uk/Workshop/uploads/xambo_BHCI-2011-position-paper-CR-final.pdf.
-- *Swift, Ben*, Henry J Gardner, and Alistair Riddell. “Distributed
-  Performance in Live Coding.” In ACMC ’09: Proceedings of the
+- *Swift, Ben*, Henry J Gardner, and Alistair Riddell. /Distributed
+  Performance in Live Coding./ In ACMC '09: Proceedings of the
   Australasian Computer Music Conference, 2009.
-- *Swift, Ben*, Henry Gardner, and Alistair Riddell. “Engagement
-  Networks in Social Music-Making.” In Proceedings of the 22nd
+- *Swift, Ben*, Henry Gardner, and Alistair Riddell. /Engagement
+  Networks in Social Music-Making./ In Proceedings of the 22nd
   Conference of the Computer-Human Interaction Special Interest Group
-  of Australia on Computer-Human Interaction, 104–11. OZCHI ’10. New
+  of Australia on Computer-Human Interaction, 104–11. OZCHI '10. New
   York, NY, USA: ACM, 2010. doi:10.1145/1952222.1952244.
-- *Swift, Ben*jamin. “Becoming-Sound: Affect and Assemblage in
-  Improvisational Digital Music Making.” In Proceedings of the SIGCHI
-  Conference on Human Factors in Computing Systems, 1815–24. CHI ’12.
+- *Swift, Ben*jamin. /Becoming-Sound: Affect and Assemblage in
+  Improvisational Digital Music Making./ In Proceedings of the SIGCHI
+  Conference on Human Factors in Computing Systems, 1815–24. CHI '12.
   New York, NY, USA: ACM, 2012. doi:10.1145/2207676.2208315.
 - *Swift, Ben*, James Sheridan, Yang Zhen, and Henry J. Gardner.
-  “Mind-Modulated Music in the Mind Attention Interface.” In
+  /Mind-Modulated Music in the Mind Attention Interface./ In
   Proceedings of the 19th Australasian Conference on Computer-Human
-  Interaction: Entertaining User Interfaces, 83–86. OZCHI ’07. New
+  Interaction: Entertaining User Interfaces, 83–86. OZCHI '07. New
   York, NY, USA: ACM, 2007. doi:10.1145/1324892.1324907.
 - *Swift, Ben*, Andrew Sorensen, Henry J Gardner, and J Hosking.
-  “Visual Code Annotations for Cyberphysical Programming.” In Live
-  ’13: Workshop on Live Programming at ICSE ’13, 2013.
+  /Visual Code Annotations for Cyberphysical Programming./ In Live
+  '13: Workshop on Live Programming at ICSE '13, 2013.
 - *Swift, Ben*, Andrew Sorensen, Michael Martin, and Henry Gardner.
-  “Coding Livecoding.” In Proceedings of the 32Nd Annual ACM
-  Conference on Human Factors in Computing Systems, 1021–24. CHI ’14.
+  /Coding Livecoding./ In Proceedings of the 32Nd Annual ACM
+  Conference on Human Factors in Computing Systems, 1021–24. CHI '14.
   New York, NY, USA: ACM, 2014. doi:10.1145/2556288.2557049.
 
 If you have trouble tracking any of these down, [[mailto:ben@benswift.me][send me an email]] and I
