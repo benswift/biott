@@ -21,7 +21,7 @@ Alternately, there's an automatically-generated [[../tags/index.html][tags page]
 allows you to browse by category.
 
 If anything isn't clear, or you have suggestions/corrections, then
-drop [[../bio/index.html][me]] a line at [[mailto:benswift@fastmail.com][benswift@fastmail.com]].
+drop [[../bio/index.html][me]] a line at [[mailto:ben@benswift.me][ben@benswift.me]].
 
 * Key concepts
 
