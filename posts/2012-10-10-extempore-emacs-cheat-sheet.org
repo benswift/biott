@@ -45,7 +45,7 @@ Extempore code in Emacs:
 3. call =M-x switch-to-extempore= (=C-c C-z=), and if Extempore isn't
    already running you'll can add (optional) command line args for Extempore
    here, such as which audio device to use (e.g. =./extempore --device 2=)
-5. connect to the running Extempore process: =C-x C-j= (this needs to be
+5. connect to the running Extempore process: =C-c C-j= (this needs to be
    done for /every/ =.xtm= buffer)
 
 Then, to [[file:2012-09-26-interacting-with-the-extempore-compiler.org][evaluate]] Extempore code, use either
