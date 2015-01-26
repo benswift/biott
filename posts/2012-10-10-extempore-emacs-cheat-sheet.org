@@ -30,6 +30,7 @@ You'll need to add these lines to your =.emacs=
 #+begin_src emacs-lisp
   (autoload 'extempore-mode "/path/to/extempore/extras/extempore.el" "" t)
   (add-to-list 'auto-mode-alist '("\\.xtm$" . extempore-mode))
+  (setq user-extempore-directory "/path/to/extempore/")
 #+end_src
 
 ** Working with Extempore code
