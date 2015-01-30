@@ -132,7 +132,7 @@ PA_USE_SKELETON=0
 
 After all that, you should be able to build the =portaudio= target in VS.
 If it works successfully, copy the compiled =portaudio_x64.dll= into
-=C:\Windows\SysWOW64=.
+=C:\Windows\System32=.
 
 ** LLVM
 
