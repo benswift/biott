@@ -202,9 +202,19 @@ Visual Studio) and in the directory where you've put the boost
 sources, run
 
 #+begin_src sh
-boost_dir>bootstrap.bat
-boost_dir>bjam --build-dir=<boost_build_dir> toolset=msvc link=static address-model=64 variant=release --build-type=complete stage
+bootstrap.bat
+bjam --build-dir=<boost_build_dir> toolset=msvc link=static address-model=64 variant=release --build-type=complete stage
 #+end_src
+
+If you get an error about a missing =boostcpp.jam=, then you can try
+and get it from [[https://github.com/iNiKe/boost/blob/master/boostcpp.jam][GitHub]] (copy it into your top level boost directory)
+then try the above =bjam= command again.
+
+Boost is a massive library, and compiling it will take around 30mins.
+Extempore only uses boost for a few things (posix-style threads
+mostly) but with C++11 support on Windows being much better these days
+we will hopefully remove it altogether at some stage.[fn::pull
+requests very welcome]
 
 The =bjam= boost build process puts all the compiled libraries deep in
 its internal folder hierarchy, somewhere inside
