@@ -76,8 +76,10 @@ If you've installed the NuGet command line tool:
 PM> nuget install pcre
 #+END_SRC
 
-Otherwise, building the [[http://www.pcre.org][PCRE lib]] should be pretty straightforward,
-just CMake & build the =ALL_BUILD= target in Visual Studio.
+Otherwise, grab the [[http://www.pcre.org][source]], CMake (=cmake -G"Visual Studio 12 2013
+Win64" ..=) and then build the =ALL_BUILD= target in Visual Studio.
+When you're done, copy the resulting =pcre.dll= into
+=C:\Windows\System32=.
 
 ** ASIO (audio drivers)
 
@@ -195,7 +197,32 @@ and the platform to =x64=. Then, build the =ALL_BUILD= target.
 ** Boost
 
 Currently, Extempore requires boost version 1.47, available for
-download [[http://sourceforge.net/projects/boost/files/boost/1.47.0/boost_1_47_0.zip/download][here]].
+download on [[http://dl.sourceforge.net/project/boost/boost/1.47.0/boost_1_47_0.zip][SourceForge]].
+
+# ** binaries
+
+# You can grab pre-compiled versions of the binaries you'll need from
+# [[http://sourceforge.net/projects/boost/files/boost-binaries/1.47.0/][sourceforge]]. You want these ones:
+
+# - =libboost_date_time-vc102-mt-1_47.lib=
+# - =libboost_filesystem-vc102-mt-1_47.lib=
+# - =libboost_regex-vc102-mt-1_47.lib=
+# - =libboost_system-vc102-mt-1_47.lib=
+# - =libboost_thread-vc102-mt-1_47.lib=
+
+# If you've got curl installed, you can get them with:
+
+# #+BEGIN_SRC 
+# curl -O -J -L http://sourceforge.net/projects/boost/files/boost-binaries/1.47.0/libboost_date_time-vc102-mt-1_47.zip/download
+# curl -O -J -L http://sourceforge.net/projects/boost/files/boost-binaries/1.47.0/libboost_filesystem-vc102-mt-1_47.zip/download
+# curl -O -J -L http://sourceforge.net/projects/boost/files/boost-binaries/1.47.0/libboost_regex-vc102-mt-1_47.zip/download
+# curl -O -J -L http://sourceforge.net/projects/boost/files/boost-binaries/1.47.0/libboost_system-vc102-mt-1_47.zip/download
+# curl -O -J -L http://sourceforge.net/projects/boost/files/boost-binaries/1.47.0/libboost_thread-vc102-mt-1_47.zip/download
+# #+END_SRC
+
+# otherwise, just get them manually in the browser.
+
+# Keep note of where you put these libs, we'll come back for them later.
 
 Fire up a developer command prompt (which will be installed with
 Visual Studio) and in the directory where you've put the boost
@@ -203,18 +230,19 @@ sources, run
 
 #+begin_src sh
 bootstrap.bat
-bjam --build-dir=<boost_build_dir> toolset=msvc link=static address-model=64 variant=release --build-type=complete stage
+bjam --build-dir=<boost_build_dir> toolset=msvc link=static address-model=64 variant=release --build-type=complete --with-thread --with-date_time --with-filesystem --with-system --with-regex stage
 #+end_src
 
 If you get an error about a missing =boostcpp.jam=, then you can try
-and get it from [[https://github.com/iNiKe/boost/blob/master/boostcpp.jam][GitHub]] (copy it into your top level boost directory)
+and get it from [[https://github.com/boostorg/boost/blob/boost-1.47.0/boostcpp.jam][GitHub]] (copy it into your top level boost directory)
 then try the above =bjam= command again.
 
-Boost is a massive library, and compiling it will take around 30mins.
-Extempore only uses boost for a few things (posix-style threads
-mostly) but with C++11 support on Windows being much better these days
-we will hopefully remove it altogether at some stage.[fn::pull
-requests very welcome]
+Boost is a massive library, and compiling it may take awhile (although
+here we're only compiling the parts of it we need). Extempore only
+uses boost for a few things (posix-style threads mostly) but with
+C++11 support on Windows being much better these days we will
+hopefully remove it altogether at some stage.[fn::pull requests very
+welcome]
 
 The =bjam= boost build process puts all the compiled libraries deep in
 its internal folder hierarchy, somewhere inside
@@ -230,7 +258,7 @@ needs the following libs:
 where the =*= will be something like =vc-mt-1_47= (although not
 necessarily /exactly/ the same) depending on your setup. For example,
 if building Extempore fails because it cannot find the boost thread
-library =libboost_thread-vc100-mt-1_47=, find the file
+library =libboost_thread-vc120-mt-1_47=, find the file
 
 #+begin_src sh
 boost_build_dir\boost\bin.v2\libs\date_time\build\msvc\release\address-model-64\link-static\threading-multi\libboost_thread-vc-mt-1_47.lib
@@ -239,7 +267,7 @@ boost_build_dir\boost\bin.v2\libs\date_time\build\msvc\release\address-model-64\
 and copy it (note the slight name change) to
 
 #+begin_src sh
-boost_build_dir\libboost_thread-vc100-mt-1_47.lib
+boost_build_dir\libboost_thread-vc120-mt-1_47.lib
 #+end_src
 
 Extempore /does/ need these libs, but before you try to build
