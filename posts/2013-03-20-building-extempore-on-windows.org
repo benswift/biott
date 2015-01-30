@@ -68,14 +68,12 @@ Portaudio, LLVM 3.4.1 and Boost. You'll need to download and compile
 these projects before you can compile Extempore. These instructions
 will hopefully help you through the tricky bits.
 
-The NuGet way: =Tools > NuGet Package Manager > Package Manager Console=
-
 ** PCRE
 
 If you've installed the NuGet command line tool:
 
 #+BEGIN_SRC sh
-PM> nuget install portaudio
+PM> nuget install pcre
 #+END_SRC
 
 Otherwise, building the [[http://www.pcre.org][PCRE lib]] should be pretty straightforward,
@@ -177,7 +175,7 @@ At the command line, I used
 cd llvm-3.4.1.src
 mkdir build
 cd build
-cmake -g "Visual Studio 12 2013 Win64" -D_VARIADIC_MAX=10 ..
+cmake -g "Visual Studio 12 2013 Win64" ..
 #+END_SRC
 
 CMake will generate an =LLVM.sln= file which you can open up in Visual
