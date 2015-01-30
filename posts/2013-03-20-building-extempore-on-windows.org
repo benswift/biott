@@ -78,8 +78,6 @@ PM> nuget install pcre
 
 Otherwise, grab the [[http://www.pcre.org][source]], CMake (=cmake -G"Visual Studio 12 2013
 Win64" ..=) and then build the =ALL_BUILD= target in Visual Studio.
-When you're done, copy the resulting =pcre.dll= into
-=C:\Windows\System32=.
 
 ** ASIO (audio drivers)
 
@@ -126,6 +124,8 @@ PA_USE_SKELETON=0
 - you may need to add =src/os/win/pa_win_coinitialize.c= to your
   VS project if you get a linker error about "unresolved external symbol
   =PaWinUtil_CoInitialize="
+- make sure that the output is a static library (=.lib= file) and not
+  a =.dll=
 - fix output file name in the linker section of the project
   properties, it should be
   =$(SolutionDir)\$(Platform)\$(Configuration)\$(ProjectName)_$(Platform).dll=
@@ -133,8 +133,6 @@ PA_USE_SKELETON=0
   fix it)
 
 After all that, you should be able to build the =portaudio= target in VS.
-If it works successfully, copy the compiled =portaudio_x64.dll= into
-=C:\Windows\System32=.
 
 ** LLVM
 
@@ -177,7 +175,7 @@ At the command line, I used
 cd llvm-3.4.1.src
 mkdir build
 cd build
-cmake -g "Visual Studio 12 2013 Win64" ..
+cmake -G"Visual Studio 12 2013 Win64" ..
 #+END_SRC
 
 CMake will generate an =LLVM.sln= file which you can open up in Visual
@@ -229,8 +227,9 @@ Visual Studio) and in the directory where you've put the boost
 sources, run
 
 #+begin_src sh
+mkdir build
 bootstrap.bat
-bjam --build-dir=<boost_build_dir> toolset=msvc link=static address-model=64 variant=release --build-type=complete --with-thread --with-date_time --with-filesystem --with-system --with-regex stage
+bjam --build-dir=build toolset=msvc link=static address-model=64 variant=release --build-type=complete --with-thread --with-date_time --with-filesystem --with-system --with-regex stage
 #+end_src
 
 If you get an error about a missing =boostcpp.jam=, then you can try
@@ -246,7 +245,7 @@ welcome]
 
 The =bjam= boost build process puts all the compiled libraries deep in
 its internal folder hierarchy, somewhere inside
-=<boost_build_dir>\boost\bin.v2\libs\=. For Extempore to build, it
+=build\boost\bin.v2\libs\=. For Extempore to build, it
 needs the following libs:
 
 - =libboost_date_time-*.lib=
@@ -261,37 +260,37 @@ if building Extempore fails because it cannot find the boost thread
 library =libboost_thread-vc120-mt-1_47=, find the file
 
 #+begin_src sh
-boost_build_dir\boost\bin.v2\libs\date_time\build\msvc\release\address-model-64\link-static\threading-multi\libboost_thread-vc-mt-1_47.lib
+build\boost\bin.v2\libs\date_time\build\msvc\release\address-model-64\link-static\threading-multi\libboost_thread-vc-mt-1_47.lib
 #+end_src
 
 and copy it (note the slight name change) to
 
 #+begin_src sh
-boost_build_dir\libboost_thread-vc120-mt-1_47.lib
+build\libboost_thread-vc120-mt-1_47.lib
 #+end_src
 
 Extempore /does/ need these libs, but before you try to build
 Extempore it's hard to guess exactly where Extempore is going to look
 for them. It will definitely want them in the top level of whatever
-your =boost_build_dir= was, but the exact names may vary on your
-system. So the best option is to try and build Extempore, it will
-complain, and then you copy the above files in to the top level
-=bost_build_dir= with the appropriate names. It's a bit filthy, I
-know, but that's the best way to do it at present.
+your =build= was, but the exact names may vary on your system. So the
+best option is to try and build Extempore, it will complain, and then
+you copy the above files in to the top level =build= with the
+appropriate names. It's a bit filthy, I know, but that's the best way
+to do it at present.
 
 * Extempore
 
 After you've built the dependencies, open the Extempore VS project in
 Extempore's =msvc= subdirectory. You might have to do some fiddling
 with the include paths in =Properties > Configuration Properties >
-C/C++ > Additional Include Directories=. And like I mentioned earlier,
-make sure you've copied the compiled lib files into the top level of
-the build directories, because that's where the VS project expects to
-find them.
+C/C++ > Additional Include Directories=[fn::on my machine, I used
+=..\include;..\..\boost_1_47_0;..\..\pcre-8.36\build;..\..\portaudio\include;..\..\llvm-3.4.1.src\build\include;..\..\llvm-3.4.1.src\include;%(AdditionalIncludeDirectories)=].
+And like I mentioned earlier, make sure you've copied the compiled lib
+files into the top level of the build directories, because that's
+where the VS project expects to find them.
 
 After you've successfully built Extempore, there will be an
-=extempore.exe= binary executable in =msvc\x64\Release\extempore.exe=.
-You'll probably want to move it into the top level =extempore=
+=extempore.exe= binary executable in the top level =extempore=
 directory.
 
 * Ok, so how do I start using Extempore?
