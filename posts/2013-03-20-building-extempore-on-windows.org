@@ -331,7 +331,7 @@ Here are some notes for building the various libs.
 
 ** KissFFT
 
-- get source: [[\http://sourceforge.net/projects/kissfft/][KissFFT]]
+- [[http://sourceforge.net/projects/kissfft/][get source]]
 - in MSVC, =File > New > Project From Existing Code=
 - type: dynamic library
 - =x64|Release=
