@@ -307,3 +307,123 @@ fun :)
 
 And if you have any issues, feel free to fire an email to the [[mailto:extemporelang@googlegroups.com][mailing
 list]].
+
+* Extra credit: external libs for the full standard library
+
+If you just want to do pure xtlang things (i.e. most of the audio, or
+language stuff) you can ignore this bit. But if you want to use
+graphics, or the sampler, or the FFT libraries, then you need to
+install some more dynamic libraries (=.dll= files) for Extempore to
+use.
+
+The main thing to remember on Windows is that for external dynamic
+library dependencies, you need both the =.dll= and the =.lib= file (at
+least, you need the =.lib= file if you want to precompile the standard
+library). In general, the =.dll= goes in the top-level extempore
+folder and the =.lib= goes in the =libs/= folder.
+
+Here are some notes for building the various libs.
+
+** libsndfile
+
+- download [[http://www.mega-nerd.com/libsndfile/][libsndfile]] (you can use the 64-bit installer on Win7, for
+  Win8 you might need to build from source)
+
+** KissFFT
+
+- get source: [[\http://sourceforge.net/projects/kissfft/][KissFFT]]
+- in MSVC, =File > New > Project From Existing Code=
+- type: dynamic library
+- =x64|Release=
+- remove all source files (in Solution Explorer) except for
+  =kiss_fft.c=
+- you may need to change =unistd.h= to =io.h= in a couple of places if
+  the compiler complains
+- need to create a =.def= file---either by hand or with a script.
+  There are only a few functions you want to expose, so it won't be
+  too hard.
+
+** RTMidiC
+
+- download tarball from [[https://github.com/benswift/rtmidi][GitHub]] 
+- In MSVC, =File > New > Project From Existing Code=
+- type: dynamic library
+- =x64|Release=
+- add =__WINDOWS_MM__= to preprocessor defines
+- add =winmm.lib= to additional dependencies
+- remove all source files (in Solution Explorer) except for
+  =RTMidi.cpp= and =RTMidiC.cpp=
+- create the =RtMidiC.def= module file (by hand)
+
+** GNOME Library (GLib)
+
+*You can ignore GLib for the moment*
+
+*** precompiled binaries (if they work)
+
+- pre-built binaries from [[http://www.gtk.org/download/win64.php][here]], under "GTK+ Individual Packages" (make
+  sure you get the dev version)
+
+*** build from source
+
+- get the source tarball (also from [[http://www.gtk.org/download/win64.php][here]])
+- find the appropriate project in =build/win32/vs10=
+- pull down libintl dependency (=Install-Package libintl= at NuGet prompt)
+
+** OpenGL
+
+- download driver
+- get [[http://sourceforge.net/projects/glextwin32/][glext]] (make sure you get the =glx_src.zip=)
+- build it as =x64|Release=
+
+** SOIL
+
+- [[http://www.lonesock.net/soil.html][get soil]]
+- use the project in the =Projects/VC9= folder
+- change to =x64|Release=
+- change to =.dll=
+- create =.def= file
+- add =opengl32.lib= to "additional dependencies"
+
+** Assimp
+
+*** precompiled binaries (if they work)
+
+- get binary download (Win7 64-bit) [[http://softlayer-sng.dl.sourceforge.net/project/assimp/assimp-3.1/assimp-3.1.1-win-binaries.zip][here]].
+- create the =.def= file, find the =.dll= and running
+#+BEGIN_SRC sh
+dumpbin /exports assimp.dll 
+#+END_SRC
+- copy all the exported symbols and put them in a =.def= file:
+
+#+BEGIN_SRC sh
+EXPORTS
+aiApplyPostProcessing @1
+aiAttachLogStream @2
+aiCopyScene @3
+...
+
+#+END_SRC
+- create the =.lib= file
+#+BEGIN_SRC sh
+lib /MACHINE:x64 /def:assimp.def /OUT:assimp.lib
+#+END_SRC
+
+*** build from source
+
+- get [[http://www.microsoft.com/en-au/download/details.aspx?id%3D6812][DirectX SDK]] (necessary on Win7, maybe not on Win8)
+- probably easier to build without boost
+- create MSVC project with cmake
+#+BEGIN_SRC sh
+cd assimp-3.1.1
+mkdir build
+cd build
+cmake /DENABLE_BOOST_WORKAROUND -G"Visual Studio 12 2013 Win64" ..
+#+END_SRC
+- then go and build the =assimp= target
+
+** ShivaVG
+
+- use project in =projects/visualc9= 
+- select x64|Release
+# - rename output file =ShivaVG.lib= to =libOpenVG.lib= ?
