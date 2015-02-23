@@ -19,9 +19,9 @@ programming language ecosystem. The goal of this project is to design
 and build a package manager (both the server infrastructure and a
 reference client) for the [[http://extempore.moso.com.au][Extempore]] live programming environment.
 
-If you've never seen Extempore before, then have a look around the
-other posts on this blog. The [[file:../extempore-docs/index.org][docs page]] would be a good place to
-start.
+If you've never seen Extempore before, here's a short video of it in
+action [[https://vimeo.com/78788032][in my livecoding]]. You could also have a look around the other
+posts on this blog---the [[file:../extempore-docs/index.org][docs page]] would be a good place to start.
 
 ** Prior art
 
