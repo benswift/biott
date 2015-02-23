@@ -1,13 +1,13 @@
 #+PROPERTY: header-args:extempore :tangle /tmp/2015-02-04-2015-anu-cs-honours-projects.xtm
 #+begin_html
 ---
-title: 2015 ANU CS Honours projects
+title: 2015 ANU CS Honours/Masters/Student projects
 alias: ["./2015-02-04-2015-anu-cs-honours-projects.html"]
 tags:
 ---
 #+end_html
 This is a list of possible ANU Computer Science Honours projects for
-2015, supervised by Henry Gardner and I. Send [[mailto:henry.gardner@anu.edu.au][Henry]] or [[mailto:ben.swift@anu.edu.au][myself]] an email
+2015, supervised by Henry Gardner and me. Send [[mailto:henry.gardner@anu.edu.au][Henry]] or [[mailto:ben.swift@anu.edu.au][myself]] an email
 if you're interested.
 
 If you like the style of any of them but would like to take them in a
@@ -18,16 +18,15 @@ fun project which works for everyone.
 
 This project will look at run-time load balancing and optimisation of
 scientific simulations running on parallel computing architectures.
-Extempore[1] is a programming environment for live programming, which
+[[http://extempore.moso.com.au][Extempore]] is a programming environment for live programming, which
 combines just-in-time (JIT) interactive compilation with
 high-performance native code generation.
 
-Extempore has already been used for interactive steering of
-particle-in-cell (PIC) plasma physics simulation codes[2]. This
-project provides an opportunity to continue this work, working with
-both live programmers and physicists at the ANU and overseas to
-harness and profile plasma physics PIC codes in this live programming
-workflow.
+Extempore has already been used for [[https://vimeo.com/99891379][interactive steering of
+particle-in-cell (PIC) plasma physics simulation codes]]. This project
+provides an opportunity to continue this work, working with both live
+programmers and physicists at the ANU and overseas to harness and
+profile plasma physics PIC codes in this live programming workflow.
 
 This project would involve:
 - prototyping  simulations on parallel computers in the Research School
@@ -43,9 +42,6 @@ This project would involve:
 scientific and numerical computation; parallel programming;
 high-performance computing and optimisation.
 
-[1] http://extempore.moso.com.au
-[2] https://vimeo.com/99891379
-
 * Use of live-coding to revitalise a legacy scientific simulation code
 
 This project will apply a modern live-coding tools & techniques to a
@@ -60,11 +56,11 @@ them to the experimentalists with modern user interfaces and
 functionality.
 
 The recent advent of live-coding provides a new opportunity to address
-this problem. Live coding environments such as Extempore[1] can be
-used to harness and interactively steer legacy simulation codes [2].
-It is possible to pull out important function calls, to reparameterise
-them, and to visualise their effects, in real time and in the presence
-of a scientific user.
+this problem. Live coding environments such as [[http://extempore.moso.com.au][Extempore]] can be used
+to [[https://vimeo.com/99891379][harness and interactively steer legacy simulation codes]]. It is
+possible to pull out important function calls, to reparameterise them,
+and to visualise their effects, in real time and in the presence of a
+scientific user.
 
 This project will investigate the usefulness of this approach for a
 concrete simulation from the ANU Research School of Physical Sciences
@@ -83,12 +79,9 @@ This project would involve:
 C); scientific and numerical computation; parallel programming;
 human-computer interaction; software engineering.
 
-[1] http://extempore.moso.com.au
-[2] https://vimeo.com/99891379
-
 * Visual Live Coding as Collaborative Performance
 
-In 'live coding'[1] a programmer/artist writes a program to generate
+In [[http://vimeo.com/videos/benswift][live coding]] a programmer/artist writes a program to generate
 audiovisual material (often music) in real-time, in front of an
 audience. During a performance, the source code is projected onto a
 screen as it is edited for the audience's benefit.
@@ -97,15 +90,15 @@ This display of code for an audience is a key part of the practice of
 livecoding, but many audience members lack the required background
 knowledge (either musical, programming or both) to fully comprehend
 the relationship between the code on the screen and the musical
-material they are hearing. Some techniques have been proposed[2] for
+material they are hearing. Some techniques have been [[http://eprints.qut.edu.au/61525/1/liveannotations.pdf][proposed]] for
 visual 'annotations' to the code which may assist the audience in
 their comprehension. Additionally, non-textual visualisation
 techniques from VJing and computational arts (e.g. beat-driven 3D
 visuals in OpenGL) may be combined with source code to provide visual
 feedback which balances didactic and aesthetic considerations. A 2014
-ANU Honours project[3] investigated various techniques for presenting
+ANU Honours project[1] investigated various techniques for presenting
 visual feedback to an audience during a live coding performance in
-Extempore[4], and evaluated their effectiveness through user studies
+[[http://extempore.moso.com.au][Extempore]], and evaluated their effectiveness through user studies
 of livecoding audiences.
 
 This present project will look at ways of developing a visual live
@@ -119,10 +112,7 @@ and supporting such a collaborative artistic endeavour.
 human-computer interaction; computational arts & visualisation;
 software engineering.
 
-[1] For an example of livecoding, see e.g. http://vimeo.com/videos/benswift
-[2] http://eprints.qut.edu.au/61525/1/liveannotations.pdf
-[3] Arrian Purcell, Honours thesis, ANU 2014
-[4] http://extempore.moso.com.au
+[1] Arrian Purcell, Honours thesis, ANU 2014
 
 * Scientific Workflows Including Dynamic workflow Engines
 
@@ -135,7 +125,7 @@ with a running simulation.
 Dynamic Workflow Engines (DWEs) could provide support for modifying
 the evolution of specific tasks in a high-performance scientific
 simulation (e.g. swapping out low-level algorithms and "hot loops" in
-computation)[1]. Such a level of adaptivity would allow for
+computation)[2]. Such a level of adaptivity would allow for
 computational steering possibilities, but may exacerbate problems of
 deciding when and how to safely and securely interfere with a running
 simulation.
@@ -143,28 +133,27 @@ simulation.
 This project will develop a specific DWE case study involving a
 live-coding harness of a scientific simulation. The simulation domain
 will be Particle-In-Cell plasma physics and the live-coding harness
-will use the Extempore[2] environment.
+will use the [[http://extempore.moso.com.au][Extempore]] environment.
 
 *Desirable skills/interests:* Strong programming skills (especially
 C); scientific and numerical computation (helpful but not essential);
 software engineering; scientific workflows.
 
-[1] Marta Maoso, Jonas Dias, Kary A. C. S. Ocana, Eduardo Ogasawara,
+[2] Marta Maoso, Jonas Dias, Kary A. C. S. Ocana, Eduardo Ogasawara,
 Flavio Costa, Felipe Horta, Vítor Silva, and Daniel de Oliveira.
 "Dynamic steering of HPC scientific workflows: A survey". In: Future
 Generation Computer Systems (2014)
-[2] http://extempore.moso.com.au
 
 * Live code combat: human-in-the-loop simulation and agent-based models            :noexport:
 
 Wargames-style simulation is an important tool in understanding the
 behaviour of complex multi-agent environments, and code-based "combat"
 simulation (where multiple programs do battle, subject to rules and
-resource constraints) has pedagogical applications as well[1].
+resource constraints) has [[https://codecombat.com/][pedagogical applications as well]].
 
 This project provides an opportunity to investigate how "live
-programming" tools and techniques (specifically the Extempore
-programming environment[2]) may be used for human in-the-loop (HIL)
+programming" tools and techniques (specifically the [[http://extempore.moso.com.au][Extempore
+programming environment]]) may be used for human in-the-loop (HIL)
 programmer interaction in wargames simulation. For example, a
 simulation may be started with two different "armies" (groups) of
 agents, with basic initial conditions and simple agent behaviour. As
@@ -182,6 +171,3 @@ against other (non-interactive) simulation approaches.
 *Desirable skills/interests:* Strong programming skills (especially
 C); human-computer interaction; parallel programming; agent-based
 models; human-in-the-loop simulation.
-
-[1] https://codecombat.com/
-[2] http://extempore.moso.com.au
