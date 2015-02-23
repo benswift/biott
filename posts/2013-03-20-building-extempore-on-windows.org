@@ -283,8 +283,15 @@ to do it at present.
 After you've built the dependencies, open the Extempore VS project in
 Extempore's =msvc= subdirectory. You might have to do some fiddling
 with the include paths in =Properties > Configuration Properties >
-C/C++ > Additional Include Directories=[fn::on my machine, I used
-=..\include;..\..\boost_1_47_0;..\..\pcre-8.36\build;..\..\portaudio\include;..\..\llvm-3.4.1.src\build\include;..\..\llvm-3.4.1.src\include;%(AdditionalIncludeDirectories)=].
+C/C++ > Additional Include Directories=. On my machine, I kept the
+source folders all at the same level as the extempore folder and used:
+- =..\include=
+- =..\..\boost_1_47_0=
+- =..\..\pcre-8.36\build=
+- =..\..\portaudio\include=
+- =..\..\llvm-3.4.1.src\build\include=
+- =..\..\llvm-3.4.1.src\include=
+- =%(AdditionalIncludeDirectories)=
 And like I mentioned earlier, make sure you've copied the compiled lib
 files into the top level of the build directories, because that's
 where the VS project expects to find them.
