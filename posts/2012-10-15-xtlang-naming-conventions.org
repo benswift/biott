@@ -29,19 +29,20 @@ limitations as C, e.g. no =!=), while others are to help differentiate
 between Scheme and xtlang visually (e.g. dashes in Scheme vs
 underscores in xtlang).
 
-- *Spaces* in names should use underscores (=_=), e.g. =my_scheme_variable=
-- *Predicates* (functions that /test/ their arguments and return =TRUE= or
-  =FALSE=) should end in =p= (for single word predicates) or =_p= (for
-  multi-word predicates), e.g. =integerp=, =unicode_char_p=
-- *Destructive functions* (which modify their arguments in-place) should
-  end in a =_n=, e.g. =xsort_n=.  The exception to this is the special
-  forms for pointer/tuple/array/vector setting (e.g. =pset!=).
+- *Closures* should use "snake case", e.g. =my_xtlang_closure=
+- *Types* (except for the [[file:2012-08-09-xtlang-type-reference.org][built-in types]]) should use "camel case",
+  with a capitalised first letter e.g. =MyType=
+- Closures associated with a named type should start with the name of
+  the type (e.g. =MyType_create=, =MyType_do_all_the_things=)
+- If a closure allocates [[file:2012-08-17-memory-management-in-extempore.org][zone memory]] (i.e. if it calls =alloc= or
+  =zalloc=) then there should be another version of the closure with
+  the suffix =_h= which allocates from the heap (i.e. =halloc=)
+  instead
 - *Global variables* should be uppercased, e.g.
   =MY_XTLANG_GLOBAL=
-- *Closures* which return closures (closure 'makers') should end in the
-  suffix =_c=, e.g. =osc_c=
-- *Types* (except for the [[file:2012-08-09-xtlang-type-reference.org][built-in types]]) should have a =_t=
-  suffix, e.g. =xlist_t=
+# - *Predicates* (functions that /test/ their arguments and return =TRUE= or
+#   =FALSE=) should end in =p= (for single word predicates) or =_p= (for
+#   multi-word predicates), e.g. =integerp=, =unicode_char_p=
 
 * Capitalisation conventions
 
