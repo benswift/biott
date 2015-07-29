@@ -1,0 +1,46 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2015-06-30-homebrew-installation-tips.xtm
+#+begin_html
+---
+title: Homebrew installation tips
+alias: ["./2015-06-30-homebrew-installation-tips.html"]
+tags:
+---
+#+end_html
+If you're having trouble with the homebrew install process, in
+particular if one of Extempore's /dependencies/ is failing, then in
+many cases you can choose to skip that dependency. =brew options= is a
+useful command to remember---not just for Extempore, but for any
+homebrew formula.
+
+If we look at the options for installing Extempore, we have
+
+#+BEGIN_SRC sh
+ben@hodgey$ brew options extempore
+--with-assets
+	download the assets used in the example files
+--with-stdlib
+	(pre)compile the Extempore standard library
+--without-assimp
+	Build without assimp support
+--without-kissfft
+	Build without kissfft support
+--without-libsndfile
+	Build without libsndfile support
+--without-libsoil
+	Build without libsoil support
+--without-rtmidi-c
+	Build without rtmidi-c support
+--without-shivavg
+	Build without shivavg support
+--HEAD
+	Install HEAD version
+#+END_SRC
+
+So, if ShivaVG (for example) isn't building correctly, then you can
+=brew install --without-shivavg extempre= and everything will still
+work fine (except the ShivaVG example in
+=examples/external/openvg.xtm=. If this does happen then let us know
+on the mailing list, we want to make sure all the deps work fine on
+both OSX and Linux (Windows doesn't use homebrew). But as a temporary
+workaround to get started it's nice to not be held up in getting
+Extempore up and running.
