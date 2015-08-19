@@ -7,18 +7,18 @@ tags: setup osx linux
 ---
 #+end_html
 
-*Note:* these instructions are up to date for LLVM 3.4.1 (updated May
+*Note:* these instructions are up to date for LLVM 3.4.2 (updated May
 2014). I'll try and keep this post up-to-date in the future.
 
 * Getting the dependencies
 
 On OSX and Linux, Extempore has three main dependencies:
 
-- =LLVM v3.4.1=
+- =LLVM v3.4.2=
 - =pcre=
 - =portaudio v1.9=
 
-The one (slightly) tricky dependency is LLVM 3.4.1, which requires a
+The one (slightly) tricky dependency is LLVM 3.4.2, which requires a
 patch (see instructions in the next section). If you have any problems
 with these versions (or success with newer/older versions) then feel
 free to let me know on the [[mailto:extemporelang@googlegroups.com][Extempore mailing list]].
@@ -78,7 +78,7 @@ brew install pcre portaudio
 * Building LLVM
 
 Extempore has recently (May 2014) been updated to build against LLVM
-3.4.1. Unfortunately the bug in =LLParser.cpp= hasn't yet been fixed,
+3.4.2. Unfortunately the bug in =LLParser.cpp= hasn't yet been fixed,
 so you still need to patch it. In general, this means you still have
 to build LLVM from source.
 
@@ -93,7 +93,7 @@ brew install /path/to/extempore/extras/extempore-llvm.rb
 #+end_src
 
 If you're not using homebrew on OS X, then you'll have to patch and
-build LLVM manually (you can get the LLVM 3.4.1 source [[http://llvm.org/releases/3.4.1/llvm-3.4.1.src.tar.gz][here]]) because a
+build LLVM manually (you can get the LLVM 3.4.2 source [[http://llvm.org/releases/3.4.2/llvm-3.4.2.src.tar.gz][here]]) because a
 small patch is required.
 
 To apply the patch to the LLVM source file =LLParser.cpp= just move
@@ -137,7 +137,7 @@ export EXT_LLVM_DIR=/path/to/llvm/build
 #+end_src
 
 If you used the homebrew formula the LLVM build directory will
-probably be =/usr/local/Cellar/extempore-llvm/3.4.1=.
+probably be =/usr/local/Cellar/extempore-llvm/3.4.2=.
 
 Then you can build Extempore using the =all.bash= shell script 
 
