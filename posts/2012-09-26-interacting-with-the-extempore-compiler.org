@@ -176,10 +176,11 @@ editor. It won't get compiled until you send it for evaluation. If
 you're using Emacs, then the easiest way to do this is to move your
 cursor somewhere inside the code =(+ 1 2)= and hit =C-M-x= (which is
 bound to =extempore-send-definition=). In ST2, you can highlight the
-code you want to evaluate and either go to =Tools > Extempore >
-Evaluate...= or just hit =C-M-x=. This takes the whole expression
-=(+ 1 2)= and sends it (as a string) to the running =extempore=
-compiler.
+code you want to evaluate and call the =Extempore: evaluate= command,
+either from the command palette (=Ctrl+Shift+P= on Windows/Linux or
+=Cmd+Shift+P= on OSX) or through the default =Ctrl+e= keybinding. This
+takes the whole expression =(+ 1 2)= and sends it (as a string) to the
+running =extempore= compiler.
 
 #+begin_html
   <div class="ui image segment">

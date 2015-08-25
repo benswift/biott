@@ -26,7 +26,7 @@ You'll also need the [[https://github.com/benswift/extempore-sublime][ST2 Extemp
 highlighting and some commands for connecting to and working with a
 running Extempore process. To install the plugin, download the [[https://github.com/benswift/extempore-sublime/zipball/master][plugin
 files]] (or clone the repo) and unzip them into your [[http://docs.sublimetext.info/en/latest/basic_concepts.html#the-packages-directory][ST2 packages
-directory]].
+directory]] (put it in the top level, not in the =User= subdirectory).
 
 # notes for dicky python setup on OSX, may need to have this in the
 # Packages/Python/Python.sublime-build settings file
@@ -45,17 +45,20 @@ Extempore code in ST2:
 2. open up your favourite shell (e.g. Terminal on OS X or cmd.exe on
    Windows)
 3. =cd= into your Extempore directory and run =extempore=, e.g.
-   =./extempore --device 2=
+   =./extempore=
 4. open up an ST2 buffer with an Extempore file (the Extempore plugin
    should be loaded automatically when ST2 sees the =.xtm= file
    extension)
-5. connect to the running Extempore process (=Tools > Extempore > Connect=)
+5. connect to the running Extempore process with the =extempore
+   connect= command, which you can call through the command palette
+   (=Ctrl+Shift+P= on Windows/Linux or =Cmd+Shift+P= on OSX) or the menu bar (=Tools > Extempore > Connect=)
 
 Then, to evaluate Extempore code, highlight the code you want to
 evaluate and hit =evaluate region= (which by default is mapped to
-=ctrl+r=).
+=ctrl+e=, but you can remap it to some other keyinding by editing
+the ).
 
-To restart the Extempore process, just =ctrl+c= in the shell where
+To restart the Extempore process, just =ctrl+c= in the terminal where
 =extempore= is running to kill it, then start it up again.
 
 For more detail on how to 'program' in Extempore, have a look at this
@@ -65,7 +68,7 @@ post on [[file:2012-09-26-interacting-with-the-extempore-compiler.org][interacti
 
 The syntax highlighting currently doesn't cover a few edge cases---so
 if you end up tinkering with =Extempore.JSON-tmLanguage= to fix
-anything then feel free to submit a patch.
+anything then I'd love it if you submitted a patch.
 
 Also, =extempore_evaluate= currently requires *highlighting* the code
 to evaluate. It would be nice if it would eval the top-level
