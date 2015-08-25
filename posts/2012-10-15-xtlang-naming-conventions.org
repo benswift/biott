@@ -44,7 +44,36 @@ underscores in xtlang).
 #   =FALSE=) should end in =p= (for single word predicates) or =_p= (for
 #   multi-word predicates), e.g. =integerp=, =unicode_char_p=
 
+** Memory
+
+*** Allocation
+
+- For named type =TypeName=, the "naive" constructors (which just take
+  the elements of the type as arguments) will be compiled
+  automatically, and called =TypeName_z= (the new type will be
+  zone-allocated) and =TypeName_h= (the new type will be
+  heap-allocated). 
+# IDEA: if we're going to poly them over anyway, we could just go all
+# out and make the automatically constructed ones
+# =TypeName_{z,h}alloc=
+- In addition, the =_z= version will be poly'd to =TypeName=. If
+  additional constructors are added, e.g. "smart" constructors which
+  take advantage of relationships between the elements of the tuple or
+  perform bounds checks on the arguments, these may also be poly'd to
+  =TypeName= (assuming they have a different signature to the naive
+  constructor =TypeName_z=).
+
+*** Copying
+
+*** Deallocation
+
+- =free= in xtlang is the same as free in =stdlib.h= - when passed a
+  =TypeName*= it will free the memory for the actual tuple, but will
+  leak any resources managed by the fields
+
+
+
 * Capitalisation conventions
 
-- In writing, /Extempore/ should be capitalised, while /xtlang/ should
+- In prose /Extempore/ should be capitalised, while /xtlang/ should
   remain uncapitalised.
