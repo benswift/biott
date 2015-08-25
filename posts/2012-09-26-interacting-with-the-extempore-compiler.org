@@ -161,7 +161,7 @@ we can open up the TCP connection. In Emacs, this is done with =M-x
 extempore-connect=. In ST2, use the menu item =Tools > Extempore >
 Connect...=. The default host and port arguments will be =localhost=
 and =7099= respectively. If the connection is made successfully, then
-=extempore= will echo back the string ="Welcome to extempore!"=.
+=extempore= will echo back the string "Welcome to extempore!".
 
 * Evaluating code
 
@@ -169,12 +169,6 @@ Once everything's hooked up, then the compiler is just waiting there
 for you to give it some code to evaluate. So, from a 'blank slate'
 =.xtm= file, let's start with some basic Scheme arithmetic. If you're
 playing along, you can write =(+ 1 2)= into your file somewhere.
-
-#+begin_html
-  <div class="ui image segment">
-    <img src="/img/interacting-with-compiler/scheme-code-input.png" alt="">
-  </div>
-#+end_html
 
 This is where the 'Compiler as a Service' (CaaS) thing starts to get
 real. Currently, the code =(+ 1 2)= is just text sitting in your
