@@ -1,3 +1,4 @@
+
 #+PROPERTY: header-args:extempore :tangle /tmp/2012-08-09-xtlang-type-reference.xtm
 #+begin_html
 ---
@@ -204,11 +205,11 @@ using a loop.
     (lambda ()
       (let ((a:double* (zalloc 10))
             (i:i64 0))
-        (dotimes (i 0)
+        (dotimes (i 10)
           (pset! a i (i64tod i)))
        (pref a 6))))
   
-  (ptr_test4) ;; returns 5.000000
+  (ptr_test4) ;; returns 6.000000
 #+end_src
 
 There's one more useful function for working with pointers:
