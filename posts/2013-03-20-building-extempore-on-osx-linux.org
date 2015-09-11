@@ -7,18 +7,18 @@ tags: setup osx linux
 ---
 #+end_html
 
-*Note:* these instructions are up to date for LLVM 3.4.2 (updated May
-2014). I'll try and keep this post up-to-date in the future.
+*Note:* these instructions are up to date for LLVM 3.7 (updated
+September 2015). I'll try and keep this post up-to-date in the future.
 
 * Getting the dependencies
 
 On OSX and Linux, Extempore has three main dependencies:
 
-- =LLVM v3.4.2=
+- =LLVM v3.7=
 - =pcre=
 - =portaudio v1.9=
 
-The one (slightly) tricky dependency is LLVM 3.4.2, which requires a
+The one (slightly) tricky dependency is LLVM 3.7, which requires a
 patch (see instructions in the next section). If you have any problems
 with these versions (or success with newer/older versions) then feel
 free to let me know on the [[mailto:extemporelang@googlegroups.com][Extempore mailing list]].
@@ -77,8 +77,8 @@ brew install pcre portaudio
 
 * Building LLVM
 
-Extempore has recently (May 2014) been updated to build against LLVM
-3.4.2. Unfortunately the bug in =LLParser.cpp= hasn't yet been fixed,
+Extempore has recently (September 2015) been updated to build against LLVM
+3.7. Unfortunately the bug in =LLParser.cpp= hasn't yet been fixed,
 so you still need to patch it. In general, this means you still have
 to build LLVM from source.
 
@@ -93,7 +93,7 @@ brew install /path/to/extempore/extras/extempore-llvm.rb
 #+end_src
 
 If you're not using homebrew on OS X, then you'll have to patch and
-build LLVM manually (you can get the LLVM 3.4.2 source [[http://llvm.org/releases/3.4.2/llvm-3.4.2.src.tar.gz][here]]) because a
+build LLVM manually (you can get the LLVM 3.7 source [[http://llvm.org/releases/3.7/llvm-3.7.src.tar.gz][here]]) because a
 small patch is required.
 
 To apply the patch to the LLVM source file =LLParser.cpp= just move
@@ -110,19 +110,18 @@ error when you try and compile any xtlang code, something like:
 
 #+BEGIN_SRC sh
 Extempore: <string>:1:22: error: use of undefined type named 'mzone'
-declare void @myfunc(%mzone)
-                    ^
+declare void @myfunc(%mzone)                    ^
 #+END_SRC
 
-After that, building LLVM is the usual autotools process, with the
-addition of a =--prefix= location specifying where everything will be
-installed into (such as a =build= directory)
+After that, building LLVM is the usual CMake process, including
+specifying where everything will be installed (such as a =llvm-build=
+directory)
 
 #+begin_src sh
 $ cd /path/to/llvm
-$ mkdir build
-$ ./configure --prefix=/path/to/llvm/build --enable-optimized --enable-curses=no --enable-terminfo=no
-$ make && make install
+$ mkdir cmake-build
+$ cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/path/to/llvm-build -DLLVM_ENABLE_TERMINFO=OFF -DLLVM_ENABLE_ZLIB=OFF ..
+$ make -j4 && make install
 #+end_src
 
 * Building Extempore
@@ -133,11 +132,11 @@ directory[fn:builddir] is by defining the shell variable
 =EXT_LLVM_DIR=, for example
 
 #+begin_src sh
-export EXT_LLVM_DIR=/path/to/llvm/build
+export EXT_LLVM_DIR=/path/to/llvm-build
 #+end_src
 
 If you used the homebrew formula the LLVM build directory will
-probably be =/usr/local/Cellar/extempore-llvm/3.4.2=.
+probably be =/usr/local/Cellar/extempore-llvm/3.7=.
 
 Then you can build Extempore using the =all.bash= shell script 
 
