@@ -1,11 +1,9 @@
-#+PROPERTY: header-args:extempore :tangle /tmp/2013-03-20-building-extempore-on-windows.xtm
-#+begin_html
+#+BEGIN_HTML
 ---
-title: Building Extempore on Windows
-alias: ["./2013-03-20-building-extempore-on-windows.html"]
-tags: setup windows
+title: Building Extempore from source
+alias: ["./2012-07-02-building-extempore-from-source.html"]
 ---
-#+end_html
+#+END_HTML
 
 **Update October 2015** building from source is now much easier
 (assuming you're happy to use the GitHub master branch). Updated
