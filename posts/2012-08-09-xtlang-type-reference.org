@@ -1,4 +1,3 @@
-
 #+PROPERTY: header-args:extempore :tangle /tmp/2012-08-09-xtlang-type-reference.xtm
 #+begin_html
 ---
@@ -322,7 +321,7 @@ It's probably clear at this point that the combinations of types allow
 for heaps of flexibility, but can get pretty confusing if you use lots
 of nesting of aggregate types within one another. If you /do/ need to
 use complex types, then you can define your own types and the compiler
-can do some of the bookkeeping for you (more on this [[** Custom types][below]]).
+can do some of the bookkeeping for you (more on this below).
 
 Setting and getting values from arrays is done with (you guessed it!)
 =aref=, =aset!=, and =afill!=.  And if you want to get a pointer into
@@ -486,7 +485,7 @@ at least it's not called =char=, it's called =i8=.  So strings in
 xtlang are pointers to null terminated int arrays just like in C but
 instead have type =i8*=.  String literals in xtlang have this type.
 
-The usual =pref= and friends for pointers (described [[** Pointer types][above]]) are
+The usual =pref= and friends for pointers (described above) are
 therefore your friends if you want to slice and dice strings around.
 A few familiar string functions have made their way over from the C
 standard library as well.
