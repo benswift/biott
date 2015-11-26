@@ -19,9 +19,11 @@ arguments:
 #+begin_src extempore
   (bind-func dsp
     (lambda (in:SAMPLE time:i64 chan:i64 data:SAMPLE*)
-      (sin (/ (* STWOPI 440.0 (convert time SAMPLE))
-            44100.0))))
-  
+      (* .1 (sin (/ (* STWOPI
+                       440.0
+                       (convert (% time SR) SAMPLE))
+                    44100.0)))))
+
   ; to let Extempore know that this function is the one 
   ; it should call to get the output audio samples
   (dsp:set! dsp)
@@ -67,16 +69,16 @@ different language to the control language, it's all mixed in
 together.  
 
 * Abstraction and higher-order functions
-
+  - Note taken on [2015-11-26 Thu 15:28]
 Let's create some oscillators:
 
 #+begin_src extempore
   (bind-func osc_c
     (lambda (phase)
       (lambda (amp freq)
-         (let ((inc (* STWOPI (/ freq 44100.0))))
-               (set! phase (+ phase inc))
-               (* amp (sin phase))))))
+        (let ((incr (* STWOPI (/ freq SRs))))
+          (set! phase (% (+ phase incr) STWOPI))
+          (* amp (sin phase))))))
 #+end_src
 
 This =osc_c= function doesn't return a primitive (int/float) value.
@@ -99,9 +101,9 @@ to create as many oscillators as we need:
           (osc2 (osc_c 0.0)))
       (lambda (in:float time:i64 channel:i64 data:float*)
         (cond ; play a 200Hz tone in the left ear
-              ((= channel 0) (osc1 0.5 200.0)) 
+              ((= channel 0) (osc1 0.25 200.0)) 
               ; play a 300Hz tone in the right ear
-              ((= channel 1) (osc2 0.5 300.0))
+              ((= channel 1) (osc2 0.25 300.0))
               (else 0.0)))))
 #+end_src
 
