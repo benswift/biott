@@ -19,9 +19,9 @@ arguments:
 #+begin_src extempore
   (bind-func dsp
     (lambda (in:SAMPLE time:i64 chan:i64 data:SAMPLE*)
-      (* .1 (sin (/ (* STWOPI
-                       440.0
-                       (convert (% time SR) SAMPLE))
+      (* .1 (sin (/ (* 2.0 3.1415               ;; 2pi(ish)
+                       440.0                    ;; frequency (Hz)
+                       (i64tof (% time 44100))) ;; time mod samplerate
                     44100.0)))))
 
   ; to let Extempore know that this function is the one 
@@ -66,18 +66,18 @@ runtime, but it's also performant enough to do sample-level
 manipulation in the same language and environment.  So instead of the
 ugens (unit generators, e.g. oscillators) being locked up in a
 different language to the control language, it's all mixed in
-together.  
+together.
 
 * Abstraction and higher-order functions
-  - Note taken on [2015-11-26 Thu 15:28]
+
 Let's create some oscillators:
 
 #+begin_src extempore
   (bind-func osc_c
     (lambda (phase)
-      (lambda (amp freq)
-        (let ((incr (* STWOPI (/ freq SRs))))
-          (set! phase (% (+ phase incr) STWOPI))
+      (lambda (amp freq:SAMPLE)
+        (let ((incr (* 2.0 3.1415 (/ freq 44100.))))
+          (set! phase (% (+ phase incr) (* 2.0 3.1415)))
           (* amp (sin phase))))))
 #+end_src
 
@@ -131,10 +131,11 @@ I'll get a chance to cover those soon.
 # repo]] - lots of good stuff in there.
 
 Also, I should point out that there are heaps better/easier ways to
-achieve a lot of this stuff in Extempore: syntactic sugar, library
-support etc. If you're interested, jump on in and have a poke around,
-or even fork it and contribute a patch. The docs are a bit sparse at
-the moment, but I'm hoping that this blog post (and more that will
-follow) will be a helpful resource for those starting out. And if you
-/do/ make something cool, then throw it up on the interwebs and let me
-know :)
+achieve a lot of this stuff in Extempore: named constants for
+samplerate & 2pi, syntactic sugar, library support etc. If you're
+interested, jump on in and have a poke around (especially in
+=libs/core/audio_dsp.xtm=) or even fork it and contribute a patch. The
+docs are a bit sparse at the moment, but I'm hoping that this blog
+post (and more that will follow) will be a helpful resource for those
+starting out. And if you /do/ make something cool, then throw it up on
+the interwebs and let me know :)
