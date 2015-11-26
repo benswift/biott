@@ -25,13 +25,11 @@ how to do something off the top of your head.
 
 * If you're already an Emacs user
 
-You'll need to add these lines to your =.emacs=
+*Update Nov 2015* =extempore-mode= is now in MELPA. So just 
+=M-x package-install RET extempore-mode RET= and you're done.
 
-#+begin_src emacs-lisp
-  (autoload 'extempore-mode "/path/to/extempore/extras/extempore.el" "" t)
-  (add-to-list 'auto-mode-alist '("\\.xtm$" . extempore-mode))
-  (setq user-extempore-directory "/path/to/extempore/")
-#+end_src
+If you don't want to get it from MELPA, just [[https://github.com/extemporelang/extempore-emacs-mode/blob/master/extempore-mode.el][download the file]] and
+=(package-install-file "/path/to/extempore-mode.el")=
 
 ** Working with Extempore code
 
@@ -50,7 +48,7 @@ Extempore code in Emacs:
 
 Then, to [[file:2012-09-26-interacting-with-the-extempore-compiler.org][evaluate]] Extempore code, use either
 
-- evaluate enclosing s-expression: =C-M-x=
+- evaluate enclosing s-expression: =C-c C-c= or =C-M-x=
 - evaluate region: =C-c C-r=
 - evaluate whole buffer: =C-c C-b=
 
