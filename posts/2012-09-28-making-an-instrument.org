@@ -493,8 +493,8 @@ To make the =organ_note_c= kernel, we'll fill in the template from the
               (freq_smudge:SAMPLE* (zalloc num_drawbars))
               (i:i64 0))
           (dotimes (i num_drawbars)
-            (pset! tonewheel (* i 2) (osc_c 0.0)) ; left
-            (pset! tonewheel (+ (* i 2) 1) (osc_c 0.0)) ; right
+            (pset! tonewheel (* i 2) (osc_c 0.0))       ;; left
+            (pset! tonewheel (+ (* i 2) 1) (osc_c 0.0)) ;; right
             (pset! freq_smudge i (* 3.0 (random))))
           (lambda (time:i64 chan:i64 freq:SAMPLE amp:SAMPLE)
             (if (< chan 2)
@@ -506,7 +506,8 @@ To make the =organ_note_c= kernel, we'll fill in the template from the
                                          amp
                                          (+ (* freq (pref freq_ratio i))
                                             (pref freq_smudge i)))))))
-                  (/ sum (convert num_drawbars)))))))))
+                  (/ sum (convert num_drawbars)))
+                0.))))))
 #+end_src
 
 The general shape of the code is basically the same as in
@@ -601,11 +602,11 @@ Now, let's see if our instrument works! Having compiled both
 and the moment of truth...
 
 #+begin_src extempore
-  (play-note (now)   ; time
-             organ   ; instrument
-             60      ; pitch (midi note number, middle C = 60)
-             100     ; velocity (in range [0,127])
-             44100)  ; duration (in samples, 44100 = 1sec)
+  (play-note (now)   ;; time
+             organ   ;; instrument
+             60      ;; pitch (midi note number, middle C = 60)
+             100     ;; velocity (in range [0,127])
+             44100)  ;; duration (in samples, 44100 = 1sec)
 #+end_src
 
 if everything is hooked up right, when you evaluate (=C-M-x= in
