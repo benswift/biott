@@ -117,9 +117,14 @@ sinusoids (one for each drawbar), then that's what we need to
 generate. There are lots of ways to do this, but one nice way is to
 use oscillator closures created by Extempore's =osc_c= function.
 
+#removed the loading of instruments.xtm
+
 #+begin_src extempore
-  (sys:load "libs/core/instruments.xtm")
-  
+  (bind-val SR SAMPLE 44100.0) ;; or change it to the correct sample rate for your system
+  (bind-val SPI SAMPLE 3.1415926535897932384626433832795028841971693993751058209749)
+  (bind-val STWOPI SAMPLE 6.2831853071795864769252867665590057683943387987502116419498)
+  (bind-val SE SAMPLE 2.7182818284590452353602874713526624977572470936999595749669)
+
   (bind-func organ_drone
     (let ((num_drawbars 9)
           ;; allocate memory for the oscillators and other bits and pieces
@@ -290,6 +295,8 @@ dynamically compiled at run-time. You can have a look at it in
 =libs/core/audio_dsp.xtm= if you want to see the nuts and bolts of how
 it works.[fn:dsp-chain]
 
+For the purpose of this tutorial, 
+
 This notion of /note-level/ control is the key difference between an
 Extempore /instrument/ and the type of audio DSP which I've covered in
 [[file:2012-06-07-dsp-basics-in-extempore.org][other]] [[file:2012-06-07-more-dsp-and-extempore-types.org][posts]], which were just writing audio continuously to the sound
@@ -298,6 +305,178 @@ the =dsp= callback somewhere: otherwise it can't play its audio out
 through the speakers. But it also needs some way of triggering notes
 and maintaining the state of all the notes being played at any given
 time.  
+
+While normally the functions and macros used in this tutorial would be loaded from 
+=libs/core/instruments.xtm=, =libs/core/audio_dsp.xtm= and =libs/core/instruments-scm.xtm=, 
+simply copy-paste and copile them yourself to avoid version troubles with the libraries, and take the opportunity to check how it works!
+
+#+begin_src extempore
+  
+  (define-macro (bind-instrument name note_kernel effect_kernel . args)
+    `(bind-func ,name
+       (let* ((poly:i64 48)
+              (notes:[SAMPLE,SAMPLE,i64,i64]** (zalloc poly))
+              (attack:i64 200)
+              (decay:i64 200)
+              (release:i64 1000)
+              (sustain:SAMPLE 0.6) ;; amplitude of the sustain
+              (gain 2.0)
+              (ii 0)
+              (note_starts:i64* (zalloc poly))
+              (new_note (lambda (start:i64 freq:SAMPLE dur:i64 amp:SAMPLE nargs:i64 dargs:SAMPLE*)
+                          (let ((free_note:i64 -1)
+                                (iii 0)
+                                (i 0))
+                            (dotimes (i poly) ;; check for free poly spot
+                              ;;(printf "%d:%f\n" i (ftod (pref note_starts i)))
+                              (if (> (pref note_starts i) 9999999999998)
+                                  (set! free_note i)))
+                            (if (> free_note -1) ;; if we found a free poly spot assign a note
+                                (let ((note_zone (push_new_zone (* 1024 ,(if (null? args) 10 (car args)))))
+                                      (initdata (NoteInitData start freq amp dur attack decay release sustain)))
+                                  (pset! notes free_note
+                                         (note_c start freq amp dur
+                                                 attack decay release sustain
+                                                 note_starts free_note
+                                                 (,note_kernel initdata nargs dargs)
+                                                 note_zone))
+                                  (pset! note_starts free_note start)
+                                  (pop_zone)
+                                  1)
+                                0)))))
+         (dotimes (ii poly) ;; sets all notes to inactive
+           (pset! note_starts ii 9999999999999))
+         (lambda (in:SAMPLE time:i64 chan:i64 dat:SAMPLE*)
+           (let ((out:SAMPLE 0.0)
+                 (k 0))
+             (dotimes (k poly) ;; sum all active notes
+               (if (< (pref note_starts k) time)
+                   (set! out (+ out (* 0.3 ((pref notes k) in time chan))))))
+             (* gain (,effect_kernel out time chan dat)))))))
+   
+  (define play-note
+    (lambda (time inst pitch vol dur . args)
+      (let* ((nargs (length args))
+             (duration dur)
+             (dargs (sys:make-cptr (* (if (audio_64bit) 8 4) nargs))) ;; doubles
+             (native (if (procedure? inst)
+                         (llvm:get-native-closure (llvm:ffi-get-name inst))
+                         (llvm:get-native-closure (if (symbol? inst)
+                                                      (symbol->string inst)
+                                                      inst)))))
+        (if (= (audio_64bit) 1)
+            (dotimes (i nargs) (cptr:set-double dargs (* i 8) (eval (list-ref args i))))
+            (dotimes (i nargs) (cptr:set-float dargs (* i 4) (eval (list-ref args i)))))
+      (if (cptr? native)
+          (xtm_play_note (real->integer time)
+                      native
+                      (midi2frq (* 1.0 pitch))
+                      (/ (exp (/ vol 26.222)) 127.0)
+                      (real->integer duration)
+                      nargs
+                      dargs)
+          (print-error 'No 'inst 'named (symbol->string inst))))))
+
+(bind-func adsr_accum_c
+  (lambda (start_time:i64 atk_dur:i64 dky_dur:i64 sus_dur:i64 rel_dur:i64 peak_amp:SAMPLE sus_amp:SAMPLE)
+    (let ((val:SAMPLE (if (> (+ atk_dur dky_dur) 1) 0.0 peak_amp))
+          (t1 (+ atk_dur start_time))
+          (t2 (+ atk_dur dky_dur start_time))
+          (t3 (+ atk_dur dky_dur sus_dur start_time))
+          (t4 (+ atk_dur dky_dur sus_dur rel_dur start_time))
+          (inc1:SAMPLE (/ peak_amp (convert atk_dur)))
+          (inc2 (* -1.0 (/ (- peak_amp sus_amp) (convert dky_dur))))
+          (inc3 (* -1.0 (/ sus_amp (convert rel_dur)))))
+      (lambda (time:i64 chan:i64)
+        (if (= chan 0)
+            (cond ((> time t4) (set! val 0.0))
+                  ((> time t3) (set! val (+ val inc3)))
+                  ((> time t2) val) ;; sustain (don't do anything with val)
+                  ((> time t1) (set! val (+ val inc2)))
+                  ((> time start_time) (set! val (+ val inc1)))
+                  (else (set! val 0.0))))
+        val))))
+
+(bind-func comb_c
+  (lambda (max_delay:i64)
+    (let ((maxdelay max_delay)
+          (line:SAMPLE* (zalloc maxdelay))
+          (in_head 0)
+          (out_head 0)
+          (delay_:SAMPLE (convert max_delay))
+          (alpha 0.0)
+          (om_alpha 1.0)
+          (ih:i64 0)
+          (oh:i64 0)
+          (delayed1 0.0)
+          (delayed2 0.0)
+          (delayed 0.0))
+      (dotimes (ih maxdelay) (pset! line ih 0.0))
+      (lambda (x:SAMPLE delay:SAMPLE wet:SAMPLE feedback:SAMPLE)
+        (if (<> delay delay_)
+            (begin (set! delay_ delay)
+                   (set! alpha (- delay (floor delay)))
+                   (set! om_alpha (- 1.0 alpha))
+                   (set! out_head (- (+ maxdelay in_head)
+                                     (convert delay)))))
+        (set! ih (modulo in_head maxdelay))
+        (set! oh (modulo out_head maxdelay))
+        (set! delayed1 (pref line oh))
+        (set! delayed2 (pref line (modulo (+ oh 1) maxdelay)))
+        (set! delayed (+ (* alpha delayed1) (* om_alpha delayed2)))
+        ;;(set! y (+ (* in x) (* out delayed)))
+        (pset! line ih (* feedback (+ x delayed)))
+        (set! in_head (+ ih 1))
+        (set! out_head (+ oh 1))
+        (+ x (* delayed wet))))))
+
+(bind-func flanger_c
+  (lambda (delay:SAMPLE mod_phase:SAMPLE mod_range mod_rate)
+    (let ((comb (comb_c (convert (+ delay mod_range))))
+          (mod (osc_c mod_phase)))
+      (lambda (x:SAMPLE wet feedback)
+        (comb x (+ delay (mod mod_range mod_rate)) wet feedback)))))
+
+(bind-func xtm_play_note
+  (lambda (time inst:[SAMPLE,SAMPLE,i64,i64,SAMPLE*]* freq amp dur nargs:i64 dargs)
+    (if (> freq 10.0)        
+        (let ((f (inst.new_note:[i64,i64,SAMPLE,i64,SAMPLE,i64,SAMPLE*]*)))
+          (f time freq dur amp nargs dargs)
+          ;; so that we only copy an integer from memzone
+          1)
+        1)))
+
+(bind-func midi2frq
+  (lambda (pitch:SAMPLE)
+    (if (<= pitch 0.0) 0.0
+        (* 440.0 (pow 2.0 (/ (- pitch 69.0) 12.0))))))
+
+(bind-func note_c
+  (lambda (start_time:i64
+      freq:SAMPLE
+      amp:SAMPLE
+      dur:i64
+      attack:i64
+      decay:i64
+      release:i64
+      sus_amp:SAMPLE
+      nstarts:i64*
+      idx:i64
+      kernel:[SAMPLE,i64,i64,SAMPLE,SAMPLE]*
+      notezone:mzone*)
+    (let ((env (if (< (+ attack decay) dur)
+                   (adsr_accum_c 0 attack decay (- dur (+ attack decay)) release 1.0 sus_amp)
+                   (adsr_accum_c 0 0 0 dur release 1.0 sus_amp)))
+          (t 0)
+          (ff (lambda (sample:SAMPLE time:i64 channel:i64)
+                (if (= channel 0) (set! t (+ t 1)))
+                (if (< t (+ dur release))
+                    (kernel time channel freq (* (env t channel) amp))
+                    (begin (pset! nstarts idx 9999999999999)
+                           (llvm_zone_destroy notezone)
+                           0.0)))))
+      ff)))
+#+end_src
 
 =bind-instrument= takes three arguments: 
 
