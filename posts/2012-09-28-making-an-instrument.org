@@ -299,7 +299,7 @@ through the speakers. But it also needs some way of triggering notes
 and maintaining the state of all the notes being played at any given
 time.  
 
-=define-instrument= takes three arguments: 
+=bind-instrument= takes three arguments: 
 
 1. a name for the instrument 
 2. a *note kernel* closure, which must have the [[file:2012-08-09-xtlang-type-reference.org][signature]]
@@ -311,7 +311,7 @@ So, when we finally define our hammond organ instrument, the
 definition will look like this
 
 #+begin_src extempore
-  (define-instrument organ organ_note_c organ_fx)
+  (bind-instrument organ organ_note_c organ_fx)
 #+end_src
 
 and in an [[file:2012-10-03-xtlang-type-diagrams.org][xtlang type diagram]]
@@ -322,12 +322,12 @@ and in an [[file:2012-10-03-xtlang-type-diagrams.org][xtlang type diagram]]
 </div>
 #+end_html
 
-=define-instrument= is actually a (Scheme) macro, and it takes the two
+=bind-instrument= is actually a (Scheme) macro, and it takes the two
 kernel closures (=organ_note_c= and =organ_fx=) and compiles a new
 xtlang closure, and binds it to the name =organ=.[fn:notyet] These are
 just regular xtlang closures, they just have to have a particular type
 signature to allow them to play nicely with the rest of the
-=define-instrument= processing chain.
+=bind-instrument= processing chain.
 So, let's have a look at the lifecycle of a note played on our =organ=
 with the help of a few [[file:2012-10-03-xtlang-type-diagrams.org][xtlang type diagrams]]. I'll assume at this point
 that =organ= (and therefore =organ_note_c= and =organ_fx=) have been
@@ -443,7 +443,7 @@ the code works.
 
 Back to the task at hand, we need to construct the note and effects
 kernels for our hammond organ instrument. Once we have those,
-=define-instrument= and =_play_note= allow us to play the organ like a
+=bind-instrument= and =_play_note= allow us to play the organ like a
 soft synth, which is the goal we've been pursuing since the beginning.
 
 The 'template' for the note kernel and effects kernel is something
@@ -584,10 +584,10 @@ tremolo for the appropriate channel.
 
 Now, let's see if our instrument works! Having compiled both
 =organ_note_c= and =organ_fx=, we're finally ready to use
-=define-instrument= to make our xtlang hammond organ
+=bind-instrument= to make our xtlang hammond organ
 
 #+begin_src extempore
-  (define-instrument organ organ_note_c organ_fx)
+  (bind-instrument organ organ_note_c organ_fx)
 
   ;; Compiled organ >>> [float,float,i64,i64,float*]*
   

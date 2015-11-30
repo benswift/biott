@@ -83,7 +83,7 @@ works!
             (else 0.0)))))
 
 ;; put it all together
-(define-instrument theremin theremin_note_c theremin_fx)
+(bind-instrument theremin theremin_note_c theremin_fx)
 
 ;; ADSR envelope
 (theremin.attack 300.0)

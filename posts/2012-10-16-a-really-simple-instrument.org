@@ -144,10 +144,10 @@ Nice one. Also, remember that you change the fx closure at any time
 * Putting it all together
 
 Finally, to complete the instrument, we use a special
-=define-instrument= macro
+=bind-instrument= macro
 
 #+begin_src extempore
-  (define-instrument saw_synth saw_synth_note_c saw_synth_fx)
+  (bind-instrument saw_synth saw_synth_note_c saw_synth_fx)
 #+end_src
 
 #+begin_html
