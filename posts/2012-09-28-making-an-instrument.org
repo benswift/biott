@@ -295,8 +295,6 @@ dynamically compiled at run-time. You can have a look at it in
 =libs/core/audio_dsp.xtm= if you want to see the nuts and bolts of how
 it works.[fn:dsp-chain]
 
-For the purpose of this tutorial, 
-
 This notion of /note-level/ control is the key difference between an
 Extempore /instrument/ and the type of audio DSP which I've covered in
 [[file:2012-06-07-dsp-basics-in-extempore.org][other]] [[file:2012-06-07-more-dsp-and-extempore-types.org][posts]], which were just writing audio continuously to the sound
