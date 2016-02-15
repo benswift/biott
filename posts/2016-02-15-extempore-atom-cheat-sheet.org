@@ -1,0 +1,85 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2016-02-15-extempore-atom-cheat-sheet.xtm
+#+begin_html
+---
+title: Extempore Atom cheat sheet
+alias: ["./2016-02-15-extempore-atom-cheat-sheet.html"]
+tags:
+---
+#+end_html
+
+If you /don't/ have a favourite editor, or don't really know what the
+question means, never fear---there's a new(ish) open-source text
+editor called *Atom* which is pretty great, and easy to get started
+with. 
+
+
+[[https://atom.io/][Atom]] is a cross-platform text editor which runs on OS X, Linux and
+Windows. It was originally created by GitHub, but it's open source a
+large (and growing) variety of packages for different languages and
+tasks and a great community.
+
+I won't cover all the basics of Atom here, because the [[http://docs.sublimetext.info/en/latest/][documentation]]
+does that pretty well. Think of this post as a 'cheat sheet', for
+dipping back into to refresh your memory when you just can't remember
+how to do something off the top of your head.
+
+* Installing Atom
+
+Installing Atom is a piece of cake---go to the [[https://atom.io/][Atom homepage]] and hit
+the big red "Download" button near the top of the page. When it's
+finished downloading, click on the downloaded file and follow the
+instructions which show up on the screen.
+
+Once you've got Atom up and running, you need to install the [[https://github.com/benswift/extempore-sublime][Extempore
+package]]---this tells the Atom editor how to deal with Extempore code.
+You can do this through the menu bar: =Packages > Settings View >
+Install Packages/Themes=, then search for "extempore" and click
+install on the =Extempore-Atom= package. Alternatively, you can
+install it at a terminal with =apm install extempore-atom=. Once
+that's done, you're ready to go.
+
+If you want to run Extempore in a terminal /inside/ Atom, then you can
+get the =term= package as well, search for it in the same window as
+before.
+
+The main way to do things in Atom is through the "command palette",
+which you can bring up with =Ctrl+Shift+P= on Windows/Linux or
+=Cmd+Shift+P= on OSX. Type in a few letters, and you'll see the name
+of all the commands the system understands starting with those
+letters. It's really powerful, and it's a good first place to look
+when you want to do something. All of the menu bar commands in this
+blog post can be accessed through the command palette, and it's
+usually quicker than 
+
+* Hacking on Extempore code in Atom
+
+These are the steps you'll need to take to start hacking on a piece of
+Extempore code in Atom:
+
+1. start Atom
+2. open up a terminal /outside/ Atom (e.g. =Terminal= on OS X or
+   =cmd.exe= on Windows) or a =term= /inside/ Atom (e.g. =Packages >
+   Term > New Right Pane Terminal=)
+3. in the terminal, run =extempore= (just type =extempore= and hit
+   =return=) and you should see it print out some info about your
+   system, then just sit there waiting for input
+4. open (=File > Open=) an existing Extempore file such as
+   =examples/core/fmsynth.xtm=, or create and save new file with a
+   =.xtm= extension
+5. connect to the running Extempore process with the =Extempore
+   connect= command---either with the keyboard shortcut =Alt+O= or the
+   menu bar (=Packages > Extempore > Connect=), the default
+   =host:port= combination of =localhost:7099= should be fine
+
+Then, to evaluate Extempore code, move your cursor onto (or highlight)
+the code you want to evaluate and hit =Alt+S= to evaluate the code.
+Change the code and re-evaluate it by hitting =Alt+S= again---the code
+is live, so you can change and re-evaluate things without having to
+re-start Extempore.
+
+If you /do/ want to restart the Extempore process, just =ctrl+c= in
+the terminal where =extempore= is running to kill it, then start it up
+again.
+
+For more detail on how to 'program' in Extempore, have a look at this
+post on [[file:2012-09-26-interacting-with-the-extempore-compiler.org][interacting with the Extempore compiler]].

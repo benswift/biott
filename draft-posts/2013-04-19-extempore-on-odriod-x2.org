@@ -6,7 +6,7 @@ alias: ["./2013-04-19-extempore-on-odriod-x2.html"]
 #+end_html
 
 * Setting up Arch on the ODROID
-
+  
 Get arch image from [[http://archlinuxarm.org/platforms/armv7/odroid-xx2][here]], make sure you get the right one for your
 board (I have the ODROID-X2).
 

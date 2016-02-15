@@ -1,0 +1,66 @@
+u#+PROPERTY: header-args:extempore :tangle /tmp/2016-02-15-getting-started-with-extempore-2016-edition.xtm
+#+begin_html
+---
+title: Getting started with Extempore: 2016 edition
+alias: ["./2016-02-15-getting-started-with-extempore-2016-edition.html"]
+tags:
+---
+#+end_html
+I figure it's time to do an update on how to get up and running
+hacking Extempore in 2016. Most of this info is available elsewhere,
+but it's helpful to have it in one place.
+
+** Installing Extempore
+
+The most up-to-date instructions on how to install Extempore will be
+in the [[https://github.com/digego/extempore/blob/master/INSTALL.md][INSTALL.md]] file in the source distribution. So have a look
+there.
+
+** Setting up your text editor
+
+Installing Extempore is one thing, but the other piece of the puzzle
+is having a text editor to write Extempore code (Extempore files have
+a =.xtm= file extension).
+
+If you already have a favourite text editor, like [[file:2012-10-10-extempore-emacs-cheat-sheet.org][Emacs]], [[file:2014-11-07-hacking-extempore-in-vim.org][vim]] or
+[[file:2012-10-23-extempore-st2-cheat-sheet.org][Sublime Text]], or [[file:2016-02-15-extempore-atom-cheat-sheet.org][Atom]] then just follow the links to find info on how
+to configure your editor to write Extempore code.
+
+If you /don't/ have a favourite editor, or don't really know what the
+question means, never fear---Atom is probably the right choice for
+you. It's a new(ish) open-source text editor which is pretty great,
+and it's easy to get started with. You can find instructions about
+getting up and running with Atom and Extempore [[file:2016-02-15-extempore-atom-cheat-sheet.org][elsewhere on this blog]].
+
+** Hello World
+
+Once you've set up your editor, you're ready to write Extempore code.
+First, you need to have Extempore running (either in a separate
+Terminal or in your editor, e.g. in an Emacs buffer or in Atom buffer
+using the [[https://atom.io/packages/term][term]] package).
+
+Then, the Extempore [[https://en.wikipedia.org/wiki/%2522Hello,_World!%2522_program]["Hello, World"]] program looks like this:
+
+#+BEGIN_SRC extempore
+(println "Hello, World")
+#+END_SRC
+
+** What's next
+
+Extempore comes with a bunch of built-in code examples, they're in the
+=examples= subdirectory of the main Extempore directory. The
+=examples/core= subdirectory contains examples which should always
+work out-of-the-box, since they don't require any external
+libraries---just pure Extempore code. There are a bunch of examples in
+=examples/external= as well, which require some extra libraries to
+work---this includes things like 2D and 3D graphics. It shouldn't be
+too hard to get these extra libraries to make the examples work---have
+a look at the [[https://github.com/digego/extempore/blob/master/INSTALL.md#external-shared-libs][external shared libs section of INSTALL.md]] for
+instructions on how to get them on your problem. Just remember, you
+don't need them to write Extempore code---there are a whole bunch of
+fun and useful things you can do with just the core libraries, but
+these external libs are there if you need them.
+
+Apart from that, this blog has a bunch more info---the [[file:../extempore-docs/index.html][docs index]] is a
+good place to start. I've tried to keep everything up-to-date, but if
+you have any troubles feel free to shoot an email to the [[mailto:extemporelang@googlegroups.com][mailing list]].

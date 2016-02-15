@@ -1,7 +1,0 @@
-#+begin_html
-title: Downloading and installing Extempore
-alias: ["./2012-10-30-downloading-and-installing-extempore.html"]
-#+end_html
-
-*Update 2013-9-25: Binaries are now dead, homebrew or building source
-([[file:2013-03-20-building-extempore-on-osx-linux.org][OSX/Linux]] or [[file:2013-03-20-building-extempore-on-windows.org][Windows]]) is the way to go.*

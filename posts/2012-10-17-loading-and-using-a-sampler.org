@@ -166,7 +166,7 @@ If that works properly, some info will be printed to the log about the
 audio files which have been loaded into the sampler.  They should look
 something like this:
 
-#+begin_src
+#+begin_src sh
 file name:     /Users/ben/Music/sample-libs/drums/salamander/OH/kick_OH_F_9.wav
 samplerate:    48000
 channels:      2
