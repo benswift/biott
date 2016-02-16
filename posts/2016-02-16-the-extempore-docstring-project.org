@@ -19,11 +19,12 @@ detailed/informative.
 automatically-generated (i.e. pulled from the source code) searchable
 documentation website for xtlang.
 
-A [[http://TODO][beta version of this doco website]] is now online. It's searchable and
-filterable in a few different ways, and I encourage you to check it
-out.  The information (e.g. types, arguments) is pulled directly from
-the Extempore source code (including the main libraries in =libs/core=
-and =libs/external=), although the documentation generation
+A [[http://extemporelang.github.io/docs/][beta version of this doco website]] is now online (note that the rest
+of that website is still incomplete). It's searchable and filterable
+in a few different ways, and I encourage you to check it out. The
+information (e.g. types, arguments) is pulled directly from the
+Extempore source code (including the main libraries in =libs/core= and
+=libs/external=), although the documentation generation
 
 * Structured docstrings
 
@@ -115,7 +116,7 @@ request :)
 This will hopefully be a virtuous cycle: as the docstrings improve
 then Extempore/xtlang will become easier to grok, which will then mean
 that more folks are in a position to write better docstrings and help
-out. And having the [[http://TODO][documentation website]] means that these docstrings
+out. And having the [[http://extemporelang.github.io/docs/][documentation website]] means that these docstrings
 will be searchable and visible even to those who aren't used to
 grepping through the source code. I've been maintaining documentation
 for various libraries on my blog here for a couple of years now (and
