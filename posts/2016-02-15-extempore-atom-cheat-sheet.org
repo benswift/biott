@@ -3,7 +3,7 @@
 ---
 title: Extempore Atom cheat sheet
 alias: ["./2016-02-15-extempore-atom-cheat-sheet.html"]
-tags:
+tags: atom
 ---
 #+end_html
 

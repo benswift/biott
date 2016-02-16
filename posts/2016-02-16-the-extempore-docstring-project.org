@@ -1,9 +1,9 @@
-#+PROPERTY: header-args:extempore :tangle /tmp/2015-07-30-the-extempore-docstring-project.xtm
+#+PROPERTY: header-args:extempore :tangle /tmp/2016-02-16-the-extempore-docstring-project.xtm
 #+begin_html
 ---
 title: The Extempore docstring project
-alias: ["./2015-07-30-the-extempore-docstring-project.html"]
-tags:
+alias: ["./2016-02-16-the-extempore-docstring-project.html"]
+tags: xtlang documentation
 ---
 #+end_html
 xtlang functions have always had docstrings (documentation strings),
