@@ -7,12 +7,6 @@ tags: atom
 ---
 #+end_html
 
-If you /don't/ have a favourite editor, or don't really know what the
-question means, never fear---there's a new(ish) open-source text
-editor called *Atom* which is pretty great, and easy to get started
-with. 
-
-
 [[https://atom.io/][Atom]] is a cross-platform text editor which runs on OS X, Linux and
 Windows. It was originally created by GitHub, but it's open source a
 large (and growing) variety of packages for different languages and
