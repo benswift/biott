@@ -7,6 +7,8 @@ tags: xtlang audio
 ---
 #+end_html
 
+*This documentation is now hosted at* [[http://digego.github.io/extempore/]]
+
 This covers the basics of creating an /instrument/ in Extempore. While
 there are [[file:2012-06-07-dsp-basics-in-extempore.org][other]] [[file:2012-06-07-more-dsp-and-extempore-types.org][posts]] which cover audio digital signal processing
 (DSP) at a lower level---from the basic building blocks of oscillators

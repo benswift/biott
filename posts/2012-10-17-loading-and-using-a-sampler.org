@@ -7,6 +7,8 @@ tags: xtlang audio C-interop
 ---
 #+end_html
 
+*This documentation is now hosted at* [[http://digego.github.io/extempore/]]
+
 A sampler is an instrument which stores chunks of audio which can be
 /triggered/---played back. Samplers are used in many different ways,
 such as providing digital simulations of acoustic instruments (e.g. a

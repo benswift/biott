@@ -6,6 +6,8 @@ alias: ["./2013-11-12-building-extempore-through-homebrew.html"]
 tags: setup osx linux
 ---
 #+end_html
+
+*This documentation is now hosted at* [[http://digego.github.io/extempore/]]
 #+TOC: headlines 2
 
 If you've tried to install Extempore in the past, you'll know that

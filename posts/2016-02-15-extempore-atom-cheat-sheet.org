@@ -7,6 +7,8 @@ tags: atom
 ---
 #+end_html
 
+*This documentation is now hosted at* [[http://digego.github.io/extempore/]]
+
 [[https://atom.io/][Atom]] is a cross-platform text editor which runs on OS X, Linux and
 Windows. It was originally created by GitHub, but it's open source a
 large (and growing) variety of packages for different languages and

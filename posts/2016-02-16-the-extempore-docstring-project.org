@@ -6,6 +6,8 @@ alias: ["./2016-02-16-the-extempore-docstring-project.html"]
 tags: xtlang documentation
 ---
 #+end_html
+
+*This documentation is now hosted at* [[http://digego.github.io/extempore/]]
 xtlang functions have always had docstrings (documentation strings),
 but for a long time you've only been able to find them if you're
 actually looking through the source code. And let's face it, not many

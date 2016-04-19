@@ -6,6 +6,8 @@ alias: ["./2016-02-15-getting-started-with-extempore-2016-edition.html"]
 tags:
 ---
 #+end_html
+
+*This documentation is now hosted at* [[http://digego.github.io/extempore/]]
 I figure it's time to do an update on how to get up and running
 hacking Extempore in 2016. Most of this info is available elsewhere,
 but it's helpful to have it in one place.

@@ -7,6 +7,8 @@ tags: xtlang audio
 ---
 #+end_html
 
+*This documentation is now hosted at* [[http://digego.github.io/extempore/]]
+
 In this post we'll make a really basic =saw_synth= instrument. An
 /instrument/ in Extempore allows you to trigger 'notes' like a MIDI
 soft synth. [[file:./2012-09-28-making-an-instrument.org][This post]] goes into a lot more detail about how

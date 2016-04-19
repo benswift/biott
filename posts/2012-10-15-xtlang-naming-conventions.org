@@ -7,6 +7,8 @@ tags: xtlang
 ---
 #+end_html
 
+*This documentation is now hosted at* [[http://digego.github.io/extempore/]]
+
 These conventions aren't (currently) used consistently throughout the
 Extempore codebase, but we're hoping to bring everything into line
 eventually---pull requests welcome :)

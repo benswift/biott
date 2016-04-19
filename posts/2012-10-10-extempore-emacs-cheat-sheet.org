@@ -7,6 +7,8 @@ tags: tools emacs
 ---
 #+end_html
 
+*This documentation is now hosted at* [[http://digego.github.io/extempore/]]
+
 Learning [[http://www.gnu.org/software/emacs/][Emacs]] can be pretty daunting, and you don't /have/ to use Emacs
 to use Extempore (see the [[https://github.com/benswift/extempore-sublime][Sublime Text 2 plugin]], for instance).
 Still, if you're willing to invest the time, Emacs is a powerful and

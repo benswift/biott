@@ -7,6 +7,8 @@ tags: xtlang audio
 ---
 #+end_html
 
+*This documentation is now hosted at* [[http://digego.github.io/extempore/]]
+
 So this blog post builds on [[http://benswift.github.com/blog/2012/06/07/dsp-basics-in-extempore/][the previous one]] in covering Extempore's
 real-time DSP capability. That post showed that by writing our own
 =dsp= sink we could make any sound we wanted---essentially writing raw

@@ -1,0 +1,66 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2016-04-19-extempore-0.7-release.xtm
+#+begin_html
+---
+title: Extempore 0.7 release
+alias: ["./2016-04-19-extempore-0.7-release.html"]
+tags:
+---
+#+end_html
+If you're on the [[mailto:extemporelang@googlegroups.com][extempore mailing list]] then you've already heard that
+Extempore has a new 0.7 release.  Here's the announcement, in case you
+missed it:
+
+#+begin_quote
+Hi folks
+
+Those of you who have been github-stalking Andy and I recently will know
+that we've been preparing a new 0.7 release.  Here's a brief overview of
+the changes:
+
+- everything.
+  
+That's a *small* exaggeration, but it's true that there have been heaps
+of changes in the ~600 commits since 0.6.0.
+
+From a user's perspective, one of the biggest changes is that we've got
+binary releases for all platforms available on GH:
+
+https://github.com/digego/extempore/releases/tag/0.7.0
+
+Binary releases are something that we've been asked about for a while
+now, and will hopefully make it even easier to get up and running even
+than things like homebrew.
+
+If that's not your cup of tea, then the cmake-powered build-from-source
+process is easier than it's ever been, check out
+http://digego.github.io/extempore/install.html for details.
+
+We've done our best to make sure the binaries will work everywhere, but
+if you have issues then let us know. We'll be revealing more about the
+changes to the language etc. in future mailing list posts, but as usual
+if you get stuck then fire an email to the mailing list and we'll do our
+best to help out.
+
+Finally, there's a new documentation website up online at
+
+http://digego.github.io/extempore/
+
+It's automatically generated from the files in the extempore `docs/`
+subfolder, which means that if you find something that's wrong or have
+an idea to improve the docs, you can just edit those files and let us
+know through a GitHub pull request.  You don't need to be a command-line
+ninja to do that - the GitHub web interface lets you edit the files
+in your web browser:
+
+https://github.com/digego/extempore/tree/master/docs
+
+Love youse all,
+Ben
+#+end_quote
+
+As mentioned, this blog is being put out to pasture as the *primary*
+source of Extempore documentation.  It's had a good run, but a proper
+ReadTheDocs-powered documentation system just makes it easier for the
+Extempore community to get involved in keeping things up to date and
+making them better.  So get amongst it!
+

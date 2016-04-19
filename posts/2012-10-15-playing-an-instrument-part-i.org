@@ -7,6 +7,8 @@ tags: audio time musicmaking
 ---
 #+end_html
 
+*This documentation is now hosted at* [[http://digego.github.io/extempore/]]
+
 /This post is a modified version of [[http://impromptu.moso.com.au/tutorials/bing.html][a tutorial]] that Andrew wrote for
 Impromptu./
 

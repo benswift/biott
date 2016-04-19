@@ -7,6 +7,8 @@ tags: extempore-overview time
 ---
 #+end_html
 
+*This documentation is now hosted at* [[http://digego.github.io/extempore/]]
+
 # /This post is adapted from [[http://impromptu.moso.com.au/tutorials/time.html][a tutorial]] Andrew wrote for Impromptu./
 
 # from Extempore basics

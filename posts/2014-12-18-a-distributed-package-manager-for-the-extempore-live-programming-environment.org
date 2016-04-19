@@ -7,6 +7,8 @@ tags: tools
 ---
 #+end_html
 
+*This documentation is now hosted at* [[http://digego.github.io/extempore/]]
+
 This is a possible (group) project for [[http://cs.anu.edu.au/courses/COMP3100/][ANU COMP 3100, 3500, 3550, 4500
 or 8715]] in 2015. There are sub-projects in here if you're interested
 in doing it as an individual project, too. [[mailto:ben.swift@anu.edu.au][Send me an email]] if you're

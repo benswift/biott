@@ -7,6 +7,8 @@ tags: audio setup
 ---
 #+end_html
 
+*This documentation is now hosted at* [[http://digego.github.io/extempore/]]
+
 Once you've got sound playing in Extempore, you may well want to turn
 it off. Understanding how to do that is helpful for understanding how
 the audio signal chain works in Extempore, especially since Extempore

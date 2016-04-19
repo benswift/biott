@@ -7,6 +7,8 @@ tags: audio time musicmaking
 ---
 #+end_html
 
+*This documentation is now hosted at* [[http://digego.github.io/extempore/]]
+
 /This post has been adapted from some [[http://impromptu.moso.com.au/tutorials/making_music/The%2520Basics.html][tutorials]] Andrew originally
 wrote for Impromptu./
 

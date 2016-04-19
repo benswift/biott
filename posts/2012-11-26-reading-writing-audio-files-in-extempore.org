@@ -7,6 +7,8 @@ tags: xtlang audio
 ---
 #+end_html
 
+*This documentation is now hosted at* [[http://digego.github.io/extempore/]]
+
 Extempore's =libsndfile= bindings[fn:libsndfile] provide functionality
 for both reading and writing audio files. Here's a short example of
 how to both read and write audio files.  

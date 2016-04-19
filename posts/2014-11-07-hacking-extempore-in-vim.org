@@ -7,6 +7,8 @@ tags: vim tools
 ---
 #+end_html
 
+*This documentation is now hosted at* [[http://digego.github.io/extempore/]]
+
 Extempore's [[http://www.vim.org/][vim]] plugin can be found in the =extras/= subdirectory.
 The plugin uses python to get the job done, so it won't work in =vi=.
 To install it, you can either =:source= it each time, or put it in

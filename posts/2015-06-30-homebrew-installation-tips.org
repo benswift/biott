@@ -6,6 +6,8 @@ alias: ["./2015-06-30-homebrew-installation-tips.html"]
 tags:
 ---
 #+end_html
+
+*This documentation is now hosted at* [[http://digego.github.io/extempore/]]
 If you're having trouble with the homebrew install process, in
 particular if one of Extempore's /dependencies/ is failing, then in
 many cases you can choose to skip that dependency. =brew options= is a

@@ -7,6 +7,8 @@ tags: xtlang C-interop
 ---
 #+end_html
 
+*This documentation is now hosted at* [[http://digego.github.io/extempore/]]
+
 There's a /lot/ of useful C library code out there. Sometimes there
 /are/ good reasons to write things from scratch, but other times you
 find the exact thing you're looking for on GitHub and you just want to

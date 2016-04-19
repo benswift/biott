@@ -7,6 +7,8 @@ tags: xtlang memory
 ---
 #+end_html
 
+*This documentation is now hosted at* [[http://digego.github.io/extempore/]]
+
 xtlang's pointer types may cause some confusion for those who aren't
 used to (explicitly) working with reference types. That's nothing to
 be ashamed of---the whole [[http://en.wikipedia.org/wiki/Evaluation_strategy#Call_by_value][pass by value]]/[[http://en.wikipedia.org/wiki/Evaluation_strategy#Call_by_reference][pass by reference]] thing can

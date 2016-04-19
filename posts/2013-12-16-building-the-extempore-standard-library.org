@@ -7,6 +7,8 @@ tags: xtlang setup
 ---
 #+end_html
 
+*This documentation is now hosted at* [[http://digego.github.io/extempore/]]
+
 *Note:* /these instructions have changed as of Extempore 0.53
 (2014-07-28)/
 
