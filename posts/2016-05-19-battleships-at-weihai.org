@@ -1,0 +1,140 @@
+#+PROPERTY: header-args:extempore :tangle /tmp/2016-05-19-battleships-at-weihai.xtm
+#+begin_html
+---
+title: Battleships at Weihai
+alias: ["./2016-05-19-battleships-at-weihai.html"]
+tags:
+---
+#+end_html
+Hi folks
+
+Regular readers of my blog can probably ignore this post---but if
+you're studying computer organisation at SDUW then you're in the right
+place!
+
+Here's the code for today's lab session. It's a simple C program which
+gives you the chance to use the memory allocation & file I/0
+functionality we've been covering in the lectures (and will cover more
+next week).
+
+It's a basic [[https://en.wikipedia.org/wiki/Battleship_%2528game%2529][battleship]] game, with some missing logic in the
+=fire_cannon= subroutine, which takes four parameters: a pointer to
+the =grid=, the =size= of the grid (so the grid is =size= times
+=size=), and the row =r= and column =c= where the cannon has been
+fired.
+
+For the game to work, the =fire_cannon= subroutine
+needs to:
+- check if the cannon has hit a ship
+- if so, mark the ship as destroyed *and* return 1 (true)
+- if not, mark the grid as "ocean" *and* return 0 (false)
+
+#+BEGIN_SRC c
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+enum {unexplored, ocean, ship, wreckage};
+
+void initialize_grid(int *grid, int size, int n){
+  int r, c, i = 0;
+  /* initialize whole grid to "unexplored" */
+  for (i = 0; i < size*size; i++) {
+    grid[i] = unexplored;
+  }
+  i = 0;
+  while (i < n) {
+    /* pick a random row/column */
+    r = rand() % size;
+    c = rand() % size;
+    if(grid[r+c*size] != ship){
+      /* printf("ship at %d,%d\n", r, c); */
+      grid[r+c*size] = ship;
+      i++;
+    }
+  }
+}
+
+// should return 1 for a hit, 0 for a miss
+int fire_cannon(int *grid, int size, int r, int c){
+  // implement this function
+}
+
+void print_grid(int *grid, int size){
+  int r, c;
+  for (r = 0; r < size; r++) {
+    for (c = 0; c < size; c++) {
+      switch(grid[r+c*size]){
+      case ocean: printf("O"); break;
+      case wreckage: printf("*"); break;
+      default: printf("."); // either ship or unexplored
+      }
+      if (c == (size - 1)) {
+        /* if we're at the end of a row, print a newline */
+        printf("\n");
+      }
+    }
+  }
+  printf("\n");
+}
+
+int main(int argc, char *argv[])
+{
+  /* initialise RNG */
+  srand(time(NULL));
+
+  /* variables for the state of the grid */
+  int size = -1;
+  int *grid;
+  char input_buffer[32]; /* input buffer */
+  
+  /* read how big the board should be from the user */
+  do {
+    printf("How big should the board be?\n");
+    fgets(input_buffer, 32, stdin);
+  } while (sscanf(input_buffer, "%d", &size) != 1 && size < 2);
+
+  /* allocate memory for the grid to hold our battleship positions */
+  grid = (int*)malloc(sizeof(int)*size*size);
+  
+  /* initialise the ships */
+  int ships_remaining = rand() % (2*size) + 1;
+  printf("initialising board: size %dx%d, %d ships\n", size, size, ships_remaining);
+  initialize_grid(grid, size, ships_remaining);
+
+  int r, c;
+
+  while(ships_remaining > 0){
+    do {
+      printf("Fire the cannon at row,column (e.g. 2,1): ");
+      fgets(input_buffer, 32, stdin);
+    } while (sscanf(input_buffer, "%d,%d", &r, &c) != 2);;
+    if(fire_cannon(grid, size, r, c)){
+      ships_remaining--;
+      printf("\nBOOM! %d ships remaining\n\n", ships_remaining);
+    }
+    else
+      printf("missed!\n");
+    print_grid(grid, size);
+  }
+  printf("you destroyed all the ships!\n");
+  return 0;
+}
+#+END_SRC
+
+After you've done that, and played a couple of games with your
+friends, here are a few modifications to the program you can try:
+
+- add a turn counter, so you can keep score---the fewer moves, the
+  better!
+- add bounds checking for "fire_cannon" subroutine
+- allow non-square grids
+- let user specify where to put the ships, rather than initialising
+  them at random
+- hints (e.g. "you're close - 2 squares away!")
+- allow for 2 players (take it in turns, keep score)
+- make the ships bigger than 1 grid square (so ships can be damaged,
+  but not destroyed)
+- add a "cursor" to turn it into an ascii GUI
+- or your own cool idea about how to make the game better!
+
