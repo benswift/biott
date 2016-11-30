@@ -1,0 +1,17 @@
+#+begin_html
+---
+title: Extempore compiler & generics improvements
+alias: ["./~/Documents/biott/draft-posts/2014-02-03-extempore-compiler-generics-improvements.html"]
+tags: xtlang
+---
+#+end_html
+
+Extempore's [[http://en.wikipedia.org/wiki/Generic_programming][generics]] have gotten a pretty substantial update in
+a commit (=9c674c9=) that Andrew pushed earlier today.  This
+represents a heap of hard work by him, and a whole lot of goodies for
+xtlang programmers.
+
+Generics allow you to write xtlang code which doesn't specify the
+types of the arguments/variables
+
+
