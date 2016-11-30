@@ -8,11 +8,11 @@ working under Prof. John Hosking and Assoc. Prof. Henry Gardner.
 
 My primary research interest these days is **livecoding**, and I'm
 currently working on [Extempore](https://github.com/digego/extempore)
-(as you may have been able to guess from the content of [this
-blog](../latest-posts/index.html)). Before Extempore came along I was an
-[Impromptu](http://impromptu.moso.com.au) user, and have been live
-coding since 2007. You can check out some of my screencasts [on
-vimeo](http://vimeo.com/benswift/videos).
+(as you may have been able to guess from the content of this blog).
+Before Extempore came along I was
+an [Impromptu](http://impromptu.moso.com.au) user, and have been live
+coding since 2007. You can check out some of my
+screencasts [on vimeo](http://vimeo.com/benswift/videos).
 
 I have a PhD in Computer Science from the Australian National
 University. My research project was a cross-disciplinary project between
