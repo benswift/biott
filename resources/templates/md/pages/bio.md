@@ -1,6 +1,6 @@
 {:title "Bio"
  :layout :page
- :page-index 4}
+ :page-index 3}
 
 ## Bio
 

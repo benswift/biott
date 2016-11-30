@@ -11,91 +11,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
     <meta name="apple-touch-fullscreen" content="yes">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/default.min.css">
-  <!-- <link href="../dist/css/cutestrap.css" rel="stylesheet" /> -->
-  <!-- <link href="./public/css/kss.css" rel="stylesheet" /> -->
-  {% style "css/screen.css" %}
+    {% style "css/cutestrap.css" %}
   </head>
   <body>
 
-    <nav class="navbar navbar-default">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{{index-uri}}">{{title}}</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li {% if home %} class="active" {% endif %}><a href="{{index-uri}}">Home</a></li>
-            <li
-              {% if archives %} class="active" {% endif %}><a href="{{archives-uri}}">Archives</a></li>
-            {% for nav-page in navbar-pages %}
-            <li
-              {%ifequal page.uri nav-page.uri %} class="active" {% endifequal %}>
-              <a href="{{nav-page.uri}}">{{nav-page.title}}</a>
-            </li>
-            {% endfor %}
-            <li><a href="{{rss-uri}}">RSS</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div><!--/.container-fluid -->
-    </nav>
+    <header class="wrapper">
+      <h3>
+        <a href="{{index-uri}}">Ben Swift</a>
+      </h3>
+      <nav class="fs-base f-right">
+        <ul>
+          <li {% if home %} class="active" {% endif %}><a href="{{index-uri}}">Home</a></li>
+          <li {% if archives %} class="active" {% endif %}><a href="{{archives-uri}}">Archives</a></li>
+          {% for nav-page in navbar-pages %}
+          <li {%ifequal page.uri nav-page.uri %} class="active" {% endifequal %}>
+            <a href="{{nav-page.uri}}">{{nav-page.title}}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </header>
 
+    <div class="wrapper">
 
-    <div class="container">
+      {% block content %}
+      {% endblock %}
 
-
-      <div class="row">
-        <div class="col-lg-9">
-          <div id="content">
-            {% block content %}
-            {% endblock %}
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <div id="sidebar">
-            <h3>Links</h3>
-            <ul id="links">
-              <li><a href="http://cryogenweb.org/docs/home.html">Cryogen Docs</a></li>
-              <li><a href="http://carmenla.me/blog/archives">Carmen's Blog</a></li>
-              {% for page in sidebar-pages %}
-              <li><a href="{{page.uri}}">{{page.title}}</a></li>
-              {% endfor %}
-            </ul>
-            {% if latest-posts|not-empty %}
-            <div id="recent">
-              <h3>Recent Posts</h3>
-              <ul>
-                {% for post in latest-posts %}
-                <li><a href="{{post.uri}}">{{post.title}}</a></li>
-                {% endfor %}
-              </ul>
-            </div>
-            {% endif %}
-            {% if tags|not-empty %}
-            <div id="tags">
-              <h3>Tags</h3>
-              <ul>
-                {% for tag in tags %}
-                <li><a href="{{tag.uri}}">{{tag.name}}</a></li>
-                {% endfor %}
-              </ul>
-            </div>
-            {% endif %}
-          </div>
-        </div>
-      </div>
-      <footer>Copyright &copy; {{today|date:yyyy}} {{author}}
-        <p style="text-align: center;">Powered by <a href="http://cryogenweb.org">Cryogen</a></p></footer>
+      <footer class="wrapper">
+        <span class="ta-left">Copyright &copy; {{today|date:yyyy}} {{author}}</span>
+        <span class="ta-right">Powered by <a href="http://cryogenweb.org">Cryogen</a></span>
+      </footer>
     </div>
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    {% script "js/highlight.pack.js" %}
-    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- {% script "js/highlight.pack.js" %} -->
+    <!-- <script>hljs.initHighlightingOnLoad();</script> -->
   </body>
 </html>

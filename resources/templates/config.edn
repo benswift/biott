@@ -12,10 +12,9 @@
  :rss-filters        []
  :recent-posts       5
  :post-date-format   "yyyy-MM-dd"
- :sass-src           nil
+ :sass-src           "scss"
  :sass-dest          nil
- :theme              "blue"
- ;; :theme              "biott"
+ :theme              "biott"
  :resources          ["img"]
  :keep-files         [".git"]
  :disqus?            false
