@@ -1,0 +1,27 @@
+{:site-title         "Ben is on the Tubes"
+ :author             "Ben Swift"
+ :description        "Ben Swift's homepage"
+ :site-url           "http://benswift.me"
+ :post-root          "posts"
+ :page-root          "pages"
+ :post-root-uri      "posts-output"
+ :page-root-uri      ""
+ :tag-root-uri       "tags-output"
+ :blog-prefix        "/blog"
+ :rss-name           "rss-feed"
+ :rss-filters        []
+ :recent-posts       5
+ :post-date-format   "yyyy-MM-dd"
+ :sass-src           nil
+ :sass-dest          nil
+ :theme              "blue"
+ ;; :theme              "biott"
+ :resources          ["img"]
+ :keep-files         [".git"]
+ :disqus?            false
+ :disqus-shortname   ""
+ :ignored-files      [#"\.#.*" #".*\.swp$"]
+ :posts-per-page     5
+ :blocks-per-preview 2
+ :previews?          false
+ :clean-urls?        true}
