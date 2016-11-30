@@ -6,8 +6,6 @@ alias: ["./2016-05-19-battleships-at-weihai.html"]
 tags:
 ---
 #+end_html
-Hi folks
-
 Regular readers of my blog can probably ignore this post---but if
 you're studying computer organisation at SDUW then you're in the right
 place!
@@ -127,7 +125,7 @@ friends, here are a few modifications to the program you can try:
 
 - add a turn counter, so you can keep score---the fewer moves, the
   better!
-- add bounds checking for "fire_cannon" subroutine
+- add bounds checking for =fire_cannon= subroutine
 - allow non-square grids
 - let user specify where to put the ships, rather than initialising
   them at random
