@@ -12,8 +12,8 @@
  :rss-filters        []
  :recent-posts       5
  :post-date-format   "yyyy-MM-dd"
- :sass-src           nil
- :sass-dest          nil
+ :sass-src           "themes/biott/css"
+ :sass-dest          "css"
  :theme              "biott"
  :resources          ["img"]
  :keep-files         [".git"]

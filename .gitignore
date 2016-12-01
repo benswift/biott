@@ -10,5 +10,4 @@ pom.xml.asc
 .lein-plugins/
 .lein-failures
 /resources/public/
-/resources/templates/themes/biott/.sass-cache/
-/resources/templates/themes/biott/css/
+/resources/templates/.sass-cache/

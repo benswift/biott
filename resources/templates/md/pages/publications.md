@@ -110,8 +110,8 @@ rustle you up a pre-print.
     Congress* <http://www.aip2014.org.au/>
 
 -   **Swift, Ben** and Andrew Sorensen (2013). "Live Coding Live". In:
-    *IEEE Symposium on Visual Languages and Human-Centric Computing. San
-    Jose, USA*
+    *IEEE Symposium on Visual Languages and Human-Centric Computing.
+    San Jose, USA*
 
 -   **Swift, Ben** (2010). "Livecoding in Impromptu". *Invited
     presentation at National University of Singapore* 12 July 2000
