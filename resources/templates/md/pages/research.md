@@ -27,7 +27,7 @@ If you want to get in touch, email is best---you can reach me on
 ## Potential students
 
 If you're interested in doing research with me, particularly in
-livecoding with Extempore, then [get in touch](mailto:ben@benswift.me).
+livecoding with Extempore, then [get in touch](mailto:ben.swift@anu.edu.au).
 If you can, send me a link to something you've made: a livecoding video,
 a project on GitHub, or something like that.
 

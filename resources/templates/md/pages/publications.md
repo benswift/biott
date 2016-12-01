@@ -74,7 +74,7 @@
     New York, NY, USA: ACM, 2014. DOI: 10.1145/2556288.2557049.
 
 If you have trouble tracking any of these
-down, [send me an email](mailto:ben@benswift.me) and I can probably
+down, [send me an email](mailto:ben.swift@anu.edu.au) and I can probably
 rustle you up a pre-print.
 
 ## Curated Artistic Performances
