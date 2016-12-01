@@ -1,5 +1,6 @@
 {:title "Bio"
  :layout :page
+ :navbar? true
  :page-index 3}
 
 I'm a [Canberra](http://en.wikipedia.org/wiki/Canberra) lad, born and

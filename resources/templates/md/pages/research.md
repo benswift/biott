@@ -1,5 +1,6 @@
 {:title "Research"
  :layout :page
+ :navbar? true
  :page-index 1}
  
 I'm a [Research Fellow](http://people.cecs.anu.edu.au/user/4919) in the

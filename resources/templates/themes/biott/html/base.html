@@ -21,12 +21,12 @@
         <nav class="fs-base f-right">
           <ul>
             <li {% if home %} class="active" {% endif %}><a href="{{index-uri}}">Home</a></li>
-            <li {% if archives %} class="active" {% endif %}><a href="{{archives-uri}}">Archives</a></li>
             {% for nav-page in navbar-pages %}
             <li {%ifequal page.uri nav-page.uri %} class="active" {% endifequal %}>
               <a href="{{nav-page.uri}}">{{nav-page.title}}</a>
             </li>
             {% endfor %}
+            <li {% if archives %} class="active" {% endif %}><a href="{{archives-uri}}">Blog Archive</a></li>
           </ul>
         </nav>
       </div>

@@ -7,7 +7,7 @@
  :post-root-uri      "posts-output"
  :page-root-uri      ""
  :tag-root-uri       "tags-output"
- :blog-prefix        "/blog"
+ :blog-prefix        ""
  :rss-name           "rss-feed"
  :rss-filters        []
  :recent-posts       5

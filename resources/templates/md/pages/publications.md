@@ -1,5 +1,6 @@
 {:title "Publications"
  :layout :page
+ :navbar? true
  :page-index 2}
 
 ## Research papers
