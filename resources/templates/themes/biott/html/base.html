@@ -12,24 +12,24 @@
     <meta name="apple-touch-fullscreen" content="yes">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/default.min.css">
     {% style "css/cutestrap.css" %}
+    {% style "css/screen.css" %}
   </head>
   <body>
-
-    <header class="wrapper">
-      <h3>
-        <a href="{{index-uri}}">Ben Swift</a>
-      </h3>
-      <nav class="fs-base f-right">
-        <ul>
-          <li {% if home %} class="active" {% endif %}><a href="{{index-uri}}">Home</a></li>
-          <li {% if archives %} class="active" {% endif %}><a href="{{archives-uri}}">Archives</a></li>
-          {% for nav-page in navbar-pages %}
-          <li {%ifequal page.uri nav-page.uri %} class="active" {% endifequal %}>
-            <a href="{{nav-page.uri}}">{{nav-page.title}}</a>
-          </li>
-          {% endfor %}
-        </ul>
-      </nav>
+    <header>
+      <div class="wrapper">
+        <h3><a class="f-left" href="{{index-uri}}">Ben Swift</a></h3>
+        <nav class="fs-base f-right">
+          <ul>
+            <li {% if home %} class="active" {% endif %}><a href="{{index-uri}}">Home</a></li>
+            <li {% if archives %} class="active" {% endif %}><a href="{{archives-uri}}">Archives</a></li>
+            {% for nav-page in navbar-pages %}
+            <li {%ifequal page.uri nav-page.uri %} class="active" {% endifequal %}>
+              <a href="{{nav-page.uri}}">{{nav-page.title}}</a>
+            </li>
+            {% endfor %}
+          </ul>
+        </nav>
+      </div>
     </header>
 
     <div class="wrapper">
@@ -37,11 +37,12 @@
       {% block content %}
       {% endblock %}
 
-      <footer class="wrapper">
-        <span class="ta-left">Copyright &copy; {{today|date:yyyy}} {{author}}</span>
-        <span class="ta-right">Powered by <a href="http://cryogenweb.org">Cryogen</a></span>
-      </footer>
     </div>
+
+    <footer class="wrapper">
+      <div class="f-left">Copyright &copy; {{today|date:yyyy}} {{author}}</div>
+      <div class="f-right">Powered by <a href="http://cryogenweb.org">Cryogen</a></div>
+    </footer>
 
     <!-- {% script "js/highlight.pack.js" %} -->
     <!-- <script>hljs.initHighlightingOnLoad();</script> -->

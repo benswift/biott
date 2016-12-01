@@ -2,8 +2,6 @@
  :layout :page
  :page-index 3}
 
-## Bio
-
 I'm a [Canberra](http://en.wikipedia.org/wiki/Canberra) lad, born and
 bred. One day I may have to move away from this place, but for now I'm
 here and quite happy about it.

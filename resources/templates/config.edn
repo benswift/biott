@@ -12,7 +12,7 @@
  :rss-filters        []
  :recent-posts       5
  :post-date-format   "yyyy-MM-dd"
- :sass-src           "scss"
+ :sass-src           nil
  :sass-dest          nil
  :theme              "biott"
  :resources          ["img"]
