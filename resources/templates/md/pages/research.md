@@ -22,7 +22,7 @@ computer science and digital media
 did a BSc (Hons) in Mathematics at the ANU.
 
 If you want to get in touch, email is best---you can reach me on
-<ben@benswift.me>.
+<ben.swift@anu.edu.au>.
 
 ## Potential students
 
