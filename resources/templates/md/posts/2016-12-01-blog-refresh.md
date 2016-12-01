@@ -1,10 +1,9 @@
 {:title "Blog refresh"
  :layout :post}
 
-Well, it's another year, and another blog refresh. Still a
-clojure-powered static site with disgusting hand-rolled (s)css, but
-this time with [Cryogen](http://cryogenweb.org/), which seems pretty
-nice.
+Another year, and another blog refresh. It's still a clojure-powered
+static site with messy hand-rolled (s)css, but this time
+with [Cryogen](http://cryogenweb.org/), which seems pretty nice.
 
 The other big change is that the Extempore documentation posts have
 all been removed. A little while ago I did some work to set up the
