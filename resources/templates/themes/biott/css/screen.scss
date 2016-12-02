@@ -38,3 +38,13 @@ nav li {
 footer {
   color: lighten($gray1, 40%);
 }
+
+footer a{
+  &:link,
+  &:visited,
+  &:focus,
+  &:active{
+    color: lighten($primary, 30%);
+    text-decoration: none;
+  }
+}
