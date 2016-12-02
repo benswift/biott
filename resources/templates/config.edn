@@ -15,8 +15,8 @@
  :sass-src           "themes/biott/css"
  :sass-dest          "css"
  :theme              "biott"
- :resources          ["img" "CNAME"]
- :keep-files         [".git" ".gitignore" ".nojekyll"]
+ :resources          ["img" "CNAME" ".nojekyll"]
+ :keep-files         [".git" ".gitignore"]
  :disqus?            false
  :disqus-shortname   ""
  :ignored-files      [#"\.#.*" #".*\.swp$"]
