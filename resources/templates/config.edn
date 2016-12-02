@@ -15,7 +15,7 @@
  :sass-src           "themes/biott/css"
  :sass-dest          "css"
  :theme              "biott"
- :resources          ["img"]
+ :resources          ["img" "CNAME"]
  :keep-files         [".git"]
  :disqus?            false
  :disqus-shortname   ""
