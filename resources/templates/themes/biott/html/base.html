@@ -52,14 +52,15 @@
             {% block content %}
             {% endblock %}
 
-            <nav class="blog-pagination">
-              {% if post.prev %}
-              <a class="btn btn-outline-secondary" href="{{post.prev.uri}}">&laquo; {{post.prev.title}}</a>
-              {% endif %}
-              {% if post.next %}
-              <a  class="btn btn-outline-primary" href="{{post.next.uri}}">{{post.next.title}} &raquo;</a>
-              {% endif %}
-            </nav>
+          </div>
+          <nav class="blog-pagination">
+            {% if post.prev %}
+            <a class="btn btn-outline-secondary" href="{{post.prev.uri}}">&laquo; {{post.prev.title}}</a>
+            {% endif %}
+            {% if post.next %}
+            <a  class="btn btn-outline-primary" href="{{post.next.uri}}">{{post.next.title}} &raquo;</a>
+            {% endif %}
+          </nav>
 
         </div><!-- /.blog-main -->
 
@@ -88,16 +89,16 @@
     </footer>
 
     <!-- Bootstrap core JavaScript
-    ================================================== -->
+         ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-    <!-- source code highlighting with highlight.js -->
-    <!-- {% script "js/highlight.pack.js" %} -->
-    <!-- <script>hljs.initHighlightingOnLoad();</script> -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+      <script src="../../dist/js/bootstrap.min.js"></script>
+      <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+      <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+      <!-- source code highlighting with highlight.js -->
+      <!-- {% script "js/highlight.pack.js" %} -->
+      <!-- <script>hljs.initHighlightingOnLoad();</script> -->
   </body>
 </html>
