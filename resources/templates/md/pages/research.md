@@ -3,31 +3,32 @@
  :navbar? true
  :page-index 1}
  
-I'm a [Research Fellow](http://people.cecs.anu.edu.au/user/4919) in the
-School of Computer Science at the Australian National University,
-working under Prof. John Hosking and Assoc. Prof. Henry Gardner.
+I am a multidisciplinary researcher in the Research School of Computer
+Science at the
+[Australian National University](http://people.cecs.anu.edu.au/user/4919).
+My research interest cut across human-computer interaction, high
+performance & scientific computing and digital arts. The broad theme
+underpinning my interests in these areas is the potential of
+*liveness* (real-time human-in-the-loop interactivity) in
+programming tools and workflows, especially in open-ended exploratory
+programming.
 
-My primary research interest these days is **livecoding**, and I'm
-currently working on [Extempore](https://github.com/digego/extempore)
-(as you may have been able to guess from the content of this blog).
-Before Extempore came along I was
-an [Impromptu](http://impromptu.moso.com.au) user, and have been live
-coding since 2007. You can check out some of my
-screencasts [on vimeo](http://vimeo.com/benswift/videos).
+I have made significant
+[open-source code contributions](https://github.com/benswift) to the
+international research and livecoding communities, especially through
+my work on [Extempore](https://github.com/digego/extempore): the 
+state-of-the-art in livecoding languages.
 
-I have a PhD in Computer Science from the Australian National
-University. My research project was a cross-disciplinary project between
-computer science and digital media
-([thesis](http://dl.dropbox.com/u/18333720/master.pdf)). Prior to that I
-did a BSc (Hons) in Mathematics at the ANU.
+I am also an internationally-recognised digital artist, and have
+performed at both local and international arts festivals---you can
+find examples of my [livecoding on vimeo](https://vimeo.com/benswift/videos).
 
 If you want to get in touch, email is best---you can reach me on
 <ben.swift@anu.edu.au>.
 
-## Potential students
+### Potential students
 
-If you're interested in doing research with me, particularly in
-livecoding with Extempore, then [get in touch](mailto:ben.swift@anu.edu.au).
-If you can, send me a link to something you've made: a livecoding video,
-a project on GitHub, or something like that.
-
+If you're interested in doing Hons/Masters/PhD research with me,
+then [get in touch](mailto:ben.swift@anu.edu.au). If you can, send me
+a link to something you've made: a livecoding video, a project on
+GitHub, or something like that.
