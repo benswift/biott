@@ -3,6 +3,9 @@
  :navbar? true
  :page-index 3}
 
+<div class="row">
+<div class="col-sm-6">
+
 I'm a [Canberra](http://en.wikipedia.org/wiki/Canberra) lad, born and
 bred. One day I may have to move away from this place, but for now I'm
 here and quite happy about it.
@@ -21,4 +24,8 @@ play [football](http://www.capitalfootball.com.au), watch the
 that I can better communicate with my in-laws. Ask me how I'm going with
 that in a year.
 
-<img class="column--light" src="/img/ben-with-coffee.jpg" alt="Ben with coffee">
+</div>
+<div class="col-sm-6">
+<img class="img-fluid" src="/img/ben-with-coffee.jpg" alt="Coffee at Silo in Kingston... La de da!">
+</div>
+</div>
