@@ -1,5 +1,11 @@
 {% extends "/html/base.html" %}
 {% block content %}
+
+<div class="blog-header">
+  <h1 class="blog-title">{{title}}</h1>
+  <p class="lead blog-description">{{description}}</p>
+</div>
+
 <div id="post">
     {% include "/html/post-content.html" %}
     {% if disqus? %}
