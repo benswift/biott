@@ -1,6 +1,6 @@
 {:site-title         "Ben is on the Tubes"
  :author             "Ben Swift"
- :description        "Ben Swift's homepage"
+ :description        "researcher, educator, hacker, artist"
  :site-url           "http://benswift.me"
  :post-root          "posts"
  :page-root          "pages"
