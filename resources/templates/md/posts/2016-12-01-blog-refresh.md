@@ -3,8 +3,8 @@
 
 Another year, and another blog refresh. It's still a clojure-powered
 static site with my own fumbling, hand-rolled css, but this time I'm
-using [Cryogen](http://cryogenweb.org/) which has been pretty to work
-with so far.
+using [Cryogen](http://cryogenweb.org/) which has been pretty nice to
+work with so far.
 
 Sorry that a bunch of links to old posts are broken at the
 moment---I'm in the process of fixing that up. If you're really stuck
