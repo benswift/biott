@@ -1,17 +1,14 @@
-<div class="blog-post">
-  <h2 class="blog-post-title">{{post.title}}</h2>
-  <p class="blog-post-meta">{{post.date|date:longDate}}</p>
-  <div>
+<h3>{{post.title}}</h3>
+<p class="disabled">{{post.date|date:longDate}}</p>
+<div>
     {% if post.toc %}{{post.toc|safe}}{% endif %}
     {{post.content|safe}}
-  </div>
-  {% if post.tags|not-empty %}
-  <div id="post-tags">
+</div>
+{% if post.tags|not-empty %}
+<div id="post-tags">
     <b>Tags: </b>
     {% for tag in post.tags %}
     <a href="{{tag.uri}}">{{tag.name}}</a>
     {% endfor %}
-  </div>
-  {% endif %}
 </div>
-
+{% endif %}

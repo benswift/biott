@@ -2,8 +2,8 @@
 {% block content %}
 <div id="post">
     {% for post in posts %}
-    <div class="post-header">
-        <h2>{{post.title}}</h2>
+    <div>
+        <h3>{{post.title}}</h3>
         <div id="post-meta">
             <div class="date">{{post.date|date:longDate}}</div>
         </div>
@@ -14,11 +14,11 @@
     {% endfor %}
 
     <div id="prev-next">
-        {% if prev-uri %}
-        <a class="left" href="{{prev-uri}}">&laquo; Prev</a>
+        {% if post.prev %}
+        <a class="btn f-left" href="{{post.prev.uri}}">&laquo; {{post.prev.title}}</a>
         {% endif %}
-        {% if next-uri %}
-        <a class="right" href="{{next-uri}}">Next &raquo;</a>
+        {% if post.next %}
+        <a class="btn f-right" href="{{post.next.uri}}">{{post.next.title}} &raquo;</a>
         {% endif %}
     </div>
 </div>

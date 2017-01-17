@@ -1,97 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <link rel="canonical" href="{{site-url}}{{uri}}">
-    <meta name="description" content="{{description}}">
-    <meta name="keywords" content="academic homepage, live coding, ANU, research">
-    <meta name="author" content="{{author}}">
-    <!-- <link rel="icon" href="favicon.ico"> -->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <link rel="canonical" href="{{site-url}}{{uri}}">
+        <meta name="description" content="{{description}}">
+        <meta name="keywords" content="academic homepage, live coding, ANU, research">
+        <meta name="author" content="{{author}}">
+        <!-- <link rel="icon" href="favicon.ico"> -->
 
-    <title>{{title}}{% block subtitle %}{% endblock %}</title>
+        <title>{{title}}{% block subtitle %}{% endblock %}</title>
 
-    <!-- Bootstrap core CSS -->
-    {% style "css/bootstrap.min.css" %}
+        <!-- Bootstrap core CSS -->
+        {% style "css/cutestrap.min.css" %}
 
-    <!-- Custom styles for this template -->
-    {% style "css/blog.css" %}
-    <link href="http://fonts.googleapis.com/css?family=Alegreya:500,700,500italic,700italic|Alegreya+Sans:300,500,300italic,500italic" rel="stylesheet" type="text/css">
-  </head>
-  <body>
+        <!-- Custom styles for this template -->
+        {% style "css/blog.css" %}
+        <link href="http://fonts.googleapis.com/css?family=Alegreya:500,700,500italic,700italic|Alegreya+Sans:300,500,300italic,500italic" rel="stylesheet" type="text/css">
+    </head>
+    <body>
 
-    <div class="blog-masthead">
-      <div class="container">
-        <nav class="nav blog-nav">
-          <a class="nav-link" href="{{index-uri}}">benswift.me</a>
-          {% for nav-page in navbar-pages %}
-          <a class="nav-link" href="{{nav-page.uri}}">{{nav-page.title}}</a>
-          {% endfor %}
-          <a class="nav-link" href="{{archives-uri}}">Archive</a>
-        </nav>
-      </div>
-    </div>
+        <header class="blog-masthead">
+            <a class="nav-link" href="{{index-uri}}">benswift.me</a>
+            <nav class="nav grid">
+                {% for nav-page in navbar-pages %}
+                <a class="nav-link" href="{{nav-page.uri}}">{{nav-page.title}}</a>
+                {% endfor %}
+                <a class="nav-link" href="{{archives-uri}}">Archive</a>
+            </nav>
+        </header>
 
-    <div class="container">
+        <div class="wrapper">
+            <div>
+                {% block content %}
+                {% endblock %}
+            </div>
+            <nav>
+                {% if post.prev %}
+                <a class="btn btn--secondary" href="{{post.prev.uri}}">&laquo; {{post.prev.title}}</a>
+                {% endif %}
+                {% if post.next %}
+                <a  class="btn btn--secondary" href="{{post.next.uri}}">{{post.next.title}} &raquo;</a>
+                {% endif %}
+            </nav>
+        </div>
 
-      <div class="row">
+        <footer class="blog-footer">
+            <div class="wrapper grid">
+                <div>
+                    <h4>Links</h4>
+                    <p>My research, writing, code and creative work can be found
+                        all over the internet:</p>
+                    <ul>
+                        <li><a href="https://github.com/benswift">GitHub</a></li>
+                        <li><a href="https://vimeo.com/benswift/videos">Livecoding videos</a></li>
+                        <li><a href="https://scholar.google.com/citations?user=gU8elPkAAAAJ&hl=en&oi=ao">Google Scholar</a></li>
+                        <li><a href="https://anu-au.academia.edu/BenSwift">Academia.edu</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Colophon</h4>
+                    <p>Copyright &copy; {{today|date:yyyy}}
+                        <a href="ma&#105;lto&#58;&#37;&#54;2%&#54;5&#110;&#46;swi&#102;t&#64;an&#117;&#46;edu&#37;2E%61&#117;">Ben Swift</a>,
+                        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA</a>
+                    </p>
+                    <p>Powered by <a href="http://cryogenweb.org">Cryogen</a> and <a href="https://www.cutestrap.com/">Cutestrap</a></p>
+                </div>
+            </div>
+        </footer>
 
-        <div class="col-sm-8 blog-main">
-
-          <div class="blog-post">
-
-            {% block content %}
-            {% endblock %}
-
-          </div>
-          <nav class="blog-pagination">
-            {% if post.prev %}
-            <a class="btn btn-outline-secondary" href="{{post.prev.uri}}">&laquo; {{post.prev.title}}</a>
-            {% endif %}
-            {% if post.next %}
-            <a  class="btn btn-outline-primary" href="{{post.next.uri}}">{{post.next.title}} &raquo;</a>
-            {% endif %}
-          </nav>
-
-        </div><!-- /.blog-main -->
-
-        <div class="col-sm-3 offset-sm-1 blog-sidebar">
-          <div class="sidebar-module sidebar-module-inset">
-            <h4>Links</h4>
-            <p>My research, code and creative work can be found all
-            over the internet, at these places in particular:</p>
-            <ol class="list-unstyled">
-              <li><a href="https://github.com/benswift">GitHub</a></li>
-              <li><a href="https://vimeo.com/benswift/videos">Livecoding videos</a></li>
-              <li><a href="https://scholar.google.com/citations?user=gU8elPkAAAAJ&hl=en&oi=ao">Google Scholar</a></li>
-              <li><a href="https://anu-au.academia.edu/BenSwift">Academia.edu</a></li>
-            </ol>
-          </div>
-        </div><!-- /.blog-sidebar -->
-
-      </div><!-- /.row -->
-
-    </div><!-- /.container -->
-
-    <footer class="blog-footer">
-      <p>Copyright &copy;
-        {{today|date:yyyy}} <a href="ma&#105;lto&#58;&#37;&#54;2%&#54;5&#110;&#46;swi&#102;t&#64;an&#117;&#46;edu&#37;2E%61&#117;">Ben Swift</a>, Licence <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA</a></p>
-      <p>Powered by <a href="http://cryogenweb.org">Cryogen</a> and <a href="http://v4-alpha.getbootstrap.com/">Bootstrap v4</a></p>
-    </footer>
-
-    <!-- Bootstrap core JavaScript
-         ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
-      <script src="../../dist/js/bootstrap.min.js"></script>
-      <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-      <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-      <!-- source code highlighting with highlight.js -->
-      <!-- {% script "js/highlight.pack.js" %} -->
-      <!-- <script>hljs.initHighlightingOnLoad();</script> -->
-  </body>
+        <!-- source code highlighting with highlight.js -->
+        <!-- {% script "js/highlight.pack.js" %} -->
+        <!-- <script>hljs.initHighlightingOnLoad();</script> -->
+    </body>
 </html>
