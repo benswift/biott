@@ -12,13 +12,6 @@
     </div>
     {% endif %}
 
-    <div id="prev-next">
-        {% if post.prev %}
-        <a class="btn f-left" href="{{post.prev.uri}}">&laquo; {{post.prev.title}}</a>
-        {% endif %}
-        {% if post.next %}
-        <a class="btn f-right" href="{{post.next.uri}}">{{post.next.title}} &raquo;</a>
-        {% endif %}
-    </div>
+    {% include "/html/older-newer.html" %}
 </div>
 {% endblock %}

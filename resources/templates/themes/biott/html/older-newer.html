@@ -1,0 +1,8 @@
+<nav>
+    {% if post.next %}
+    <a  class="btn btn--secondary f-left" href="{{post.next.uri}}">&laquo; Older</a>
+    {% endif %}
+    {% if post.prev %}
+    <a class="btn btn--secondary f-right" href="{{post.prev.uri}}">Newer &raquo;</a>
+    {% endif %}
+</nav>
