@@ -4,122 +4,92 @@
 @import "variables";
 
 .navbar {
-  background-color: $header-purple;
-  position: fixed;
-  min-width: 100%;
-}
+    background-color: $header-purple;
+    position: fixed;
+    min-width: 100%;
 
-// Content Wrapper
-.navbar-wrapper {
-  margin: 0 auto;
-  max-width: 960px;
-  padding: 0 2%;
-}
+    .navbar-wrapper {
+        margin: 0 auto;
+        max-width: 960px;
+        padding: 0 2%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
-// Full Navigation, including mobile menu
-nav {
-  ul {
-    display: flex;
-    justify-content: space-between;
-    list-style-type: none;
-    width: 50%;
+        #nav-home {
+            display: inline-block;
+            height: 2rem;
+            margin: 1rem 0;
+        }
 
-    a {
-      color: $primary;
-      text-decoration: none;
-      transition: all .5s ease;
+        a {
+            color: $gray6;
+            text-decoration: none;
+            transition: all .5s ease;
+            &:hover {
+                color: $white;
+            }
+            ul {
+                display: flex;
+                justify-content: space-between;
+                list-style-type: none;
+                width: 50%;
+            }
+        }
 
-      &:hover {color: $link--hover;}
-    }
-  }
-
-  li  {
-    display: inline-block;
-  }
-
-  #navbar-menu-toggle {display: none;}
-
-  .navbar-label-toggle {display: none;}
-
-  .navbar-wrapper {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  @media screen and (max-width: 768px) {
-    ul {
-      background-color: $primary;
-      display: block;
-      height: 0;
-      list-style-type: none;
-      opacity: 0;
-      text-align: center;
-      transition: all 1s ease;
-      width: 100%;
-      visibility: hidden;
+        li  {
+            display: inline-block;
+        }
     }
 
+
+    /* responsive nav */
+
+    #navbar-menu-toggle {display: none;}
+
+    .navbar-label-toggle {display: none;}
+
+    @media screen and (max-width: 768px) {
+        ul {
+            background-color: $primary;
+            display: block;
+            height: 0;
+            list-style-type: none;
+            opacity: 0;
+            text-align: center;
+            transition: all 1s ease;
+            width: 100%;
+            visibility: hidden;
+        }
+
+        li {
+            border-bottom: 2px solid $primary-dark;
+            color: $primary-dark;
+            display: block;
+            font-size: 1.5em;
+            padding: 1em 0;
+        }
+
+        #navbar-menu-toggle:checked ~ ul {
+            opacity: 1;
+            height: 100vh;
+            visibility: visible;
+        }
+
+        .navbar-label-toggle {
+            background: linear-gradient(to bottom, $primary 0%, $primary 20%, transparent 20%, transparent 40%, $primary 40%, $primary 60%, transparent 60%, transparent 80%, $primary 80%, $primary 100%); //Gradient Hamburger
+            cursor: pointer;
+            display: block;
+            float: right;
+            height: 35px;
+            margin-top: 1em;
+            width: 35px;
+        }
+    }
+}
+
+footer {
     li {
-      border-bottom: 2px solid $primary-dark;
-      color: $primary-dark;
-      display: block;
-      font-size: 1.5em;
-      padding: 2em 0;
+        list-style-type:none;
     }
-
-    #navbar-menu-toggle:checked ~ ul {
-      opacity: 1;
-      height: 100vh;
-      visibility: visible;
-    }
-
-    .navbar-label-toggle {
-      background: linear-gradient(to bottom, $primary 0%, $primary 20%, transparent 20%, transparent 40%, $primary 40%, $primary 60%, transparent 60%, transparent 80%, $primary 80%, $primary 100%); //Gradient Hamburger
-      cursor: pointer;
-      display: block;
-      float: right;
-      height: 35px;
-      margin-top: 1em;
-      width: 35px;
-    }
-
-    .navbar-wrapper {display: block;}
-  }
-}
-
-/*
- * Masthead for nav
- */
-
-.blog-masthead {
-    padding: 1rem 1rem;
-    background-color: #443979;
-}
-
-/* Nav links */
-.nav-link {
-  font-weight: $font-weight-body;
-  color: #eee;
-  text-decoration: none;
-}
-.nav-link:visited {
-  color: #eee;
-  text-decoration: none;
-}
-.nav-link:hover,
-.nav-link:focus {
-  color: #fff;
-  background-color: transparent;
-}
-
-/* Active state gets a caret at the bottom */
-.nav-link.active {
-  color: #fff;
-}
-
-.blog-footer {
-    color: #999;
-    background-color: #f9f9f9;
-    border-top: .05rem solid #e5e5e5;
 }

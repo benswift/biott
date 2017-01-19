@@ -21,16 +21,23 @@
         <link href="http://fonts.googleapis.com/css?family=Alegreya:500,700,500italic,700italic|Alegreya+Sans:300,500,300italic,500italic" rel="stylesheet" type="text/css">
     </head>
     <body>
-
-        <header class="blog-masthead">
-            <a class="nav-link" href="{{index-uri}}">benswift.me</a>
-            <nav class="nav grid">
-                {% for nav-page in navbar-pages %}
-                <a class="nav-link" href="{{nav-page.uri}}">{{nav-page.title}}</a>
-                {% endfor %}
-                <a class="nav-link" href="{{archives-uri}}">Archive</a>
+        <!-- navbar idea taken from http://blog.christopherianmurphy.com/2016/01/responsive-pure-css-menu.html -->
+        <nav class="navbar">
+            <nav class="navbar-wrapper">
+                <div id="nav-home">
+                    <a href="{{index-uri}}">benswift.me</a>
+                </div>
+                <input type="checkbox" id="navbar-menu-toggle">
+                <label for="navbar-menu-toggle" class="navbar-label-toggle"></label>
+                </input>
+                <ul>
+                    {% for nav-page in navbar-pages %}
+                    <a href="{{nav-page.uri}}"><li>{{nav-page.title}}</li></a>
+                    {% endfor %}
+                    <a href="{{archives-uri}}"><li>Archive</li></a>
+                </ul>
             </nav>
-        </header>
+        </nav>
 
         <div class="wrapper">
             {% block content %}
